@@ -1,0 +1,201 @@
+@import "../public/assets/css/bootstrap.min.css";
+/* <!--====== FontAwesoem css ======--> */
+@import "../public/assets/fonts/themify-icons/themify-icons.css";
+/* <!--====== Flaticon css ======--> */
+@import "../public/assets/fonts/flaticon/flaticon.css";
+/* <!--====== Magnific Popup css ======--> */
+@import "../public/assets/css/magnific-popup.css";
+/* <!--====== Slick css ======--> */
+@import "../public/assets/css/slick.css";
+/* <!--====== Nice-select css ======--> */
+@import "../public/assets/css/nice-select.css";
+/* <!--====== Jquery ui css ======--> */
+@import "../public/assets/css/jquery-ui.min.css";
+/* <!--====== Animate css ======--> */
+@import "../public/assets/css/animate.css";
+/* <!--====== Default css ======--> */
+@import "../public/assets/css/default.css";
+/* <!--====== Style css ======--> */
+@import "../public/assets/css/style.css";
+
+html {
+  scroll-behavior: smooth;
+}
+
+.slick-slide {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+.testimonial-thumb-slider-one .slick-slide {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+.place-item-on,
+.listing-item,
+.listing-item {
+  margin-left: 0px !important;
+  margin-right: 0px !important;
+}
+
+.listing-details-wrapper .listing-faq-box .faq-accordian .card .card-header {
+  margin-bottom: 0px;
+}
+
+.c-pointer {
+  cursor: pointer;
+}
+
+.testimonial-thumb-slider-one .slick-current img {
+  transform: scale(1.15);
+}
+
+/* No Ui */
+.noUi-connects {
+  height: 4px;
+  border: none;
+  background-color: #010101;
+  border-radius: 0px;
+}
+
+.noUi-target.noUi-ltr.noUi-horizontal.noUi-txt-dir-ltr {
+  height: 4px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.noUi-handle.noUi-handle-lower,
+.noUi-handle.noUi-handle-upper,
+.noUi-touch-area {
+  top: -6px;
+  width: 15px !important;
+  height: 15px !important;
+  border-radius: 50%;
+  background-color: #ff344f;
+  border: none;
+  cursor: pointer;
+}
+
+.noUi-connect {
+  background: #ff344f !important;
+}
+.noUi-handle:before,
+.noUi-handle:after {
+  width: 0 !important;
+}
+
+/* image popup */
+img.mfp-img {
+  box-shadow: 0 0 8px rgb(0 0 0 / 60%);
+  position: absolute;
+  max-height: 392px;
+  padding: 0 !important;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.mfp-img-container .mfp-content {
+  max-width: 400px !important;
+}
+.mfp-img-container .mfp-close {
+  top: -110px;
+  right: -24px;
+}
+.main-menu li.active > a,
+.header-navigation .main-menu ul > li.has-children.active > a:after {
+  color: #ff344f !important;
+}
+
+body{
+  margin:0
+}
+.newform{
+   width:340px;
+   height:550px;
+
+   background:#e6e6e6;
+   border-radius:8px;
+   box-shadow:0 0 40px -10px #000;
+  /* margin:calc(50vh - 220px) auto; */
+  padding:20px 30px;
+  max-width:calc(100vw - 40px);
+  box-sizing:border-box;
+  font-family:'Montserrat',sans-serif;
+  position:relative;
+}
+.newformhead2{
+  margin:10px 0;
+  padding-bottom:10px;
+  width:180px;
+  color:#78788c;
+  border-bottom:3px solid #78788c
+}
+input{
+  width:100%;
+  padding:10px;
+  box-sizing:border-box;
+  background:none;
+  outline:none;
+  resize:none;
+  border:0;
+  font-family:'Montserrat',sans-serif;
+  transition:all .3s;
+  border-bottom:2px solid #bebed2
+}
+input:focus{
+  border-bottom:2px solid #78788c
+}
+p:before{
+  content:attr(type);
+  display:block;
+  margin:28px 0 0;
+  font-size:14px;
+  color:#5a5a5a
+}
+.formbtn{
+  float:right;
+  padding:8px 12px;
+  margin:8px 0 0;
+  font-family:'Montserrat',sans-serif;
+  border:2px solid #78788c;
+  background:0;
+  color:#5a5a6e;
+  cursor:pointer;
+  transition:all .3s
+}
+.formbtn.button:hover{
+  background:#78788c;
+  color:#fff
+}
+.formdiv{
+  content:'Hi';
+  position:absolute;
+  bottom:-15px;
+  right:-20px;
+  background:#50505a;
+  color:#fff;
+  width:320px;
+  padding:16px 4px 16px 0;
+  border-radius:6px;
+  font-size:13px;
+  box-shadow:10px 10px 40px -14px #000
+}
+span{
+  margin:0 5px 0 15px
+}
+
+.formcontainer{
+  width: 5px;
+  height: 5px;
+}
+
+
+/* 27.05.2022 */
+
+
+.banner-slider-one .slick-slide{
+  padding-left: 0px !important;
+  padding: 0px !important;
+  padding-right: 0px !important;
+
+}
