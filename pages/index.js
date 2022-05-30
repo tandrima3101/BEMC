@@ -79,6 +79,34 @@ const Index = () => {
       paragraph: 'Risus urnas Iaculis per amet vestibulum luctus tincidunt ultricies aenean quam eros eleifend sodales cubilia mattis quam.'
     }
   ]
+
+  const photoGallery = [
+    {
+      imageid : 1,
+      imageurl : 'https://picsum.photos/id/237/200/300'
+    },
+    {
+      imageid : 2,
+      imageurl : 'https://picsum.photos/seed/picsum/200/300'
+    },
+    {
+      imageid : 3,
+      imageurl : 'https://picsum.photos/200/300?grayscale'
+    },
+    {
+      imageid : 4,
+      imageurl : 'https://picsum.photos/200/300/?blur=2'
+    },
+    {
+      imageid : 5,
+      imageurl : 'https://picsum.photos/seed/picsum/200/300'
+    },
+    {
+      imageid : 6,
+      imageurl : 'https://picsum.photos/seed/picsum/200/300'
+    },
+  ]
+
   return (
     <Layout>
       {video && <VideoPopup close={setVideo} />}
@@ -589,23 +617,18 @@ const Index = () => {
             {...PlaceSliderOne}
             className="place-slider-one wow fadeInDown"
           >
-            <div className="place-item place-item-one">
+
+            {photoGallery.map((photo) => {
+              return(
+                <div className="place-item place-item-one">
               <div className="place-thumbnail">
-                <img src="https://media.istockphoto.com/photos/driving-on-idyllic-roads-picture-id1303391856?b=1&k=20&m=1303391856&s=170667a&w=0&h=RvzNO06n8AZHSw8B0xm6Lac0bBe6WLdsw5kMNSxgc5E=" alt="Place Image" />
-                <div className="place-overlay">
-                  {/* <div className="place-content text-center">
-                    <span className="listing">10 Listing</span>
-                    <h3 className="title">Australia</h3>
-                    <Link href="/listing-grid">
-                      <a className="arrow-btn">
-                        <i className="ti-arrow-right"></i>
-                      </a>
-                    </Link>
-                  </div> */}
-                </div>
+                <img src={photo.imageurl} alt="Place Image" />
               </div>
             </div>
-            <div className="place-item place-item-one">
+              )
+            })}
+            
+            {/* <div className="place-item place-item-one">
               <div className="place-thumbnail">
                 <img src="https://media.istockphoto.com/photos/driving-on-idyllic-roads-picture-id1303391856?b=1&k=20&m=1303391856&s=170667a&w=0&h=RvzNO06n8AZHSw8B0xm6Lac0bBe6WLdsw5kMNSxgc5E=" alt="Place Image" />
                 <div className="place-overlay">
@@ -669,6 +692,22 @@ const Index = () => {
                 </div>
               </div>
             </div>
+            <div className="place-item place-item-one">
+              <div className="place-thumbnail">
+                <img src="https://media.istockphoto.com/photos/driving-on-idyllic-roads-picture-id1303391856?b=1&k=20&m=1303391856&s=170667a&w=0&h=RvzNO06n8AZHSw8B0xm6Lac0bBe6WLdsw5kMNSxgc5E=" alt="Place Image" />
+                <div className="place-overlay">
+                  <div className="place-content text-center">
+                    <span className="listing">10 Listing</span>
+                    <h3 className="title">Australia</h3>
+                    <Link href="/listing-grid">
+                      <a className="arrow-btn">
+                        <i className="ti-arrow-right"></i>
+                      </a>
+                    </Link>
+                  </div>
+                </div>
+              </div>w
+            </div> */}
           </Slider>
         </div>
       </section>
