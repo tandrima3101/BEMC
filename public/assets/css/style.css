@@ -186,7 +186,7 @@ ul.social-link li {
 .form_control {
   width: 100%;
   padding: 0 25px;
-  height: 60px;
+  height: 40px;
   border: none;
 }
 
@@ -1622,7 +1622,7 @@ ul.ratings.ratings-one li.star:nth-child(1) i,
 .hero-wrapper-one {
   position: relative;
   z-index: 1;
-  height: 730px;
+  height: 130vh;
   overflow: hidden;
   /* padding: 150px 0 270px; */
 }
@@ -6625,7 +6625,7 @@ h3.title {
 .banner-background-image {
   top: 0;
   content: "";
-  height: 730px;
+  height: 130vh;
   width: 100%;
   left: 0;
   /* background: url(../images/hero/hero-one-bg-1.jpg) no-repeat center center; */
@@ -6731,4 +6731,10 @@ h3.title {
   position: relative;
   top: 0%;
   font-size: 50px;
+}
+
+input.form_control{
+  border: 1px solid #cccccc !important;
+    border-radius: 3px !important;
+    padding: 10px !important;
 }

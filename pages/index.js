@@ -5,7 +5,8 @@ import Counter from "../src/components/Counter";
 import VideoPopup from "../src/components/VideoPopup";
 import Layout from "../src/layouts/Layout";
 import { Nav, Tab } from "react-bootstrap";
-
+import Select from 'react-select';
+import BookingForm from "../src/components/bookingForm";
 
 import {
   ClientSliderOne,
@@ -16,7 +17,6 @@ import {
 
 const Index = () => {
   const [video, setVideo] = useState(false);
-
   const bannerSlider = [
     {
       heading: 'Lorem Ipsum is simply ',
@@ -155,110 +155,7 @@ const Index = () => {
                 </div>
               </div>
               <div className="col-lg-5" style={{ padding: '0px' }}>
-              <Tab.Container defaultActiveKey={"ramlingamPark"}>
-                  <form onSubmit={(e) => e.preventDefault()} className="banner-booking-form">
-                    <div className="form-inner">
-                      <div className="row align-items-center">
-                        <div className="col-lg-12">
-                          <div className="search-nav mb-10">
-                            <Nav as="ul" className="nav nav-tabs" style={{ borderBottom: '0px' }}>
-                              <Nav.Item>
-                                <Nav.Link
-                                  as="a"
-                                  className="c-pointer"
-                                  eventKey="ramlingamPark"
-                                >
-                                  <i className="far fa-plane-departure" />
-                                  Ramlingam Park
-                                </Nav.Link>
-                              </Nav.Item>
-                              <li className="nav-item">
-                                <Nav.Link
-                                  as="a"
-                                  className="c-pointer"
-                                  eventKey="Venue"
-                                >
-                                  <i className="far fa-building" />
-                                  Venue Booking
-                                </Nav.Link>
-                              </li>
-                              <li className="nav-item">
-                                <Nav.Link
-                                  as="a"
-                                  className="c-pointer"
-                                  eventKey="sportsArena"
-                                >
-                                  <i className="far fa-car" />
-                                  Sports Arena
-                                </Nav.Link>
-                              </li>
-                              <li className="nav-item">
-                                <Nav.Link
-                                  as="a"
-                                  className="c-pointer"
-                                  eventKey="emergencyVehicle"
-                                >
-                                  <i className="far fa-car" />
-                                  Emergency Vehicle
-                                </Nav.Link>
-                              </li>
-                            </Nav>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="hero-search-form tab-content">
-                        <Tab.Pane className="show active">
-                          <div className="row">
-                            <div className="col-lg-12 col-md-6">
-                              <div className="form_group">
-                                <input
-                                  type="text"
-                                  className="form_control"
-                                  placeholder="Search By Category"
-                                  name="search"
-                                  required
-                                />
-                                <i className="ti-ink-pen"></i>
-                              </div>
-                            </div>
-                            <div className="col-lg-12 col-md-6">
-                              <div className="form_group">
-                                <select className="wide">
-                                  <option value="01">Museums</option>
-                                  <option value="02">Restaurant</option>
-                                  <option value="03">Party Center</option>
-                                  <option value="04">Fitness Zone</option>
-                                  <option value="05">Game Field</option>
-                                  <option value="06">Job & Feeds</option>
-                                  <option value="07">Shooping</option>
-                                  <option value="08">Art Gallery</option>
-                                </select>
-                              </div>
-                            </div>
-                            <div className="col-lg-12 col-md-6">
-                              <div className="form_group">
-                                <input
-                                  type="text"
-                                  className="form_control"
-                                  placeholder="Location"
-                                  name="location"
-                                  required
-                                />
-                                <i className="ti-location-pin"></i>
-                              </div>
-                            </div>
-                            <div className="col-lg-10 col-md-6">
-                              <button className="main-btn icon-btn">
-                                Search Now
-                              </button>
-                            </div>
-                          </div>
-                        </Tab.Pane>
-                      </div>
-                    </div>
-                  </form>
-
-                </Tab.Container>
+                <BookingForm active="Ramlingam Park"/>
               </div>
             </div>
           </div>

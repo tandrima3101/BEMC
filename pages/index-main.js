@@ -6,7 +6,7 @@ import VideoPopup from "../src/components/VideoPopup";
 import Layout from "../src/layouts/Layout";
 import { Nav, Tab } from "react-bootstrap";
 import TestimoinalSlider from "../src/components/Slider/TestimonialSlider";
-
+import BookingForm from "../src/components/bookingForm";
 
 import {
   ClientSliderOne,
@@ -115,7 +115,7 @@ const Index = () => {
       category: 'Sports Arena'
     },
     {
-      icon: 'C:\Users\sanim\Desktop\BEMC\public\assets\images\featureicons\ambulance.png',
+      icon: 'feature1',
       category: 'Ambulance'
     }
   ]
@@ -143,7 +143,7 @@ const Index = () => {
     }
   ]
 
- 
+
   return (
     <Layout>
       {video && <VideoPopup close={setVideo} />}
@@ -180,109 +180,7 @@ const Index = () => {
                 </div>
               </div>
               <div className="col-lg-5" style={{ padding: '0px' }}>
-                <Tab.Container defaultActiveKey={"ramlingamPark"}>
-                  <form onSubmit={(e) => e.preventDefault()} className="banner-booking-form">
-                    <div className="form-inner">
-                      <div className="row align-items-center">
-                        <div className="col-lg-12">
-                          <div className="search-nav mb-10">
-                            <Nav as="ul" className="nav nav-tabs" style={{ borderBottom: '0px' }}>
-                              <Nav.Item>
-                                <Nav.Link
-                                  as="a"
-                                  className="c-pointer"
-                                  eventKey="ramlingamPark"
-                                >
-                                  <i className="far fa-plane-departure" />
-                                  Ramlingam Park
-                                </Nav.Link>
-                              </Nav.Item>
-                              <li className="nav-item">
-                                <Nav.Link
-                                  as="a"
-                                  className="c-pointer"
-                                  eventKey="Venue"
-                                >
-                                  <i className="far fa-building" />
-                                  Venue Booking
-                                </Nav.Link>
-                              </li>
-                              <li className="nav-item">
-                                <Nav.Link
-                                  as="a"
-                                  className="c-pointer"
-                                  eventKey="sportsArena"
-                                >
-                                  <i className="far fa-car" />
-                                  Sports Arena
-                                </Nav.Link>
-                              </li>
-                              <li className="nav-item">
-                                <Nav.Link
-                                  as="a"
-                                  className="c-pointer"
-                                  eventKey="emergencyVehicle"
-                                >
-                                  <i className="far fa-car" />
-                                  Emergency Vehicle
-                                </Nav.Link>
-                              </li>
-                            </Nav>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="hero-search-form tab-content">
-                        <Tab.Pane className="show active">
-                          <div className="row">
-                            <div className="col-lg-12 col-md-6">
-                              <div className="form_group">
-                                <input
-                                  type="text"
-                                  className="form_control"
-                                  placeholder="Search By Category"
-                                  name="search"
-                                  required
-                                />
-                                <i className="ti-ink-pen"></i>
-                              </div>
-                            </div>
-                            <div className="col-lg-12 col-md-6">
-                              <div className="form_group">
-                                <select className="wide">
-                                  <option value="01">Museums</option>
-                                  <option value="02">Restaurant</option>
-                                  <option value="03">Party Center</option>
-                                  <option value="04">Fitness Zone</option>
-                                  <option value="05">Game Field</option>
-                                  <option value="06">Job & Feeds</option>
-                                  <option value="07">Shooping</option>
-                                  <option value="08">Art Gallery</option>
-                                </select>
-                              </div>
-                            </div>
-                            <div className="col-lg-12 col-md-6">
-                              <div className="form_group">
-                                <input
-                                  type="text"
-                                  className="form_control"
-                                  placeholder="Location"
-                                  name="location"
-                                  required
-                                />
-                                <i className="ti-location-pin"></i>
-                              </div>
-                            </div>
-                            <div className="col-lg-10 col-md-6">
-                              <button className="main-btn icon-btn">
-                                Search Now
-                              </button>
-                            </div>
-                          </div>
-                        </Tab.Pane>
-                      </div>
-                    </div>
-                  </form>
-                </Tab.Container>
+                <BookingForm active="Sports Arena"/>
               </div>
             </div>
           </div>
@@ -294,14 +192,138 @@ const Index = () => {
         <div className="container">
           <div className="category-wrapper-one">
             <div className="row no-gutters d-flex justify-content-center">
-              {categorySection.map((x) => {
+              <div className="category-column" style={{ flex: '1' }}>
+                <div className="category-item category-item-one">
+                  <div className="info text-center">
+                    <div className="icon">
+                      <img src="assets/images/featureicons/park.png" alt="" />
+                    </div>
+                    <h6>Ramlingam Park</h6>
+                  </div>
+                  <Link href="/">
+                    <a className="category-btn">
+                      <i className="ti-arrow-right"></i>
+                    </a>
+                  </Link>
+                </div>
+              </div>
+              <div className="category-column" style={{ flex: '1' }}>
+                <div className="category-item category-item-one">
+                  <div className="info text-center">
+                    <div className="icon">
+                      <img src="assets/images/featureicons/townhall.png" alt="" />
+                    </div>
+                    <h6>Town Hall</h6>
+                  </div>
+                  <Link href="/">
+                    <a className="category-btn">
+                      <i className="ti-arrow-right"></i>
+                    </a>
+                  </Link>
+                </div>
+              </div>
+              <div className="category-column" style={{ flex: '1' }}>
+                <div className="category-item category-item-one">
+                  <div className="info text-center">
+                    <div className="icon">
+                      <img src="assets/images/featureicons/kalyanimandap.png" alt="" />
+                    </div>
+                    <h6>Kalyan Mandap</h6>
+                  </div>
+                  <Link href="/">
+                    <a className="category-btn">
+                      <i className="ti-arrow-right"></i>
+                    </a>
+                  </Link>
+                </div>
+              </div>
+              <div className="category-column" style={{ flex: '1' }}>
+                <div className="category-item category-item-one">
+                  <div className="info text-center">
+                    <div className="icon">
+                      <img src="assets/images/featureicons/sportsarena.png" alt="" />
+                    </div>
+                    <h6>Sports Arena</h6>
+                  </div>
+                  <Link href="/">
+                    <a className="category-btn">
+                      <i className="ti-arrow-right"></i>
+                    </a>
+                  </Link>
+                </div>
+              </div>
+              <div className="category-column" style={{ flex: '1' }}>
+                <div className="category-item category-item-one">
+                  <div className="info text-center">
+                    <div className="icon">
+                      <img src="assets/images/featureicons/ambulance.png" alt="" />
+                    </div>
+                    <h6>Ambulance</h6>
+                  </div>
+                  <Link href="/">
+                    <a className="category-btn">
+                      <i className="ti-arrow-right"></i>
+                    </a>
+                  </Link>
+                </div>
+              </div>
+              <div className="category-column" style={{ flex: '1' }}>
+                <div className="category-item category-item-one">
+                  <div className="info text-center">
+                    <div className="icon">
+                      <img src="assets/images/featureicons/hearse.png" alt="" />
+                    </div>
+                    <h6>Hearse</h6>
+                  </div>
+                  <Link href="/">
+                    <a className="category-btn">
+                      <i className="ti-arrow-right"></i>
+                    </a>
+                  </Link>
+                </div>
+              </div>
+              <div className="category-column" style={{ flex: '1' }}>
+                <div className="category-item category-item-one">
+                  <div className="info text-center">
+                    <div className="icon">
+                      <img src="assets/images/featureicons/tax.png" alt="" />
+                    </div>
+                    <h6>Tax</h6>
+                  </div>
+                  <Link href="/">
+                    <a className="category-btn">
+                      <i className="ti-arrow-right"></i>
+                    </a>
+                  </Link>
+                </div>
+              </div>
+              <div className="category-column" style={{ flex: '1' }}>
+                <div className="category-item category-item-one">
+                  <div className="info text-center">
+                    <div className="icon">
+                      <img src="assets/images/featureicons/grievance.png" alt="" />
+                    </div>
+                    <h6>Grievance</h6>
+                  </div>
+                  <Link href="/">
+                    <a className="category-btn">
+                      <i className="ti-arrow-right"></i>
+                    </a>
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      {/* <!--====== End Category Section ======--> */}
+      {/* {categorySection.map((x) => {
                 return (
                   <div className="category-column" style={{ flex: '1' }}>
                     <div className="category-item category-item-one">
                       <div className="info text-center">
                         <div className="icon">
-                          {/* <i className="flaticon-government"></i> */}
-                          <img src = {x.icon} alt="" /> 
+                          <img src = {feature1} alt="" /> 
                         </div>
                         <h6>{x.category}</h6>
                       </div>
@@ -313,12 +335,7 @@ const Index = () => {
                     </div>
                   </div>
                 )
-              })}
-            </div>
-          </div>
-        </div>
-      </section>
-      {/* <!--====== End Category Section ======--> */}
+              })} */}
       {/* <!--====== Start Listing Section ======--> */}
 
       <section className="listing-grid-area pt-115 pb-75">
@@ -418,8 +435,8 @@ const Index = () => {
           </div>
         </div>
       </section>
-       {/* <!--====== Start Intro Video Section ======--> */}
-       <section className="intro-video" style={{ position: 'relative' }}>
+      {/* <!--====== Start Intro Video Section ======--> */}
+      <section className="intro-video" style={{ position: 'relative' }}>
         <div className="col-lg-12">
           <iframe width="560" height="315" src="https://www.youtube.com/embed/JHlY8w69wSE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style={{ height: '80vh', width: '100%' }}></iframe>
         </div>
@@ -480,7 +497,7 @@ const Index = () => {
         </div>
       </section>
       {/* <!--====== End Place Section ======--> */}
-     
+
       {/*====== Start Testimonial Section ======*/}
       <section
         className="testimonial-area bg_cover pt-110 pb-140"
