@@ -71,13 +71,13 @@ html {
   width: 15px !important;
   height: 15px !important;
   border-radius: 50%;
-  background-color: #ff344f;
+  background-color: #3bacb6;
   border: none;
   cursor: pointer;
 }
 
 .noUi-connect {
-  background: #ff344f !important;
+  background: #3bacb6 !important;
 }
 .noUi-handle:before,
 .noUi-handle:after {
@@ -103,7 +103,7 @@ img.mfp-img {
 }
 .main-menu li.active > a,
 .header-navigation .main-menu ul > li.has-children.active > a:after {
-  color: #ff344f !important;
+  color: #3bacb6 !important;
 }
 
 body{
