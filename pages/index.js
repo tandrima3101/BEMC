@@ -392,12 +392,21 @@ const Index = () => {
         </div>
       </section>
       {/* <!--====== End Place Section ======--> */}
-      {/* <!--====== Start Intro Video Section ======--> */}
-      <section className="intro-video" style={{ position: 'relative' }}>
+       {/* <!--====== Start Intro Video Section ======--> */}
+       <section className="intro-video" style={{ position: 'relative' }}>
         <div className="col-lg-12">
-
           <iframe width="560" height="315" src="https://www.youtube.com/embed/JHlY8w69wSE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style={{ height: '80vh', width: '100%' }}></iframe>
         </div>
+        <a
+          href="#"
+          className="video-popup"
+          onClick={(e) => {
+            e.preventDefault();
+            setVideo(true);
+          }}
+        >
+          <i className="flaticon-play-button"></i>
+        </a>
         <div className="col-lg-7" style={{
           position: 'absolute',
           top: '15%',
@@ -417,48 +426,6 @@ const Index = () => {
           })}
         </div>
       </section>
-      {/* <section className="intro-video">
-        <div
-          className="intro-wrapper-one bg_cover pt-115"
-          style={{ backgroundImage: `url(assets/images/bg/video-bg-1.jpg)` }}
-        >
-          <div className="container">
-            <div className="row align-items-center">
-              <div className="col-lg-5">
-                <div className="play-content play-content-one text-center wow fadeInLeft">
-                  <a
-                    href="#"
-                    className="video-popup"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      setVideo(true);
-                    }}
-                  >
-                    <i className="flaticon-play-button"></i>
-                  </a>
-                  <h5>Play Video</h5>
-                </div>
-              </div>
-              <div className="col-lg-7">
-                <div className="intro-content-box intro-content-box-one wow fadeInRight">
-                  <div className="section-title section-title-left section-title-white mb-35">
-                    <h2>Professional planners for your vacation</h2>
-                  </div>
-                  <p>
-                    Risus urnas Iaculis per amet vestibulum luctus tincidunt
-                    ultricies aenean quam eros eleifend sodales cubilia mattis
-                    quam.
-                  </p>
-                  <Link href="/listing-grid">
-                    <a className="main-btn icon-btn">Explore List</a>
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section> */}
-      {/* <!--====== End Intro Video Section ======--> */}
       {/* <!--====== Start Newsletter Section ======--> */}
       <section className="newsletter-area">
         <div className="container">
