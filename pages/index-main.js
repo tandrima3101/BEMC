@@ -120,6 +120,29 @@ const Index = () => {
     }
   ]
 
+  const photoGallery = [
+    {
+      imgId: 1,
+      imgUrl: 'https://media.istockphoto.com/photos/driving-on-idyllic-roads-picture-id1303391856?b=1&k=20&m=1303391856&s=170667a&w=0&h=RvzNO06n8AZHSw8B0xm6Lac0bBe6WLdsw5kMNSxgc5E=',
+    },
+    {
+      imgId: 1,
+      imgUrl: 'https://media.istockphoto.com/photos/driving-on-idyllic-roads-picture-id1303391856?b=1&k=20&m=1303391856&s=170667a&w=0&h=RvzNO06n8AZHSw8B0xm6Lac0bBe6WLdsw5kMNSxgc5E=',
+    },
+    {
+      imgId: 1,
+      imgUrl: 'https://media.istockphoto.com/photos/driving-on-idyllic-roads-picture-id1303391856?b=1&k=20&m=1303391856&s=170667a&w=0&h=RvzNO06n8AZHSw8B0xm6Lac0bBe6WLdsw5kMNSxgc5E=',
+    },
+    {
+      imgId: 1,
+      imgUrl: 'https://media.istockphoto.com/photos/driving-on-idyllic-roads-picture-id1303391856?b=1&k=20&m=1303391856&s=170667a&w=0&h=RvzNO06n8AZHSw8B0xm6Lac0bBe6WLdsw5kMNSxgc5E=',
+    },
+    {
+      imgId: 1,
+      imgUrl: 'https://media.istockphoto.com/photos/driving-on-idyllic-roads-picture-id1303391856?b=1&k=20&m=1303391856&s=170667a&w=0&h=RvzNO06n8AZHSw8B0xm6Lac0bBe6WLdsw5kMNSxgc5E=',
+    },
+  ]
+
  
   return (
     <Layout>
@@ -151,7 +174,6 @@ const Index = () => {
                             </div>
                           </div>
                         </div>
-
                       )
                     })}
                   </Slider>
@@ -445,86 +467,15 @@ const Index = () => {
             {...PlaceSliderOne}
             className="place-slider-one"
           >
-            <div className="place-item place-item-one">
-              <div className="place-thumbnail">
-                <img src="https://media.istockphoto.com/photos/driving-on-idyllic-roads-picture-id1303391856?b=1&k=20&m=1303391856&s=170667a&w=0&h=RvzNO06n8AZHSw8B0xm6Lac0bBe6WLdsw5kMNSxgc5E=" alt="Place Image" />
-                <div className="place-overlay">
-                  {/* <div className="place-content text-center">
-                    <span className="listing">10 Listing</span>
-                    <h3 className="title">Australia</h3>
-                    <Link href="/listing-grid">
-                      <a className="arrow-btn">
-                        <i className="ti-arrow-right"></i>
-                      </a>
-                    </Link>
-                  </div> */}
-                </div>
-              </div>
-            </div>
-            <div className="place-item place-item-one">
-              <div className="place-thumbnail">
-                <img src="https://media.istockphoto.com/photos/driving-on-idyllic-roads-picture-id1303391856?b=1&k=20&m=1303391856&s=170667a&w=0&h=RvzNO06n8AZHSw8B0xm6Lac0bBe6WLdsw5kMNSxgc5E=" alt="Place Image" />
-                <div className="place-overlay">
-                  <div className="place-content text-center">
-                    <span className="listing">10 Listing</span>
-                    <h3 className="title">Australia</h3>
-                    <Link href="/listing-grid">
-                      <a className="arrow-btn">
-                        <i className="ti-arrow-right"></i>
-                      </a>
-                    </Link>
+            {photoGallery.map((photo) => {
+              return (
+                <div className="place-item place-item-one" key={photo.imgId}>
+                  <div className="place-thumbnail">
+                    <img src={photo.imgUrl} alt="Place Image" />
                   </div>
                 </div>
-              </div>
-            </div>
-            <div className="place-item place-item-one">
-              <div className="place-thumbnail">
-                <img src="https://media.istockphoto.com/photos/driving-on-idyllic-roads-picture-id1303391856?b=1&k=20&m=1303391856&s=170667a&w=0&h=RvzNO06n8AZHSw8B0xm6Lac0bBe6WLdsw5kMNSxgc5E=" alt="Place Image" />
-                <div className="place-overlay">
-                  <div className="place-content text-center">
-                    <span className="listing">10 Listing</span>
-                    <h3 className="title">Australia</h3>
-                    <Link href="/listing-grid">
-                      <a className="arrow-btn">
-                        <i className="ti-arrow-right"></i>
-                      </a>
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="place-item place-item-one">
-              <div className="place-thumbnail">
-                <img src="https://media.istockphoto.com/photos/driving-on-idyllic-roads-picture-id1303391856?b=1&k=20&m=1303391856&s=170667a&w=0&h=RvzNO06n8AZHSw8B0xm6Lac0bBe6WLdsw5kMNSxgc5E=" alt="Place Image" />
-                <div className="place-overlay">
-                  <div className="place-content text-center">
-                    <span className="listing">10 Listing</span>
-                    <h3 className="title">Australia</h3>
-                    <Link href="/listing-grid">
-                      <a className="arrow-btn">
-                        <i className="ti-arrow-right"></i>
-                      </a>
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="place-item place-item-one">
-              <div className="place-thumbnail">
-                <img src="https://media.istockphoto.com/photos/driving-on-idyllic-roads-picture-id1303391856?b=1&k=20&m=1303391856&s=170667a&w=0&h=RvzNO06n8AZHSw8B0xm6Lac0bBe6WLdsw5kMNSxgc5E=" alt="Place Image" />
-                <div className="place-overlay">
-                  <div className="place-content text-center">
-                    <span className="listing">10 Listing</span>
-                    <h3 className="title">Australia</h3>
-                    <Link href="/listing-grid">
-                      <a className="arrow-btn">
-                        <i className="ti-arrow-right"></i>
-                      </a>
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            </div>
+              )
+            })}
           </Slider>
         </div>
       </section>
