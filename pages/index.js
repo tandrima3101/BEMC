@@ -72,7 +72,13 @@ const Index = () => {
       location: 'Odisha'
     }
   ]
-  
+  const getFreeQuote = [
+    {
+      smallText: 'Checkout List',
+      mainText: 'Professional planners for your vacation',
+      paragraph: 'Risus urnas Iaculis per amet vestibulum luctus tincidunt ultricies aenean quam eros eleifend sodales cubilia mattis quam.'
+    }
+  ]
   return (
     <Layout>
       {video && <VideoPopup close={setVideo} />}
@@ -1025,7 +1031,69 @@ const Index = () => {
       </section> */}
       {/* <!--====== End Popular Listing Section ======--> */}
       {/* <!--====== Start Intro Video Section ======--> */}
-      <section className="intro-video">
+      <section className="intro-video" style={{ position: 'relative' }}>
+        <div className="col-lg-12">
+
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/JHlY8w69wSE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style={{ height: '80vh', width: '100vw' }}></iframe>
+        </div>
+        <div className="col-lg-7" style={{
+          position: 'absolute',
+          top: '15%',
+          right: '10%',
+          width: '43%'
+        }}>
+          {getFreeQuote.map((items) => {
+            return (<div className="intro-content-box intro-content-box-one wow fadeInRight">
+              <div className="section-title section-title-left section-title-white mb-35">
+                <span className="sub-title">{items.smallText}</span>
+                <h2>{items.mainText}</h2>
+              </div>
+              <p>
+                {items.paragraph}
+              </p>
+            </div>)
+          })}
+        </div>
+        {/* <div
+          className="intro-wrapper-one bg_cover pt-115"
+          style={{ backgroundImage: `url(assets/images/bg/video-bg-1.jpg)` }}
+        >
+          <div className="container">
+            <div className="row align-items-center">
+
+              <div className="col-lg-5">
+                <div className="play-content play-content-one text-center wow fadeInLeft">
+                  <a
+                    href="#"
+                    className="video-popup"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setVideo(true);
+                    }}
+                  >
+                    <i className="flaticon-play-button"></i>
+                  </a>
+                  <h5>Play Video</h5>
+                </div>
+              </div>
+              <div className="col-lg-7">
+                {getFreeQuote.map((items) => {
+                  return (<div className="intro-content-box intro-content-box-one wow fadeInRight">
+                    <div className="section-title section-title-left section-title-white mb-35">
+                      <span className="sub-title">{items.smallText}</span>
+                      <h2>{items.mainText}</h2>
+                    </div>
+                    <p>
+                      {items.paragraph}
+                    </p>
+                  </div>)
+                })}
+              </div>
+            </div>
+          </div>
+        </div> */}
+      </section>
+      {/* <section className="intro-video">
         <div
           className="intro-wrapper-one bg_cover pt-115"
           style={{ backgroundImage: `url(assets/images/bg/video-bg-1.jpg)` }}
@@ -1065,7 +1133,7 @@ const Index = () => {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
       {/* <!--====== End Intro Video Section ======--> */}
       {/* <!--====== Start Newsletter Section ======--> */}
       <section className="newsletter-area">
