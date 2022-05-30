@@ -41,27 +41,9 @@ const Header2 = () => {
                       </li>
                       <About />
                       <li className="menu-item has-children">
-                        <a href="#">Listings</a>
+                        <a href="#">Services</a>
                         <ul className="sub-menu">
                           <Listing />
-                        </ul>
-                        <span className="dd-trigger">
-                          <i className="ti-arrow-down"></i>
-                        </span>
-                      </li>
-                      <li className="menu-item has-children">
-                        <a href="#">Pages</a>
-                        <ul className="sub-menu">
-                          <Pages />
-                        </ul>
-                        <span className="dd-trigger">
-                          <i className="ti-arrow-down"></i>
-                        </span>
-                      </li>
-                      <li className="menu-item has-children">
-                        <a href="#">Article</a>
-                        <ul className="sub-menu">
-                          <Blog />
                         </ul>
                         <span className="dd-trigger">
                           <i className="ti-arrow-down"></i>

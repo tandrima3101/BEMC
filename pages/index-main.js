@@ -5,6 +5,7 @@ import Counter from "../src/components/Counter";
 import VideoPopup from "../src/components/VideoPopup";
 import Layout from "../src/layouts/Layout";
 import { Nav, Tab } from "react-bootstrap";
+import TestimoinalSlider from "../src/components/Slider/TestimonialSlider";
 
 
 import {
@@ -96,27 +97,27 @@ const Index = () => {
       imgUrl: 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735',
     }
   ]
-  const photoGallery = [
+  const categorySection = [
     {
-      imgId: 1,
-      imgUrl: 'https://media.istockphoto.com/photos/driving-on-idyllic-roads-picture-id1303391856?b=1&k=20&m=1303391856&s=170667a&w=0&h=RvzNO06n8AZHSw8B0xm6Lac0bBe6WLdsw5kMNSxgc5E=',
+      icon: '',
+      category: 'Ramlingam Park'
     },
     {
-      imgId: 1,
-      imgUrl: 'https://media.istockphoto.com/photos/driving-on-idyllic-roads-picture-id1303391856?b=1&k=20&m=1303391856&s=170667a&w=0&h=RvzNO06n8AZHSw8B0xm6Lac0bBe6WLdsw5kMNSxgc5E=',
+      icon: '',
+      category: 'Town Hall'
     },
     {
-      imgId: 1,
-      imgUrl: 'https://media.istockphoto.com/photos/driving-on-idyllic-roads-picture-id1303391856?b=1&k=20&m=1303391856&s=170667a&w=0&h=RvzNO06n8AZHSw8B0xm6Lac0bBe6WLdsw5kMNSxgc5E=',
+      icon: '',
+      category: 'Kalyan Mandap'
     },
     {
-      imgId: 1,
-      imgUrl: 'https://media.istockphoto.com/photos/driving-on-idyllic-roads-picture-id1303391856?b=1&k=20&m=1303391856&s=170667a&w=0&h=RvzNO06n8AZHSw8B0xm6Lac0bBe6WLdsw5kMNSxgc5E=',
+      icon: '',
+      category: 'Sports Arena'
     },
     {
-      imgId: 1,
-      imgUrl: 'https://media.istockphoto.com/photos/driving-on-idyllic-roads-picture-id1303391856?b=1&k=20&m=1303391856&s=170667a&w=0&h=RvzNO06n8AZHSw8B0xm6Lac0bBe6WLdsw5kMNSxgc5E=',
-    },
+      icon: '',
+      category: 'Ambulance'
+    }
   ]
   return (
     <Layout>
@@ -139,10 +140,10 @@ const Index = () => {
                           <img src={x.bannerImageUrl} alt="" className="banner-background-image" />
                           <div className="banner-text">
                             <div className="banner-text-inner">
-                              <h1>
+                              <h1 className="">
                                 {x.heading}
                               </h1>
-                              <h3>
+                              <h3 className="">
                                 {x.subHeading}
                               </h3>
                             </div>
@@ -155,7 +156,7 @@ const Index = () => {
                 </div>
               </div>
               <div className="col-lg-5" style={{ padding: '0px' }}>
-              <Tab.Container defaultActiveKey={"ramlingamPark"}>
+                <Tab.Container defaultActiveKey={"ramlingamPark"}>
                   <form onSubmit={(e) => e.preventDefault()} className="banner-booking-form">
                     <div className="form-inner">
                       <div className="row align-items-center">
@@ -265,6 +266,35 @@ const Index = () => {
         </div>
       </section>
       {/* <!--====== End Hero Section ======--> */}
+      {/* <!--====== Start Category Section ======--> */}
+      <section className="category-area">
+        <div className="container">
+          <div className="category-wrapper-one">
+            <div className="row no-gutters d-flex justify-content-center">
+              {categorySection.map((x) => {
+                return (
+                  <div className="category-column" style={{ flex: '1' }}>
+                    <div className="category-item category-item-one">
+                      <div className="info text-center">
+                        <div className="icon">
+                          <i className="flaticon-government"></i>
+                        </div>
+                        <h6>{x.category}</h6>
+                      </div>
+                      <Link href="/">
+                        <a className="category-btn">
+                          <i className="ti-arrow-right"></i>
+                        </a>
+                      </Link>
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+          </div>
+        </div>
+      </section>
+      {/* <!--====== End Category Section ======--> */}
       {/* <!--====== Start Listing Section ======--> */}
 
       <section className="listing-grid-area pt-115 pb-75">
@@ -272,7 +302,7 @@ const Index = () => {
           <div className="row justify-content-center">
             <div className="col-lg-8">
               <div className="section-title text-center mb-75">
-                <h2>Shows List </h2>
+                <h2>Featured List </h2>
               </div>
             </div>
           </div>
@@ -282,7 +312,6 @@ const Index = () => {
                 <div className="col-lg-4 col-md-6 col-sm-12">
                   <div
                     className="listing-item listing-grid-one mb-45"
-                      
                   >
                     <div className="listing-thumbnail">
                       <img
@@ -365,39 +394,21 @@ const Index = () => {
           </div>
         </div>
       </section>
-      {/* <!--====== Start Place Section ======--> */}
-      <section className="place-area pt-115 pb-110">
-        <div className="container-fluid place-container">
-          <div className="row justify-content-center">
-            <div className="col-lg-8">
-              <div className="section-title text-center mb-60">
-                <h2>Photo Gallery</h2>
-              </div>
-            </div>
-          </div>
-          <Slider
-            {...PlaceSliderOne}
-            className="place-slider-one"
-          >
-            {photoGallery.map((photo) => {
-              return (
-                <div className="place-item place-item-one" key={photo.imgId}>
-                  <div className="place-thumbnail">
-                    <img src={photo.imgUrl} alt="Place Image" />
-                  </div>
-                </div>
-              )
-            })}
-          </Slider>
-        </div>
-      </section>
-      {/* <!--====== End Place Section ======--> */}
-      {/* <!--====== Start Intro Video Section ======--> */}
-      <section className="intro-video" style={{ position: 'relative' }}>
+       {/* <!--====== Start Intro Video Section ======--> */}
+       <section className="intro-video" style={{ position: 'relative' }}>
         <div className="col-lg-12">
-
           <iframe width="560" height="315" src="https://www.youtube.com/embed/JHlY8w69wSE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style={{ height: '80vh', width: '100%' }}></iframe>
         </div>
+        <a
+          href="#"
+          className="video-popup"
+          onClick={(e) => {
+            e.preventDefault();
+            setVideo(true);
+          }}
+        >
+          <i className="flaticon-play-button"></i>
+        </a>
         <div className="col-lg-7" style={{
           position: 'absolute',
           top: '15%',
@@ -417,48 +428,136 @@ const Index = () => {
           })}
         </div>
       </section>
-      {/* <section className="intro-video">
-        <div
-          className="intro-wrapper-one bg_cover pt-115"
-          style={{ backgroundImage: `url(assets/images/bg/video-bg-1.jpg)` }}
-        >
-          <div className="container">
-            <div className="row align-items-center">
-              <div className="col-lg-5">
-                <div className="play-content play-content-one text-center wow fadeInLeft">
-                  <a
-                    href="#"
-                    className="video-popup"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      setVideo(true);
-                    }}
-                  >
-                    <i className="flaticon-play-button"></i>
-                  </a>
-                  <h5>Play Video</h5>
+      {/* <!--====== End Intro Video Section ======--> */}
+      {/* <!--====== Start Place Section ======--> */}
+      <section className="place-area pt-115 pb-110">
+        <div className="container-fluid place-container">
+          <div className="row justify-content-center">
+            <div className="col-lg-8">
+              <div className="section-title text-center mb-60">
+                <h2>Photo Gallery</h2>
+              </div>
+            </div>
+          </div>
+          <Slider
+            {...PlaceSliderOne}
+            className="place-slider-one"
+          >
+            <div className="place-item place-item-one">
+              <div className="place-thumbnail">
+                <img src="https://media.istockphoto.com/photos/driving-on-idyllic-roads-picture-id1303391856?b=1&k=20&m=1303391856&s=170667a&w=0&h=RvzNO06n8AZHSw8B0xm6Lac0bBe6WLdsw5kMNSxgc5E=" alt="Place Image" />
+                <div className="place-overlay">
+                  {/* <div className="place-content text-center">
+                    <span className="listing">10 Listing</span>
+                    <h3 className="title">Australia</h3>
+                    <Link href="/listing-grid">
+                      <a className="arrow-btn">
+                        <i className="ti-arrow-right"></i>
+                      </a>
+                    </Link>
+                  </div> */}
                 </div>
               </div>
-              <div className="col-lg-7">
-                <div className="intro-content-box intro-content-box-one wow fadeInRight">
-                  <div className="section-title section-title-left section-title-white mb-35">
-                    <h2>Professional planners for your vacation</h2>
+            </div>
+            <div className="place-item place-item-one">
+              <div className="place-thumbnail">
+                <img src="https://media.istockphoto.com/photos/driving-on-idyllic-roads-picture-id1303391856?b=1&k=20&m=1303391856&s=170667a&w=0&h=RvzNO06n8AZHSw8B0xm6Lac0bBe6WLdsw5kMNSxgc5E=" alt="Place Image" />
+                <div className="place-overlay">
+                  <div className="place-content text-center">
+                    <span className="listing">10 Listing</span>
+                    <h3 className="title">Australia</h3>
+                    <Link href="/listing-grid">
+                      <a className="arrow-btn">
+                        <i className="ti-arrow-right"></i>
+                      </a>
+                    </Link>
                   </div>
-                  <p>
-                    Risus urnas Iaculis per amet vestibulum luctus tincidunt
-                    ultricies aenean quam eros eleifend sodales cubilia mattis
-                    quam.
-                  </p>
-                  <Link href="/listing-grid">
-                    <a className="main-btn icon-btn">Explore List</a>
-                  </Link>
+                </div>
+              </div>
+            </div>
+            <div className="place-item place-item-one">
+              <div className="place-thumbnail">
+                <img src="https://media.istockphoto.com/photos/driving-on-idyllic-roads-picture-id1303391856?b=1&k=20&m=1303391856&s=170667a&w=0&h=RvzNO06n8AZHSw8B0xm6Lac0bBe6WLdsw5kMNSxgc5E=" alt="Place Image" />
+                <div className="place-overlay">
+                  <div className="place-content text-center">
+                    <span className="listing">10 Listing</span>
+                    <h3 className="title">Australia</h3>
+                    <Link href="/listing-grid">
+                      <a className="arrow-btn">
+                        <i className="ti-arrow-right"></i>
+                      </a>
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="place-item place-item-one">
+              <div className="place-thumbnail">
+                <img src="https://media.istockphoto.com/photos/driving-on-idyllic-roads-picture-id1303391856?b=1&k=20&m=1303391856&s=170667a&w=0&h=RvzNO06n8AZHSw8B0xm6Lac0bBe6WLdsw5kMNSxgc5E=" alt="Place Image" />
+                <div className="place-overlay">
+                  <div className="place-content text-center">
+                    <span className="listing">10 Listing</span>
+                    <h3 className="title">Australia</h3>
+                    <Link href="/listing-grid">
+                      <a className="arrow-btn">
+                        <i className="ti-arrow-right"></i>
+                      </a>
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="place-item place-item-one">
+              <div className="place-thumbnail">
+                <img src="https://media.istockphoto.com/photos/driving-on-idyllic-roads-picture-id1303391856?b=1&k=20&m=1303391856&s=170667a&w=0&h=RvzNO06n8AZHSw8B0xm6Lac0bBe6WLdsw5kMNSxgc5E=" alt="Place Image" />
+                <div className="place-overlay">
+                  <div className="place-content text-center">
+                    <span className="listing">10 Listing</span>
+                    <h3 className="title">Australia</h3>
+                    <Link href="/listing-grid">
+                      <a className="arrow-btn">
+                        <i className="ti-arrow-right"></i>
+                      </a>
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Slider>
+        </div>
+      </section>
+      {/* <!--====== End Place Section ======--> */}
+     
+      {/*====== Start Testimonial Section ======*/}
+      <section
+        className="testimonial-area bg_cover pt-110 pb-140"
+        style={{
+          backgroundImage: "url(assets/images/bg/testimonial-bg-1.jpg)",
+        }}
+      >
+        <div className="container">
+          <div className="row justify-content-center">
+            <div className="col-lg-6">
+              <div className="section-title section-title-two section-title-white text-center mb-55">
+                <h2>
+                  <span className="line">Customer</span> Feedack
+                </h2>
+              </div>
+            </div>
+          </div>
+          <div className="row justify-content-center">
+            <div className="col-lg-8">
+              <div className="testimonial-wrapper-one text-center">
+                <div className="testimonial-review-area">
+                  <TestimoinalSlider />
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </section> */}
-      {/* <!--====== End Intro Video Section ======--> */}
+      </section>
+      {/*====== End Testimonial Section ======*/}
+
       {/* <!--====== Start Newsletter Section ======--> */}
       <section className="newsletter-area">
         <div className="container">

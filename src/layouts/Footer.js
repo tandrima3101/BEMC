@@ -10,8 +10,7 @@ const Footer = () => {
             <div className="row">
               <div className="col-lg-4 col-md-6 col-sm-12">
                 <div
-                  className="widget about-widget mb-40 wow fadeInUp"
-                  data-wow-delay="10ms"
+                  className="widget about-widget mb-40"
                 >
                   <h4 className="widget-title">Mobile Experience</h4>
                   <ul className="button">
@@ -67,8 +66,7 @@ const Footer = () => {
               </div>
               <div className="col-lg-3 col-md-6 col-sm-12">
                 <div
-                  className="widget recent-post-widget mb-40 wow fadeInUp"
-                  data-wow-delay="20ms"
+                  className="widget recent-post-widget mb-40"
                 >
                   <h4 className="widget-title">Recent News</h4>
                   <ul className="post-widget-list">
@@ -101,9 +99,9 @@ const Footer = () => {
               </div>
               <div className="col-lg-2 col-md-6 col-sm-12">
                 <div
-                  className="widget categories-widget mb-40 wow fadeInUp"
-                  data-wow-delay="30ms"
-                >
+                  className="widget categories-widget mb-40"
+
+>
                   <h4 className="widget-title">Categories</h4>
                   <ul className="categories-link">
                     <li>
@@ -129,8 +127,7 @@ const Footer = () => {
               </div>
               <div className="col-lg-3 col-md-6 col-sm-12">
                 <div
-                  className="widget newsletter-widget mb-40 wow fadeInUp"
-                  data-wow-delay="40ms"
+                  className="widget newsletter-widget mb-40"
                 >
                   <h4 className="widget-title">Newsletter</h4>
                   <p>
