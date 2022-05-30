@@ -99,26 +99,28 @@ const Index = () => {
   ]
   const categorySection = [
     {
-      icon: '',
+      icon: "assets\images\featureicons\park.png",
       category: 'Ramlingam Park'
     },
     {
-      icon: '',
+      icon: 'C:\Users\sanim\Desktop\BEMC\public\assets\images\featureicons\townhall.png',
       category: 'Town Hall'
     },
     {
-      icon: '',
+      icon: 'C:\Users\sanim\Desktop\BEMC\public\assets\images\featureicons\kalyanimandap.png',
       category: 'Kalyan Mandap'
     },
     {
-      icon: '',
+      icon: 'public\assets\images\featureicons\sportsarena.png',
       category: 'Sports Arena'
     },
     {
-      icon: '',
+      icon: 'C:\Users\sanim\Desktop\BEMC\public\assets\images\featureicons\ambulance.png',
       category: 'Ambulance'
     }
   ]
+
+ 
   return (
     <Layout>
       {video && <VideoPopup close={setVideo} />}
@@ -258,7 +260,6 @@ const Index = () => {
                       </div>
                     </div>
                   </form>
-
                 </Tab.Container>
               </div>
             </div>
@@ -277,7 +278,8 @@ const Index = () => {
                     <div className="category-item category-item-one">
                       <div className="info text-center">
                         <div className="icon">
-                          <i className="flaticon-government"></i>
+                          {/* <i className="flaticon-government"></i> */}
+                          <img src = {x.icon} alt="" /> 
                         </div>
                         <h6>{x.category}</h6>
                       </div>
