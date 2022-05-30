@@ -5,7 +5,6 @@ import Counter from "../src/components/Counter";
 import VideoPopup from "../src/components/VideoPopup";
 import Layout from "../src/layouts/Layout";
 import { Nav, Tab } from "react-bootstrap";
-import Select from 'react-select';
 import BookingForm from "../src/components/bookingForm";
 
 import {
