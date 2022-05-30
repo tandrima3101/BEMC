@@ -126,21 +126,21 @@ const Index = () => {
       imgUrl: 'https://media.istockphoto.com/photos/driving-on-idyllic-roads-picture-id1303391856?b=1&k=20&m=1303391856&s=170667a&w=0&h=RvzNO06n8AZHSw8B0xm6Lac0bBe6WLdsw5kMNSxgc5E=',
     },
     {
-      imgId: 1,
-      imgUrl: 'https://media.istockphoto.com/photos/driving-on-idyllic-roads-picture-id1303391856?b=1&k=20&m=1303391856&s=170667a&w=0&h=RvzNO06n8AZHSw8B0xm6Lac0bBe6WLdsw5kMNSxgc5E=',
+      imgId: 2,
+      imgUrl: 'https://picsum.photos/id/237/200/300',
     },
     {
-      imgId: 1,
-      imgUrl: 'https://media.istockphoto.com/photos/driving-on-idyllic-roads-picture-id1303391856?b=1&k=20&m=1303391856&s=170667a&w=0&h=RvzNO06n8AZHSw8B0xm6Lac0bBe6WLdsw5kMNSxgc5E=',
+      imgId: 3,
+      imgUrl: 'https://picsum.photos/200/300?grayscale',
     },
     {
-      imgId: 1,
-      imgUrl: 'https://media.istockphoto.com/photos/driving-on-idyllic-roads-picture-id1303391856?b=1&k=20&m=1303391856&s=170667a&w=0&h=RvzNO06n8AZHSw8B0xm6Lac0bBe6WLdsw5kMNSxgc5E=',
+      imgId: 4,
+      imgUrl: 'https://picsum.photos/200/300/?blur',
     },
     {
-      imgId: 1,
-      imgUrl: 'https://media.istockphoto.com/photos/driving-on-idyllic-roads-picture-id1303391856?b=1&k=20&m=1303391856&s=170667a&w=0&h=RvzNO06n8AZHSw8B0xm6Lac0bBe6WLdsw5kMNSxgc5E=',
-    },
+      imgId: 5,
+      imgUrl: 'https://picsum.photos/id/870/200/300?grayscale&blur=2',
+    }
   ]
 
  
