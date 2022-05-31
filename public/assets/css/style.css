@@ -715,7 +715,9 @@ ul.ratings.ratings-one li.star:nth-child(1) i,
 .hero-wrapper-three .hero-search-wrapper .search-nav .nav-link.active {
   background-color: #3bacb6;
 }
-
+.featured-btn-transparent{
+  background-color: transparent;
+}
 .products-item-one .product-img .product-overlay .product-meta .icon,
 .products-filter .list li a {
   display: -webkit-box;
@@ -1622,7 +1624,7 @@ ul.ratings.ratings-one li.star:nth-child(1) i,
 .hero-wrapper-one {
   position: relative;
   z-index: 1;
-  height: 130vh;
+  height: auto;
   overflow: hidden;
   /* padding: 150px 0 270px; */
 }
@@ -1642,6 +1644,7 @@ ul.ratings.ratings-one li.star:nth-child(1) i,
 .hero-wrapper-one .hero-content {
   position: relative;
   z-index: 1;
+  height: 100%;
 }
 
 .hero-wrapper-one .hero-content h1 {
@@ -3442,7 +3445,10 @@ h3.title {
   border-bottom: 15px solid #3bacb6;
   border-right: 13.01px solid transparent;
 }
+.listing-grid-one .listing-thumbnail .featured-btn-transparent:after{
+  border-bottom: 15px solid transparent;
 
+}
 .listing-grid-one .listing-thumbnail img {
   border-radius: 5px 5px 0px 0px;
 }
@@ -6622,11 +6628,22 @@ h3.title {
 .banner-items {
   position: relative;
 }
-
+.hero-content >*{
+  height: 100% !important;
+}
+.hero-content .banner-slider .slick-list .slick-track .slick-slide div{
+  height: 100% !important;
+}
+.slick-slide>*{
+  height: 100% !important;
+}
+.slick-slide .banner-items{
+  height: 100%;
+}
 .banner-background-image {
   top: 0;
   content: "";
-  height: 130vh;
+  height: 100%;
   width: 100%;
   left: 0;
   /* background: url(../images/hero/hero-one-bg-1.jpg) no-repeat center center; */
@@ -6696,11 +6713,13 @@ h3.title {
   font: 700 16px "Quicksand", sans-serif;
   text-align: center;
   color: #0d0d0d;
+  padding: 15px;
   /* padding: 11px 25px; */
 }
 
 .hero-wrapper-one .search-nav .nav-link i {
   margin-right: 10px;
+  display: none;
 }
 
 .hero-wrapper-one p.tags {
@@ -6791,4 +6810,10 @@ input.form_control{
 #id_work_days input[type="checkbox"]:checked + span {
   background-color:#3bacb6 ;
   color: black;
+}
+.down-btn{
+  background: #3bacb6;
+    color: #fff;
+    padding: 5px;
+    border-radius: 2px;
 }

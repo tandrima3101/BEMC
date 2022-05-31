@@ -137,7 +137,6 @@ const Index = () => {
                   >
                     {bannerSlider.map((x) => {
                       return (
-
                         <div className="banner-items">
                           <img src={x.bannerImageUrl} alt="" className="banner-background-image" />
                           <div className="banner-text">
@@ -158,7 +157,7 @@ const Index = () => {
                 </div>
               </div>
               <div className="col-lg-5" style={{ padding: '0px' }}>
-                <BookingForm active="Ramlingam Park"/>
+                <BookingForm active="Ramlingam Park" />
               </div>
             </div>
           </div>
@@ -182,14 +181,14 @@ const Index = () => {
                 <div className="col-lg-4 col-md-6 col-sm-12">
                   <div
                     className="listing-item listing-grid-one mb-45"
-                      
+
                   >
                     <div className="listing-thumbnail">
                       <img
                         src={show.imgUrl}
                         alt="Listing Image"
                       />
-                      {show.featured ? <span className="featured-btn">Featured</span> : <span></span>}
+                      {show.featured ? <span className="featured-btn">Featured</span> : <span className="featured-btn featured-btn-transparent"></span>}
                       <Link href='#'>
                         <div className="thumbnail-meta d-flex justify-content-between align-items-center">
                           <div className="meta-icon-title d-flex align-items-center">
@@ -292,8 +291,8 @@ const Index = () => {
         </div>
       </section>
       {/* <!--====== End Place Section ======--> */}
-       {/* <!--====== Start Intro Video Section ======--> */}
-       <section className="intro-video" style={{ position: 'relative' }}>
+      {/* <!--====== Start Intro Video Section ======--> */}
+      <section className="intro-video" style={{ position: 'relative' }}>
         <div className="col-lg-12">
           <iframe width="560" height="315" src="https://www.youtube.com/embed/JHlY8w69wSE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style={{ height: '80vh', width: '100%' }}></iframe>
         </div>
@@ -389,7 +388,7 @@ const Index = () => {
           </div>
         </div>
       </section>
-      
+
     </Layout>
 
   );

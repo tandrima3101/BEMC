@@ -14,43 +14,46 @@ import {
     FormGroup,
     Input,
     Label,
-  } from 'reactstrap';
+} from 'reactstrap';
 
 function BookingForm(props) {
     const [modalNestedContainer, setModalNestedContainer] = useState(false);
-  const [modalNested, setModalNested] = useState(false);
-  const [closeAll, setCloseAll] = useState(false);
+    const [modalNested, setModalNested] = useState(false);
+    const [closeAll, setCloseAll] = useState(false);
     const options = [
         { value: 'chocolate', label: 'Chocolate' },
         { value: 'strawberry', label: 'Strawberry' },
         { value: 'vanilla', label: 'Vanilla' }
-      ]
-      const [activeForm,setActiveForm]=useState(props.active)
-      useEffect(()=>{
-        console.log(activeForm)
-        console.log(props.active)
-      },[activeForm])
-      
-    const formTypes = ['Ramlingam Park', 'Venue Booking', 'Townhall Booking', 'Sports Arena', 'Ambulance', 'Hearse'];
+    ]
+    const [activeForm, setActiveForm] = useState(props.active)
+    // useEffect(() => {
+    //     console.log(activeForm)
+    //     console.log(props.active)
+    // }, [activeForm])
 
-
+    const formTypes = ['Ramlingam Park', 'Venue Booking', 'Townhall Booking'];
+    const newType = ['Ramlingam Park', 'Venue Booking', 'Townhall Booking', 'Sports Arena', 'Ambulance', 'Hearse'];
+    const [type,setType]=useState(formTypes)
+    useEffect(()=>{
+        console.log(type)
+    },[type])
     return (
         <div>
             <Tab.Container defaultActiveKey={props.active}>
                 <form onSubmit={(e) => e.preventDefault()} className="banner-booking-form">
                     <div className="form-inner">
-                        <div className="row align-items-center">
-                            <div className="col-lg-12">
+                        <div className="row align-items-start">
+                            <div className="col-lg-11">
                                 <div className="search-nav mb-10">
                                     <Nav as="ul" className="nav nav-tabs" style={{ borderBottom: '0px' }}>
-                                        {formTypes.map((x) => {
+                                        {type.map((x) => {
                                             return (
                                                 <li className="nav-item">
                                                     <Nav.Link
                                                         as="a"
                                                         className="c-pointer"
                                                         eventKey={x}
-                                                        onClick={(e) => {e.preventDefault(); setActiveForm(x)}}
+                                                        onClick={(e) => { e.preventDefault(); setActiveForm(x) }}
                                                     >
                                                         <i className="far fa-building" />
                                                         {x}
@@ -61,9 +64,14 @@ function BookingForm(props) {
                                     </Nav>
                                 </div>
                             </div>
+                            <div className='col-lg-1 d-flex justify-content-end'>
+                                <button className='down-btn' onClick={()=>setType(newType)}>
+                                    <i className='ti-arrow-down'></i>
+                                </button>
+                            </div>
                         </div>
                         <div className="hero-search-form tab-content">
-                            <Tab.Pane className={`show ${(activeForm==="Ramlingam Park") ? "active" : "" }`}>
+                            <Tab.Pane className={`show ${(activeForm === "Ramlingam Park") ? "active" : ""}`}>
                                 <div className="row">
                                     <div className="col-lg-12 col-md-6 mt-2">
                                         <label >Select Category</label>
@@ -123,7 +131,7 @@ function BookingForm(props) {
                                     </div>
                                 </div>
                             </Tab.Pane>
-                            <Tab.Pane className={`show ${(activeForm==="Sports Arena") ? "active" : "" }`}>
+                            <Tab.Pane className={`show ${(activeForm === "Sports Arena") ? "active" : ""}`}>
                                 <div className="row">
                                     <div className="col-lg-12 col-md-6 mt-2">
                                         <label >Select Sports</label>
@@ -183,7 +191,7 @@ function BookingForm(props) {
                                     </div>
                                 </div>
                             </Tab.Pane>
-                            <Tab.Pane className={`show ${(activeForm==="Venue Booking")? "active" : "" }`}>
+                            <Tab.Pane className={`show ${(activeForm === "Venue Booking") ? "active" : ""}`}>
                                 <div className="row">
                                     <div className="col-lg-12 col-md-6 mt-2">
                                         <label >Select Venue</label>
@@ -243,9 +251,9 @@ function BookingForm(props) {
                                     </div>
                                 </div>
                             </Tab.Pane>
-                            <Tab.Pane className={`show ${activeForm==="Townhall Booking"? "active" : "" }`}>
+                            <Tab.Pane className={`show ${activeForm === "Townhall Booking" ? "active" : ""}`}>
                                 <div className="row">
-                                <div className="col-lg-12 col-md-6 mt-2">
+                                    <div className="col-lg-12 col-md-6 mt-2">
                                         <label >Name</label>
 
                                         <input
@@ -275,7 +283,7 @@ function BookingForm(props) {
                                             required
                                         />
                                     </div>
-                                    
+
                                     <div className="col-lg-12 col-md-6 mt-2">
                                         <label >Address</label>
 
@@ -297,7 +305,7 @@ function BookingForm(props) {
                                             required
                                         />
                                     </div>
-                                    
+
                                     <div className="col-lg-12 col-md-6 mt-2">
                                         <label >Select Date</label>
 
@@ -320,7 +328,7 @@ function BookingForm(props) {
                                             required
                                         />
                                     </div>
-                                    
+
                                     <div className="col-lg-12 col-md-6 mt-2">
                                         <label >Number of Persons</label>
 
@@ -332,7 +340,7 @@ function BookingForm(props) {
                                             required
                                         />
                                     </div>
-                                    
+
                                     <div className="col-lg-10 col-md-6 mt-4">
                                         <button className="main-btn icon-btn">
                                             Book Now!
@@ -340,9 +348,9 @@ function BookingForm(props) {
                                     </div>
                                 </div>
                             </Tab.Pane>
-                            <Tab.Pane className={`show ${activeForm==="Ambulance"? "active" : "" }`}>
+                            <Tab.Pane className={`show ${activeForm === "Ambulance" ? "active" : ""}`}>
                                 <div className="row">
-                                <div className="col-lg-12 col-md-6 mt-2">
+                                    <div className="col-lg-12 col-md-6 mt-2">
                                         <label >Name</label>
 
                                         <input
@@ -372,7 +380,7 @@ function BookingForm(props) {
                                             required
                                         />
                                     </div>
-                                    
+
                                     <div className="col-lg-12 col-md-6 mt-2">
                                         <label >Address</label>
 
@@ -416,7 +424,7 @@ function BookingForm(props) {
                                             required
                                         />
                                     </div>
-                                    
+
                                     <div className="col-lg-10 col-md-6 mt-4">
                                         <button className="main-btn icon-btn">
                                             Book Now!
@@ -424,9 +432,9 @@ function BookingForm(props) {
                                     </div>
                                 </div>
                             </Tab.Pane>
-                            <Tab.Pane className={`show ${activeForm==="Hearse"?"active" : "" }`}>
+                            <Tab.Pane className={`show ${activeForm === "Hearse" ? "active" : ""}`}>
                                 <div className="row">
-                                <div className="col-lg-12 col-md-6 mt-2">
+                                    <div className="col-lg-12 col-md-6 mt-2">
                                         <label >Name</label>
 
                                         <input
@@ -456,7 +464,7 @@ function BookingForm(props) {
                                             required
                                         />
                                     </div>
-                                    
+
                                     <div className="col-lg-12 col-md-6 mt-2">
                                         <label >Address</label>
 
@@ -467,7 +475,7 @@ function BookingForm(props) {
                                             required
                                         />
                                     </div>
-                                    
+
                                     <div className="col-lg-10 col-md-6 mt-4">
                                         <button className="main-btn icon-btn">
                                             Book Now!
@@ -483,85 +491,85 @@ function BookingForm(props) {
 
             {/* MOdal */}
             <Modal
-                  isOpen={modalNestedContainer}
-                  toggle={() => setModalNestedContainer(!modalNestedContainer)}
-                >
-                  <ModalBody>
-                  <div className="row">
-                  <div className='col-lg-12 col-md-6 mt-2'>
-                  <label >Select Timing</label>
+                isOpen={modalNestedContainer}
+                toggle={() => setModalNestedContainer(!modalNestedContainer)}
+            >
+                <ModalBody>
+                    <div className="row">
+                        <div className='col-lg-12 col-md-6 mt-2'>
+                            <label >Select Timing</label>
 
-                                    <p id="id_work_days">
-  <label><input type="checkbox" name="work_days" value="2"/><span>9:00AM-12:00PM</span></label>
-  <label><input type="checkbox" name="work_days" value="3"/><span>12:0PM-3:00PM</span></label>
-  <label><input type="checkbox" name="work_days" value="4"/><span>3:00PM-6:00PM</span></label>
-  </p>
-                                    </div>
-                  <div className="col-lg-12 col-md-6 mt-2">
-                                        <label >Select Category</label>
-                                        <input type='number' className='otpinput m-0' />
-                                    </div>
-                                    
-                  </div>
+                            <p id="id_work_days">
+                                <label><input type="checkbox" name="work_days" value="2" /><span>9:00AM-12:00PM</span></label>
+                                <label><input type="checkbox" name="work_days" value="3" /><span>12:0PM-3:00PM</span></label>
+                                <label><input type="checkbox" name="work_days" value="4" /><span>3:00PM-6:00PM</span></label>
+                            </p>
+                        </div>
+                        <div className="col-lg-12 col-md-6 mt-2">
+                            <label >Select Category</label>
+                            <input type='number' className='otpinput m-0' />
+                        </div>
+
+                    </div>
                     <br />
                     <div className="text-center m-2">
-                      
+
                     </div>
                     <Modal
-                      isOpen={modalNested}
-                      toggle={() => setModalNested(!modalNested)}
-                      onClosed={
-                        closeAll
-                          ? () => setModalNestedContainer(false)
-                          : () => {}
-                      }
+                        isOpen={modalNested}
+                        toggle={() => setModalNested(!modalNested)}
+                        onClosed={
+                            closeAll
+                                ? () => setModalNestedContainer(false)
+                                : () => { }
+                        }
                     >
-                    <ModalHeader>
-                        Enter OTP
-                    </ModalHeader>
-                      <ModalBody style={{display:'flex',flexDirection:'row'}}>
-                          <input type='number' className='otpinput'/>
-                          <input type='number' className='otpinput'/>
-                          <input type='number' className='otpinput'/>
-                          <input type='number' className='otpinput'/>
-                      </ModalBody>
-                      <ModalFooter>
-                        <button
-                          className='main-btn'
-                          onClick={() => setModalNested(false)}
-                        >
-                          Done
-                        </button>{' '}
-                        <button
-                            className='main-btn'
-                          onClick={() => {
-                            setCloseAll(true);
-                            setModalNested(false);
-                          }}
-                        >
-                          All Done
-                        </button>
-                      </ModalFooter>
+                        <ModalHeader>
+                            Enter OTP
+                        </ModalHeader>
+                        <ModalBody style={{ display: 'flex', flexDirection: 'row' }}>
+                            <input type='number' className='otpinput' />
+                            <input type='number' className='otpinput' />
+                            <input type='number' className='otpinput' />
+                            <input type='number' className='otpinput' />
+                        </ModalBody>
+                        <ModalFooter>
+                            <button
+                                className='main-btn'
+                                onClick={() => setModalNested(false)}
+                            >
+                                Done
+                            </button>{' '}
+                            <button
+                                className='main-btn'
+                                onClick={() => {
+                                    setCloseAll(true);
+                                    setModalNested(false);
+                                }}
+                            >
+                                All Done
+                            </button>
+                        </ModalFooter>
                     </Modal>
-                  </ModalBody>
-                  <ModalFooter>
-                  <button
+                </ModalBody>
+                <ModalFooter>
+                    <button
                         className='main-btn'
                         onClick={() => {
-                          setCloseAll(false);
-                          setModalNested(true);
+                            setCloseAll(false);
+                            setModalNested(true);
                         }}
-                      >
-                       Enter OTP
-                      </button>
-                    <button
-                    className='main-btn'
-                      onClick={() => setModalNestedContainer(false)}
                     >
-                      Cancel
+                        Enter OTP
                     </button>
-                  </ModalFooter>
-                </Modal>
+                    <button
+                        className='main-btn'
+                        onClick={() => setModalNestedContainer(false)}
+                    >
+                        Cancel
+                    </button>
+                </ModalFooter>
+            </Modal>
         </div>
     )
 }

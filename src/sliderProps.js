@@ -51,6 +51,7 @@ export const  PlaceSliderTwo = {
   autoplay: false,
   slidesToShow: 1,
   slidesToScroll: 1,
+  // rows: 0,
   responsive: [
     {
       breakpoint: 1199,
