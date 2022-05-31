@@ -809,6 +809,7 @@ ul.ratings.ratings-one li.star:nth-child(1) i,
   text-transform: capitalize;
   padding: 32px 0px;
   line-height: 1;
+  text-decoration: none;
 }
 
 .header-navigation .main-menu ul li>a.active {
@@ -1320,7 +1321,7 @@ ul.ratings.ratings-one li.star:nth-child(1) i,
 
 .header-area-one .header-navigation {
   position: relative;
-  margin-bottom: -50px;
+  /* margin-bottom: -50px; */
   z-index: 999;
 }
 
@@ -1365,7 +1366,6 @@ ul.ratings.ratings-one li.star:nth-child(1) i,
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: center;
-  background-color: #3bacb6;
 }
 
 .header-area-one .header-navigation .nav-menu {
@@ -1622,7 +1622,7 @@ ul.ratings.ratings-one li.star:nth-child(1) i,
 .hero-wrapper-one {
   position: relative;
   z-index: 1;
-  height: 130vh;
+  /* height: 130vh; */
   overflow: hidden;
   /* padding: 150px 0 270px; */
 }
@@ -3499,6 +3499,7 @@ h3.title {
 
 .listing-grid-one .listing-content ul.ratings {
   margin-bottom: 10px;
+  padding-left: 0;
 }
 
 .listing-grid-one .listing-content span.price {
@@ -3520,6 +3521,8 @@ h3.title {
   -webkit-box-pack: justify;
   -ms-flex-pack: justify;
   justify-content: space-between;
+  padding: 0 !important;
+  margin-left: -15px  !important;
 }
 
 .listing-grid-one .listing-content .listing-meta ul span i {
@@ -6791,4 +6794,7 @@ input.form_control{
 #id_work_days input[type="checkbox"]:checked + span {
   background-color:#3bacb6 ;
   color: black;
+}
+a {
+  text-decoration: none !important;
 }
