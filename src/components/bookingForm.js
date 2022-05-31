@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from "react";
 import { Nav, Tab } from "react-bootstrap";
-import Select from 'react-select';
+import Select from "react-select";
 import {
     Row,
     Card,
@@ -573,4 +573,4 @@ function BookingForm(props) {
         </div>
     )
 }
-export default BookingForm
+export default BookingForm;
