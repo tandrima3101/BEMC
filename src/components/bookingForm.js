@@ -31,31 +31,53 @@ function BookingForm(props) {
     //     console.log(props.active)
     // }, [activeForm])
 
-    const formTypes = ['Ramlingam Park', 'Venue Booking', 'Townhall Booking'];
-    const newType = ['Ramlingam Park', 'Venue Booking', 'Townhall Booking', 'Sports Arena', 'Ambulance', 'Hearse'];
-    const [type,setType]=useState(formTypes)
-    useEffect(()=>{
-        console.log(type)
-    },[type])
+    const newType = ['Ramlingam Park', 'Venue Booking', 'Townhall Booking', 'Sports Arena', 'Ambulance', 'Hearse', 'Ramlingam Park', 'Venue Booking', 'Townhall Booking'];
+    const formTypes = ['Ramlingam Park', 'Venue Booking', 'Townhall Booking', 'Sports Arena', 'Ambulance', 'Hearse'];
+    const [type, setType] = useState(formTypes)
+    const[arrowType,setArrowType] = useState('down')
+    const [toggle, setToggle] = useState(false)
+
+    const handleNav = () => {
+        setToggle(!toggle)
+        {(!toggle) ? setType(newType) : setType(formTypes)}  
+        {(!toggle) ? setArrowType('up') : setArrowType('down')}   
+    }
     return (
         <div>
             <Tab.Container defaultActiveKey={props.active}>
                 <form onSubmit={(e) => e.preventDefault()} className="banner-booking-form">
                     <div className="form-inner">
                         <div className="row align-items-start">
-                            <div className="col-lg-11">
+                            <div className="col-lg-12">
                                 <div className="search-nav mb-10">
                                     <Nav as="ul" className="nav nav-tabs" style={{ borderBottom: '0px' }}>
-                                        {type.map((x) => {
+                                        {type?.map((x, index) => {
+                                            {
+                                                if (index == 5)
+                                                    return (<li className="nav-item button-nav">
+                                                        <Nav.Link
+                                                            as="a"
+                                                            className="c-pointer"
+                                                            eventKey={x}
+                                                            key={index}
+                                                            onClick={(e) => { e.preventDefault(); setActiveForm(x) }}
+                                                        >
+                                                            {x}
+                                                        </Nav.Link>
+                                                        <button className='down-btn' onClick={() => handleNav()}>
+                                                            <i className={`ti-arrow-${arrowType}`}></i>
+                                                        </button>
+                                                    </li>)
+                                            }
                                             return (
                                                 <li className="nav-item">
                                                     <Nav.Link
                                                         as="a"
                                                         className="c-pointer"
                                                         eventKey={x}
+                                                        key={index}
                                                         onClick={(e) => { e.preventDefault(); setActiveForm(x) }}
                                                     >
-                                                        <i className="far fa-building" />
                                                         {x}
                                                     </Nav.Link>
                                                 </li>
@@ -63,11 +85,6 @@ function BookingForm(props) {
                                         })}
                                     </Nav>
                                 </div>
-                            </div>
-                            <div className='col-lg-1 d-flex justify-content-end'>
-                                <button className='down-btn' onClick={()=>setType(newType)}>
-                                    <i className='ti-arrow-down'></i>
-                                </button>
                             </div>
                         </div>
                         <div className="hero-search-form tab-content">

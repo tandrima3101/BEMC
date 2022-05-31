@@ -296,7 +296,7 @@ button {
   text-transform: uppercase;
   border-radius: 3px;
   overflow: hidden;
-  border-radius: 9px;
+  border-radius: 10px;
 }
 
 .main-btn:hover {
@@ -6716,13 +6716,16 @@ h3.title {
   font: 700 16px "Quicksand", sans-serif;
   text-align: center;
   color: #0d0d0d;
-  padding: 15px;
+  padding: 10px;
+  border-radius: 10px;
+
   /* padding: 11px 25px; */
 }
 
 .hero-wrapper-one .search-nav .nav-link i {
   margin-right: 10px;
   display: none;
+  border-radius: 10px;
 }
 
 .hero-wrapper-one p.tags {
@@ -6815,11 +6818,25 @@ input.form_control{
   color: black;
 }
 .down-btn{
-  background: #3bacb6;
-    color: #fff;
-    padding: 5px;
+  background: #b3e8e5;
+    color: #000;
+    margin-bottom: 10px;
     border-radius: 2px;
+    margin-right: 10px;
+    border-radius: 10px;
 }
 a {
   text-decoration: none !important;
+}
+.listing-content a{
+  color: #3bacb6;
+}
+.button-nav{
+  display: flex;
+}
+.button-nav .nav-link{
+  flex: 3;
+}
+.button-nav button{
+  flex: 1;
 }
