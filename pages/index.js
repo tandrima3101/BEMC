@@ -194,7 +194,6 @@ const Index = () => {
             {showList.map((show) => {
               return (
                 <div className="col-lg-4 col-md-6 col-sm-12">
-<<<<<<< HEAD
                   <div
                     className="listing-item listing-grid-one mb-45"
 
@@ -206,17 +205,6 @@ const Index = () => {
                       />
                       {show.featured ? <span className="featured-btn">Featured</span> : <span className="featured-btn featured-btn-transparent"></span>}
                       <Link href='#'>
-=======
-                  <div className="listing-item listing-grid-one mb-45">
-                    <div className="listing-thumbnail">
-                      <img src={show.imgUrl} alt="Listing Image" />
-                      {show.featured ? (
-                        <span className="featured-btn">Featured</span>
-                      ) : (
-                        <span></span>
-                      )}
-                      <Link href="#">
->>>>>>> cd597e43ca9faf1c5b8ef47ebd5f50f1964d1373
                         <div className="thumbnail-meta d-flex justify-content-between align-items-center">
                           <div className="meta-icon-title d-flex align-items-center">
                             <div className="icon">
@@ -330,11 +318,7 @@ const Index = () => {
       </section>
       {/* <!--====== End Place Section ======--> */}
       {/* <!--====== Start Intro Video Section ======--> */}
-<<<<<<< HEAD
-      <section className="intro-video" style={{ position: 'relative' }}>
-=======
       <section className="intro-video" style={{ position: "relative" }}>
->>>>>>> cd597e43ca9faf1c5b8ef47ebd5f50f1964d1373
         <div className="col-lg-12">
           <iframe
             width="560"
@@ -439,10 +423,6 @@ const Index = () => {
           </div>
         </div>
       </section>
-<<<<<<< HEAD
-
-=======
->>>>>>> cd597e43ca9faf1c5b8ef47ebd5f50f1964d1373
     </Layout>
   );
 };
