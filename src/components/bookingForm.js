@@ -9,9 +9,10 @@ function BookingForm(props) {
         { value: 'strawberry', label: 'Strawberry' },
         { value: 'vanilla', label: 'Vanilla' }
       ]
-      const [activeForm,setActiveForm]=useState('Ramlingam Park')
+      const [activeForm,setActiveForm]=useState(props.active)
       useEffect(()=>{
         console.log(activeForm)
+        console.log(props.active)
       },[activeForm])
       
     const formTypes = ['Ramlingam Park', 'Venue Booking', 'Townhall Booking', 'Sports Arena', 'Ambulance', 'Hearse'];
@@ -46,7 +47,7 @@ function BookingForm(props) {
                             </div>
                         </div>
                         <div className="hero-search-form tab-content">
-                            <Tab.Pane className={`show ${activeForm==="Ramlingam Park" ? "active" : "" }`}>
+                            <Tab.Pane className={`show ${(activeForm==="Ramlingam Park") ? "active" : "" }`}>
                                 <div className="row">
                                     <div className="col-lg-12 col-md-6 mt-2">
                                         <label >Select Category</label>
@@ -106,7 +107,67 @@ function BookingForm(props) {
                                     </div>
                                 </div>
                             </Tab.Pane>
-                            <Tab.Pane className={`show ${activeForm==="Venue Booking" ? "active" : "" }`}>
+                            <Tab.Pane className={`show ${(activeForm==="Sports Arena") ? "active" : "" }`}>
+                                <div className="row">
+                                    <div className="col-lg-12 col-md-6 mt-2">
+                                        <label >Select Sports</label>
+                                        <Select options={options} />
+                                    </div>
+                                    <div className="col-lg-12 col-md-6 mt-2">
+                                        <label >Select Date</label>
+
+                                        <input
+                                            type="date"
+                                            className="form_control"
+                                            placeholder="Number of Adult"
+                                            name="location"
+                                            required
+                                        />
+                                    </div>
+                                    <div className="col-lg-12 col-md-6 mt-2">
+                                        <label >Select Time</label>
+
+                                        <input
+                                            type="time"
+                                            className="form_control"
+                                            placeholder="Number of Adult"
+                                            name="location"
+                                            required
+                                        />
+                                    </div>
+                                    <div className="col-lg-12 col-md-6 mt-2">
+                                        <label>Seat Category</label>
+                                        <Select options={options} />
+                                    </div>
+                                    <div className="col-lg-12 col-md-6 mt-2">
+                                        <label >Number of Adult</label>
+
+                                        <input
+                                            type="text"
+                                            className="form_control"
+
+                                            name="location"
+                                            required
+                                        />
+                                    </div>
+                                    <div className="col-lg-12 col-md-6 mt-2">
+                                        <label >Number of Child</label>
+
+                                        <input
+                                            type="text"
+                                            className="form_control"
+                                            name="location"
+                                            required
+                                        />
+                                    </div>
+                                    <div className="col-lg-10 col-md-6 mt-4">
+                                        <button className="main-btn icon-btn">
+                                            Search Now
+                                        </button>
+                                    </div>
+                                </div>
+                            </Tab.Pane>
+                            <Tab.Pane className={`show ${(activeForm==="Venue Booking")? "active" : "" }`}>
                                 <div className="row">
                                     <div className="col-lg-12 col-md-6 mt-2">
                                         <label >Select Venue</label>
@@ -166,7 +227,7 @@ function BookingForm(props) {
                                     </div>
                                 </div>
                             </Tab.Pane>
-                            <Tab.Pane className={`show ${activeForm==="Townhall Booking" ? "active" : "" }`}>
+                            <Tab.Pane className={`show ${activeForm==="Townhall Booking"? "active" : "" }`}>
                                 <div className="row">
                                 <div className="col-lg-12 col-md-6 mt-2">
                                         <label >Name</label>
@@ -263,7 +324,7 @@ function BookingForm(props) {
                                     </div>
                                 </div>
                             </Tab.Pane>
-                            <Tab.Pane className={`show ${activeForm==="Ambulance" ? "active" : "" }`}>
+                            <Tab.Pane className={`show ${activeForm==="Ambulance"? "active" : "" }`}>
                                 <div className="row">
                                 <div className="col-lg-12 col-md-6 mt-2">
                                         <label >Name</label>
@@ -347,7 +408,7 @@ function BookingForm(props) {
                                     </div>
                                 </div>
                             </Tab.Pane>
-                            <Tab.Pane className={`show ${activeForm==="Hearse"  ? "active" : "" }`}>
+                            <Tab.Pane className={`show ${activeForm==="Hearse"?"active" : "" }`}>
                                 <div className="row">
                                 <div className="col-lg-12 col-md-6 mt-2">
                                         <label >Name</label>

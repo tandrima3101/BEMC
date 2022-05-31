@@ -1810,9 +1810,10 @@ ul.ratings.ratings-one li.star:nth-child(1) i,
   border-radius: 3px;
   margin-right: 10px;
   margin-bottom: 10px;
-  font: 700 18px "Quicksand", sans-serif;
+  font: 700 15px "Quicksand", sans-serif;
   color: #0d0d0d;
-  padding: 11px 25px;
+  /* padding: 11px 25px; */
+  text-align: center;
 }
 
 .hero-wrapper-three .hero-search-wrapper .search-nav .nav-link i {
@@ -6692,9 +6693,10 @@ h3.title {
   border-radius: 3px;
   margin-right: 10px;
   margin-bottom: 10px;
-  font: 700 18px "Quicksand", sans-serif;
+  font: 700 16px "Quicksand", sans-serif;
+  text-align: center;
   color: #0d0d0d;
-  padding: 11px 25px;
+  /* padding: 11px 25px; */
 }
 
 .hero-wrapper-one .search-nav .nav-link i {
@@ -6737,4 +6739,14 @@ input.form_control{
   border: 1px solid #cccccc !important;
     border-radius: 3px !important;
     padding: 10px !important;
+}
+
+
+/*********************31.05.22***************/
+
+.nav{
+  width: 100%;
+}
+.nav-item{
+  width: 33.33%;
 }
