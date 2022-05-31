@@ -3138,8 +3138,8 @@ ul.ratings li {
 
 .newsletter-wrapper .newsletter-form .main-btn {
   position: absolute;
-  top: 8px;
-  right: 0;
+  top: 15%;
+  right: -18px;
   background-color: #0d0d0d;
   border-radius: 10px;
 }
@@ -3149,7 +3149,9 @@ ul.ratings li {
     position: relative;
     top: auto;
     right: auto;
+    left: 36%;
     margin-top: 20px;
+    
   }
 }
 
@@ -3180,7 +3182,7 @@ ul.ratings li {
 }
 
 .newsletter-wrapper-one .newsletter-form .form_control {
-  max-width: 510px;
+  max-width: auto;
   background-color: white;
   border-radius: 20px;
 }
@@ -6710,7 +6712,7 @@ h3.title {
 .hero-wrapper-one .search-nav .nav-link {
   border: none;
   background-color: #b3e8e5;
-  border-radius: 3px;
+  border-radius: 20px;
   margin-right: 10px;
   margin-bottom: 10px;
   font: 700 16px "Quicksand", sans-serif;
