@@ -7,15 +7,18 @@ import Layout from "../src/layouts/Layout";
 import { Nav, Tab } from "react-bootstrap";
 import BookingForm from "../src/components/bookingForm";
 
+
 import {
   ClientSliderOne,
   ListingSliderOne,
   PlaceSliderOne,
   PlaceSliderTwo
 } from "../src/sliderProps";
+import PreLoader from "../src/components/PreLoader";
 
 const Index = () => {
   const [video, setVideo] = useState(false);
+
   const bannerSlider = [
     {
       heading: 'Lorem Ipsum is simply ',
@@ -117,6 +120,7 @@ const Index = () => {
       imgUrl: 'https://media.istockphoto.com/photos/driving-on-idyllic-roads-picture-id1303391856?b=1&k=20&m=1303391856&s=170667a&w=0&h=RvzNO06n8AZHSw8B0xm6Lac0bBe6WLdsw5kMNSxgc5E=',
     },
   ]
+
   return (
     <Layout>
       {video && <VideoPopup close={setVideo} />}
@@ -385,7 +389,9 @@ const Index = () => {
           </div>
         </div>
       </section>
+      
     </Layout>
+
   );
 };
 export default Index;

@@ -2,6 +2,8 @@ import Head from "next/head";
 import React, { Fragment, useEffect, useState } from "react";
 import PreLoader from "../src/components/PreLoader";
 import "../styles/globals.css";
+import 'bootstrap/dist/css/bootstrap.css';
+
 
 const MyApp = ({ Component, pageProps }) => {
   const [loader, setLoader] = useState(true);

@@ -287,7 +287,7 @@ button {
   position: relative;
   z-index: 1;
   background-color: #3bacb6;
-  padding: 16px 40px;
+  padding: 9px 20px;
   color: #fff;
   font-family: "Quicksand", sans-serif;
   font-size: 15px;
@@ -296,6 +296,7 @@ button {
   text-transform: uppercase;
   border-radius: 3px;
   overflow: hidden;
+  border-radius: 9px;
 }
 
 .main-btn:hover {
@@ -434,12 +435,10 @@ button {
 .preloader {
   background-color: #fff;
   bottom: 0;
-  height: 100vh;
   left: 0;
   position: fixed;
   right: 0;
   top: 0;
-  width: 100vw;
   z-index: 99999;
 }
 
@@ -787,6 +786,7 @@ ul.ratings.ratings-one li.star:nth-child(1) i,
   position: relative;
   margin-left: 20px;
   margin-right: 20px;
+  padding: 0px 15px;
 }
 
 @media only screen and (min-width: 1200px) and (max-width: 1600px) {
@@ -6689,7 +6689,7 @@ h3.title {
 
 .hero-wrapper-one .search-nav .nav-link {
   border: none;
-  background-color: #adb5bd;
+  background-color: #b3e8e5;
   border-radius: 3px;
   margin-right: 10px;
   margin-bottom: 10px;
@@ -6749,4 +6749,46 @@ input.form_control{
 }
 .nav-item{
   width: 33.33%;
+}
+.modal-backdrop {
+  height: auto !important;
+  width: auto !important;
+  top: 0 !important;
+  bottom: 0 !important;
+  left:  0 !important;
+  right: 0 !important;
+}
+.modal-dialog{
+  height: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+}
+.otpinput{
+  margin: 10px;
+  border-bottom: none;
+  border: 1px solid #cccccc;
+
+}
+#id_work_days input[type="checkbox"] {
+  display: none;
+}
+#id_work_days label{
+  margin-right: 15px !important;
+}
+#id_work_days::before{
+  margin: 0px !important;
+}
+#id_work_days span {
+  display: inline-block;
+  padding: 8px;
+  text-transform: uppercase;
+  border: 2px solid #3bacb6 ;
+  border-radius: 3px;
+  color: #3bacb6;
+  margin: 0px !important;
+}
+
+#id_work_days input[type="checkbox"]:checked + span {
+  background-color:#3bacb6 ;
+  color: black;
 }

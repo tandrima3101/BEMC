@@ -1,9 +1,25 @@
 import React, { useEffect, useState } from 'react'
 import { Nav, Tab } from "react-bootstrap";
 import Select from 'react-select';
-
+import {
+    Row,
+    Card,
+    CardBody,
+    CardTitle,
+    Button,
+    Modal,
+    ModalHeader,
+    ModalBody,
+    ModalFooter,
+    FormGroup,
+    Input,
+    Label,
+  } from 'reactstrap';
 
 function BookingForm(props) {
+    const [modalNestedContainer, setModalNestedContainer] = useState(false);
+  const [modalNested, setModalNested] = useState(false);
+  const [closeAll, setCloseAll] = useState(false);
     const options = [
         { value: 'chocolate', label: 'Chocolate' },
         { value: 'strawberry', label: 'Strawberry' },
@@ -101,7 +117,7 @@ function BookingForm(props) {
                                         />
                                     </div>
                                     <div className="col-lg-10 col-md-6 mt-4">
-                                        <button className="main-btn icon-btn">
+                                        <button className="main-btn icon-btn" onClick={() => setModalNestedContainer(true)}>
                                             Search Now
                                         </button>
                                     </div>
@@ -464,6 +480,88 @@ function BookingForm(props) {
                 </form>
 
             </Tab.Container>
+
+            {/* MOdal */}
+            <Modal
+                  isOpen={modalNestedContainer}
+                  toggle={() => setModalNestedContainer(!modalNestedContainer)}
+                >
+                  <ModalBody>
+                  <div className="row">
+                  <div className='col-lg-12 col-md-6 mt-2'>
+                  <label >Select Timing</label>
+
+                                    <p id="id_work_days">
+  <label><input type="checkbox" name="work_days" value="2"/><span>9:00AM-12:00PM</span></label>
+  <label><input type="checkbox" name="work_days" value="3"/><span>12:0PM-3:00PM</span></label>
+  <label><input type="checkbox" name="work_days" value="4"/><span>3:00PM-6:00PM</span></label>
+  </p>
+                                    </div>
+                  <div className="col-lg-12 col-md-6 mt-2">
+                                        <label >Select Category</label>
+                                        <input type='number' className='otpinput m-0' />
+                                    </div>
+                                    
+                  </div>
+                    <br />
+                    <div className="text-center m-2">
+                      
+                    </div>
+                    <Modal
+                      isOpen={modalNested}
+                      toggle={() => setModalNested(!modalNested)}
+                      onClosed={
+                        closeAll
+                          ? () => setModalNestedContainer(false)
+                          : () => {}
+                      }
+                    >
+                    <ModalHeader>
+                        Enter OTP
+                    </ModalHeader>
+                      <ModalBody style={{display:'flex',flexDirection:'row'}}>
+                          <input type='number' className='otpinput'/>
+                          <input type='number' className='otpinput'/>
+                          <input type='number' className='otpinput'/>
+                          <input type='number' className='otpinput'/>
+                      </ModalBody>
+                      <ModalFooter>
+                        <button
+                          className='main-btn'
+                          onClick={() => setModalNested(false)}
+                        >
+                          Done
+                        </button>{' '}
+                        <button
+                            className='main-btn'
+                          onClick={() => {
+                            setCloseAll(true);
+                            setModalNested(false);
+                          }}
+                        >
+                          All Done
+                        </button>
+                      </ModalFooter>
+                    </Modal>
+                  </ModalBody>
+                  <ModalFooter>
+                  <button
+                        className='main-btn'
+                        onClick={() => {
+                          setCloseAll(false);
+                          setModalNested(true);
+                        }}
+                      >
+                       Enter OTP
+                      </button>
+                    <button
+                    className='main-btn'
+                      onClick={() => setModalNestedContainer(false)}
+                    >
+                      Cancel
+                    </button>
+                  </ModalFooter>
+                </Modal>
         </div>
     )
 }

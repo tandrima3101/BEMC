@@ -9,6 +9,7 @@ const Header2 = () => {
         <div className="container-fluid">
           <div className="primary-menu">
             <div className="row align-items-center">
+              <div className="col-lg-1"></div>
               <div className="col-lg-2 col-5">
                 <div className="site-branding">
                   <Link href="/">
@@ -21,7 +22,7 @@ const Header2 = () => {
                   </Link>
                 </div>
               </div>
-              <div className="col-lg-10 col-2">
+              <div className="col-lg-8 col-2">
                 <div className="nav-menu">
                   <div className="navbar-close">
                     <i className="ti-close"></i>
@@ -59,7 +60,7 @@ const Header2 = () => {
                   </nav>
                 </div>
               </div>
-              
+              <div className="col-lg-1"></div>
             </div>
           </div>
         </div>
