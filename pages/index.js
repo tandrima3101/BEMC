@@ -171,11 +171,7 @@ const Index = () => {
                   </Slider>
                 </div>
               </div>
-<<<<<<< HEAD
               <div className="col-lg-5" style={{ padding: '0px' }}>
-=======
-              <div className="col-lg-5" style={{ padding: "0px" }}>
->>>>>>> cd597e43ca9faf1c5b8ef47ebd5f50f1964d1373
                 <BookingForm active="Ramlingam Park" />
               </div>
             </div>
