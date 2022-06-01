@@ -6842,3 +6842,91 @@ a {
 .button-nav button{
   flex: 1;
 }
+
+
+
+/***********1/06/22**************/
+.service .container-fluid{
+  padding-left: 180px ;
+  padding-right: 180px ;
+}
+.booking-card{
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+  background-color: #fff;
+  margin: 20px 0px;
+}
+.bookingImage{
+  height: 100%;
+  object-fit: cover;
+}
+.ticket-details{
+  margin-left: 10px;
+}
+.ticket-details>*{
+  color: #308b93;
+  padding: 3px;
+  text-transform: capitalize;
+}
+.booking-card>*,.booking-card h5{
+  color: #308b93 !important;
+}
+.ticket-details p::before{
+  display: none;
+}
+.ticket-details span{
+  width: max-content !important;
+}
+.qr-section{
+  padding: 10px;
+  border-left: 1px solid #ccc;
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+  justify-content: center;
+}
+.qr-section img{
+  width: 80%;
+  margin: auto;
+  display: block;
+}
+.ratings-big ul.ratings{
+  padding: 0px;
+  justify-content: space-between;
+}
+.ratings-big ul li i{
+  font-size: 40px;
+  color: #b3e8e5;
+}
+.review-link a{
+  text-align: center;
+  display: block;
+  text-transform: capitalize;
+  color: #308b93;
+  font-size: 18px;
+  letter-spacing: 0.5px;
+}
+.booking-card::before{
+  position: absolute;
+  content: '';
+  height: 40px;
+  width: 40px;
+  background-color: #fbfbfb;
+  left: 64.5%;
+  top: -6%;
+  border-radius: 50%;
+}
+.booking-card::after{
+  position: absolute;
+  content: '';
+  height: 40px;
+  width: 40px;
+  background-color: #fbfbfb;
+  left: 64.5%;
+  bottom: -6%;
+  border-radius: 50%;
+}
+.light-bg{
+  background-color: #fbfbfb;
+}
