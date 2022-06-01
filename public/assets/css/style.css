@@ -6848,8 +6848,9 @@ a {
 
 /***********1/06/22**************/
 .service .container-fluid{
-  padding-left: 180px ;
-  padding-right: 180px ;
+  padding-left: 10%;
+  padding-right: 10%;
+  background-color: #ebebeb;
 }
 .booking-card{
   border-radius: 10px;
@@ -6857,13 +6858,16 @@ a {
   position: relative;
   background-color: #fff;
   margin: 20px 0px;
+  border-radius: 38px;
 }
 .bookingImage{
   height: 100%;
   object-fit: cover;
+  border-radius: 13px;
 }
 .ticket-details{
   margin-left: 10px;
+  margin-top: 10px;
 }
 .ticket-details>*{
   color: #308b93;
@@ -6905,6 +6909,8 @@ a {
 .ratings-big ul.ratings{
   padding: 0px;
   justify-content: space-between;
+  padding-left: 10% !important;
+  padding-right: 10% !important;
 }
 .ratings-big ul li i{
   font-size: 40px;
@@ -6923,7 +6929,7 @@ a {
   content: '';
   height: 40px;
   width: 40px;
-  background-color: #f9f9f9;
+  background-color: #ebebeb;
   left: 64.5%;
   top: -6%;
   border-radius: 50%;
@@ -6933,14 +6939,27 @@ a {
   content: '';
   height: 40px;
   width: 40px;
-  background-color: #f9f9f9;
+  background-color: #ebebeb;
   left: 64.5%;
   bottom: -6%;
   border-radius: 50%;
 }
 .light-bg{
-  background-color: #f9f9f9;
+  background-color: #ebebeb;
 }
+
+.ratingsstyle{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-bottom: 50px;
+}
+
+.bookingimagecss{
+  display: flex;
+  justify-content: center;
+}
+
 /* 1/06/22 */
 
 .footercss a{
