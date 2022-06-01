@@ -6892,6 +6892,16 @@ a {
   margin: auto;
   display: block;
 }
+.qr-section span{
+  display: block;
+  margin: 10px auto;
+  padding: 3px 10px;
+  background: #28a928;
+  border-radius: 20px;
+  color: #fff;
+  font-size: 15px;
+  letter-spacing: 0.7px;
+}
 .ratings-big ul.ratings{
   padding: 0px;
   justify-content: space-between;
@@ -6913,7 +6923,7 @@ a {
   content: '';
   height: 40px;
   width: 40px;
-  background-color: #fbfbfb;
+  background-color: #f9f9f9;
   left: 64.5%;
   top: -6%;
   border-radius: 50%;
@@ -6923,13 +6933,13 @@ a {
   content: '';
   height: 40px;
   width: 40px;
-  background-color: #fbfbfb;
+  background-color: #f9f9f9;
   left: 64.5%;
   bottom: -6%;
   border-radius: 50%;
 }
 .light-bg{
-  background-color: #fbfbfb;
+  background-color: #f9f9f9;
 }
 /* 1/06/22 */
 
