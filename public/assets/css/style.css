@@ -6959,3 +6959,64 @@ a {
 .footerspan span{
   margin: 0;
 }
+
+
+/*******footer css mobile view**********/
+@media only screen and (max-width:992px){
+  .footer-widget .widget.about-widget ul.button {
+      padding-bottom: 30px;
+      border-bottom: 1px solid rgba(223, 225, 228, 0.2);
+      margin-bottom: 22px;
+      display: flex;
+      justify-content: center;
+    }
+  .widget-title{
+    justify-content: center ;
+    display: flex ;
+  }
+  .footer-widget .widget.about-widget .footer-social h4 {
+    color: #fff;
+    margin-bottom: 25px;
+    display: flex;
+    justify-content: center;
+  }
+  .social-link {
+    margin: 0px;
+    padding-left: 0px ;
+    list-style-type: none;
+    display: flex ;
+    justify-content: center ;
+  }
+  .footer-widget .widget.categories-widget ul.categories-link li {
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+  }
+  .footer-widget .widget.recent-post-widget .post-widget-list .post-content-item .post-title-date span.posted-on {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 14px;
+    display: flex;
+    justify-content: center;
+  }
+  .footer-widget .widget.recent-post-widget .post-widget-list .post-content-item .post-title-date h6.title {
+    color: #fff;
+    font-size: 15px;
+    line-height: 24px;
+    justify-content: center;
+    display: flex;
+  }
+  .footer-widget .widget.newsletter-widget P {
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .form_group-btn{
+    position: relative;
+    display: flex;
+    justify-content: center;
+  }
+
+ 
+}
