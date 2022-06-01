@@ -6896,6 +6896,16 @@ a {
   margin: auto;
   display: block;
 }
+.qr-section span{
+  display: block;
+  margin: 10px auto;
+  padding: 3px 10px;
+  background: #28a928;
+  border-radius: 20px;
+  color: #fff;
+  font-size: 15px;
+  letter-spacing: 0.7px;
+}
 .ratings-big ul.ratings{
   padding: 0px;
   justify-content: space-between;
