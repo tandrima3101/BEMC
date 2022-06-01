@@ -9,9 +9,7 @@ const Footer = () => {
           <div className="container">
             <div className="row">
               <div className="col-lg-4 col-md-6 col-sm-12">
-                <div
-                  className="widget about-widget mb-40"
-                >
+                <div className="widget about-widget mb-40">
                   <h4 className="widget-title">Mobile Experience</h4>
                   <ul className="button">
                     <li>
@@ -20,7 +18,7 @@ const Footer = () => {
                           <i className="ti-android"></i>
                         </div>
                         <div className="info">
-                          <span>get it on</span>
+                          <span className="footerspan">get it on</span>
                           <h6>Goole Play</h6>
                         </div>
                       </a>
@@ -31,7 +29,7 @@ const Footer = () => {
                           <i className="ti-apple"></i>
                         </div>
                         <div className="info">
-                          <span>get it on</span>
+                          <span className="footerspan">get it on</span>
                           <h6>App Store</h6>
                         </div>
                       </a>
@@ -65,14 +63,12 @@ const Footer = () => {
                 </div>
               </div>
               <div className="col-lg-3 col-md-6 col-sm-12">
-                <div
-                  className="widget recent-post-widget mb-40"
-                >
+                <div className="widget recent-post-widget mb-40 footercss">
                   <h4 className="widget-title">Recent News</h4>
                   <ul className="post-widget-list">
                     <li className="post-content-item">
                       <div className="post-title-date">
-                        <span className="posted-on">
+                        <span className="posted-on footerspan">
                           <a href="#">22 August - 2021</a>
                         </span>
                         <h6 className="title">
@@ -84,7 +80,7 @@ const Footer = () => {
                     </li>
                     <li className="post-content-item">
                       <div className="post-title-date">
-                        <span className="posted-on">
+                        <span className="posted-on footerspan">
                           <a href="#">22 August - 2021</a>
                         </span>
                         <h6 className="title">
@@ -98,10 +94,7 @@ const Footer = () => {
                 </div>
               </div>
               <div className="col-lg-2 col-md-6 col-sm-12">
-                <div
-                  className="widget categories-widget mb-40"
-
->
+                <div className="widget categories-widget mb-40">
                   <h4 className="widget-title">Categories</h4>
                   <ul className="categories-link">
                     <li>
@@ -126,9 +119,7 @@ const Footer = () => {
                 </div>
               </div>
               <div className="col-lg-3 col-md-6 col-sm-12">
-                <div
-                  className="widget newsletter-widget mb-40"
-                >
+                <div className="widget newsletter-widget mb-40">
                   <h4 className="widget-title">Newsletter</h4>
                   <p>
                     Caoreet massa torto pon interdum sestibulum suscipit duis.
