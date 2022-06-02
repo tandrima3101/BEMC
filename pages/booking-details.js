@@ -59,8 +59,8 @@ function BookingDetails() {
                         <h3 className="text-center">Preccessing Your Payment</h3>
                         <img src="assets/images/loading.gif" width='100px'/>
                         </>:<>
-                        <img src="assets/images/checked.png" width='150px'/>
-                        <button className="main-btn mt-4">Make Your Payement</button></>}
+                        {/* <img src="assets/images/checked.png" width='150px'/> */}
+                        <button className="main-btn mt-4" style={{fontSize:'25px'}}>Proceed to pay</button></>}
                   </div>
                 </div>
             </div>

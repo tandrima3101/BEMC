@@ -24,19 +24,22 @@ export const About = () => (
 export const Listing = () => (
   <Fragment>
     <li className="menu-item">
-      <Link href="/listing-list">Listing List</Link>
+      <Link href="/ramlingam-park">Ramlingam Park</Link>
     </li>
     <li className="menu-item">
-      <Link href="/listing-grid">Listing Grid</Link>
+      <Link href="/townhall">Town Hall</Link>
     </li>
     <li className="menu-item">
-      <Link href="/listing-map">Listing Map Grid</Link>
+      <Link href="/kalyan-mandap">Kalyan Mandap</Link>
     </li>
     <li className="menu-item">
-      <Link href="/listing-details-1">Listing Details One</Link>
+      <Link href="/sports-arena">Sports Arena</Link>
     </li>
     <li className="menu-item">
-      <Link href="/listing-details-2">Listing Details Two</Link>
+      <Link href="/ambulance">Ambulance</Link>
+    </li>
+    <li className="menu-item">
+      <Link href="/hearse">Hearse</Link>
     </li>
   </Fragment>
 );

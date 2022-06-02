@@ -6866,7 +6866,7 @@ a {
 }
 
 .button-nav button {
-  flex: 1;
+  flex: 2;
 }
 
 
@@ -7093,10 +7093,8 @@ a {
 }
 .person-details h4,.booking-details h4{
   letter-spacing:1px;
-  color: #308b93;
 }
 .person-details>*{
-  color: #308b93;
   letter-spacing: 0.5px;
 }
 .booking-details,.person-details{
@@ -7129,8 +7127,6 @@ a {
 }
 .card-curve-no-shape>*{
   margin: 10px 0px;
-  color: #308b93;
-
 }
 .booking-details{
   display: flex;
@@ -7222,4 +7218,22 @@ a {
   }
 
  
+}
+.mobile-view-button{
+  display: none;
+}
+
+
+.down-btn-transparent{
+  background-color: transparent !important;
+  float: right;
+  margin-right: 10px;
+}
+@media only screen and (max-width:576px){
+  .mobile-view-button{
+    display: block;
+  }
+  .button-nav{
+    display: none;
+  }
 }

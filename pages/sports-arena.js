@@ -5,7 +5,6 @@ import Counter from "../src/components/Counter";
 import VideoPopup from "../src/components/VideoPopup";
 import Layout from "../src/layouts/Layout";
 import { Nav, Tab } from "react-bootstrap";
-import TestimoinalSlider from "../src/components/Slider/TestimonialSlider";
 import BookingForm from "../src/components/bookingForm";
 
 import {
@@ -14,6 +13,7 @@ import {
   PlaceSliderOne,
   PlaceSliderTwo,
 } from "../src/sliderProps";
+import PreLoader from "../src/components/PreLoader";
 
 const Index = () => {
   const [video, setVideo] = useState(false);
@@ -112,29 +112,6 @@ const Index = () => {
         "https://images.unsplash.com/photo-1488646953014-85cb44e25828?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735",
     },
   ];
-  const categorySection = [
-    {
-      icon: "assetsimages\featureiconspark.png",
-      category: "Ramlingam Park",
-    },
-    {
-      icon: "C:UserssanimDesktopBEMCpublicassetsimages\featureicons\townhall.png",
-      category: "Town Hall",
-    },
-    {
-      icon: "C:UserssanimDesktopBEMCpublicassetsimages\featureiconskalyanimandap.png",
-      category: "Kalyan Mandap",
-    },
-    {
-      icon: "publicassetsimages\featureiconssportsarena.png",
-      category: "Sports Arena",
-    },
-    {
-      icon: "feature1",
-      category: "Ambulance",
-    },
-  ];
-
   const photoGallery = [
     {
       imgId: 1,
@@ -142,20 +119,24 @@ const Index = () => {
         "https://media.istockphoto.com/photos/driving-on-idyllic-roads-picture-id1303391856?b=1&k=20&m=1303391856&s=170667a&w=0&h=RvzNO06n8AZHSw8B0xm6Lac0bBe6WLdsw5kMNSxgc5E=",
     },
     {
-      imgId: 2,
-      imgUrl: "https://picsum.photos/id/237/200/300",
+      imgId: 1,
+      imgUrl:
+        "https://media.istockphoto.com/photos/driving-on-idyllic-roads-picture-id1303391856?b=1&k=20&m=1303391856&s=170667a&w=0&h=RvzNO06n8AZHSw8B0xm6Lac0bBe6WLdsw5kMNSxgc5E=",
     },
     {
-      imgId: 3,
-      imgUrl: "https://picsum.photos/200/300?grayscale",
+      imgId: 1,
+      imgUrl:
+        "https://media.istockphoto.com/photos/driving-on-idyllic-roads-picture-id1303391856?b=1&k=20&m=1303391856&s=170667a&w=0&h=RvzNO06n8AZHSw8B0xm6Lac0bBe6WLdsw5kMNSxgc5E=",
     },
     {
-      imgId: 4,
-      imgUrl: "https://picsum.photos/200/300/?blur",
+      imgId: 1,
+      imgUrl:
+        "https://media.istockphoto.com/photos/driving-on-idyllic-roads-picture-id1303391856?b=1&k=20&m=1303391856&s=170667a&w=0&h=RvzNO06n8AZHSw8B0xm6Lac0bBe6WLdsw5kMNSxgc5E=",
     },
     {
-      imgId: 5,
-      imgUrl: "https://picsum.photos/id/870/200/300?grayscale&blur=2",
+      imgId: 1,
+      imgUrl:
+        "https://media.istockphoto.com/photos/driving-on-idyllic-roads-picture-id1303391856?b=1&k=20&m=1303391856&s=170667a&w=0&h=RvzNO06n8AZHSw8B0xm6Lac0bBe6WLdsw5kMNSxgc5E=",
     },
   ];
 
@@ -168,7 +149,7 @@ const Index = () => {
           <div className="container-fluid">
             <div className="row">
               <div className="col-lg-7" style={{ padding: "0px" }}>
-                <div className="hero-content">
+                <div className="hero-content d-none d-lg-block d-xl-block">
                   <Slider {...PlaceSliderTwo} className="banner-slider-one">
                     {bannerSlider.map((x) => {
                       return (
@@ -180,8 +161,8 @@ const Index = () => {
                           />
                           <div className="banner-text">
                             <div className="banner-text-inner">
-                              <h1 className="">{x.heading}</h1>
-                              <h3 className="">{x.subHeading}</h3>
+                              <h1>{x.heading}</h1>
+                              <h3>{x.subHeading}</h3>
                             </div>
                           </div>
                         </div>
@@ -191,177 +172,13 @@ const Index = () => {
                 </div>
               </div>
               <div className="col-lg-5" style={{ padding: '0px' }}>
-                <BookingForm active="Ramlingam Park" />
+                <BookingForm active="Sports Arena" />
               </div>
             </div>
           </div>
         </div>
       </section>
       {/* <!--====== End Hero Section ======--> */}
-      {/* <!--====== Start Category Section ======--> */}
-      <section className="category-area">
-        <div className="container">
-          <div className="category-wrapper-one">
-            <div className="row no-gutters d-flex justify-content-center">
-              <div className="category-column" style={{ flex: "1" }}>
-                <div className="category-item category-item-one">
-                  <div className="info text-center">
-                    <div className="icon">
-                      <img src="assets/images/featureicons/park.png" alt="" />
-                    </div>
-                    <h6>Ramlingam Park</h6>
-                  </div>
-                  <Link href="/ramlingam-park">
-                    <a className="category-btn">
-                      <i className="ti-arrow-right"></i>
-                    </a>
-                  </Link>
-                </div>
-              </div>
-              <div className="category-column" style={{ flex: "1" }}>
-                <div className="category-item category-item-one">
-                  <div className="info text-center">
-                    <div className="icon">
-                      <img
-                        src="assets/images/featureicons/townhall.png"
-                        alt=""
-                      />
-                    </div>
-                    <h6>Town Hall</h6>
-                  </div>
-                  <Link href="/townhall">
-                    <a className="category-btn">
-                      <i className="ti-arrow-right"></i>
-                    </a>
-                  </Link>
-                </div>
-              </div>
-              <div className="category-column" style={{ flex: "1" }}>
-                <div className="category-item category-item-one">
-                  <div className="info text-center">
-                    <div className="icon">
-                      <img
-                        src="assets/images/featureicons/kalyanimandap.png"
-                        alt=""
-                      />
-                    </div>
-                    <h6>Kalyan Mandap</h6>
-                  </div>
-                  <Link href="/kalyan-mandap">
-                    <a className="category-btn">
-                      <i className="ti-arrow-right"></i>
-                    </a>
-                  </Link>
-                </div>
-              </div>
-              <div className="category-column" style={{ flex: "1" }}>
-                <div className="category-item category-item-one">
-                  <div className="info text-center">
-                    <div className="icon">
-                      <img
-                        src="assets/images/featureicons/sportsarena.png"
-                        alt=""
-                      />
-                    </div>
-                    <h6>Sports Arena</h6>
-                  </div>
-                  <Link href="/sports-arena">
-                    <a className="category-btn">
-                      <i className="ti-arrow-right"></i>
-                    </a>
-                  </Link>
-                </div>
-              </div>
-              <div className="category-column" style={{ flex: "1" }}>
-                <div className="category-item category-item-one">
-                  <div className="info text-center">
-                    <div className="icon">
-                      <img
-                        src="assets/images/featureicons/ambulance.png"
-                        alt=""
-                      />
-                    </div>
-                    <h6>Ambulance</h6>
-                  </div>
-                  <Link href="/ambulance">
-                    <a className="category-btn">
-                      <i className="ti-arrow-right"></i>
-                    </a>
-                  </Link>
-                </div>
-              </div>
-              <div className="category-column" style={{ flex: "1" }}>
-                <div className="category-item category-item-one">
-                  <div className="info text-center">
-                    <div className="icon">
-                      <img src="assets/images/featureicons/hearse.png" alt="" />
-                    </div>
-                    <h6>Hearse</h6>
-                  </div>
-                  <Link href="/hearse">
-                    <a className="category-btn">
-                      <i className="ti-arrow-right"></i>
-                    </a>
-                  </Link>
-                </div>
-              </div>
-              <div className="category-column" style={{ flex: "1" }}>
-                <div className="category-item category-item-one">
-                  <div className="info text-center">
-                    <div className="icon">
-                      <img src="assets/images/featureicons/tax.png" alt="" />
-                    </div>
-                    <h6>Tax</h6>
-                  </div>
-                  <Link href="/">
-                    <a className="category-btn">
-                      <i className="ti-arrow-right"></i>
-                    </a>
-                  </Link>
-                </div>
-              </div>
-              <div className="category-column" style={{ flex: "1" }}>
-                <div className="category-item category-item-one">
-                  <div className="info text-center">
-                    <div className="icon">
-                      <img
-                        src="assets/images/featureicons/grievance.png"
-                        alt=""
-                      />
-                    </div>
-                    <h6>Grievance</h6>
-                  </div>
-                  <Link href="/">
-                    <a className="category-btn">
-                      <i className="ti-arrow-right"></i>
-                    </a>
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      {/* <!--====== End Category Section ======--> */}
-      {/* {categorySection.map((x) => {
-                return (
-                  <div className="category-column" style={{ flex: '1' }}>
-                    <div className="category-item category-item-one">
-                      <div className="info text-center">
-                        <div className="icon">
-                          <img src = {feature1} alt="" /> 
-                        </div>
-                        <h6>{x.category}</h6>
-                      </div>
-                      <Link href="/">
-                        <a className="category-btn">
-                          <i className="ti-arrow-right"></i>
-                        </a>
-                      </Link>
-                    </div>
-                  </div>
-                )
-              })} */}
       {/* <!--====== Start Listing Section ======--> */}
 
       <section className="listing-grid-area pt-115 pb-75">
@@ -369,7 +186,7 @@ const Index = () => {
           <div className="row justify-content-center">
             <div className="col-lg-8">
               <div className="section-title text-center mb-75">
-                <h2>Featured List </h2>
+                <h2>Shows List </h2>
               </div>
             </div>
           </div>
@@ -377,15 +194,17 @@ const Index = () => {
             {showList.map((show) => {
               return (
                 <div className="col-lg-4 col-md-6 col-sm-12">
-                  <div className="listing-item listing-grid-one mb-45">
+                  <div
+                    className="listing-item listing-grid-one mb-45"
+
+                  >
                     <div className="listing-thumbnail">
-                      <img src={show.imgUrl} alt="Listing Image" />
-                      {show.featured ? (
-                        <span className="featured-btn">Featured</span>
-                      ) : (
-                        <span></span>
-                      )}
-                      <Link href="#">
+                      <img
+                        src={show.imgUrl}
+                        alt="Listing Image"
+                      />
+                      {show.featured ? <span className="featured-btn">Featured</span> : <span className="featured-btn featured-btn-transparent"></span>}
+                      <Link href='#'>
                         <div className="thumbnail-meta d-flex justify-content-between align-items-center">
                           <div className="meta-icon-title d-flex align-items-center">
                             <div className="icon">
@@ -474,6 +293,30 @@ const Index = () => {
           </div>
         </div>
       </section>
+      {/* <!--====== Start Place Section ======--> */}
+      <section className="place-area pt-115 pb-110">
+        <div className="container-fluid place-container">
+          <div className="row justify-content-center">
+            <div className="col-lg-8">
+              <div className="section-title text-center mb-60">
+                <h2>Photo Gallery</h2>
+              </div>
+            </div>
+          </div>
+          <Slider {...PlaceSliderOne} className="place-slider-one">
+            {photoGallery.map((photo) => {
+              return (
+                <div className="place-item place-item-one" key={photo.imgId}>
+                  <div className="place-thumbnail">
+                    <img src={photo.imgUrl} alt="Place Image" />
+                  </div>
+                </div>
+              );
+            })}
+          </Slider>
+        </div>
+      </section>
+      {/* <!--====== End Place Section ======--> */}
       {/* <!--====== Start Intro Video Section ======--> */}
       <section className="intro-video" style={{ position: "relative" }}>
         <div className="col-lg-12">
@@ -520,62 +363,6 @@ const Index = () => {
           })}
         </div>
       </section>
-      {/* <!--====== End Intro Video Section ======--> */}
-      {/* <!--====== Start Place Section ======--> */}
-      <section className="place-area pt-115 pb-110">
-        <div className="container-fluid place-container container-small">
-          <div className="row justify-content-center">
-            <div className="col-lg-8">
-              <div className="section-title text-center mb-60">
-                <h2>Photo Gallery</h2>
-              </div>
-            </div>
-          </div>
-          <Slider {...PlaceSliderOne} className="place-slider-one">
-            {photoGallery.map((photo) => {
-              return (
-                <div className="place-item place-item-one" key={photo.imgId}>
-                  <div className="place-thumbnail">
-                    <img src={photo.imgUrl} alt="Place Image" />
-                  </div>
-                </div>
-              );
-            })}
-          </Slider>
-        </div>
-      </section>
-      {/* <!--====== End Place Section ======--> */}
-
-      {/*====== Start Testimonial Section ======*/}
-      <section
-        className="testimonial-area bg_cover pt-110 pb-140"
-        style={{
-          backgroundImage: "url(assets/images/bg/testimonial-bg-1.jpg)",
-        }}
-      >
-        <div className="container">
-          <div className="row justify-content-center">
-            <div className="col-lg-6">
-              <div className="section-title section-title-two section-title-white text-center mb-55">
-                <h2>
-                  <span className="line">Customer</span> Feedack
-                </h2>
-              </div>
-            </div>
-          </div>
-          <div className="row justify-content-center">
-            <div className="col-lg-8">
-              <div className="testimonial-wrapper-one text-center">
-                <div className="testimonial-review-area">
-                  <TestimoinalSlider />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      {/*====== End Testimonial Section ======*/}
-
       {/* <!--====== Start Newsletter Section ======--> */}
       <section className="newsletter-area">
         <div className="container">

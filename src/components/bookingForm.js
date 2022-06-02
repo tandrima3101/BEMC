@@ -27,20 +27,21 @@ function BookingForm(props) {
     ]
     const [activeForm, setActiveForm] = useState(props.active)
     // useEffect(() => {
-    //     console.log(activeForm)
-    //     console.log(props.active)
-    // }, [activeForm])
+    //     console.log(screen.width)
+    // }, [screen.width])
 
     const newType = ['Ramlingam Park', 'Venue Booking', 'Townhall Booking', 'Sports Arena', 'Ambulance', 'Hearse', 'Ramlingam Park', 'Venue Booking', 'Townhall Booking'];
     const formTypes = ['Ramlingam Park', 'Venue Booking', 'Townhall Booking', 'Sports Arena', 'Ambulance', 'Hearse'];
     const [type, setType] = useState(formTypes)
-    const[arrowType,setArrowType] = useState('down')
+    const [arrowType, setArrowType] = useState('down')
+    const [buttonType, setButtonType] = useState('More')
     const [toggle, setToggle] = useState(false)
 
     const handleNav = () => {
         setToggle(!toggle)
-        {(!toggle) ? setType(newType) : setType(formTypes)}  
-        {(!toggle) ? setArrowType('up') : setArrowType('down')}   
+        { (!toggle) ? setType(newType) : setType(formTypes) }
+        { (!toggle) ? setArrowType('up') : setArrowType('down') }
+        { (!toggle) ? setButtonType('Less') : setButtonType('More') }
     }
     return (
         <div>
@@ -54,20 +55,38 @@ function BookingForm(props) {
                                         {type?.map((x, index) => {
                                             {
                                                 if (index == 5)
-                                                    return (<li className="nav-item button-nav">
-                                                        <Nav.Link
-                                                            as="a"
-                                                            className="c-pointer"
-                                                            eventKey={x}
-                                                            key={index}
-                                                            onClick={(e) => { e.preventDefault(); setActiveForm(x) }}
-                                                        >
-                                                            {x}
-                                                        </Nav.Link>
-                                                        <button className='down-btn' onClick={() => handleNav()}>
-                                                            <i className={`ti-arrow-${arrowType}`}></i>
-                                                        </button>
-                                                    </li>)
+                                                    return (
+                                                        <>
+                                                            <li className="nav-item button-nav">
+                                                                <Nav.Link
+                                                                    as="a"
+                                                                    className="c-pointer"
+                                                                    eventKey={x}
+                                                                    key={index}
+                                                                    onClick={(e) => { e.preventDefault(); setActiveForm(x) }}
+                                                                >
+                                                                    {x}
+                                                                </Nav.Link>
+                                                                <button className='down-btn' onClick={() => handleNav()}>
+                                                                    <i className={`ti-arrow-${arrowType}`}></i>
+                                                                </button>
+                                                            </li>
+                                                            <li className="nav-item mobile-view-button">
+                                                                <Nav.Link
+                                                                    as="a"
+                                                                    className="c-pointer"
+                                                                    eventKey={x}
+                                                                    key={index}
+                                                                    onClick={(e) => { e.preventDefault(); setActiveForm(x) }}
+                                                                >
+                                                                    {x}
+                                                                </Nav.Link>
+                                                                <button className='down-btn-transparent' onClick={() => handleNav()}>
+                                                                    See {buttonType}
+                                                                </button>
+                                                            </li>
+                                                        </>
+                                                    )
                                             }
                                             return (
                                                 <li className="nav-item">
