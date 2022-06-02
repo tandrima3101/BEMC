@@ -48,7 +48,7 @@ function Booking() {
                   <div className="booking-card p-3">
                     <div className="row">
                       <div className="col-lg-8">
-                        <div className="row">
+                        <div className="row booking-card-left">
                           <div
                             className="col-lg-4"
                             style={{
@@ -97,7 +97,7 @@ function Booking() {
                             </div>
                           </div>
                         </div>
-                        <hr />
+                        <hr className="booking-card-left" />
                         <div
                           className="d-flex justify-content-between"
                           style={{ padding: "0px 10px 0px 20px" }}

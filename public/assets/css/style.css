@@ -6860,10 +6860,14 @@ a {
   margin: 20px 0px;
   border-radius: 38px;
 }
+.booking-card-left{
+  margin-left: 20px !important;
+}
 .bookingImage{
   height: 100%;
   object-fit: cover;
   border-radius: 13px;
+  padding-top: 2%;
 }
 .ticket-details{
   margin-left: 10px;
@@ -6892,7 +6896,7 @@ a {
   justify-content: center;
 }
 .qr-section img{
-  width: 80%;
+  width: 90%;
   margin: auto;
   display: block;
 }
