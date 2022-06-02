@@ -6886,11 +6886,20 @@ a {
   margin: 20px 0px;
   border-radius: 38px;
 }
-
-.bookingImage {
+.booking-card .row .col-lg-8 .row{
+  height: 275px;
+}
+.booking-card .row .col-lg-8 .row .col-lg-4{
+  height: 275px;
+}
+.booking-card-left{
+  margin-left: 20px !important;
+}
+.bookingImage{
   height: 100%;
   object-fit: cover;
   border-radius: 13px;
+  padding-top: 2%;
 }
 
 .ticket-details {
@@ -6927,7 +6936,7 @@ a {
 }
 
 .qr-section img {
-  width: 80%;
+  width: 90%;
   margin: auto;
   display: block;
 }
@@ -7054,10 +7063,10 @@ a {
     top: -15%;
     border-radius: 50%;
 }
-.booking-card::before{
+.booking-card-prepayment::before{
   top: -7%;
 }
-.booking-card::after{
+.booking-card-prepayment::after{
   bottom: -7% !important;
 }
 .card-curve::after{
@@ -7131,7 +7140,7 @@ a {
 .person-card{
   height: 30%;
 }
-.person-card .row,.booking-card .row{
+.person-card .row,.booking-card-prepayment .row{
   height: 100%;
 }
 .person-card .row .col-lg-9{
@@ -7145,12 +7154,72 @@ a {
 .person-card .row .col-lg-9 h5{
   margin: 5px 0px;
 }
-.booking-card{
+.booking-card-prepayment{
   height: 47%;
 }
-.booking-card .row .col-lg-9 h4{
+.booking-card-prepayment .row .col-lg-9 h4{
   margin-bottom: 20px;
 }
-.booking-card .row .col-lg-9 h5{
+.booking-card-prepayment .row .col-lg-9 h5{
   margin: 10px 0px;
+}
+
+/*******footer css mobile view**********/
+@media only screen and (max-width:992px){
+  .footer-widget .widget.about-widget ul.button {
+      padding-bottom: 30px;
+      border-bottom: 1px solid rgba(223, 225, 228, 0.2);
+      margin-bottom: 22px;
+      display: flex;
+      justify-content: center;
+    }
+  .widget-title{
+    justify-content: center ;
+    display: flex ;
+  }
+  .footer-widget .widget.about-widget .footer-social h4 {
+    color: #fff;
+    margin-bottom: 25px;
+    display: flex;
+    justify-content: center;
+  }
+  .social-link {
+    margin: 0px;
+    padding-left: 0px ;
+    list-style-type: none;
+    display: flex ;
+    justify-content: center ;
+  }
+  .footer-widget .widget.categories-widget ul.categories-link li {
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+  }
+  .footer-widget .widget.recent-post-widget .post-widget-list .post-content-item .post-title-date span.posted-on {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 14px;
+    display: flex;
+    justify-content: center;
+  }
+  .footer-widget .widget.recent-post-widget .post-widget-list .post-content-item .post-title-date h6.title {
+    color: #fff;
+    font-size: 15px;
+    line-height: 24px;
+    justify-content: center;
+    display: flex;
+  }
+  .footer-widget .widget.newsletter-widget P {
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .form_group-btn{
+    position: relative;
+    display: flex;
+    justify-content: center;
+  }
+
+ 
 }

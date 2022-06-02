@@ -4,35 +4,38 @@ import Layout from "../src/layouts/Layout";
 import VideoPopup from "../src/components/VideoPopup";
 // import Ratings from "../src/components/ratings";
 
-
 function Booking() {
-    const [video, setVideo] = useState(false);
-    const bookingDetails = [{
-        bookingId: 1,
-        bookingImgUrl: 'https://images.unsplash.com/photo-1566159266489-6158a42c3beb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80',
-        showName: 'Show 1',
-        hallName: 'Ramlingam Park',
-        time: '3:40AM',
-        date: '01-0602022',
-        count: 5,
-        seatNumber: 4,
-        ticketPrice: 240.00,
-        conveniencePrice: 100.00,
-        totalPrice: 340.00,
+  const [video, setVideo] = useState(false);
+  const bookingDetails = [
+    {
+      bookingId: 1,
+      bookingImgUrl:
+        "https://images.unsplash.com/photo-1566159266489-6158a42c3beb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
+      showName: "Show 1",
+      hallName: "Ramlingam Park",
+      time: "3:40AM",
+      date: "01-0602022",
+      count: 5,
+      seatNumber: 4,
+      ticketPrice: 240.0,
+      conveniencePrice: 100.0,
+      totalPrice: 340.0,
     },
     {
-        bookingId: 1,
-        bookingImgUrl: 'https://images.unsplash.com/photo-1566159266489-6158a42c3beb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80',
-        showName: 'Show 1',
-        hallName: 'Ramlingam Park',
-        time: '3:40AM',
-        date: '01-0602022',
-        count: 5,
-        seatNumber: 4,
-        ticketPrice: 240.00,
-        conveniencePrice: 100.00,
-        totalPrice: 340.00,
-    }]
+      bookingId: 1,
+      bookingImgUrl:
+        "https://images.unsplash.com/photo-1566159266489-6158a42c3beb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
+      showName: "Show 1",
+      hallName: "Ramlingam Park",
+      time: "3:40AM",
+      date: "01-0602022",
+      count: 5,
+      seatNumber: 4,
+      ticketPrice: 240.0,
+      conveniencePrice: 100.0,
+      totalPrice: 340.0,
+    },
+  ];
 
     return (
         <Layout>
@@ -72,7 +75,7 @@ function Booking() {
                                                     </div>
                                                 </div>
                                                 <hr className="booking-card-left"/>
-                                                <div className="d-flex justify-content-between" style={{ padding: '0px 10px 0px 20px' }}>
+                                                <div className="d-flex justify-content-between" style={{     padding: '20px 0px 0px 30px' }}>
                                                     <h5><b>Total Price</b></h5>
                                                     <span><b>Rs. {bookings.totalPrice}</b></span>
                                                 </div>
@@ -115,9 +118,9 @@ function Booking() {
                         )
                     })}
                 </div>
-            </div>
-        </Layout >
-    )
+          </div>
+    </Layout>
+  );
 }
 
-export default Booking
+export default Booking;

@@ -22,7 +22,7 @@ function BookingDetails() {
                                 </div>
                             </div>
                         </div>
-                        <div className="card-curve booking-card p-3 mt-4">
+                        <div className="card-curve booking-card-prepayment p-3 mt-4">
                             <div className="row">
                                 <div className="col-lg-3">
                                     <img src="assets/images/ticket.png" width='85%' />
