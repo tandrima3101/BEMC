@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import Layout from "../src/layouts/Layout";
 import VideoPopup from "../src/components/VideoPopup";
+// import Ratings from "../src/components/ratings";
 
 
 function Booking() {
@@ -35,17 +36,19 @@ function Booking() {
 
     return (
         <Layout>
+            {/* <Ratings/> */}
             {video && <VideoPopup close={setVideo} />}
             <div className="service">
                 <div className="container-fluid light-bg pt-4 pb-4">
-                    <div className="row">
-                        {bookingDetails.map((bookings) => {
-                            return (
-                                <div className="col-lg-9 pr-4">
+
+                    {bookingDetails.map((bookings) => {
+                        return (
+                            <div className="row">
+                                <div className="col-lg-9 pr-4" key={bookings.bookingId}>
                                     <div className="booking-card p-3">
                                         <div className="row">
                                             <div className="col-lg-8">
-                                                <div className="row">
+                                                <div className="row booking-card-left">
                                                     <div className="col-lg-4">
                                                         <img src={bookings.bookingImgUrl} alt="bookedshow" className="bookingImage" />
                                                     </div>
@@ -68,7 +71,7 @@ function Booking() {
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <hr />
+                                                <hr className="booking-card-left"/>
                                                 <div className="d-flex justify-content-between" style={{ padding: '0px 10px 0px 20px' }}>
                                                     <h5><b>Total Price</b></h5>
                                                     <span><b>Rs. {bookings.totalPrice}</b></span>
@@ -83,35 +86,34 @@ function Booking() {
                                         </div>
                                     </div>
                                 </div>
-                            )
-                        })}
-                        <div className="col-lg-3 d-flex flex-column justify-content-center" >
-                            <h4 className="text-center mt-4 mb-6">Rate Us</h4>
-                            <div className="ratings ratings-big">
-                                <ul className={`ratings`}>
-                                    <li className="star">
-                                        <i className="flaticon-star-1"></i>
-                                    </li>
-                                    <li className="star">
-                                        <i className="flaticon-star-1"></i>
-                                    </li>
-                                    <li className="star">
-                                        <i className="flaticon-star-1"></i>
-                                    </li>
-                                    <li className="star">
-                                        <i className="flaticon-star-1"></i>
-                                    </li>
-                                    <li className="star">
-                                        <i className="flaticon-star-1"></i>
-                                    </li>
-                                </ul>
+                                <div className="col-lg-3 d-flex flex-column justify-content-center" >
+                                    <h4 className="text-center mt-4 mb-6">Rate Us</h4>
+                                    <div className="ratings ratings-big">
+                                        <ul className={`ratings`}>
+                                            <li className="star">
+                                                <i className="flaticon-star-1"></i>
+                                            </li>
+                                            <li className="star">
+                                                <i className="flaticon-star-1"></i>
+                                            </li>
+                                            <li className="star">
+                                                <i className="flaticon-star-1"></i>
+                                            </li>
+                                            <li className="star">
+                                                <i className="flaticon-star-1"></i>
+                                            </li>
+                                            <li className="star">
+                                                <i className="flaticon-star-1"></i>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div className="review-link">
+                                        <Link href="#">Give a small review</Link>
+                                    </div>
+                                </div>
                             </div>
-                            <div className="review-link">
-                                <Link href="#">Give a small review</Link>
-                            </div>
-                        </div>
-                    </div>
-
+                        )
+                    })}
                 </div>
             </div>
         </Layout >
