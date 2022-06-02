@@ -1,9 +1,14 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import Layout from "../src/layouts/Layout";
-import VideoPopup from "../src/components/VideoPopup";
+import { Spinner } from "react-bootstrap";
 
 function BookingDetails() {
+    const [isLoaded,setIsLoade]=useState(false)
+    function loaded() {
+        setIsLoade(true)
+    }
+    setTimeout(loaded, 5000);
     return (
         <Layout>
             <div className="container-fluid light-bg container-small">
@@ -48,11 +53,15 @@ function BookingDetails() {
                         <h6>The show timing is 4:30 PM</h6>
                         </div>
                     </div>
-                    {/* <div className="col-lg-3">
-                        <div className="card-curve p-3">
-
-                        </div>
-                    </div> */}
+                    <div className="col-lg-3 d-flex justify-content-center align-items-center flex-column">
+                        {(!isLoaded)?
+                        <>
+                        <h3 className="text-center">Preccessing Your Payment</h3>
+                        <img src="assets/images/loading.gif" width='100px'/>
+                        </>:<>
+                        <img src="assets/images/checked.png" width='150px'/>
+                        <button className="main-btn mt-4">Make Your Payement</button></>}
+                  </div>
                 </div>
             </div>
         </Layout>
