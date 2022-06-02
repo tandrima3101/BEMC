@@ -4,7 +4,7 @@
     Template Name: Fioxen - Directory & Listings HTML Template
     Template URI: site.com
     Description: Fioxen - Directory & Listings HTML Template
-    Author: WebTend 
+    Author: WebTend
     Author URI: https://webtend.net/
     Version: 1.0
 
@@ -31,7 +31,7 @@
 
 -----------------------------------------------------------------------------------*/
 /*=========================
-    1. Start COMMON css 
+    1. Start COMMON css
 ==========================*/
 @import url("https://fonts.googleapis.com/css2?family=Mulish:wght@400;500;600&family=Quicksand:wght@300;400;500;600;700&display=swap");
 
@@ -371,7 +371,7 @@ button {
 }
 
 /*
-    search 
+    search
 */
 #search-modal {
   background: rgba(23, 26, 33, 0.85);
@@ -526,7 +526,7 @@ button {
     End scroll_up css
 */
 /*====================
-    End COMMON css 
+    End COMMON css
 ======================*/
 .contact-information-list .information-item .icon,
 .copyright-area .copyright-text p,
@@ -736,7 +736,7 @@ ul.ratings.ratings-one li.star:nth-child(1) i,
 }
 
 /*=========================
-    02. Header css 
+    02. Header css
 ==========================*/
 /* Transparent Header */
 .transparent-header {
@@ -1551,7 +1551,7 @@ ul.ratings.ratings-one li.star:nth-child(1) i,
 }
 
 /*=========================
-    03. Hero css 
+    03. Hero css
 ==========================*/
 /* Hero Common css */
 .hero-search-wrapper form .form_group i {
@@ -2028,16 +2028,19 @@ ul.ratings.ratings-one li.star:nth-child(1) i,
 /* Category Wrapper CSS */
 .category-wrapper-one {
   position: relative;
-  margin-top: -90px;
+  margin-top: -45px;
   border-radius: 5px;
   background-color: white;
   -webkit-box-shadow: 1.545px 4.755px 18.8px 1.2px rgba(30, 33, 62, 0.06);
   box-shadow: 1.545px 4.755px 18.8px 1.2px rgba(30, 33, 62, 0.06);
   z-index: 2;
+  padding-left: 0px;
+  padding-right: 0px;
 }
 
 .category-wrapper-one .category-column {
   position: relative;
+  padding: 0px;
 }
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {
@@ -2048,8 +2051,8 @@ ul.ratings.ratings-one li.star:nth-child(1) i,
 
 @media (max-width: 767px) {
   .category-wrapper-one .category-column {
-    border: 1px solid #e8ebec;
-    margin-bottom: 30px;
+    /* border: 1px solid #e8ebec;
+    margin-bottom: 30px; */
   }
 }
 
@@ -2059,7 +2062,7 @@ ul.ratings.ratings-one li.star:nth-child(1) i,
 
 @media (max-width: 767px) {
   .category-wrapper-one .category-column:last-child {
-    margin-bottom: 0px;
+    
   }
 }
 
@@ -2077,6 +2080,7 @@ ul.ratings.ratings-one li.star:nth-child(1) i,
 .category-item-one {
   padding: 50px 30px;
   position: relative;
+  height: 190px;
 }
 
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
@@ -6886,16 +6890,20 @@ a {
   margin: 20px 0px;
   border-radius: 38px;
 }
-.booking-card .row .col-lg-8 .row{
+
+.booking-card .row .col-lg-8 .row {
   height: 275px;
 }
-.booking-card .row .col-lg-8 .row .col-lg-4{
+
+.booking-card .row .col-lg-8 .row .col-lg-4 {
   height: 275px;
 }
-.booking-card-left{
+
+.booking-card-left {
   margin-left: 20px !important;
 }
-.bookingImage{
+
+.bookingImage {
   height: 100%;
   object-fit: cover;
   border-radius: 13px;
@@ -7053,31 +7061,35 @@ a {
   margin: 50px 0px;
   position: relative;
 }
-.card-curve::before{
+
+.card-curve::before {
   position: absolute;
-    content: '';
-    height: 40px;
-    width: 40px;
-    background-color: #ebebeb;
-    left: 22%;
-    top: -15%;
-    border-radius: 50%;
+  content: '';
+  height: 40px;
+  width: 40px;
+  background-color: #ebebeb;
+  left: 22%;
+  top: -15%;
+  border-radius: 50%;
 }
-.booking-card-prepayment::before{
+
+.booking-card-prepayment::before {
   top: -7%;
 }
-.booking-card-prepayment::after{
+
+.booking-card-prepayment::after {
   bottom: -7% !important;
 }
-.card-curve::after{
+
+.card-curve::after {
   position: absolute;
-    content: '';
-    height: 40px;
-    width: 40px;
-    background-color: #ebebeb;
-    left: 22%;
-    bottom: -15%;
-    border-radius: 50%;
+  content: '';
+  height: 40px;
+  width: 40px;
+  background-color: #ebebeb;
+  left: 22%;
+  bottom: -15%;
+  border-radius: 50%;
 }
 
 .card-curve .person-icon {
@@ -7086,7 +7098,8 @@ a {
   padding: 20px;
   max-width: 85%;
 }
-.card-curve .col-lg-3{
+
+.card-curve .col-lg-3 {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -7097,100 +7110,124 @@ a {
 .person-details>*{
   letter-spacing: 0.5px;
 }
-.booking-details,.person-details{
+
+.booking-details,
+.person-details {
   border-left: 1px dashed #ccc;
 }
-.card-curve-no-shape::before{
+
+.card-curve-no-shape::before {
   display: none;
 }
-.card-curve-no-shape::after{
+
+.card-curve-no-shape::after {
   display: none;
 }
-.card-curve-no-shape{
+
+.card-curve-no-shape {
   padding: 30px;
   display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
-.card-curve-no-shape h6{
+
+.card-curve-no-shape h6 {
   font-size: 17px;
   text-transform: capitalize;
   text-align: center;
 }
-.card-curve-no-shape p{
+
+.card-curve-no-shape p {
   font-size: 25px;
   text-transform: capitalize;
 }
-.card-curve-no-shape p::before{
+
+.card-curve-no-shape p::before {
   display: none;
 }
-.card-curve-no-shape>*{
+
+.card-curve-no-shape>* {
   margin: 10px 0px;
 }
-.booking-details{
+
+.booking-details {
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
-.person-card{
+
+.person-card {
   height: 30%;
 }
-.person-card .row,.booking-card-prepayment .row{
+
+.person-card .row,
+.booking-card-prepayment .row {
   height: 100%;
 }
-.person-card .row .col-lg-9{
+
+.person-card .row .col-lg-9 {
   display: flex;
   flex-direction: column;
   justify-self: center;
 }
-.person-card .row .col-lg-9 h4{
+
+.person-card .row .col-lg-9 h4 {
   margin-bottom: 20px;
 }
-.person-card .row .col-lg-9 h5{
+
+.person-card .row .col-lg-9 h5 {
   margin: 5px 0px;
 }
-.booking-card-prepayment{
+
+.booking-card-prepayment {
   height: 47%;
 }
-.booking-card-prepayment .row .col-lg-9 h4{
+
+.booking-card-prepayment .row .col-lg-9 h4 {
   margin-bottom: 20px;
 }
-.booking-card-prepayment .row .col-lg-9 h5{
+
+.booking-card-prepayment .row .col-lg-9 h5 {
   margin: 10px 0px;
 }
 
 /*******footer css mobile view**********/
-@media only screen and (max-width:992px){
+@media only screen and (max-width:992px) {
   .footer-widget .widget.about-widget ul.button {
-      padding-bottom: 30px;
-      border-bottom: 1px solid rgba(223, 225, 228, 0.2);
-      margin-bottom: 22px;
-      display: flex;
-      justify-content: center;
-    }
-  .widget-title{
-    justify-content: center ;
-    display: flex ;
+    padding-bottom: 30px;
+    border-bottom: 1px solid rgba(223, 225, 228, 0.2);
+    margin-bottom: 22px;
+    display: flex;
+    justify-content: center;
   }
+
+  .widget-title {
+    justify-content: center;
+    display: flex;
+  }
+
   .footer-widget .widget.about-widget .footer-social h4 {
     color: #fff;
     margin-bottom: 25px;
     display: flex;
     justify-content: center;
   }
+
   .social-link {
     margin: 0px;
-    padding-left: 0px ;
+    padding-left: 0px;
     list-style-type: none;
-    display: flex ;
-    justify-content: center ;
+    display: flex;
+    justify-content: center;
   }
+
   .footer-widget .widget.categories-widget ul.categories-link li {
     margin-bottom: 10px;
     display: flex;
     justify-content: center;
   }
+
   .footer-widget .widget.recent-post-widget .post-widget-list .post-content-item .post-title-date span.posted-on {
     display: block;
     margin-bottom: 10px;
@@ -7198,6 +7235,7 @@ a {
     display: flex;
     justify-content: center;
   }
+
   .footer-widget .widget.recent-post-widget .post-widget-list .post-content-item .post-title-date h6.title {
     color: #fff;
     font-size: 15px;
@@ -7205,19 +7243,43 @@ a {
     justify-content: center;
     display: flex;
   }
+
   .footer-widget .widget.newsletter-widget P {
     margin-bottom: 30px;
     display: flex;
     justify-content: center;
   }
 
-  .form_group-btn{
+  .form_group-btn {
     position: relative;
     display: flex;
     justify-content: center;
   }
+  
+}
 
- 
+@media only screen and (max-width:576px){
+.booking-details-mobileview {
+    padding-top: 50px;
+    flex-direction: column-reverse !important;
+  }
+.container-small{
+  padding: 0px !important;
+}
+.person-card{
+  height: auto;
+  margin: 40px;
+}
+.forfootergap{
+  padding-bottom: 45px;
+}
+.card-curve-no-shape{
+  margin: 40px;
+}
+.booking-card-prepayment {
+  height: 47%;
+  margin: 40px;
+}
 }
 .mobile-view-button{
   display: none;

@@ -153,7 +153,7 @@ const Index = () => {
                   <Slider {...PlaceSliderTwo} className="banner-slider-one">
                     {bannerSlider.map((x) => {
                       return (
-                        <div className="banner-items">
+                        <div className="banner-items ">
                           <img
                             src={x.bannerImageUrl}
                             alt=""
@@ -171,7 +171,7 @@ const Index = () => {
                   </Slider>
                 </div>
               </div>
-              <div className="col-lg-5" style={{ padding: '0px' }}>
+              <div className="col-lg-5" style={{ padding: "0px" }}>
                 <BookingForm active="Sports Arena" />
               </div>
             </div>

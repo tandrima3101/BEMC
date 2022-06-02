@@ -168,7 +168,7 @@ const Index = () => {
           <div className="container-fluid">
             <div className="row">
               <div className="col-lg-7" style={{ padding: "0px" }}>
-                <div className="hero-content">
+                <div className="hero-content d-none d-lg-block d-xl-block">
                   <Slider {...PlaceSliderTwo} className="banner-slider-one">
                     {bannerSlider.map((x) => {
                       return (
@@ -190,7 +190,7 @@ const Index = () => {
                   </Slider>
                 </div>
               </div>
-              <div className="col-lg-5" style={{ padding: '0px' }}>
+              <div className="col-lg-5" style={{ padding: "0px" }}>
                 <BookingForm active="Ramlingam Park" />
               </div>
             </div>
@@ -383,7 +383,7 @@ const Index = () => {
                       {show.featured ? (
                         <span className="featured-btn">Featured</span>
                       ) : (
-                        <span></span>
+                        <span className="featured-btn featured-btn-transparent"></span>
                       )}
                       <Link href="#">
                         <div className="thumbnail-meta d-flex justify-content-between align-items-center">
