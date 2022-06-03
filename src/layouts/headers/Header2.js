@@ -11,7 +11,7 @@ const Header2 = () => {
             <div className="row align-items-center">
               <div className="col-lg-1"></div>
               <div className="col-lg-2 col-5">
-                <div className="site-branding">
+                <div className="site-branding" style={{paddingBottom : "10px"}}>
                   <Link href="/">
                     <a className="brand-logo">
                       <img
@@ -29,16 +29,16 @@ const Header2 = () => {
                   </div>
                   <nav className="main-menu" >
                     <ul className="navbar-content-justify">
-                      <li className="menu-item has-children">
+                      <li className="menu-item">
                         <Link href="/">
                           <a>Home</a>
                         </Link>
-                        <ul className="sub-menu">
+                        {/* <ul className="sub-menu">
                           <Home />
-                        </ul>
-                        <span className="dd-trigger">
+                        </ul> */}
+                        {/* <span className="dd-trigger">
                           <i className="ti-arrow-down"></i>
-                        </span>
+                        </span> */}
                       </li>
                       <About />
                       <li className="menu-item has-children">

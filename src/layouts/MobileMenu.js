@@ -41,14 +41,14 @@ const MobileMenu = () => {
                         <Link href="/">
                           <a>Home</a>
                         </Link>
-                        <ul className="sub-menu" style={activeLi("Home")}>
+                        {/* <ul className="sub-menu" style={activeLi("Home")}>
                           <Home />
-                        </ul>
+                        </ul> */}
                         <span
                           className="dd-trigger"
                           onClick={() => activeMenuSet("Home")}
                         >
-                          <i className="ti-arrow-down"></i>
+                          {/* <i className="ti-arrow-down"></i> */}
                         </span>
                       </li>
                       <About />

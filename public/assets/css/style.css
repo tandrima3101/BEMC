@@ -447,7 +447,7 @@ button {
 .preloader .loader {
   margin: 0 auto;
   position: relative;
-  top: 50%;
+  top: 38%;
   -webkit-transform: translateY(-50%);
   transform: translateY(-50%);
   text-align: center;
@@ -796,7 +796,7 @@ ul.ratings.ratings-one li.star:nth-child(1) i,
 @media only screen and (min-width: 1200px) and (max-width: 1600px) {
   .header-navigation .main-menu ul li {
     margin-left: 12px;
-    margin-right: 12px;
+    margin-right: 40px;
   }
 }
 
@@ -1361,7 +1361,7 @@ ul.ratings.ratings-one li.star:nth-child(1) i,
 }
 
 .header-area-one .header-navigation .site-branding .brand-logo {
-  padding: 21px 10px;
+  padding: 15px 10px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1518,7 +1518,7 @@ ul.ratings.ratings-one li.star:nth-child(1) i,
 }
 
 .header-area-two .header-navigation {
-  padding: 15px 0;
+  /* padding: 15px 0; */
 }
 
 .header-area-two .header-navigation.sticky {
@@ -6681,6 +6681,7 @@ h3.title {
   width: 100%;
   padding: 20px 30px;
   border-radius: 5px;
+  margin-bottom: 15%;
 }
 
 .banner-booking-form .form_group {
@@ -6753,6 +6754,7 @@ h3.title {
 .navbar-content-justify {
   display: flex;
   justify-content: flex-end;
+  margin: auto;
 }
 
 .hero-wrapper-one .search-nav .nav-link.active {
@@ -6892,7 +6894,7 @@ a {
 }
 
 .booking-card .row .col-lg-8 .row {
-  height: 275px;
+  /* height: 275px; */
 }
 
 .booking-card .row .col-lg-8 .row .col-lg-4 {
@@ -7298,4 +7300,31 @@ a {
   .button-nav{
     display: none;
   }
+  .card-curve .person-icon {
+    background: #73bbd9;
+    border-radius: 50%;
+    padding: 20px;
+    max-width: 70%;
+  }
+  .card-curve .col-lg-3 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* max-width: 39%; */
+    padding: 20%;
+}
+.header-area-one .header-navigation .site-branding .brand-logo {
+  padding: 15px 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  margin-left: -25%;
+}
+
 }

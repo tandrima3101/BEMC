@@ -13,7 +13,6 @@ import {
   PlaceSliderOne,
   PlaceSliderTwo,
 } from "../src/sliderProps";
-import PreLoader from "../src/components/PreLoader";
 
 const Ambulance = () => {
   const [video, setVideo] = useState(false);
@@ -24,64 +23,64 @@ const Ambulance = () => {
       subHeading:
         "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
       bannerImageUrl:
-        "https://images.unsplash.com/photo-1488646953014-85cb44e25828?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735",
+        "assets/images/BEMCAssets/ambulance_4.jpg",
     },
     {
       heading: "dummy text of the",
       subHeading:
         "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
       bannerImageUrl:
-        "https://media.istockphoto.com/photos/winding-coast-road-in-corsica-picture-id1350993173?b=1&k=20&m=1350993173&s=170667a&w=0&h=vvgGktYjPV3IWLYTvWLsQnSsDsCChR_FO3d8e7touwk=",
+        "assets/images/BEMCAssets/ambulance_2.jpg",
     },
     {
       heading: "printing and typesetting industry",
       subHeading:
         "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
       bannerImageUrl:
-        "https://media.istockphoto.com/photos/driving-on-idyllic-roads-picture-id1303391856?b=1&k=20&m=1303391856&s=170667a&w=0&h=RvzNO06n8AZHSw8B0xm6Lac0bBe6WLdsw5kMNSxgc5E=",
+        "assets/images/BEMCAssets/ambulance_1.jpg",
     },
   ];
-  const showList = [
-    {
-      featured: true,
-      imgUrl:
-        "https://media.istockphoto.com/photos/driving-on-idyllic-roads-picture-id1303391856?b=1&k=20&m=1303391856&s=170667a&w=0&h=RvzNO06n8AZHSw8B0xm6Lac0bBe6WLdsw5kMNSxgc5E=",
-      buttonIconUrl: "",
-      buttonName: "Book",
-      showName: "Mo Odisha",
-      reviews: "ratings-four",
-      reviewNumber: "05",
-      Price: "",
-      contactNumber: "9876543210",
-      location: "Odisha",
-    },
-    {
-      featured: true,
-      imgUrl:
-        "https://media.istockphoto.com/photos/driving-on-idyllic-roads-picture-id1303391856?b=1&k=20&m=1303391856&s=170667a&w=0&h=RvzNO06n8AZHSw8B0xm6Lac0bBe6WLdsw5kMNSxgc5E=",
-      buttonIconUrl: "",
-      buttonName: "Book",
-      showName: "Bande Utkala",
-      reviews: "ratings-four",
-      reviewNumber: "05",
-      Price: "",
-      contactNumber: "9876543210",
-      location: "Odisha",
-    },
-    {
-      featured: false,
-      imgUrl:
-        "https://media.istockphoto.com/photos/driving-on-idyllic-roads-picture-id1303391856?b=1&k=20&m=1303391856&s=170667a&w=0&h=RvzNO06n8AZHSw8B0xm6Lac0bBe6WLdsw5kMNSxgc5E=",
-      buttonIconUrl: "",
-      buttonName: "Book",
-      showName: "Shivananda Show",
-      reviews: "ratings-four",
-      reviewNumber: "05",
-      Price: "",
-      contactNumber: "9876543210",
-      location: "Odisha",
-    },
-  ];
+  // const showList = [
+  //   {
+  //     featured: true,
+  //     imgUrl:
+  //       "https://media.istockphoto.com/photos/driving-on-idyllic-roads-picture-id1303391856?b=1&k=20&m=1303391856&s=170667a&w=0&h=RvzNO06n8AZHSw8B0xm6Lac0bBe6WLdsw5kMNSxgc5E=",
+  //     buttonIconUrl: "",
+  //     buttonName: "Book",
+  //     showName: "Mo Odisha",
+  //     reviews: "ratings-four",
+  //     reviewNumber: "05",
+  //     Price: "",
+  //     contactNumber: "9876543210",
+  //     location: "Odisha",
+  //   },
+  //   {
+  //     featured: true,
+  //     imgUrl:
+  //       "https://media.istockphoto.com/photos/driving-on-idyllic-roads-picture-id1303391856?b=1&k=20&m=1303391856&s=170667a&w=0&h=RvzNO06n8AZHSw8B0xm6Lac0bBe6WLdsw5kMNSxgc5E=",
+  //     buttonIconUrl: "",
+  //     buttonName: "Book",
+  //     showName: "Bande Utkala",
+  //     reviews: "ratings-four",
+  //     reviewNumber: "05",
+  //     Price: "",
+  //     contactNumber: "9876543210",
+  //     location: "Odisha",
+  //   },
+  //   {
+  //     featured: false,
+  //     imgUrl:
+  //       "https://media.istockphoto.com/photos/driving-on-idyllic-roads-picture-id1303391856?b=1&k=20&m=1303391856&s=170667a&w=0&h=RvzNO06n8AZHSw8B0xm6Lac0bBe6WLdsw5kMNSxgc5E=",
+  //     buttonIconUrl: "",
+  //     buttonName: "Book",
+  //     showName: "Shivananda Show",
+  //     reviews: "ratings-four",
+  //     reviewNumber: "05",
+  //     Price: "",
+  //     contactNumber: "9876543210",
+  //     location: "Odisha",
+  //   },
+  // ];
   const getFreeQuote = [
     {
       smallText: "Checkout List",
@@ -116,27 +115,27 @@ const Ambulance = () => {
     {
       imgId: 1,
       imgUrl:
-        "https://media.istockphoto.com/photos/driving-on-idyllic-roads-picture-id1303391856?b=1&k=20&m=1303391856&s=170667a&w=0&h=RvzNO06n8AZHSw8B0xm6Lac0bBe6WLdsw5kMNSxgc5E=",
+        "assets/images/BEMCAssets/ambulance_4.jpg",
     },
     {
       imgId: 1,
       imgUrl:
-        "https://media.istockphoto.com/photos/driving-on-idyllic-roads-picture-id1303391856?b=1&k=20&m=1303391856&s=170667a&w=0&h=RvzNO06n8AZHSw8B0xm6Lac0bBe6WLdsw5kMNSxgc5E=",
+        "assets/images/BEMCAssets/ambulance_1.jpg",
     },
     {
       imgId: 1,
       imgUrl:
-        "https://media.istockphoto.com/photos/driving-on-idyllic-roads-picture-id1303391856?b=1&k=20&m=1303391856&s=170667a&w=0&h=RvzNO06n8AZHSw8B0xm6Lac0bBe6WLdsw5kMNSxgc5E=",
+        "assets/images/BEMCAssets/ambulance_2.jpg",
     },
     {
       imgId: 1,
       imgUrl:
-        "https://media.istockphoto.com/photos/driving-on-idyllic-roads-picture-id1303391856?b=1&k=20&m=1303391856&s=170667a&w=0&h=RvzNO06n8AZHSw8B0xm6Lac0bBe6WLdsw5kMNSxgc5E=",
+        "assets/images/BEMCAssets/ambulance_4.jpg",
     },
     {
       imgId: 1,
       imgUrl:
-        "https://media.istockphoto.com/photos/driving-on-idyllic-roads-picture-id1303391856?b=1&k=20&m=1303391856&s=170667a&w=0&h=RvzNO06n8AZHSw8B0xm6Lac0bBe6WLdsw5kMNSxgc5E=",
+        "assets/images/BEMCAssets/ambulance_1.jpg",
     },
   ];
 
@@ -181,7 +180,7 @@ const Ambulance = () => {
       {/* <!--====== End Hero Section ======--> */}
       {/* <!--====== Start Listing Section ======--> */}
 
-      <section className="listing-grid-area pt-115 pb-75">
+      {/* <section className="listing-grid-area pt-115 pb-75">
         <div className="container">
           <div className="row justify-content-center">
             <div className="col-lg-8">
@@ -292,7 +291,7 @@ const Ambulance = () => {
             })}
           </div>
         </div>
-      </section>
+      </section> */}
       {/* <!--====== Start Place Section ======--> */}
       <section className="place-area pt-115 pb-110">
         <div className="container-fluid place-container">

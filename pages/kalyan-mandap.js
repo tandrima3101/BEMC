@@ -20,35 +20,35 @@ const KalyanMandap = () => {
 
   const bannerSlider = [
     {
-      heading: "Lorem Ipsum is simply ",
+      heading: "Lorem Ipsum is",
       subHeading:
         "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
       bannerImageUrl:
-        "https://images.unsplash.com/photo-1488646953014-85cb44e25828?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735",
+        "assets/images/BEMCAssets/kalyanmandap_2.jpeg",
     },
     {
       heading: "dummy text of the",
       subHeading:
         "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
       bannerImageUrl:
-        "https://media.istockphoto.com/photos/winding-coast-road-in-corsica-picture-id1350993173?b=1&k=20&m=1350993173&s=170667a&w=0&h=vvgGktYjPV3IWLYTvWLsQnSsDsCChR_FO3d8e7touwk=",
+        "assets/images/BEMCAssets/kalyanmandap_1.jpeg",
     },
     {
       heading: "printing and typesetting industry",
       subHeading:
         "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
       bannerImageUrl:
-        "https://media.istockphoto.com/photos/driving-on-idyllic-roads-picture-id1303391856?b=1&k=20&m=1303391856&s=170667a&w=0&h=RvzNO06n8AZHSw8B0xm6Lac0bBe6WLdsw5kMNSxgc5E=",
+        "assets/images/BEMCAssets/kalyanmandap_2.jpeg",
     },
   ];
   const showList = [
     {
       featured: true,
       imgUrl:
-        "https://media.istockphoto.com/photos/driving-on-idyllic-roads-picture-id1303391856?b=1&k=20&m=1303391856&s=170667a&w=0&h=RvzNO06n8AZHSw8B0xm6Lac0bBe6WLdsw5kMNSxgc5E=",
+        "assets/images/BEMCAssets/kalyanmandap_1.jpeg",
       buttonIconUrl: "",
       buttonName: "Book",
-      showName: "Mo Odisha",
+      showName: "Kalyan Mandap 1",
       reviews: "ratings-four",
       reviewNumber: "05",
       Price: "",
@@ -58,10 +58,10 @@ const KalyanMandap = () => {
     {
       featured: true,
       imgUrl:
-        "https://media.istockphoto.com/photos/driving-on-idyllic-roads-picture-id1303391856?b=1&k=20&m=1303391856&s=170667a&w=0&h=RvzNO06n8AZHSw8B0xm6Lac0bBe6WLdsw5kMNSxgc5E=",
+        "assets/images/BEMCAssets/kalyanmandap_2.jpeg",
       buttonIconUrl: "",
       buttonName: "Book",
-      showName: "Bande Utkala",
+      showName: "Kalyan Mandap 2",
       reviews: "ratings-four",
       reviewNumber: "05",
       Price: "",
@@ -71,10 +71,10 @@ const KalyanMandap = () => {
     {
       featured: false,
       imgUrl:
-        "https://media.istockphoto.com/photos/driving-on-idyllic-roads-picture-id1303391856?b=1&k=20&m=1303391856&s=170667a&w=0&h=RvzNO06n8AZHSw8B0xm6Lac0bBe6WLdsw5kMNSxgc5E=",
+        "assets/images/BEMCAssets/kalyanmandap_1.jpeg",
       buttonIconUrl: "",
       buttonName: "Book",
-      showName: "Shivananda Show",
+      showName: "Kalyan Mandap 3",
       reviews: "ratings-four",
       reviewNumber: "05",
       Price: "",
@@ -116,27 +116,27 @@ const KalyanMandap = () => {
     {
       imgId: 1,
       imgUrl:
-        "https://media.istockphoto.com/photos/driving-on-idyllic-roads-picture-id1303391856?b=1&k=20&m=1303391856&s=170667a&w=0&h=RvzNO06n8AZHSw8B0xm6Lac0bBe6WLdsw5kMNSxgc5E=",
+        "assets/images/BEMCAssets/kalyanmandap_1.jpeg",
     },
     {
       imgId: 1,
       imgUrl:
-        "https://media.istockphoto.com/photos/driving-on-idyllic-roads-picture-id1303391856?b=1&k=20&m=1303391856&s=170667a&w=0&h=RvzNO06n8AZHSw8B0xm6Lac0bBe6WLdsw5kMNSxgc5E=",
+        "assets/images/BEMCAssets/kalyanmandap_2.jpeg",
     },
     {
       imgId: 1,
       imgUrl:
-        "https://media.istockphoto.com/photos/driving-on-idyllic-roads-picture-id1303391856?b=1&k=20&m=1303391856&s=170667a&w=0&h=RvzNO06n8AZHSw8B0xm6Lac0bBe6WLdsw5kMNSxgc5E=",
+        "assets/images/BEMCAssets/kalyanmandap_1.jpeg",
     },
     {
       imgId: 1,
       imgUrl:
-        "https://media.istockphoto.com/photos/driving-on-idyllic-roads-picture-id1303391856?b=1&k=20&m=1303391856&s=170667a&w=0&h=RvzNO06n8AZHSw8B0xm6Lac0bBe6WLdsw5kMNSxgc5E=",
+        "assets/images/BEMCAssets/kalyanmandap_2.jpeg",
     },
     {
       imgId: 1,
       imgUrl:
-        "https://media.istockphoto.com/photos/driving-on-idyllic-roads-picture-id1303391856?b=1&k=20&m=1303391856&s=170667a&w=0&h=RvzNO06n8AZHSw8B0xm6Lac0bBe6WLdsw5kMNSxgc5E=",
+        "assets/images/BEMCAssets/kalyanmandap_1.jpeg",
     },
   ];
 
@@ -171,7 +171,7 @@ const KalyanMandap = () => {
                   </Slider>
                 </div>
               </div>
-              <div className="col-lg-5" style={{ padding: '0px' }}>
+              <div className="col-lg-5" style={{ padding: "0px" }}>
                 <BookingForm active="Venue Booking" />
               </div>
             </div>
@@ -194,17 +194,15 @@ const KalyanMandap = () => {
             {showList.map((show) => {
               return (
                 <div className="col-lg-4 col-md-6 col-sm-12">
-                  <div
-                    className="listing-item listing-grid-one mb-45"
-
-                  >
+                  <div className="listing-item listing-grid-one mb-45">
                     <div className="listing-thumbnail">
-                      <img
-                        src={show.imgUrl}
-                        alt="Listing Image"
-                      />
-                      {show.featured ? <span className="featured-btn">Featured</span> : <span className="featured-btn featured-btn-transparent"></span>}
-                      <Link href='#'>
+                      <img src={show.imgUrl} alt="Listing Image" />
+                      {show.featured ? (
+                        <span className="featured-btn">Featured</span>
+                      ) : (
+                        <span className="featured-btn featured-btn-transparent"></span>
+                      )}
+                      <Link href="#">
                         <div className="thumbnail-meta d-flex justify-content-between align-items-center">
                           <div className="meta-icon-title d-flex align-items-center">
                             <div className="icon">

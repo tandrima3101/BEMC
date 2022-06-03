@@ -13,7 +13,6 @@ import {
   PlaceSliderOne,
   PlaceSliderTwo,
 } from "../src/sliderProps";
-import PreLoader from "../src/components/PreLoader";
 
 const Index = () => {
   const [video, setVideo] = useState(false);
@@ -23,29 +22,28 @@ const Index = () => {
       heading: "Lorem Ipsum is simply ",
       subHeading:
         "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
-      bannerImageUrl:
-        "https://images.unsplash.com/photo-1488646953014-85cb44e25828?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735",
+      bannerImageUrl: "assets/images/BEMCAssets/rmpark_1_slider.png",
     },
     {
       heading: "dummy text of the",
       subHeading:
         "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
       bannerImageUrl:
-        "https://media.istockphoto.com/photos/winding-coast-road-in-corsica-picture-id1350993173?b=1&k=20&m=1350993173&s=170667a&w=0&h=vvgGktYjPV3IWLYTvWLsQnSsDsCChR_FO3d8e7touwk=",
+        "assets/images/BEMCAssets/rmpark_1_slider.png",
     },
     {
       heading: "printing and typesetting industry",
       subHeading:
         "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
       bannerImageUrl:
-        "https://media.istockphoto.com/photos/driving-on-idyllic-roads-picture-id1303391856?b=1&k=20&m=1303391856&s=170667a&w=0&h=RvzNO06n8AZHSw8B0xm6Lac0bBe6WLdsw5kMNSxgc5E=",
+        "assets/images/BEMCAssets/rmpark_1_slider.png",
     },
   ];
   const showList = [
     {
       featured: true,
       imgUrl:
-        "https://media.istockphoto.com/photos/driving-on-idyllic-roads-picture-id1303391856?b=1&k=20&m=1303391856&s=170667a&w=0&h=RvzNO06n8AZHSw8B0xm6Lac0bBe6WLdsw5kMNSxgc5E=",
+        "assets/images/BEMCAssets/rmpark_3.jpg",
       buttonIconUrl: "",
       buttonName: "Book",
       showName: "Mo Odisha",
@@ -58,7 +56,7 @@ const Index = () => {
     {
       featured: true,
       imgUrl:
-        "https://media.istockphoto.com/photos/driving-on-idyllic-roads-picture-id1303391856?b=1&k=20&m=1303391856&s=170667a&w=0&h=RvzNO06n8AZHSw8B0xm6Lac0bBe6WLdsw5kMNSxgc5E=",
+        "assets/images/BEMCAssets/rmpark_4.jpg",
       buttonIconUrl: "",
       buttonName: "Book",
       showName: "Bande Utkala",
@@ -71,7 +69,7 @@ const Index = () => {
     {
       featured: false,
       imgUrl:
-        "https://media.istockphoto.com/photos/driving-on-idyllic-roads-picture-id1303391856?b=1&k=20&m=1303391856&s=170667a&w=0&h=RvzNO06n8AZHSw8B0xm6Lac0bBe6WLdsw5kMNSxgc5E=",
+        "assets/images/BEMCAssets/rmpark_2.jpg",
       buttonIconUrl: "",
       buttonName: "Book",
       showName: "Shivananda Show",
@@ -116,27 +114,27 @@ const Index = () => {
     {
       imgId: 1,
       imgUrl:
-        "https://media.istockphoto.com/photos/driving-on-idyllic-roads-picture-id1303391856?b=1&k=20&m=1303391856&s=170667a&w=0&h=RvzNO06n8AZHSw8B0xm6Lac0bBe6WLdsw5kMNSxgc5E=",
+        "assets/images/BEMCAssets/rmpark_2.jpg",
     },
     {
-      imgId: 1,
+      imgId: 2,
       imgUrl:
-        "https://media.istockphoto.com/photos/driving-on-idyllic-roads-picture-id1303391856?b=1&k=20&m=1303391856&s=170667a&w=0&h=RvzNO06n8AZHSw8B0xm6Lac0bBe6WLdsw5kMNSxgc5E=",
+        "assets/images/BEMCAssets/rmpark_3.jpg",
     },
     {
-      imgId: 1,
+      imgId: 3,
       imgUrl:
-        "https://media.istockphoto.com/photos/driving-on-idyllic-roads-picture-id1303391856?b=1&k=20&m=1303391856&s=170667a&w=0&h=RvzNO06n8AZHSw8B0xm6Lac0bBe6WLdsw5kMNSxgc5E=",
+        "assets/images/BEMCAssets/rmpark_4.jpg",
     },
     {
-      imgId: 1,
+      imgId: 4,
       imgUrl:
-        "https://media.istockphoto.com/photos/driving-on-idyllic-roads-picture-id1303391856?b=1&k=20&m=1303391856&s=170667a&w=0&h=RvzNO06n8AZHSw8B0xm6Lac0bBe6WLdsw5kMNSxgc5E=",
+        "assets/images/BEMCAssets/rmpark_5.jpg",
     },
     {
-      imgId: 1,
+      imgId: 5,
       imgUrl:
-        "https://media.istockphoto.com/photos/driving-on-idyllic-roads-picture-id1303391856?b=1&k=20&m=1303391856&s=170667a&w=0&h=RvzNO06n8AZHSw8B0xm6Lac0bBe6WLdsw5kMNSxgc5E=",
+        "assets/images/BEMCAssets/rmpark_1_slider.png",
     },
   ];
 
@@ -171,7 +169,7 @@ const Index = () => {
                   </Slider>
                 </div>
               </div>
-              <div className="col-lg-5" style={{ padding: '0px' }}>
+              <div className="col-lg-5" style={{ padding: "0px" }}>
                 <BookingForm active="Ramlingam Park" />
               </div>
             </div>
@@ -194,17 +192,15 @@ const Index = () => {
             {showList.map((show) => {
               return (
                 <div className="col-lg-4 col-md-6 col-sm-12">
-                  <div
-                    className="listing-item listing-grid-one mb-45"
-
-                  >
+                  <div className="listing-item listing-grid-one mb-45">
                     <div className="listing-thumbnail">
-                      <img
-                        src={show.imgUrl}
-                        alt="Listing Image"
-                      />
-                      {show.featured ? <span className="featured-btn">Featured</span> : <span className="featured-btn featured-btn-transparent"></span>}
-                      <Link href='#'>
+                      <img src={show.imgUrl} alt="Listing Image" />
+                      {show.featured ? (
+                        <span className="featured-btn">Featured</span>
+                      ) : (
+                        <span className="featured-btn featured-btn-transparent"></span>
+                      )}
+                      <Link href="#">
                         <div className="thumbnail-meta d-flex justify-content-between align-items-center">
                           <div className="meta-icon-title d-flex align-items-center">
                             <div className="icon">

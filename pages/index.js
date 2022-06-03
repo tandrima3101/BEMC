@@ -24,28 +24,28 @@ const Index = () => {
       subHeading:
         "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
       bannerImageUrl:
-        "https://images.unsplash.com/photo-1488646953014-85cb44e25828?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735",
+        "assets/images/BEMCAssets/rmpark_1_slider.png",
     },
     {
       heading: "dummy text of the",
       subHeading:
         "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
       bannerImageUrl:
-        "https://media.istockphoto.com/photos/winding-coast-road-in-corsica-picture-id1350993173?b=1&k=20&m=1350993173&s=170667a&w=0&h=vvgGktYjPV3IWLYTvWLsQnSsDsCChR_FO3d8e7touwk=",
+        "assets/images/BEMCAssets/SportsComplex_2.png",
     },
     {
       heading: "printing and typesetting industry",
       subHeading:
         "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
       bannerImageUrl:
-        "https://media.istockphoto.com/photos/driving-on-idyllic-roads-picture-id1303391856?b=1&k=20&m=1303391856&s=170667a&w=0&h=RvzNO06n8AZHSw8B0xm6Lac0bBe6WLdsw5kMNSxgc5E=",
+        "assets/images/BEMCAssets/ambulance_4.jpg",
     },
   ];
   const showList = [
     {
       featured: true,
       imgUrl:
-        "https://media.istockphoto.com/photos/driving-on-idyllic-roads-picture-id1303391856?b=1&k=20&m=1303391856&s=170667a&w=0&h=RvzNO06n8AZHSw8B0xm6Lac0bBe6WLdsw5kMNSxgc5E=",
+        "assets/images/BEMCAssets/SportsComplex_2.png",
       buttonIconUrl: "",
       buttonName: "Book",
       showName: "Mo Odisha",
@@ -58,7 +58,7 @@ const Index = () => {
     {
       featured: true,
       imgUrl:
-        "https://media.istockphoto.com/photos/driving-on-idyllic-roads-picture-id1303391856?b=1&k=20&m=1303391856&s=170667a&w=0&h=RvzNO06n8AZHSw8B0xm6Lac0bBe6WLdsw5kMNSxgc5E=",
+        "assets/images/BEMCAssets/rmpark_2_slider.png",
       buttonIconUrl: "",
       buttonName: "Book",
       showName: "Bande Utkala",
@@ -71,7 +71,7 @@ const Index = () => {
     {
       featured: false,
       imgUrl:
-        "https://media.istockphoto.com/photos/driving-on-idyllic-roads-picture-id1303391856?b=1&k=20&m=1303391856&s=170667a&w=0&h=RvzNO06n8AZHSw8B0xm6Lac0bBe6WLdsw5kMNSxgc5E=",
+        "assets/images/BEMCAssets/ambulance_4.jpg",
       buttonIconUrl: "",
       buttonName: "Book",
       showName: "Shivananda Show",
@@ -139,23 +139,23 @@ const Index = () => {
     {
       imgId: 1,
       imgUrl:
-        "https://media.istockphoto.com/photos/driving-on-idyllic-roads-picture-id1303391856?b=1&k=20&m=1303391856&s=170667a&w=0&h=RvzNO06n8AZHSw8B0xm6Lac0bBe6WLdsw5kMNSxgc5E=",
+        "assets/images/BEMCAssets/kalyanmandap_2.jpeg",
     },
     {
       imgId: 2,
-      imgUrl: "https://picsum.photos/id/237/200/300",
+      imgUrl: "assets/images/BEMCAssets/rmpark_2_slider.png",
     },
     {
       imgId: 3,
-      imgUrl: "https://picsum.photos/200/300?grayscale",
+      imgUrl: "assets/images/BEMCAssets/kalyanmandap_1.jpeg",
     },
     {
       imgId: 4,
-      imgUrl: "https://picsum.photos/200/300/?blur",
+      imgUrl: "assets/images/BEMCAssets/SportsComplex_2.png",
     },
     {
       imgId: 5,
-      imgUrl: "https://picsum.photos/id/870/200/300?grayscale&blur=2",
+      imgUrl: "assets/images/BEMCAssets/ambulance_4.jpg",
     },
   ];
 
