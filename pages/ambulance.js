@@ -13,32 +13,25 @@ import {
   PlaceSliderOne,
   PlaceSliderTwo,
 } from "../src/sliderProps";
+import Gallery from "../src/components/Gallery";
+import Newsletter from "../src/components/newsletter";
+import Clients from "../src/components/clients";
+import Banner from "../src/components/Slider/banner";
+import Video from "../src/components/video";
+
+
 
 const Ambulance = () => {
   const [video, setVideo] = useState(false);
 
   const bannerSlider = [
     {
-      heading: "Lorem Ipsum is simply ",
+      heading: "BEMC  Seva: Ambulance",
       subHeading:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
+        "Day or Night, We do it Right! When seconds count we're there first.",
       bannerImageUrl:
         "assets/images/BEMCAssets/ambulance_4.jpg",
-    },
-    {
-      heading: "dummy text of the",
-      subHeading:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
-      bannerImageUrl:
-        "assets/images/BEMCAssets/ambulance_2.jpg",
-    },
-    {
-      heading: "printing and typesetting industry",
-      subHeading:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
-      bannerImageUrl:
-        "assets/images/BEMCAssets/ambulance_1.jpg",
-    },
+    }
   ];
   // const showList = [
   //   {
@@ -138,45 +131,15 @@ const Ambulance = () => {
         "assets/images/BEMCAssets/ambulance_1.jpg",
     },
   ];
+  const videoLink = [
+    {link : "https://www.youtube.com/embed/JHlY8w69wSE"}
+  ];
 
   return (
     <Layout>
       {video && <VideoPopup close={setVideo} />}
       {/* <!--====== Start Hero Section ======--> */}
-      <section className="hero-area">
-        <div className="hero-wrapper-one">
-          <div className="container-fluid">
-            <div className="row">
-              <div className="col-lg-7" style={{ padding: "0px" }}>
-                <div className="hero-content d-none d-lg-block d-xl-block">
-                  <Slider {...PlaceSliderTwo} className="banner-slider-one">
-                    {bannerSlider.map((x) => {
-                      return (
-                        <div className="banner-items">
-                          <img
-                            src={x.bannerImageUrl}
-                            alt=""
-                            className="banner-background-image"
-                          />
-                          <div className="banner-text">
-                            <div className="banner-text-inner">
-                              <h1>{x.heading}</h1>
-                              <h3>{x.subHeading}</h3>
-                            </div>
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </Slider>
-                </div>
-              </div>
-              <div className="col-lg-5" style={{ padding: '0px' }}>
-                <BookingForm active="Ambulance" />
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <Banner mainSlider={bannerSlider}/>
       {/* <!--====== End Hero Section ======--> */}
       {/* <!--====== Start Listing Section ======--> */}
 
@@ -293,135 +256,20 @@ const Ambulance = () => {
         </div>
       </section> */}
       {/* <!--====== Start Place Section ======--> */}
-      <section className="place-area pt-115 pb-110">
-        <div className="container-fluid place-container">
-          <div className="row justify-content-center">
-            <div className="col-lg-8">
-              <div className="section-title text-center mb-60">
-                <h2>Photo Gallery</h2>
-              </div>
-            </div>
-          </div>
-          <Slider {...PlaceSliderOne} className="place-slider-one">
-            {photoGallery.map((photo) => {
-              return (
-                <div className="place-item place-item-one" key={photo.imgId}>
-                  <div className="place-thumbnail">
-                    <img src={photo.imgUrl} alt="Place Image" />
-                  </div>
-                </div>
-              );
-            })}
-          </Slider>
-        </div>
-      </section>
+      
+      <Gallery gallery={photoGallery}/>
       {/* <!--====== End Place Section ======--> */}
       {/* <!--====== Start Intro Video Section ======--> */}
-      <section className="intro-video" style={{ position: "relative" }}>
-        <div className="col-lg-12">
-          <iframe
-            width="560"
-            height="315"
-            src="https://www.youtube.com/embed/JHlY8w69wSE"
-            title="YouTube video player"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
-            style={{ height: "80vh", width: "100%" }}
-          ></iframe>
-        </div>
-        <a
-          href="#"
-          className="video-popup"
-          onClick={(e) => {
-            e.preventDefault();
-            setVideo(true);
-          }}
-        >
-          <i className="flaticon-play-button"></i>
-        </a>
-        <div
-          className="col-lg-7"
-          style={{
-            position: "absolute",
-            top: "15%",
-            right: "10%",
-            width: "43%",
-          }}
-        >
-          {getFreeQuote.map((items) => {
-            return (
-              <div className="intro-content-box intro-content-box-one">
-                <div className="section-title section-title-left section-title-white mb-35">
-                  <span className="sub-title">{items.smallText}</span>
-                  <h2>{items.mainText}</h2>
-                </div>
-                <p>{items.paragraph}</p>
-              </div>
-            );
-          })}
-        </div>
-      </section>
+      
+      <Video video = {videoLink} quote= {getFreeQuote}/>
       {/* <!--====== Start Newsletter Section ======--> */}
-      <section className="newsletter-area">
-        <div className="container">
-          <div
-            className="newsletter-wrapper newsletter-wrapper-one bg_cover"
-            style={{
-              backgroundImage: `url(assets/images/bg/newsletter-bg-1.jpg)`,
-            }}
-          >
-            <div className="row">
-              <div className="col-lg-5">
-                <div className="newsletter-content-box-one">
-                  <div className="icon">
-                    <i className="flaticon-email"></i>
-                  </div>
-                  <div className="content">
-                    <h2>Get Special Rewards</h2>
-                  </div>
-                </div>
-              </div>
-              <div className="col-lg-7">
-                <div className="newsletter-form">
-                  <div className="form_group">
-                    <input
-                      type="email"
-                      className="form_control"
-                      placeholder="Enter Address"
-                      name="email"
-                      required
-                    />
-                    <i className="ti-location-pin"></i>
-                    <button className="main-btn">Subscribe +</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      
+      <Newsletter/>
       {/* <!--====== End Newsletter Section ======--> */}
       {/* <!--====== Start Client Section ======--> */}
-      <section className="client-area pt-120">
-        <div className="client-wrapper-one pb-120">
-          <div className="container">
-            <Slider {...ClientSliderOne} className="client-slider-one">
-              {clientSlider.map((clientImg) => {
-                return (
-                  <div className="client-item">
-                    <div className="client-img">
-                      <a href="#">
-                        <img src={clientImg.imgUrl} alt="Client Image" />
-                      </a>
-                    </div>
-                  </div>
-                );
-              })}
-            </Slider>
-          </div>
-        </div>
-      </section>
+      
+      <Clients clients={clientSlider}/>
+
     </Layout>
   );
 };

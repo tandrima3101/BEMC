@@ -25,7 +25,7 @@ export const PlaceSliderOne = {
   arrows: false,
   infinite: true,
   autoplaySpeed: 1500,
-  autoplay: true,
+  autoplay: false,
   slidesToShow: 4,
   slidesToScroll: 1,
   responsive: [

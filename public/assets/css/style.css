@@ -257,7 +257,7 @@ textarea.form_control {
   z-index: 1;
 }
 
-.section-title.section-title-two h2 span.line:after {
+/* .section-title.section-title-two h2 span.line:after {
   position: absolute;
   left: 0;
   bottom: 5px;
@@ -266,7 +266,7 @@ textarea.form_control {
   width: 100%;
   background-color: #b3e8e5;
   z-index: -1;
-}
+} */
 
 /*===== All bg =====*/
 .light-bg {
@@ -287,7 +287,7 @@ button {
   display: -ms-inline-flexbox;
   display: inline-flex;
   position: relative;
-  z-index: 1;
+  z-index: 0;
   background-color: #3bacb6;
   padding: 9px 20px;
   color: #fff;
@@ -376,7 +376,12 @@ button {
 #search-modal {
   background: rgba(23, 26, 33, 0.85);
 }
-
+.modal-dialog{
+  max-width: 550px !important;
+}
+.modal-body{
+  padding: 1rem 1.5rem !important;
+}
 #search-modal .modal-content {
   background: 0 0;
   -webkit-box-shadow: none;
@@ -6644,7 +6649,9 @@ h3.title {
 .banner-items {
   position: relative;
 }
-
+.hearse-banner-items img{
+  filter: blur(0.3rem);
+}
 .hero-content>* {
   height: 100% !important;
 }
@@ -6667,8 +6674,7 @@ h3.title {
   height: 100%;
   width: 100%;
   left: 0;
-  /* background: url(../images/hero/hero-one-bg-1.jpg) no-repeat center center; */
-  background-size: cover;
+  object-fit: cover;
 }
 
 .banner-booking-form {

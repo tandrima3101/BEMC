@@ -82,6 +82,7 @@ function BookingDetails() {
               </>
             ) : (
               <>
+                <img src="assets/images/card.png" alt="" style={{width : "70%"}}/>
                 <button className="main-btn mt-4" style={{fontSize:'20px'}}>Make Your Payement</button>
               </>
             )}

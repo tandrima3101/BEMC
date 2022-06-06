@@ -14,32 +14,20 @@ import {
   PlaceSliderTwo,
 } from "../src/sliderProps";
 import PreLoader from "../src/components/PreLoader";
+import Banner from "../src/components/Slider/banner";
+
 
 const Hearse = () => {
   const [video, setVideo] = useState(false);
 
   const bannerSlider = [
     {
-      heading: "Lorem Ipsum is simply ",
+      heading: "Book a hearse",
       subHeading:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
+        "Give your loved one a proper farewell...",
       bannerImageUrl:
-        "https://images.unsplash.com/photo-1488646953014-85cb44e25828?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735",
-    },
-    {
-      heading: "dummy text of the",
-      subHeading:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
-      bannerImageUrl:
-        "https://media.istockphoto.com/photos/winding-coast-road-in-corsica-picture-id1350993173?b=1&k=20&m=1350993173&s=170667a&w=0&h=vvgGktYjPV3IWLYTvWLsQnSsDsCChR_FO3d8e7touwk=",
-    },
-    {
-      heading: "printing and typesetting industry",
-      subHeading:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
-      bannerImageUrl:
-        "https://media.istockphoto.com/photos/driving-on-idyllic-roads-picture-id1303391856?b=1&k=20&m=1303391856&s=170667a&w=0&h=RvzNO06n8AZHSw8B0xm6Lac0bBe6WLdsw5kMNSxgc5E=",
-    },
+        "https://upload.wikimedia.org/wikipedia/commons/b/b5/Reagan_hearse.jpg",
+    }
   ];
   const showList = [
     {
@@ -144,40 +132,9 @@ const Hearse = () => {
     <Layout>
       {video && <VideoPopup close={setVideo} />}
       {/* <!--====== Start Hero Section ======--> */}
-      <section className="hero-area">
-        <div className="hero-wrapper-one">
-          <div className="container-fluid">
-            <div className="row">
-              <div className="col-lg-7" style={{ padding: "0px" }}>
-                <div className="hero-content d-none d-lg-block d-xl-block">
-                  <Slider {...PlaceSliderTwo} className="banner-slider-one">
-                    {bannerSlider.map((x) => {
-                      return (
-                        <div className="banner-items">
-                          <img
-                            src={x.bannerImageUrl}
-                            alt=""
-                            className="banner-background-image"
-                          />
-                          <div className="banner-text">
-                            <div className="banner-text-inner">
-                              <h1>{x.heading}</h1>
-                              <h3>{x.subHeading}</h3>
-                            </div>
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </Slider>
-                </div>
-              </div>
-              <div className="col-lg-5" style={{ padding: '0px' }}>
-                <BookingForm active="Hearse" />
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+
+      <Banner mainSlider={bannerSlider} blur = {true}/>
+
       {/* <!--====== End Hero Section ======--> */}
       {/* <!--====== Start Listing Section ======--> */}
 
