@@ -17,20 +17,26 @@ import {
 } from "reactstrap";
 
 function FormModal({ active , activeTwo }) {
-  const [modalNestedContainer, setModalNestedContainer] = useState(active);
-  const [modalNestedContainerTwo, setModalNestedContainerTwo] = useState(activeTwo);
-  const [modalNested, setModalNested] = useState(false);
+
+  // for main modal
+  const [containerOne, setContainerOne] = useState(active);
+  const [containerTwo, setContainerTwo] = useState(activeTwo);
+
+// for submodal
+  const [submodalOne, setSubmodalOne] = useState(false);
+  const [submodalTwo, setSubmodalTwo] = useState(false);
+
   useEffect(() =>{
-    // setModalNestedContainer(active)
-    setModalNestedContainerTwo(activeTwo)
-  },[activeTwo])
+    setContainerOne(active)
+    setContainerTwo(activeTwo)
+  },[activeTwo,active])
 
   return (
     <>
-      {/* MOdal 1 */}
+      {/* MOdal 1 for ramlingam park */}
       <Modal
-        isOpen={modalNestedContainer}
-        toggle={() => setModalNestedContainer(!modalNestedContainer)}
+        isOpen={containerOne}
+        toggle={() => setContainerOne(!containerOne)}
       >
         <ModalBody>
           <div className="row">
@@ -58,16 +64,17 @@ function FormModal({ active , activeTwo }) {
           <br />
           <div className="text-center m-2"></div>
           <Modal
-            isOpen={modalNested}
-            toggle={() => setModalNested(!modalNested)}
+            isOpen={submodalOne}
+            toggle={() => setSubmodalOne(!submodalOne)}
           ></Modal>
         </ModalBody>
         <ModalFooter>
           <button
             className="main-btn"
             onClick={() => [
-              setModalNested(true),
-              setModalNestedContainer(false),
+              setSubmodalOne(true),
+              setContainerOne(false),
+              console.log('modal1,submodal1',submodalOne,containerOne)
             ]}
           >
             Send OTP
@@ -80,10 +87,45 @@ function FormModal({ active , activeTwo }) {
           </button>
         </ModalFooter>
       </Modal>
-      {/* MOdal 1-different */}
+
+      {/* submodal for ramlingam park */}
+      <Modal isOpen={submodalOne}>
+        <ModalHeader>Enter OTP</ModalHeader>
+        <ModalBody style={{ display: "flex", flexDirection: "row" }}>
+          <input type="number" className="otpinput" />
+          <input type="number" className="otpinput" />
+          <input type="number" className="otpinput" />
+          <input type="number" className="otpinput" />
+        </ModalBody>
+        <ModalFooter>
+          <button
+            className="main-btn"
+            onClick={() => {
+              // console.log(modalNestedContainer,modalNested)
+              setSubmodalOne(false), setContainerOne(true);
+            }}
+          >
+            Change Number
+          </button>{" "}
+          <Link href="/booking-details">
+            <button
+              className="main-btn"
+              onClick={() => {
+                setSubmodalOne(false);
+              }}
+            >
+              Done
+            </button>
+          </Link>
+        </ModalFooter>
+      </Modal>
+
+
+
+      {/* MOdal 1 for all excep ramlingam park */}
       <Modal
-        isOpen={modalNestedContainerTwo}
-        // toggle={() => setModalNestedContainer(!modalNestedContainer)}
+        isOpen={containerTwo}
+        toggle={() => setContainerTwo(!containerTwo)}
       >
         <ModalBody>
           <div className="row">
@@ -103,31 +145,32 @@ function FormModal({ active , activeTwo }) {
           <br />
           <div className="text-center m-2"></div>
           <Modal
-            isOpen={modalNested}
-            toggle={() => setModalNested(!modalNested)}
+            isOpen={submodalTwo}
+            toggle={() => setSubmodalTwo(!submodalTwo)}
           ></Modal>
         </ModalBody>
         <ModalFooter>
           <button
             className="main-btn"
             onClick={() => [
-              setModalNested(true),
-              setModalNestedContainer(false),
+              setSubmodalTwo(true),
+              setContainerTwo(false),
             ]}
           >
             Send OTP
           </button>
           <button
             className="main-btn"
-            onClick={() => setModalNestedContainer(false)}
+            onClick={() => setContainerTwo(false)}
           >
             Cancel
           </button>
         </ModalFooter>
       </Modal>
+      
 
-      {/* Modal 2 */}
-      <Modal isOpen={modalNested}>
+      {/* submodal for all except ramlingam park */}
+      <Modal isOpen={submodalTwo}>
         <ModalHeader>Enter OTP</ModalHeader>
         <ModalBody style={{ display: "flex", flexDirection: "row" }}>
           <input type="number" className="otpinput" />
@@ -139,7 +182,7 @@ function FormModal({ active , activeTwo }) {
           <button
             className="main-btn"
             onClick={() => {
-              setModalNested(false), setModalNestedContainer(true);
+              setSubmodalTwo(false), setContainerTwo(true);
             }}
           >
             Change Number
@@ -149,7 +192,7 @@ function FormModal({ active , activeTwo }) {
               className="main-btn"
               onClick={() => {
                 // setCloseAll(true);
-                setModalNested(false);
+                setSubmodalTwo(false);
               }}
             >
               Done

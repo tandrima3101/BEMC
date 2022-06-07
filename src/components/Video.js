@@ -1,8 +1,13 @@
-import React from "react";
+import React, {useState} from "react";
+import VideoPopup from "./VideoPopup";
+
 
 function Video(props) {
+  const [video, setVideo] = useState(false);
   return (
-    <section className="intro-video" style={{ position: "relative" }}>
+    <>
+      {video && <VideoPopup close={setVideo} />}
+      <section className="intro-video" style={{ position: "relative" }}>
       <div className="col-lg-12">
         <iframe
           width="560"
@@ -47,6 +52,9 @@ function Video(props) {
         })}
       </div>
     </section>
+    </>
+
+    
   );
 }
 

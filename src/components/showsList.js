@@ -8,7 +8,7 @@ function ShowsList(props) {
           <div className="row justify-content-center">
             <div className="col-lg-8">
               <div className="section-title text-center mb-75">
-                <h2>Featured List </h2>
+                <h2>Shows List </h2>
               </div>
             </div>
           </div>

@@ -46,6 +46,20 @@ const Index = () => {
       bannerImageUrl:
         "assets/images/BEMCAssets/ambulance_4.jpg",
     },
+    {
+      heading: "Kalyan Mandap",
+      subHeading:
+        "with a sense of history and Southern charm, within the reach of your fingertips",
+      bannerImageUrl:
+        "assets/images/BEMCAssets/kalyanmandap_2.jpeg",
+    },
+    {
+      heading: "Town-Hall: BEMC Conference Hall",
+      subHeading:
+        "AC Auditorium available for booking with a capacity of 1000 pax maintained by BEMC",
+      bannerImageUrl:
+        "https://4ww1y37tl91gmoej12r01u1c-wpengine.netdna-ssl.com/wp-content/uploads/2019/08/8BFC5A45-C291-890F-3C5CEE495EC4402D.jpg",
+    }
   ];
   const showList = [
     {
@@ -54,7 +68,7 @@ const Index = () => {
         "assets/images/BEMCAssets/SportsComplex_2.png",
       buttonIconUrl: "",
       buttonName: "Book",
-      showName: "Mo Odisha",
+      showName: "Sports Arena",
       reviews: "ratings-four",
       reviewNumber: "05",
       Price: "",
@@ -62,7 +76,7 @@ const Index = () => {
       location: "Odisha",
     },
     {
-      featured: true,
+      featured: false,
       imgUrl:
         "assets/images/BEMCAssets/rmpark_2_slider.png",
       buttonIconUrl: "",
@@ -75,12 +89,77 @@ const Index = () => {
       location: "Odisha",
     },
     {
+      featured: true,
+      imgUrl:
+        "assets/images/BEMCAssets/rmpark_1_slider.png",
+      buttonIconUrl: "",
+      buttonName: "Book",
+      showName: "Shivananda Show",
+      reviews: "ratings-four",
+      reviewNumber: "05",
+      Price: "",
+      contactNumber: "9876543210",
+      location: "Odisha",
+    },
+    {
+      featured: false,
+      imgUrl:
+        "https://4ww1y37tl91gmoej12r01u1c-wpengine.netdna-ssl.com/wp-content/uploads/2019/08/8BFC5A45-C291-890F-3C5CEE495EC4402D.jpg",
+      buttonIconUrl: "",
+      buttonName: "Book",
+      showName: "Townhall",
+      reviews: "ratings-four",
+      reviewNumber: "05",
+      Price: "",
+      contactNumber: "9876543210",
+      location: "Odisha",
+    },
+    {
+      featured: false,
+      imgUrl:
+        "https://upload.wikimedia.org/wikipedia/commons/b/b5/Reagan_hearse.jpg",
+      buttonIconUrl: "",
+      buttonName: "Book",
+      showName: "Hearse",
+      reviews: "ratings-four",
+      reviewNumber: "05",
+      Price: "",
+      contactNumber: "9876543210",
+      location: "Odisha",
+    },
+    {
+      featured: false,
+      imgUrl:
+        "assets/images/BEMCAssets/kalyanmandap_2.jpeg",
+      buttonIconUrl: "",
+      buttonName: "Book",
+      showName: "Kalyan-Mandap",
+      reviews: "ratings-four",
+      reviewNumber: "05",
+      Price: "",
+      contactNumber: "9876543210",
+      location: "Odisha",
+    },
+    {
+      featured: false,
+      imgUrl:
+        "assets/images/BEMCAssets/rmpark_5.jpg",
+      buttonIconUrl: "",
+      buttonName: "Book",
+      showName: "Mo Odisha",
+      reviews: "ratings-four",
+      reviewNumber: "05",
+      Price: "",
+      contactNumber: "9876543210",
+      location: "Odisha",
+    },
+    {
       featured: false,
       imgUrl:
         "assets/images/BEMCAssets/ambulance_4.jpg",
       buttonIconUrl: "",
       buttonName: "Book",
-      showName: "Shivananda Show",
+      showName: "Ambulance",
       reviews: "ratings-four",
       reviewNumber: "05",
       Price: "",
@@ -181,7 +260,7 @@ const Index = () => {
                 <div className="category-item category-item-one">
                   <div className="info text-center">
                     <div className="icon">
-                      <img src="assets/images/featureicons/park.png" alt="" />
+                      <img src="assets/images/featureicons/black/park.png" alt="" />
                     </div>
                     <h6>Ramlingam Park</h6>
                   </div>
@@ -197,7 +276,7 @@ const Index = () => {
                   <div className="info text-center">
                     <div className="icon">
                       <img
-                        src="assets/images/featureicons/townhall.png"
+                        src="assets/images/featureicons/black/townhall.png"
                         alt=""
                       />
                     </div>
@@ -215,7 +294,7 @@ const Index = () => {
                   <div className="info text-center">
                     <div className="icon">
                       <img
-                        src="assets/images/featureicons/kalyanimandap.png"
+                        src="assets/images/featureicons/black/kalyanimandap.png"
                         alt=""
                       />
                     </div>
@@ -233,7 +312,7 @@ const Index = () => {
                   <div className="info text-center">
                     <div className="icon">
                       <img
-                        src="assets/images/featureicons/sportsarena.png"
+                        src="assets/images/featureicons/black/sportsarena.png"
                         alt=""
                       />
                     </div>
@@ -251,7 +330,7 @@ const Index = () => {
                   <div className="info text-center">
                     <div className="icon">
                       <img
-                        src="assets/images/featureicons/ambulance.png"
+                        src="assets/images/featureicons/black/ambulance.png"
                         alt=""
                       />
                     </div>
@@ -268,7 +347,7 @@ const Index = () => {
                 <div className="category-item category-item-one">
                   <div className="info text-center">
                     <div className="icon">
-                      <img src="assets/images/featureicons/hearse.png" alt="" />
+                      <img src="assets/images/featureicons/black/hearse.png" alt="" />
                     </div>
                     <h6>Hearse</h6>
                   </div>
@@ -283,7 +362,7 @@ const Index = () => {
                 <div className="category-item category-item-one">
                   <div className="info text-center">
                     <div className="icon">
-                      <img src="assets/images/featureicons/tax.png" alt="" />
+                      <img src="assets/images/featureicons/black/tax.png" alt="" />
                     </div>
                     <h6>Tax</h6>
                   </div>
@@ -299,7 +378,7 @@ const Index = () => {
                   <div className="info text-center">
                     <div className="icon">
                       <img
-                        src="assets/images/featureicons/grievance.png"
+                        src="assets/images/featureicons/black/grievance.png"
                         alt=""
                       />
                     </div>

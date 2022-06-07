@@ -277,11 +277,11 @@ function BookingForm(props) {
                     <Select options={options} />
                   </div>
                   <div className="col-lg-10 col-md-6 mt-4">
-                    <button className="main-btn icon-btn">Search Now</button>
+                    <button className="main-btn icon-btn" onClick={() => activeModalFunctionTwo()}>Search Now</button>
                   </div>
                 </div>
               </Tab.Pane>
-
+              
               {/* *******************TownHall******************* */}
               <Tab.Pane
                 className={`show ${
@@ -328,11 +328,11 @@ function BookingForm(props) {
                   </div>
 
                   <div className="col-lg-10 col-md-6 mt-4">
-                    <button className="main-btn icon-btn">Book Now!</button>
+                    <button className="main-btn icon-btn" onClick={() => activeModalFunctionTwo()}>Book Now!</button>
                   </div>
                 </div>
               </Tab.Pane>
-
+              
               {/* ******************Ambulance********************* */}
               <Tab.Pane
                 className={`show ${activeForm === "Ambulance" ? "active" : ""}`}
@@ -381,11 +381,11 @@ function BookingForm(props) {
                   </div>
 
                   <div className="col-lg-10 col-md-6 mt-4">
-                    <button className="main-btn icon-btn">Book Now!</button>
+                    <button className="main-btn icon-btn" onClick={()=>activeModalFunctionTwo()}>Book Now!</button>
                   </div>
                 </div>
               </Tab.Pane>
-
+              
               {/* ***********************Hearse************** */}
               <Tab.Pane
                 className={`show ${activeForm === "Hearse" ? "active" : ""}`}
@@ -430,10 +430,11 @@ function BookingForm(props) {
                   </div>
 
                   <div className="col-lg-10 col-md-6 mt-4">
-                    <button className="main-btn icon-btn">Book Now!</button>
+                    <button className="main-btn icon-btn" onClick={()=>activeModalFunctionTwo()}>Book Now!</button>
                   </div>
                 </div>
               </Tab.Pane>
+              
             </div>
           </div>
         </form>
