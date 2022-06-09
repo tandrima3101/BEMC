@@ -37,6 +37,12 @@ function BookingForm(props) {
     { value: "vanilla", label: "Vanilla" },
     { value: "other", label: "Other Reason" },
   ];
+  const [showTimes,setShowTimes] = useState([
+    {time:'9:00AM-12:00PM',checked:false}, {time:'12:00AM-3:00PM',checked:false}, {time:'3:00PM-6:00PM',checked:false}
+  ])
+  const initialTime=[
+    {time:'9:00AM-12:00PM',checked:false}, {time:'12:00AM-3:00PM',checked:false}, {time:'3:00PM-6:00PM',checked:false}
+  ]
   const [activeForm, setActiveForm] = useState(props.active);
 
 
@@ -67,28 +73,32 @@ function BookingForm(props) {
   const [activeModalTwo, setActiveModalTwo] = useState(false);
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
-  const [showTextarea,setShowTextarea]=useState(false);
-  const [showSeatsAvailable,setShowSeatsAvailable]=useState(false)
+  const [showTextarea, setShowTextarea] = useState(false);
+  const [tempState, setTempState] = useState(false);
+  const [showSeatsAvailable, setShowSeatsAvailable] = useState(false)
   useEffect(() => {
-    setEndDate(endDate.setDate(endDate.getDate() + 13))
-    console.log(endDate)
+    const finalDate=(new Date().getDate()+13)
+    setEndDate(new Date().setDate(finalDate))
   }, [])
-  
-/*************set purpose********** */
-const setPurpose=(e)=>{
-  const selectedValue=e;
-  const setValue=[];
-  if(selectedValue)
-  {
-    Object.values(selectedValue).map((i)=>{
-      setValue.push(i.value)
-  })
+
+  useEffect(() => {
+    console.log(showTimes)
+    // setShowTimes(showTimes)
+  },[tempState])
+
+  /*************set purpose********** */
+  const setPurpose = (e) => {
+    const selectedValue = e;
+    const setValue = [];
+    if (selectedValue) {
+      Object.values(selectedValue).map((i) => {
+        setValue.push(i.value)
+      })
+    }
+    for (let i = 0; i < setValue.length; i++) {
+      if (setValue[i] == 'other') { setShowTextarea(true) }
+    }
   }
-  for (let i=0;i<setValue.length;i++){
-    if(setValue[i]=='other')
-    {setShowTextarea(true)}
-  }
-}
 
   const handleNav = () => {
     setToggle(!toggle);
@@ -196,7 +206,6 @@ const setPurpose=(e)=>{
             </div>
             <div className="hero-search-form tab-content">
               {/* **************Ramlingam Park************* */}
-
               <Tab.Pane
                 className={`show ${activeForm === "Ramlingam Park" ? "active" : ""
                   }`}
@@ -220,20 +229,18 @@ const setPurpose=(e)=>{
                   <div className="col-lg-12 col-md-6 mt-2">
                     <label>Select Time</label>
                     <p id="id_work_days">
-                      <label>
-                        <input type="checkbox" name="work_days" value="2" />
-                        <span>9:00AM-12:00PM</span>
-                      </label>
-                      <label>
-                        <input type="checkbox" name="work_days" value="3" />
-                        <span>12:0PM-3:00PM</span>
-                      </label>
-                      <label>
-                        <input type="checkbox" name="work_days" value="4" />
-                        <span>3:00PM-6:00PM</span>
-                      </label>
+                      {showTimes.map((x,index) => {
+                        return (
+                          <label key={index} onClick={() => setShowSeatsAvailable(true)}>
+                            <input type="checkbox" name="work_days" value={x.time} checked={x.checked} onClick={() => [setShowTimes(initialTime),,x.checked = !x.checked,setShowTimes(showTimes),setTempState(!tempState)]}/>
+                            <span>{x.time}</span>
+                          </label>
+                        )
+                      })
+                      }
                     </p>
                   </div>
+                  {(showSeatsAvailable) ? <small>122 seats available</small> : <small></small>}
                   <div className="col-lg-12 col-md-6 mt-2">
                     <label>Select Seat Category</label>
                     <Select options={options} />
@@ -308,20 +315,19 @@ const setPurpose=(e)=>{
                     <label>Select Purspose</label>
                     <Select options={options2} isMulti id="purpose-kalyan-mandap" onChange={(e) => setPurpose(e)} />
                   </div>
-                  {(showTextarea)?<div className="col-lg-12 col-md-6 mt-2">
+                  {(showTextarea) ? <div className="col-lg-12 col-md-6 mt-2">
                     <textarea placeholder="Write your own reason here..." className="form_control" id="dependable-texarea"
                       style={{
                         height: 'auto',
                         outline: '1px solid #ccc'
                       }}
                     ></textarea>
-                  </div>:<></>}
+                  </div> : <></>}
                   <div className="col-lg-10 col-md-6 mt-4">
                     <button className="main-btn icon-btn" onClick={() => activeModalFunctionTwo()}>Search Now</button>
                   </div>
                 </div>
               </Tab.Pane>
-
               {/* *******************TownHall******************* */}
               <Tab.Pane
                 className={`show ${activeForm === "Townhall Booking" ? "active" : ""
@@ -336,30 +342,28 @@ const setPurpose=(e)=>{
                       className="form_control"
                       placeholder="Number of Adult"
                       name="location"
-
                     />
                   </div>
                   <div className="col-lg-12 col-md-6 mt-2">
                     <label>Select Time</label>
                     <p id="id_work_days">
-                      <label onClick={()=>setShowSeatsAvailable(true)}>
+                      <label onClick={() => setShowSeatsAvailable(true)}>
                         <input type="checkbox" name="work_days" value="2" />
                         <span>9:00AM-12:00PM</span>
                       </label>
-                      <label onClick={()=>setShowSeatsAvailable(true)}>
+                      <label onClick={() => setShowSeatsAvailable(true)}>
                         <input type="checkbox" name="work_days" value="3" />
                         <span>12:0PM-3:00PM</span>
                       </label>
-                      <label onClick={()=>setShowSeatsAvailable(true)}>
+                      <label onClick={() => setShowSeatsAvailable(true)}>
                         <input type="checkbox" name="work_days" value="4" />
                         <span>3:00PM-6:00PM</span>
                       </label>
                     </p>
                   </div>
-                  {(showSeatsAvailable)?<small>122 seats available</small>:<small></small>}
+                  {(showSeatsAvailable) ? <small>122 seats available</small> : <small></small>}
                   <div className="col-lg-12 col-md-6 mt-2">
                     <label>Number of Persons</label>
-
                     <input
                       type="text"
                       className="form_control"
@@ -372,7 +376,6 @@ const setPurpose=(e)=>{
                   </div>
                 </div>
               </Tab.Pane>
-
               {/* ******************Ambulance********************* */}
               <Tab.Pane
                 className={`show ${activeForm === "Ambulance" ? "active" : ""}`}
@@ -426,7 +429,6 @@ const setPurpose=(e)=>{
                   </div>
                 </div>
               </Tab.Pane>
-
               {/* ***********************Hearse************** */}
               <Tab.Pane
                 className={`show ${activeForm === "Hearse" ? "active" : ""}`}
@@ -476,7 +478,6 @@ const setPurpose=(e)=>{
                   </div>
                 </div>
               </Tab.Pane>
-
             </div>
           </div>
         </form>

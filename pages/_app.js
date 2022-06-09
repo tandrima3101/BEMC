@@ -18,8 +18,9 @@ const MyApp = ({ Component, pageProps }) => {
         <title>BEMC Booking</title>
         <link
           rel="shortcut icon"
-          href="assets/images/favicon.ico"
+          href="assets/images/logo/logo-2.png"
           type="image/png"
+          style={{width:'100px'}}
         />
         <link
           href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;500;600&family=Quicksand:wght@300;400;500;600;700&display=swap"
