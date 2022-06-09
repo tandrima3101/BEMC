@@ -34,6 +34,7 @@
     1. Start COMMON css
 ==========================*/
 @import url("https://fonts.googleapis.com/css2?family=Mulish:wght@400;500;600&family=Quicksand:wght@300;400;500;600;700&display=swap");
+@import '~js-datepicker/dist/datepicker.min.css';
 
 html {
   font-size: 100%;
@@ -376,12 +377,15 @@ button {
 #search-modal {
   background: rgba(23, 26, 33, 0.85);
 }
-.modal-dialog{
+
+.modal-dialog {
   max-width: 550px !important;
 }
-.modal-body{
+
+.modal-body {
   padding: 1rem 1.5rem !important;
 }
+
 #search-modal .modal-content {
   background: 0 0;
   -webkit-box-shadow: none;
@@ -2066,9 +2070,7 @@ ul.ratings.ratings-one li.star:nth-child(1) i,
 }
 
 @media (max-width: 767px) {
-  .category-wrapper-one .category-column:last-child {
-    
-  }
+  .category-wrapper-one .category-column:last-child {}
 }
 
 .category-wrapper-one .category-column:after {
@@ -6649,9 +6651,11 @@ h3.title {
 .banner-items {
   position: relative;
 }
-.hearse-banner-items img{
+
+.hearse-banner-items img {
   filter: blur(0.3rem);
 }
+
 .hero-content>* {
   height: 100% !important;
 }
@@ -7112,10 +7116,13 @@ a {
   justify-content: center;
   align-items: center;
 }
-.person-details h4,.booking-details h4{
-  letter-spacing:1px;
+
+.person-details h4,
+.booking-details h4 {
+  letter-spacing: 1px;
 }
-.person-details>*{
+
+.person-details>* {
   letter-spacing: 0.5px;
 }
 
@@ -7263,74 +7270,120 @@ a {
     display: flex;
     justify-content: center;
   }
-  
+
 }
 
-@media only screen and (max-width:576px){
-.booking-details-mobileview {
+@media only screen and (max-width:576px) {
+  .booking-details-mobileview {
     padding-top: 50px;
     flex-direction: column-reverse !important;
   }
-.container-small{
-  padding: 0px !important;
+
+  .container-small {
+    padding: 0px !important;
+  }
+
+  .person-card {
+    height: auto;
+    margin: 40px;
+  }
+
+  .forfootergap {
+    padding-bottom: 45px;
+  }
+
+  .card-curve-no-shape {
+    margin: 40px;
+  }
+
+  .booking-card-prepayment {
+    height: 47%;
+    margin: 40px;
+  }
 }
-.person-card{
-  height: auto;
-  margin: 40px;
-}
-.forfootergap{
-  padding-bottom: 45px;
-}
-.card-curve-no-shape{
-  margin: 40px;
-}
-.booking-card-prepayment {
-  height: 47%;
-  margin: 40px;
-}
-}
-.mobile-view-button{
+
+.mobile-view-button {
   display: none;
 }
 
 
-.down-btn-transparent{
+.down-btn-transparent {
   background-color: transparent !important;
   float: right;
   margin-right: 10px;
 }
-@media only screen and (max-width:576px){
-  .mobile-view-button{
+
+@media only screen and (max-width:576px) {
+  .mobile-view-button {
     display: block;
   }
-  .button-nav{
+
+  .button-nav {
     display: none;
   }
+
   .card-curve .person-icon {
     background: #73bbd9;
     border-radius: 50%;
     padding: 20px;
     max-width: 70%;
   }
+
   .card-curve .col-lg-3 {
     display: flex;
     justify-content: center;
     align-items: center;
     /* max-width: 39%; */
     padding: 20%;
-}
-.header-area-one .header-navigation .site-branding .brand-logo {
-  padding: 15px 10px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  margin-left: -25%;
+  }
+
+  .header-area-one .header-navigation .site-branding .brand-logo {
+    padding: 15px 10px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    margin-left: -25%;
+  }
+
 }
 
+/******************07-06-2022******************/
+.react-datepicker-wrapper input {
+  border-bottom: none !important;
+  outline: 1px solid #ccc;
+  border-radius: 3px;
+  height: 37px;
+}
+
+.react-datepicker-popper {
+  width: 95% !important;
+  left: 2% !important;
+  top: 68.8px !important;
+  transform: none !important;
+}
+
+.react-datepicker {
+  width: 100% !important;
+}
+
+.react-datepicker__header {
+  background-color: #b3e8e5 !important
+}
+.react-datepicker__day--selected{
+  background-color: #3bacb6 !important;
+}
+.react-datepicker__month-container {
+  width: 100% !important;
+}
+
+.react-datepicker__day-names,
+.react-datepicker__week {
+  display: flex;
+  justify-content: space-around;
 }
