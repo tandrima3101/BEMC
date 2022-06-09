@@ -440,7 +440,6 @@ const Index = () => {
         </div>
       </section>
       {/*====== End Testimonial Section ======*/}
-
       {/* <!--====== Start Newsletter Section ======--> */}
       <Newsletter/>
       {/* <!--====== End Newsletter Section ======--> */}

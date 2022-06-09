@@ -32,20 +32,6 @@ const KalyanMandap = () => {
       bannerImageUrl:
         "assets/images/BEMCAssets/kalyanmandap_2.jpeg",
     },
-    // {
-    //   heading: "dummy text of the",
-    //   subHeading:
-    //     "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
-    //   bannerImageUrl:
-    //     "assets/images/BEMCAssets/kalyanmandap_1.jpeg",
-    // },
-    // {
-    //   heading: "printing and typesetting industry",
-    //   subHeading:
-    //     "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
-    //   bannerImageUrl:
-    //     "assets/images/BEMCAssets/kalyanmandap_2.jpeg",
-    // },
   ];
   const showList = [
     {

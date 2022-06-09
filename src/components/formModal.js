@@ -81,7 +81,7 @@ function FormModal({ active , activeTwo }) {
           </button>
           <button
             className="main-btn"
-            onClick={() => setModalNestedContainer(false)}
+            onClick={() => setContainerOne(false)}
           >
             Cancel
           </button>
