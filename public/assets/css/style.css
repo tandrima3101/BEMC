@@ -1417,7 +1417,7 @@ ul.ratings.ratings-one li.star:nth-child(1) i,
 
 @media (max-width: 767px) {
   .header-area-one .header-navigation .header-right-nav {
-    padding-right: 15px;
+    padding-right: 17%;
   }
 }
 
@@ -1587,6 +1587,9 @@ ul.ratings.ratings-one li.star:nth-child(1) i,
 @media (max-width: 991px) {
   .hero-search-wrapper form .nice-select {
     margin-bottom: 20px;
+  }
+  .mobile-view-banner{
+    padding-top: 108px;
   }
 }
 

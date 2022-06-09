@@ -11,9 +11,9 @@ const MobileMenu = () => {
       value === activeMenu ? { display: "block" } : { display: "none" };
   return (
     <header className="header-area header-area-one d-xl-none">
-      <div className="header-navigation sticky breakpoint-on">
+      <div className="header-navigation sticky breakpoint-on ">
         <div className="container-fluid">
-          <div className="primary-menu">
+          <div className="primary-menu" style = {{position : "fixed", width: "100%"}}>
             <div className="row">
               <div className="col-lg-2 col-5">
                 <div className="site-branding">

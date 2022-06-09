@@ -259,8 +259,8 @@ const Index = () => {
               <div className="category-column" style={{ flex: "1" }}>
                 <div className="category-item category-item-one">
                   <div className="info text-center">
-                    <div className="icon">
-                      <img src="assets/images/featureicons/black/park.png" alt="" />
+                    <div className="icon" style = {{height: '70px'}}>
+                      <img src="assets/images/featureicons/black/park.png" alt="" style={{width: "60px", height: "60px"}}/>
                     </div>
                     <h6>Ramlingam Park</h6>
                   </div>
@@ -274,10 +274,11 @@ const Index = () => {
               <div className="category-column" style={{ flex: "1" }}>
                 <div className="category-item category-item-one">
                   <div className="info text-center">
-                    <div className="icon">
+                    <div className="icon" style = {{height: '74px'}}>
                       <img
                         src="assets/images/featureicons/black/townhall.png"
                         alt=""
+                        style={{width: "60px", height: "60px",marginTop:'4px'}}
                       />
                     </div>
                     <h6>Town Hall</h6>
@@ -292,10 +293,11 @@ const Index = () => {
               <div className="category-column" style={{ flex: "1" }}>
                 <div className="category-item category-item-one">
                   <div className="info text-center">
-                    <div className="icon">
+                    <div className="icon" style = {{height: '70px'}}>
                       <img
                         src="assets/images/featureicons/black/kalyanimandap.png"
                         alt=""
+                        style={{width: "60px", height: "60px"}}
                       />
                     </div>
                     <h6>Kalyan Mandap</h6>
@@ -310,10 +312,11 @@ const Index = () => {
               <div className="category-column" style={{ flex: "1" }}>
                 <div className="category-item category-item-one">
                   <div className="info text-center">
-                    <div className="icon">
+                    <div className="icon" style = {{height: '70px'}}>
                       <img
                         src="assets/images/featureicons/black/sportsarena.png"
                         alt=""
+                        style={{width: "60px", height: "60px"}}
                       />
                     </div>
                     <h6>Sports Arena</h6>
@@ -328,10 +331,11 @@ const Index = () => {
               <div className="category-column" style={{ flex: "1" }}>
                 <div className="category-item category-item-one">
                   <div className="info text-center">
-                    <div className="icon">
+                    <div className="icon" style = {{height: '70px'}}>
                       <img
                         src="assets/images/featureicons/black/ambulance.png"
                         alt=""
+                        style={{width: "60px", height: "60px"}}
                       />
                     </div>
                     <h6>Ambulance</h6>
@@ -346,8 +350,8 @@ const Index = () => {
               <div className="category-column" style={{ flex: "1" }}>
                 <div className="category-item category-item-one">
                   <div className="info text-center">
-                    <div className="icon">
-                      <img src="assets/images/featureicons/black/hearse.png" alt="" />
+                    <div className="icon" style = {{height: '70px'}}>
+                      <img src="assets/images/featureicons/black/hearse.png" alt="" style={{width: "60px", height: "60px"}}/>
                     </div>
                     <h6>Hearse</h6>
                   </div>
@@ -361,8 +365,8 @@ const Index = () => {
               <div className="category-column" style={{ flex: "1" }}>
                 <div className="category-item category-item-one">
                   <div className="info text-center">
-                    <div className="icon">
-                      <img src="assets/images/featureicons/black/tax.png" alt="" />
+                    <div className="icon" style = {{height: '70px'}}>
+                      <img src="assets/images/featureicons/black/tax.png" alt="" style={{width: "60px", height: "60px"}}/>
                     </div>
                     <h6>Tax</h6>
                   </div>
@@ -376,10 +380,11 @@ const Index = () => {
               <div className="category-column" style={{ flex: "1" }}>
                 <div className="category-item category-item-one">
                   <div className="info text-center">
-                    <div className="icon">
+                    <div className="icon" style = {{height: '70px'}}>
                       <img
                         src="assets/images/featureicons/black/grievance.png"
                         alt=""
+                        style={{width: "60px", height: "60px"}}
                       />
                     </div>
                     <h6>Grievance</h6>

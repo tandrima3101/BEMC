@@ -8,7 +8,7 @@ function Banner(props) {
 
 return (
     <section className="hero-area">
-      <div className="hero-wrapper-one">
+      <div className="hero-wrapper-one mobile-view-banner" >
         <div className="container-fluid">
           <div className="row">
             <div className="col-lg-7" style={{ padding: "0px" }}>
