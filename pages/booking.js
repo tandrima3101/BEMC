@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import Layout from "../src/layouts/Layout";
 import VideoPopup from "../src/components/VideoPopup";
-// import Ratings from "../src/components/ratings";
+import Ratings from "../src/components/ratings";
 
 function Booking() {
   const [video, setVideo] = useState(false);
@@ -119,7 +119,7 @@ function Booking() {
                 </div>
                 <div className="col-lg-3 d-flex flex-column justify-content-center">
                   <h4 className="text-center mt-4 mb-6">Rate Us</h4>
-                  <div className="ratings ratings-big">
+                  {/* <div className="ratings ratings-big">
                     <ul className={`ratings`}>
                       <li className="star">
                         <i className="flaticon-star-1"></i>
@@ -137,7 +137,8 @@ function Booking() {
                         <i className="flaticon-star-1"></i>
                       </li>
                     </ul>
-                  </div>
+                  </div> */}
+                  <Ratings/>
                   <div className="review-link">
                     <Link href="#">Give a small review</Link>
                   </div>
