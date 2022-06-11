@@ -38,11 +38,12 @@ function BookingForm(props) {
     { value: "other", label: "Other Reason" },
   ];
   const [showTimes,setShowTimes] = useState([
-    {time:'9:00AM-12:00PM',checked:false}, {time:'12:00AM-3:00PM',checked:false}, {time:'3:00PM-6:00PM',checked:false}
+    {id:1,time:'9:00AM-12:00PM'}, {id:2,time:'12:00AM-3:00PM'}, {id:3,time:'3:00PM-6:00PM'}
   ])
-  const initialTime=[
-    {time:'9:00AM-12:00PM',checked:false}, {time:'12:00AM-3:00PM',checked:false}, {time:'3:00PM-6:00PM',checked:false}
-  ]
+  const [activeShowTimes,setActivrShowTimes] = useState({})
+
+  
+  
   const [activeForm, setActiveForm] = useState(props.active);
 
 
@@ -81,10 +82,6 @@ function BookingForm(props) {
     setEndDate(new Date().setDate(finalDate))
   }, [])
 
-  useEffect(() => {
-    console.log(showTimes)
-    // setShowTimes(showTimes)
-  },[tempState])
 
   /*************set purpose********** */
   const setPurpose = (e) => {
@@ -229,10 +226,10 @@ function BookingForm(props) {
                   <div className="col-lg-12 col-md-6 mt-2">
                     <label>Select Time</label>
                     <p id="id_work_days">
-                      {showTimes.map((x,index) => {
+                      {showTimes.map((x) => {
                         return (
-                          <label key={index} onClick={() => setShowSeatsAvailable(true)}>
-                            <input type="checkbox" name="work_days" value={x.time} checked={x.checked} onClick={() => [setShowTimes(initialTime),,x.checked = !x.checked,setShowTimes(showTimes),setTempState(!tempState)]}/>
+                          <label key={x.id} onClick={() => setShowSeatsAvailable(true)}>
+                            <input type="checkbox" name="work_days" value={x.time} checked={x.id===activeShowTimes.id} onClick={() => {x.id===activeShowTimes.id?setActivrShowTimes({}):setActivrShowTimes(x),setTempState(!tempState)}}/>
                             <span>{x.time}</span>
                           </label>
                         )

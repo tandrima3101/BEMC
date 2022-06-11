@@ -381,7 +381,12 @@ button {
 .modal-dialog {
   max-width: 550px !important;
 }
-
+.gallery-image-popup .modal-dialog{
+  max-width: 750px !important;
+}
+.gallery-image-popup{
+  background: rgba(0,0,0,0.6);
+}
 .modal-body {
   padding: 1rem 1.5rem !important;
 }
@@ -7389,4 +7394,7 @@ a {
 .react-datepicker__week {
   display: flex;
   justify-content: space-around;
+}
+.ytp-large-play-button .ytp-button{
+  display: none !important;
 }

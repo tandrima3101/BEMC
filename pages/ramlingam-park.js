@@ -1,5 +1,6 @@
 import Link from "next/link";
-import React, { useState } from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
 import Counter from "../src/components/Counter";
 import VideoPopup from "../src/components/VideoPopup";
@@ -19,10 +20,28 @@ import ShowsList from "../src/components/showsList";
 import Video from "../src/components/video";
 import Newsletter from "../src/components/newsletter";
 import Clients from "../src/components/clients";
+import { apiSecret, apiUrl, token } from "../src/constants/defaultValues";
+import { callApi } from "../src/apiHandlers/callApi";
 
 const Index = () => {
   const [video, setVideo] = useState(false);
+  async function fetchEvents() {
+    let apiTest={
+      methot:'get',
+      url:"user/sampleApi",
+      data:{
+          data_one:"fskuj0",
+          data_two:"fskuj0",
+          data_three:"fskuj0",
+      }
+  }
+    let response =await  callApi(apiTest)
+    console.log(response)
+  }
 
+  useEffect(()=>{
+    fetchEvents()
+  },[])
   const bannerSlider = [
     {
       heading: "LORD OF THE UNIVERSE: ",
@@ -131,27 +150,27 @@ const Index = () => {
   ];
 
   const videoLink = [
-    {link : "https://www.youtube.com/embed/JHlY8w69wSE"}
-];
+    { link: "https://www.youtube.com/embed/JHlY8w69wSE" }
+  ];
 
   return (
     <Layout>
       {video && <VideoPopup close={setVideo} />}
       {/* <!--====== Start Hero Section ======--> */}
-      <Banner mainSlider = {bannerSlider} />
+      <Banner mainSlider={bannerSlider} activeForm='Ramlingam Park' />
       {/* <!--====== End Hero Section ======--> */}
       {/* <!--====== Start Listing Section ======--> */}
-      <ShowsList list = {showList} />
+      <ShowsList list={showList} />
       {/* <!--====== Start Place Section ======--> */}
-      <Gallery gallery = {photoGallery} />
+      <Gallery gallery={photoGallery} />
       {/* <!--====== End Place Section ======--> */}
       {/* <!--====== Start Intro Video Section ======--> */}
-      <Video video = {videoLink} quote= {getFreeQuote}/>
+      <Video video={videoLink} quote={getFreeQuote} />
       {/* <!--====== Start Newsletter Section ======--> */}
       <Newsletter />
       {/* <!--====== End Newsletter Section ======--> */}
       {/* <!--====== Start Client Section ======--> */}
-      <Clients clients = {clientSlider} />
+      <Clients clients={clientSlider} />
     </Layout>
   );
 };
