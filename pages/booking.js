@@ -2,9 +2,13 @@ import React, { useState } from "react";
 import Link from "next/link";
 import Layout from "../src/layouts/Layout";
 import VideoPopup from "../src/components/VideoPopup";
+<<<<<<< HEAD
 import Ratings from "../src/components/ratings";
 
 function Booking() {
+=======
+const Booking=()=> {
+>>>>>>> 9e40da43185046e937e00406e8e8a01f72287250
   const [video, setVideo] = useState(false);
   const bookingDetails = [
     {

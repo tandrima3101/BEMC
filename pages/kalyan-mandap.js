@@ -139,7 +139,7 @@ const KalyanMandap = () => {
     <Layout>
       {video && <VideoPopup close={setVideo} />}
       {/* <!--====== Start Hero Section ======--> */}
-      <Banner mainSlider={bannerSlider}/>
+      <Banner mainSlider={bannerSlider} activeForm='Kalyan Mandap'/>
       {/* <!--====== End Hero Section ======--> */}
       {/* <!--====== Start Listing Section ======--> */}
       <ShowsList list={showList}/>

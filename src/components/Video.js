@@ -12,6 +12,7 @@ function Video(props) {
         <iframe
           width="560"
           height="315"
+          controls='false'
           src={props.video[0].link}
           title="YouTube video player"
           frameborder="0"

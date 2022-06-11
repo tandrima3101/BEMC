@@ -2,18 +2,10 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 
 import {
-  Row,
-  Card,
-  CardBody,
-  CardTitle,
-  Button,
   Modal,
   ModalHeader,
   ModalBody,
   ModalFooter,
-  FormGroup,
-  Input,
-  Label,
 } from "reactstrap";
 
 function FormModal({ active , activeTwo }) {

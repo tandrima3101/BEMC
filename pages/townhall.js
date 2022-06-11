@@ -141,7 +141,7 @@ const Index = () => {
       {video && <VideoPopup close={setVideo} />}
       {/* <!--====== Start Hero Section ======--> */}
       
-      <Banner mainSlider={bannerSlider}/>
+      <Banner mainSlider={bannerSlider} activeForm='Townhall Booking'/>
 
       {/* <!--====== End Hero Section ======--> */}
       {/* <!--====== Start Listing Section ======--> */}

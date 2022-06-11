@@ -133,7 +133,7 @@ const Hearse = () => {
       {video && <VideoPopup close={setVideo} />}
       {/* <!--====== Start Hero Section ======--> */}
 
-      <Banner mainSlider={bannerSlider} blur = {true}/>
+      <Banner mainSlider={bannerSlider} blur = {true} activeForm='Hearse'/>
 
       {/* <!--====== End Hero Section ======--> */}
       {/* <!--====== Start Listing Section ======--> */}
