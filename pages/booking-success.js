@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
-import Link from "next/link";
-import Layout from "../src/layouts/Layout";
-import { Spinner } from "react-bootstrap";
+import React,{ useState, useEffect }  from 'react';
+import Image from 'next/image';
 
-function BookingDetails() {
+import SuccessGif from '../public/assets/images/successGif.gif';
+import Layout from '../src/layouts/Layout';
+
+function BookingSuccess() {
   const [isLoaded, setIsLoade] = useState(false);
   useEffect(() => {
     function loaded() {
@@ -82,15 +83,21 @@ function BookingDetails() {
               </>
             ) : (
               <>
-                <img src="assets/images/card.png" alt="" style={{width : "70%"}}/>
-                <Link href='/payment'><button className="main-btn mt-4" style={{fontSize:'20px'}}>Make Your Payement</button></Link>
+              <div className='text-center'>
+                  <Image src={SuccessGif} alt='Booking Success'  />
+                  <h1 className='text-success'>Payment Successful.</h1>
+                  <div className="review-link">
+                    <button>Give a small review</button>
+                  </div>
+              </div>
               </>
             )}
           </div>
         </div>
       </div>
     </Layout>
-  );
+    
+  )
 }
 
-export default BookingDetails;
+export default BookingSuccess;
