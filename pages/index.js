@@ -249,7 +249,7 @@ const Index = () => {
     <Layout>
       {video && <VideoPopup close={setVideo} />}
       {/* <!--====== Start Hero Section ======--> */}
-      <Banner mainSlider={bannerSlider} activeForm='Ramlingam Park'/>
+      <Banner mainSlider={bannerSlider} activeForm='Ramlingam Park' pageOf="index"/>
       {/* <!--====== End Hero Section ======--> */}
       {/* <!--====== Start Category Section ======--> */}
       <section className="category-area">

@@ -2,8 +2,15 @@ import React, { useState } from "react";
 import Link from "next/link";
 import Layout from "../src/layouts/Layout";
 import VideoPopup from "../src/components/VideoPopup";
+import Ratings from '../src/components/ratings'
+import TicketIssueModal from "../src/components/ticketIssueModal";
+import GiveReviewModal from "../src/components/giveReviewModal";
+
 const Booking=()=> {
   const [video, setVideo] = useState(false);
+  const [activeModalThree, setActiveModalThree] = useState(false);
+  const [activeModalReview, setActiveModalReview] = useState(false);
+
   const bookingDetails = [
     {
       bookingId: 1,
@@ -35,15 +42,23 @@ const Booking=()=> {
     },
   ];
 
+  const activeModalFunctionThree = () => {
+    setActiveModalThree(!activeModalThree);
+  }
+
+  const activeModalFunctionReview = () => {
+    setActiveModalReview(!activeModalReview);
+  }
+
   return (
     <Layout>
       {/* <Ratings/> */}
       {video && <VideoPopup close={setVideo} />}
       <div className="service">
         <div className="container-fluid light-bg pt-4 pb-4">
-          {bookingDetails.map((bookings) => {
+          {bookingDetails.map((bookings,index) => {
             return (
-              <div className="row">
+              <div className="row" key={index}>
                 <div className="col-lg-9 pr-4" key={bookings.bookingId}>
                   <div className="booking-card p-3">
                     <div className="row">
@@ -117,29 +132,17 @@ const Booking=()=> {
                 </div>
                 <div className="col-lg-3 d-flex flex-column justify-content-center">
                   <h4 className="text-center mt-4 mb-6">Rate Us</h4>
-                  <div className="ratings ratings-big">
-                    <ul className={`ratings`}>
-                      <li className="star">
-                        <i className="flaticon-star-1"></i>
-                      </li>
-                      <li className="star">
-                        <i className="flaticon-star-1"></i>
-                      </li>
-                      <li className="star">
-                        <i className="flaticon-star-1"></i>
-                      </li>
-                      <li className="star">
-                        <i className="flaticon-star-1"></i>
-                      </li>
-                      <li className="star">
-                        <i className="flaticon-star-1"></i>
-                      </li>
-                    </ul>
+                  <Ratings/>
+                  <div className="review-link">
+                    <button onClick={() => activeModalFunctionReview()}>Give a small review</button>
                   </div>
                   <div className="review-link">
-                    <Link href="#">Give a small review</Link>
+                    <button onClick={() => activeModalFunctionThree()}>Having issue with this ticket?</button>
                   </div>
+
                 </div>
+                  <TicketIssueModal activeThree={activeModalThree} />
+                  <GiveReviewModal activeReview={activeModalReview} />
               </div>
             );
           })}

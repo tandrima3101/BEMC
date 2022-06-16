@@ -1,8 +1,11 @@
 import Link from "next/link";
-import React from "react";
-import { About, Blog, Contact, Home, Listing, Pages } from "../Menu";
+import React,{ useState, useEffect } from "react";
+import { FaRegUser } from 'react-icons/fa';
+import { About, Blog, Contact, Home, Listing, Login, LoginUserListing, Pages } from "../Menu";
 
 const Header2 = () => {
+  const [isLogin, setLogin] = useState(false);
+
   return (
     <header className="header-area header-area-two d-none d-xl-block">
       <div className="header-navigation">
@@ -40,7 +43,7 @@ const Header2 = () => {
                           <i className="ti-arrow-down"></i>
                         </span> */}
                       </li>
-                      <About />
+                      {/* <About /> */}
                       <li className="menu-item has-children">
                         <a href="#">Services</a>
                         <ul className="sub-menu">
@@ -56,6 +59,29 @@ const Header2 = () => {
                           <a className="main-btn icon-btn">Add Listing</a>
                         </Link>
                       </li>
+                      {
+                        !isLogin ? <Login  setLogin={setLogin} /> :
+                        <li className="menu-item has-children my-auto">
+                          <FaRegUser 
+                              className="main-btn" 
+                              style={{
+                                cursor: 'pointer',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                width: '55px',
+                                height: '55px',
+                                backgroundColor: '#3bacb6',
+                                color: '#fff',
+                                borderRadius: '50%',
+                              }}
+                              
+                          />
+                          <ul className="sub-menu">
+                            <LoginUserListing setLogin={setLogin} />
+                          </ul>
+                        </li>
+                      }
                     </ul>
                   </nav>
                 </div>

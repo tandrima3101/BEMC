@@ -1,5 +1,6 @@
 import Link from "next/link";
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
+import LoginFormModal from "../components/LoginFormModal";
 
 export const Home = () => (
   <Fragment>
@@ -10,7 +11,7 @@ export const Home = () => (
       <Link href="/index-2">Home Two</Link>
     </li>
     <li className="menu-item">
-      <Link href="/index-3">Home Three</Link>
+      <Link href="/index-3">Home Login</Link>
     </li> */}
   </Fragment>
 );
@@ -79,3 +80,38 @@ export const Contact = () => (
     </li>
   </Fragment>
 );
+
+export const Login = ({ setLogin }) => {
+  const [activeModalLogin, setActiveModalLogin] = useState(false);
+
+  const activeModalFunctionLogin = () => {
+    setActiveModalLogin(!activeModalLogin);
+  }
+
+  return (
+    <Fragment>
+      <li className="menu-item my-auto">
+        <button className="main-btn " onClick={activeModalFunctionLogin}>Login</button>
+        <LoginFormModal activeLogin={activeModalLogin} setLogin={setLogin} />
+      </li>
+    </Fragment>
+  );
+};
+
+export const LoginUserListing = ({ setLogin }) => {
+  const handleLogout = () =>{
+    setLogin(false);
+  }
+  return (
+  <Fragment>
+    <li className="menu-item">
+      <Link href="/booking">My Bookings</Link>
+    </li>
+    <li className="menu-item">
+      <Link href="/my-complains">My Complains</Link>
+    </li>
+    <li className="menu-item">
+      <button className="w-100 py-2" style={{background : 'inherit', fontWeight : 'bold'}} onClick={handleLogout}>Logout</button>
+    </li>
+  </Fragment>
+)};

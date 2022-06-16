@@ -48,12 +48,49 @@ const Index = () => {
   ];
   const showList = [
     {
+      id : "1",
       featured: true,
       imgUrl:
         "assets/images/BEMCAssets/rmpark_3.jpg",
       buttonIconUrl: "",
       buttonName: "Book",
       showName: "Mo Odisha",
+      availability : [
+              {
+              date:'20-06-2022',
+              timings:[
+                {
+                time:'9:00-12:00AM',
+                category :[ 
+                  {
+                    seatCategory: 'abc',
+                    seatsLeft : 30
+                  },
+                  {
+                    seatCategory: 'cdef',
+                    seatsLeft : 32
+                  },
+                  {
+                    seatCategory: 'xyz',
+                    seatsLeft : 55
+                  }
+                ]
+               },
+               {
+                time:'9:00-12:00AM',
+               }
+              ]
+            },
+            {
+              date:'23-07-2022',
+              timings:[
+                {
+                time:'19:00-24:00AM',
+                seatLeft:44
+               }
+              ]
+            }
+          ],
       reviews: "ratings-four",
       reviewNumber: "05",
       Price: "",
@@ -67,6 +104,42 @@ const Index = () => {
       buttonIconUrl: "",
       buttonName: "Book",
       showName: "Bande Utkala",
+      availability : [
+        {
+        date:'20-06-2022',
+        timings:[
+          {
+          time:'9:00-12:00AM',
+          category :[ 
+            {
+              seatCategory: 'abc',
+              seatsLeft : 30
+            },
+            {
+              seatCategory: 'cdef',
+              seatsLeft : 32
+            },
+            {
+              seatCategory: 'xyz',
+              seatsLeft : 55
+            }
+          ]
+         },
+         {
+          time:'9:00-12:00AM',
+         }
+        ]
+      },
+      {
+        date:'23-07-2022',
+        timings:[
+          {
+          time:'19:00-24:00AM',
+          seatLeft:44
+         }
+        ]
+      }
+    ],
       reviews: "ratings-four",
       reviewNumber: "05",
       Price: "",
@@ -153,7 +226,7 @@ const Index = () => {
     <Layout>
       {video && <VideoPopup close={setVideo} />}
       {/* <!--====== Start Hero Section ======--> */}
-      <Banner mainSlider={bannerSlider} activeForm='Ramlingam Park' />
+      <Banner mainSlider={bannerSlider} activeForm='Ramlingam Park' pageOf="Ramlingam Park" />
       {/* <!--====== End Hero Section ======--> */}
       {/* <!--====== Start Listing Section ======--> */}
       <ShowsList list={showList} />

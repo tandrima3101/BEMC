@@ -95,25 +95,25 @@ const Footer = () => {
               </div>
               <div className="col-lg-2 col-md-6 col-sm-12">
                 <div className="widget categories-widget mb-40">
-                  <h4 className="widget-title">Categories</h4>
+                  <h4 className="widget-title">Services</h4>
                   <ul className="categories-link">
                     <li>
-                      <a href="#">Restaurant</a>
+                      <a href="#">Ramalingam Park</a>
                     </li>
                     <li>
-                      <a href="#">Museum</a>
+                      <a href="#">Town Hall</a>
                     </li>
                     <li>
-                      <a href="#">Party Center</a>
+                      <a href="#">Kalyan Mandap</a>
                     </li>
                     <li>
-                      <a href="#">Game Field</a>
+                      <a href="#">Sports Arena</a>
                     </li>
                     <li>
-                      <a href="#">Shopping</a>
+                      <a href="#">Ambulance</a>
                     </li>
                     <li>
-                      <a href="#">Art & Gallery</a>
+                      <a href="#">Hearse</a>
                     </li>
                   </ul>
                 </div>
