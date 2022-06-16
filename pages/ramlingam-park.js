@@ -230,7 +230,7 @@ const Index = () => {
     <Layout>
       {video && <VideoPopup close={setVideo} />}
       {/* <!--====== Start Hero Section ======--> */}
-      <Banner mainSlider={bannerSlider} activeForm='Ramlingam Park' />
+      <Banner mainSlider={bannerSlider} activeForm='Ramlingam Park' pageOf="Ramlingam Park" />
       {/* <!--====== End Hero Section ======--> */}
       {/* <!--====== Start Listing Section ======--> */}
       <ShowsList list={showList} />

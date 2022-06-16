@@ -139,7 +139,7 @@ const Ambulance = () => {
     <Layout>
       {video && <VideoPopup close={setVideo} />}
       {/* <!--====== Start Hero Section ======--> */}
-      <Banner mainSlider={bannerSlider} activeForm='Ambulance'/>
+      <Banner mainSlider={bannerSlider} activeForm='Ambulance' pageOf="Ambulance"/>
       {/* <!--====== End Hero Section ======--> */}
       {/* <!--====== Start Listing Section ======--> */}
 

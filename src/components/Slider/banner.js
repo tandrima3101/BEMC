@@ -56,7 +56,7 @@ return (
               </div>
             </div>
             <div className="col-lg-5" style={{ padding: "0px" }}>
-              <BookingForm active={props.activeForm} />
+              <BookingForm active={props.activeForm} pageOf={props.pageOf} />
             </div>
           </div>
         </div>

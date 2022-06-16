@@ -43,7 +43,7 @@ const Header2 = () => {
                           <i className="ti-arrow-down"></i>
                         </span> */}
                       </li>
-                      <About />
+                      {/* <About /> */}
                       <li className="menu-item has-children">
                         <a href="#">Services</a>
                         <ul className="sub-menu">

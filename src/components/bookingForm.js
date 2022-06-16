@@ -45,6 +45,7 @@ function BookingForm(props) {
   
   
   const [activeForm, setActiveForm] = useState(props.active);
+  const [pageOf, setPageOf] = useState(props.pageOf);
 
 
   const newType = [
@@ -110,6 +111,8 @@ function BookingForm(props) {
     }
   };
 
+
+
   const activeModalFunction = () => {
     setActiveModal(true)
   }
@@ -133,8 +136,9 @@ function BookingForm(props) {
                     style={{ borderBottom: "0px" }}
                   >
                     {type?.map((x, index) => {
-                      {
-                        if (index == 5)
+                      if(pageOf==="index"){
+                      
+                        if (index == 5){
                           return (
                             <>
                               <li className="nav-item button-nav">
@@ -195,7 +199,7 @@ function BookingForm(props) {
                             {x}
                           </Nav.Link>
                         </li>
-                      );
+                      );}
                     })}
                   </Nav>
                 </div>
