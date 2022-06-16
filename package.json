@@ -35,6 +35,5 @@
     "@types/react-datepicker": "^4.4.2",
     "eslint": "8.10.0",
     "eslint-config-next": "12.1.0"
-  },
-  "proxy":"http://localhost:3000/"
+  }
 }

@@ -27,13 +27,9 @@ const Index = () => {
   const [video, setVideo] = useState(false);
   async function fetchEvents() {
     let apiTest={
-      methot:'get',
-      url:"user/sampleApi",
-      data:{
-          data_one:"fskuj0",
-          data_two:"fskuj0",
-          data_three:"fskuj0",
-      }
+      method:'post',
+      url:"ramalingampark/event/getEvent"
+     
   }
     let response =await  callApi(apiTest)
     console.log(response)
