@@ -9,8 +9,8 @@ const PageBanner = ({ pageName, title }) => {
           <div className="row">
             <div className="col-lg-8">
               <div className="page-title">
-                <h1 className="title">{title}</h1>
-                <ul className="breadcrumbs-link">
+                <h1 className="title">BEMC</h1>
+                <ul className="breadcrumbs-link text-center">
                   <li>
                     <Link href="/">Home</Link>
                   </li>

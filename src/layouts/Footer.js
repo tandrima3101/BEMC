@@ -64,16 +64,16 @@ const Footer = () => {
               </div>
               <div className="col-lg-3 col-md-6 col-sm-12">
                 <div className="widget recent-post-widget mb-40 footercss">
-                  <h4 className="widget-title">Recent News</h4>
+                  <h4 className="widget-title">Recent Updates</h4>
                   <ul className="post-widget-list">
                     <li className="post-content-item">
                       <div className="post-title-date">
                         <span className="posted-on footerspan">
-                          <a href="#">22 August - 2021</a>
+                          <a href="#">22 August - 2022</a>
                         </span>
                         <h6 className="title">
                           <Link href="/blog-details">
-                            <a>Facilisis a ultricies quis dictumst fredom...</a>
+                            <a>2 new shows added at Ramalingam park...</a>
                           </Link>
                         </h6>
                       </div>
@@ -98,22 +98,22 @@ const Footer = () => {
                   <h4 className="widget-title">Services</h4>
                   <ul className="categories-link">
                     <li>
-                      <a href="#">Ramalingam Park</a>
+                      <Link href="/ramlingam-park">Ramalingam Park</Link>
                     </li>
                     <li>
-                      <a href="#">Town Hall</a>
+                      <Link href="/townhall">Town Hall</Link>
                     </li>
                     <li>
-                      <a href="#">Kalyan Mandap</a>
+                      <Link href="/kalyan-mandap">Kalyan Mandap</Link>
                     </li>
                     <li>
-                      <a href="#">Sports Arena</a>
+                      <Link href="/sports-arena">Sports Arena</Link>
                     </li>
                     <li>
-                      <a href="#">Ambulance</a>
+                      <Link href="/ambulance">Ambulance</Link>
                     </li>
                     <li>
-                      <a href="#">Hearse</a>
+                      <Link href="/hearse">Hearse</Link>
                     </li>
                   </ul>
                 </div>
@@ -122,15 +122,15 @@ const Footer = () => {
                 <div className="widget newsletter-widget mb-40">
                   <h4 className="widget-title">Newsletter</h4>
                   <p>
-                    Caoreet massa torto pon interdum sestibulum suscipit duis.
+                    Enter Whatsapp number for getting updates on bemc activities.
                   </p>
                   <form onSubmit={(e) => e.preventDefault()}>
                     <div className="form_group">
                       <input
-                        type="email"
+                        type="text"
                         className="form_control"
-                        placeholder="Enter Email"
-                        name="email"
+                        placeholder="Enter Phone number"
+                        name="number"
                         required
                       />
                     </div>
