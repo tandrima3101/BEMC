@@ -1903,7 +1903,7 @@ ul.ratings.ratings-one li.star:nth-child(1) i,
 
 .breadcrumbs-wrapper:after {
   right: 0;
-  background: url(../images/bg/breadcrumbs-bg-2.jpg) no-repeat center;
+  background: url(https://img.freepik.com/free-photo/contact-us-communication-support-service-assistance-concept_53876-128103.jpg?size=626&ext=jpg&ga=GA1.2.1318262745.1655362426) no-repeat center;
   background-size: cover;
 }
 
@@ -1963,6 +1963,10 @@ ul.ratings.ratings-one li.star:nth-child(1) i,
 
 .breadcrumbs-wrapper .page-title .breadcrumbs-link li:last-child:after {
   display: none;
+}
+
+.breadcrumbs-wrapper .page-title .breadcrumbs-link li:first-child {
+  padding-left: 40px;
 }
 
 /* Listing-page-Breadcrumbs css */

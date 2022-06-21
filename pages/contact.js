@@ -146,7 +146,7 @@ const Contact = () => {
       {/*====== Start Map section ======*/}
       <section className="contact-page-map">
         <div className="map-box">
-          <iframe src="https://maps.google.com/maps?q=new%20york&t=&z=13&ie=UTF8&iwloc=&output=embed" />
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3765.2639563948533!2d84.78062906490486!3d19.314349136951602!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a3d50056abfef3f%3A0x2cbbfdb60a37a946!2sBerhampur%20Municipal%20Corporation%2C%20Gandhi%20Nagar%2C%20Brahmapur%2C%20Odisha%20760001!5e0!3m2!1sen!2sin!4v1655361311331!5m2!1sen!2sin"  />
         </div>
       </section>
       {/*====== End Map section ======*/}
