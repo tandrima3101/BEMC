@@ -6947,7 +6947,7 @@ a {
 }
 
 .booking-card .row .col-lg-8 .row .col-lg-4 {
-  height: 275px;
+  height: 312px;
 }
 
 .booking-card-left {
@@ -6996,6 +6996,7 @@ a {
 
 .qr-section img {
   width: 90%;
+  height: 312px;
   margin: auto;
   display: block;
 }

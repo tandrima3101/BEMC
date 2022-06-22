@@ -16,7 +16,11 @@ const Header2 = () => {
               <div className="col-lg-2 col-5">
                 <div className="site-branding" style={{paddingBottom : "10px"}}>
                   <Link href="/">
-                    <a className="brand-logo">
+                    <a className="brand-logo d-flex">
+                    <img
+                        src="assets/images/logo/final-logo.png"
+                        alt="Brand Logo"
+                      />
                       <img
                         src="assets/images/logo/logo-2.png"
                         alt="Brand Logo"

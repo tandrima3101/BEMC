@@ -27,9 +27,31 @@ function BookingForm(props) {
   const currdate = `${current.getDate()}/${current.getMonth() + 1}/${current.getFullYear()}`;
   const showFirstModal = true;
   const options = [
-    { value: "chocolate", label: "Chocolate" },
-    { value: "strawberry", label: "Strawberry" },
-    { value: "vanilla", label: "Vanilla" },
+    { value: "Mo Odisha", label: "Mo Odisha" },
+    { value: "Bande Utkala", label: "Bande Utkala" },
+    { value: "Shivananda Show", label: "Shivananda Show" },
+  ];
+  const seatCategory = [
+    { value: "Tower 1", label: "Tower 1" },
+    { value: "Tower 2", label: "Tower 2" },
+    { value: "Zone 1", label: "Zone 1" },
+    { value: "Zone 2", label: "Zone 2" },
+  ];
+  const kalyanMandap = [
+    { value: "Biju Patnaik Kalyan Mandap", label: "Biju Patnaik Kalyan Mandap" },
+  ];
+  const sports = [
+    { value: "Badminton", label: "Badminton" },
+    { value: "Table Tennis", label: "Table Tennis" },
+  ];
+  const sportsMembership = [
+    { value: "Monthly", label: "Monthly" },
+    { value: "Yearly", label: "Yearly" },
+  ];
+  const kalyanMandapPurpose = [
+    { value: "Marriage", label: "Marriage" },
+    { value: "Birthday", label: "Birthday" },
+    { value: "other", label: "Other Reason" },
   ];
   const options2 = [
     { value: "chocolate", label: "Chocolate" },
@@ -38,7 +60,7 @@ function BookingForm(props) {
     { value: "other", label: "Other Reason" },
   ];
   const [showTimes,setShowTimes] = useState([
-    {id:1,time:'9:00AM-12:00PM'}, {id:2,time:'12:00AM-3:00PM'}, {id:3,time:'3:00PM-6:00PM'}
+    {id:1,time:'6:30PM-7:30PM'}
   ])
   const [activeShowTimes,setActivrShowTimes] = useState({})
 
@@ -244,7 +266,7 @@ function BookingForm(props) {
                   {(showSeatsAvailable) ? <small>122 seats available</small> : <small></small>}
                   <div className="col-lg-12 col-md-6 mt-2">
                     <label>Select Seat Category</label>
-                    <Select options={options} />
+                    <Select options={seatCategory} />
                   </div>
                   <div className="col-lg-10 col-md-6 mt-4">
                     <button
@@ -262,7 +284,7 @@ function BookingForm(props) {
                 <div className="row">
                   <div className="col-lg-12 col-md-6 mt-2">
                     <label>Select Sports</label>
-                    <Select options={options} />
+                    <Select options={sports} />
                   </div>
                   <div className="col-lg-12 col-md-6 mt-2">
                     <label>Select Date</label>
@@ -276,18 +298,14 @@ function BookingForm(props) {
                     />
                   </div>
                   <div className="col-lg-12 col-md-6 mt-2">
-                    <label>Select Time</label>
+                    <label>Membership Plan</label>
 
-                    <input
-                      type="time"
-                      className="form_control"
-                      placeholder="Number of Adult"
-                      name="location"
-                    />
+                    <Select options={sportsMembership} />
+
                   </div>
                   <div className="col-lg-10 col-md-6 mt-4">
                     <button className="main-btn icon-btn"
-                      onClick={() => activeModalFunctionTwo()}>Search Now</button>
+                      onClick={() => activeModalFunctionTwo()}>Subscribe Now</button>
                   </div>
                 </div>
               </Tab.Pane>
@@ -300,7 +318,7 @@ function BookingForm(props) {
                 <div className="row">
                   <div className="col-lg-12 col-md-6 mt-2">
                     <label>Select Mandap</label>
-                    <Select options={options} />
+                    <Select options={kalyanMandap} />
                   </div>
                   <div className="col-lg-12 col-md-6 mt-2">
                     <label>Select Date</label>
@@ -314,7 +332,7 @@ function BookingForm(props) {
                   </div>
                   <div className="col-lg-12 col-md-6 mt-2">
                     <label>Select Purspose</label>
-                    <Select options={options2} isMulti id="purpose-kalyan-mandap" onChange={(e) => setPurpose(e)} />
+                    <Select options={kalyanMandapPurpose} isMulti id="purpose-kalyan-mandap" onChange={(e) => setPurpose(e)} />
                   </div>
                   {(showTextarea) ? <div className="col-lg-12 col-md-6 mt-2">
                     <textarea placeholder="Write your own reason here..." className="form_control" id="dependable-texarea"
@@ -350,15 +368,11 @@ function BookingForm(props) {
                     <p id="id_work_days">
                       <label onClick={() => setShowSeatsAvailable(true)}>
                         <input type="checkbox" name="work_days" value="2" />
-                        <span>9:00AM-12:00PM</span>
+                        <span>9:00AM-11:00AM</span>
                       </label>
                       <label onClick={() => setShowSeatsAvailable(true)}>
                         <input type="checkbox" name="work_days" value="3" />
-                        <span>12:0PM-3:00PM</span>
-                      </label>
-                      <label onClick={() => setShowSeatsAvailable(true)}>
-                        <input type="checkbox" name="work_days" value="4" />
-                        <span>3:00PM-6:00PM</span>
+                        <span>7:0PM-9:00PM</span>
                       </label>
                     </p>
                   </div>
