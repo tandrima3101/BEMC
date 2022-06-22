@@ -20,6 +20,7 @@ const Header2 = () => {
                     <img
                         src="assets/images/logo/final-logo.png"
                         alt="Brand Logo"
+                        style={{width : "80%", height : "80%",marginTop: "5%"}}
                       />
                       <img
                         src="assets/images/logo/logo-2.png"

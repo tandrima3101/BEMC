@@ -31,7 +31,7 @@ const Hearse = () => {
       subHeading:
         "Give your loved one a proper farewell...",
       bannerImageUrl:
-        "https://upload.wikimedia.org/wikipedia/commons/b/b5/Reagan_hearse.jpg",
+        "assets/images/hearse.jpg",
     }
   ];
   const showList = [

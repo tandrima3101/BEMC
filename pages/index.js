@@ -117,7 +117,7 @@ const Index = () => {
     {
       featured: false,
       imgUrl:
-        "https://upload.wikimedia.org/wikipedia/commons/b/b5/Reagan_hearse.jpg",
+        "assets/images/hearse.jpg",
       buttonIconUrl: "",
       buttonName: "Book",
       showName: "Hearse",
@@ -169,10 +169,10 @@ const Index = () => {
   ];
   const getFreeQuote = [
     {
-      smallText: "Checkout List",
-      mainText: "Professional planners for your vacation",
+      smallText: "LORD OF THE UNIVERSE",
+      mainText: "The Story Of MAHADEV in 3D laser show with musical fountain at Ramalingeswar Park.",
       paragraph:
-        "Risus urnas Iaculis per amet vestibulum luctus tincidunt ultricies aenean quam eros eleifend sodales cubilia mattis quam.",
+        "",
     },
   ];
   const clientSlider = [

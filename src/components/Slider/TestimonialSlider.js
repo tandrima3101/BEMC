@@ -11,7 +11,7 @@ export default class TestimoinalSlider extends Component {
     };
   }
   testimonialData = [{
-    imgUrl:'',
+    imgUrl:'assets/images/avatar-370-456322.jpg',
     review:' multiply given all hath given may meat god abundant appear lioud fourth madman mane said god dominion great gathering called very shall after cre ated from fruitful place over the mitual',
     designation:'Sr. Designer',
     name:'Melisa Powels'
