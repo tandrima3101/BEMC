@@ -25,26 +25,38 @@ import { callApi } from "../src/apiHandlers/callApi";
 
 const Index = () => {
   const [video, setVideo] = useState(false);
+  const [ramlingamData,setRamlingamData] = useState([])
+  // const [bannerSlider,setBannerSlider] = useState([])
+
+  /**************fetch ramlingam park events*********************/
+
+
   async function fetchEvents() {
     let apiTest={
       method:'post',
       url:"ramalingampark/event/getEvent"
-     
   }
-    let response =await  callApi(apiTest)
-    console.log(response)
+    let response = await  callApi(apiTest)
+    setRamlingamData(response.data.data)
   }
-
   useEffect(()=>{
     fetchEvents()
   },[])
+
+
+  /*****************set banner data****************************/
+  let bannerData = [];
+  for (let i=0;i<ramlingamData.length;i++){
+    bannerData.push(ramlingamData[i].banner)
+  }
+  console.log(bannerData)
   const bannerSlider = [
     {
       heading: "LORD OF THE UNIVERSE: ",
       subHeading:
         "The Story Of MAHADEV in 3D laser show with musical fountain at Ramalingeswar Park.",
       bannerImageUrl: "assets/images/BEMCAssets/rmpark_1_slider.png",
-    },
+    },   
   ];
   const showList = [
     {

@@ -3,7 +3,6 @@ import { apiSecret, apiUrl, token } from '../constants/defaultValues';
 var axios = require('axios');
 // api call data required method,data,url as its parameter
 export const callApi= async (apiCallData)=>{
-    console.log(apiCallData.method)
     var data={...apiCallData?.data,"api_key":`${apiSecret}`}
 
     let config={
@@ -16,9 +15,7 @@ export const callApi= async (apiCallData)=>{
         },
         data : data
     }
-
     let response= await axios(config)
-    console.log(response)
     return (response)
 }
 

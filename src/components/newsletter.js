@@ -17,7 +17,7 @@ function Newsletter() {
                     <i className="flaticon-email"></i>
                   </div>
                   <div className="content">
-                    <h2>Get Special Rewards</h2>
+                    <h2>Get Whatsapp Updates</h2>
                   </div>
                 </div>
               </div>
@@ -27,7 +27,7 @@ function Newsletter() {
                     <input
                       type="email"
                       className="form_control"
-                      placeholder="Enter Address"
+                      placeholder="Enter Whatsapp Number"
                       name="email"
                       required
                     />
