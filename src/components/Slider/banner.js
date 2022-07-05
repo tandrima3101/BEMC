@@ -5,7 +5,6 @@ import { PlaceSliderTwo } from "../../sliderProps";
 import BookingForm from "../bookingForm";
 
 function Banner(props) {
-
 return (
     <section className="hero-area">
       <div className="hero-wrapper-one mobile-view-banner" >
@@ -19,14 +18,14 @@ return (
                     return (
                       <div className="banner-items hearse-banner-items">
                         <img
-                          src={x.bannerImageUrl}
+                          src={x?.bannerImageUrl}
                           alt=""
                           className="banner-background-image"
                         />
                         <div className="banner-text">
                           <div className="banner-text-inner">
-                            <h1 className="">{x.heading}</h1>
-                            <h3 className="">{x.subHeading}</h3>
+                            <h1 className="">{x?.heading}</h1>
+                            <h3 className="">{x?.subHeading}</h3>
                           </div>
                         </div>
                       </div>
@@ -38,14 +37,14 @@ return (
                   return (
                     <div className="banner-items">
                       <img
-                        src={x.bannerImageUrl}
+                        src={x?.bannerImageUrl}
                         alt=""
                         className="banner-background-image"
                       />
                       <div className="banner-text">
                         <div className="banner-text-inner">
-                          <h1 className="">{x.heading}</h1>
-                          <h3 className="">{x.subHeading}</h3>
+                          <h1 className="">{x?.heading}</h1>
+                          <h3 className="">{x?.subHeading}</h3>
                         </div>
                       </div>
                     </div>
@@ -56,7 +55,7 @@ return (
               </div>
             </div>
             <div className="col-lg-5" style={{ padding: "0px" }}>
-              <BookingForm active={props.activeForm} pageOf={props.pageOf} />
+              <BookingForm active={props.activeForm} pageOf={props.pageOf} data={props.overallData}/>
             </div>
           </div>
         </div>

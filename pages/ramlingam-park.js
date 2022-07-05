@@ -7,6 +7,7 @@ import VideoPopup from "../src/components/VideoPopup";
 import Layout from "../src/layouts/Layout";
 import { Nav, Tab } from "react-bootstrap";
 import BookingForm from "../src/components/bookingForm";
+import PreLoader from "../src/components/PreLoader";
 
 import {
   ClientSliderOne,
@@ -26,6 +27,7 @@ import { callApi } from "../src/apiHandlers/callApi";
 const Index = () => {
   const [video, setVideo] = useState(false);
   const [ramlingamData,setRamlingamData] = useState([])
+  const [isLoaded,setIsLoaded] = useState(false)
   // const [bannerSlider,setBannerSlider] = useState([])
 
   /**************fetch ramlingam park events*********************/
@@ -37,141 +39,22 @@ const Index = () => {
       url:"ramalingampark/event/getEvent"
   }
     let response = await  callApi(apiTest)
-    setRamlingamData(response.data.data)
+    if(response.data.code==201){
+      setIsLoaded(true)
+      setRamlingamData(response.data.data)
+    }
   }
   useEffect(()=>{
     fetchEvents()
   },[])
-
+// console.log(ramlingamData)
 
   /*****************set banner data****************************/
-  let bannerData = [];
+  const bannerSlider = [];
   for (let i=0;i<ramlingamData.length;i++){
-    bannerData.push(ramlingamData[i].banner)
+    bannerSlider.push(ramlingamData[i].banner)
   }
-  console.log(bannerData)
-  const bannerSlider = [
-    {
-      heading: "LORD OF THE UNIVERSE: ",
-      subHeading:
-        "The Story Of MAHADEV in 3D laser show with musical fountain at Ramalingeswar Park.",
-      bannerImageUrl: "assets/images/BEMCAssets/rmpark_1_slider.png",
-    },   
-  ];
-  const showList = [
-    {
-      id : "1",
-      featured: true,
-      imgUrl:
-        "assets/images/BEMCAssets/rmpark_3.jpg",
-      buttonIconUrl: "",
-      buttonName: "Book",
-      showName: "Mo Odisha",
-      availability : [
-              {
-              date:'20-06-2022',
-              timings:[
-                {
-                time:'9:00-12:00AM',
-                category :[ 
-                  {
-                    seatCategory: 'abc',
-                    seatsLeft : 30
-                  },
-                  {
-                    seatCategory: 'cdef',
-                    seatsLeft : 32
-                  },
-                  {
-                    seatCategory: 'xyz',
-                    seatsLeft : 55
-                  }
-                ]
-               },
-               {
-                time:'9:00-12:00AM',
-               }
-              ]
-            },
-            {
-              date:'23-07-2022',
-              timings:[
-                {
-                time:'19:00-24:00AM',
-                seatLeft:44
-               }
-              ]
-            }
-          ],
-      reviews: "ratings-four",
-      reviewNumber: "05",
-      Price: "",
-      contactNumber: "9876543210",
-      location: "Odisha",
-    },
-    {
-      featured: true,
-      imgUrl:
-        "assets/images/BEMCAssets/rmpark_4.jpg",
-      buttonIconUrl: "",
-      buttonName: "Book",
-      showName: "Bande Utkala",
-      availability : [
-        {
-        date:'20-06-2022',
-        timings:[
-          {
-          time:'9:00-12:00AM',
-          category :[ 
-            {
-              seatCategory: 'abc',
-              seatsLeft : 30
-            },
-            {
-              seatCategory: 'cdef',
-              seatsLeft : 32
-            },
-            {
-              seatCategory: 'xyz',
-              seatsLeft : 55
-            }
-          ]
-         },
-         {
-          time:'9:00-12:00AM',
-         }
-        ]
-      },
-      {
-        date:'23-07-2022',
-        timings:[
-          {
-          time:'19:00-24:00AM',
-          seatLeft:44
-         }
-        ]
-      }
-    ],
-      reviews: "ratings-four",
-      reviewNumber: "05",
-      Price: "",
-      contactNumber: "9876543210",
-      location: "Odisha",
-    },
-    {
-      featured: false,
-      imgUrl:
-        "assets/images/BEMCAssets/rmpark_2.jpg",
-      buttonIconUrl: "",
-      buttonName: "Book",
-      showName: "Shivananda Show",
-      reviews: "ratings-four",
-      reviewNumber: "05",
-      Price: "",
-      contactNumber: "9876543210",
-      location: "Odisha",
-    },
-  ];
+  
   const getFreeQuote = [
     {
       smallText: "Checkout List",
@@ -203,57 +86,37 @@ const Index = () => {
     //     "https://images.unsplash.com/photo-1488646953014-85cb44e25828?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735",
     // },
   ];
-  const photoGallery = [
-    {
-      imgId: 1,
-      imgUrl:
-        "assets/images/BEMCAssets/rmpark_2.jpg",
-    },
-    {
-      imgId: 2,
-      imgUrl:
-        "assets/images/BEMCAssets/rmpark_3.jpg",
-    },
-    {
-      imgId: 3,
-      imgUrl:
-        "assets/images/BEMCAssets/rmpark_4.jpg",
-    },
-    {
-      imgId: 4,
-      imgUrl:
-        "assets/images/BEMCAssets/rmpark_5.jpg",
-    },
-    {
-      imgId: 5,
-      imgUrl:
-        "assets/images/BEMCAssets/rmpark_1_slider.png",
-    },
-  ];
-
+  const photoGallery = [];
+  for (let i=0;i<ramlingamData.length;i++){
+    photoGallery.push(...(ramlingamData[i].photoGallery))
+    // console.log()
+  }
+  // console.log(photoGallery,'photos')
   const videoLink = [
     { link: "https://www.youtube.com/embed/JHlY8w69wSE" }
   ];
 
   return (
+    (!isLoaded)?
+    <PreLoader/>:
     <Layout>
-      {video && <VideoPopup close={setVideo} />}
-      {/* <!--====== Start Hero Section ======--> */}
-      <Banner mainSlider={bannerSlider} activeForm='Ramlingam Park' pageOf="Ramlingam Park" />
-      {/* <!--====== End Hero Section ======--> */}
-      {/* <!--====== Start Listing Section ======--> */}
-      <ShowsList list={showList} />
-      {/* <!--====== Start Place Section ======--> */}
-      <Gallery gallery={photoGallery} />
-      {/* <!--====== End Place Section ======--> */}
-      {/* <!--====== Start Intro Video Section ======--> */}
-      <Video video={videoLink} quote={getFreeQuote} />
-      {/* <!--====== Start Newsletter Section ======--> */}
-      <Newsletter />
-      {/* <!--====== End Newsletter Section ======--> */}
-      {/* <!--====== Start Client Section ======--> */}
-      <Clients clients={clientSlider} />
-    </Layout>
+    {video && <VideoPopup close={setVideo} />}
+    {/* <!--====== Start Hero Section ======--> */}
+    <Banner overallData={ramlingamData} mainSlider={bannerSlider} activeForm='Ramlingam Park' pageOf="Ramlingam Park" />
+    {/* <!--====== End Hero Section ======--> */}
+    {/* <!--====== Start Listing Section ======--> */}
+    <ShowsList overallData={ramlingamData}/>
+    {/* <!--====== Start Place Section ======--> */}
+    <Gallery gallery={photoGallery} />
+    {/* <!--====== End Place Section ======--> */}
+    {/* <!--====== Start Intro Video Section ======--> */}
+    <Video video={videoLink} quote={getFreeQuote} />
+    {/* <!--====== Start Newsletter Section ======--> */}
+    <Newsletter />
+    {/* <!--====== End Newsletter Section ======--> */}
+    {/* <!--====== Start Client Section ======--> */}
+    <Clients clients={clientSlider} />
+  </Layout>
   );
 };
 export default Index;

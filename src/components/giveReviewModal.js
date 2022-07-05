@@ -11,7 +11,8 @@ import {
 
 import SuccessGif from '../../public/assets/images/successGif.gif';
 
-function GiveReviewModal({ activeReview }) {
+function GiveReviewModal({ activeReview,toggle }) {
+
 
   // for main modal
   const [containerReview, setContainerReview] = useState(activeReview);
@@ -28,7 +29,7 @@ function GiveReviewModal({ activeReview }) {
     <>
 
       <Modal isOpen={containerReview} toggle={() => setContainerReview(!containerReview)}>
-        <ModalHeader>Give Your a Review</ModalHeader>
+        <ModalHeader>Give Your Review</ModalHeader>
         <ModalBody>
             <div className="row">
                 <div className="col-lg-12 col-md-6 mt-2">
@@ -48,7 +49,7 @@ function GiveReviewModal({ activeReview }) {
             <div className="text-center m-2"></div>
             <Modal
                 isOpen={submodal}
-                toggle={() => setSubmodal(!submodal)}
+                toggle={() => {setSubmodal(!submodal)}}
             ></Modal>
         </ModalBody>
         <ModalFooter>
@@ -59,6 +60,7 @@ function GiveReviewModal({ activeReview }) {
                 // setCloseAll(true);
                 setSubmodal(true),
                 setContainerReview(false),
+                // toggle(!containerReview)
               ]}
             >
               Submit

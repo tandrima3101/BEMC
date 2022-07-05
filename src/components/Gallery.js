@@ -31,7 +31,7 @@ function Gallery(props) {
               <>
                 <div className="place-item place-item-one" key={photo.imgId}>
                   <div className="place-thumbnail">
-                    <img src={photo.imgUrl} alt="Place Image" style={{ height: '250px', objectFit: 'cover' }} onClick={() => { handleImagePopup(photo.imgUrl) }} />
+                    <img src={photo} alt="Place Image" style={{ height: '250px', objectFit: 'cover' }} onClick={() => { handleImagePopup(photo.imgUrl) }} />
                   </div>
                 </div>
               </>

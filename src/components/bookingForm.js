@@ -22,21 +22,63 @@ import {
 } from "reactstrap";
 
 function BookingForm(props) {
-  // const picker = datepicker(selector, options)
+  // console.log(props.data)
   const current = new Date();
-  const currdate = `${current.getDate()}/${current.getMonth() + 1}/${current.getFullYear()}`;
-  const showFirstModal = true;
-  const options = [
-    { value: "Mo Odisha", label: "Mo Odisha" },
-    { value: "Bande Utkala", label: "Bande Utkala" },
-    { value: "Shivananda Show", label: "Shivananda Show" },
-  ];
-  const seatCategory = [
-    { value: "Tower 1", label: "Tower 1" },
-    { value: "Tower 2", label: "Tower 2" },
-    { value: "Zone 1", label: "Zone 1" },
-    { value: "Zone 2", label: "Zone 2" },
-  ];
+
+  //booking forms value
+
+  const [selectedData, setSelectedData] = useState()
+  const [selectedSeatCapacity, setSelectedSeatCapacity] = useState()
+  const [bookingDetails, setBookingDetails] = useState({})
+
+  // useEffect(()=>{
+  //   console.log(bookingDetails)
+  // },[bookingDetails])
+
+  //options for ramlingam park///
+
+  const options = [];
+  for (let i = 0; i < props.data?.length; i++) {
+    options.push({
+      label: `${props.data[i].eventName}`,
+      value: `${props.data[i].eventName}`,
+      id: `${props.data[i].eventId}`,
+      data: props.data[i]
+    })
+  }
+  const seatCategory = [];
+  selectedData?.seatCategory?.map((x) => {
+    seatCategory.push({
+      label: `${x.categoryName}`,
+      value: `${x.categoryName}`,
+      capacity: x.capacity
+    })
+  })
+  const dates = [];
+  console.log(bookingDetails, 'dateAndTimreeeeeeeeeeeee')
+  console.log(selectedData, 'dateAndTimreeeeeeeeeeeee')
+  selectedData?.dateAndTime?.map((x,index) => {
+    dates.push({
+      label: `${x.date}`,
+      value: `${x.date}`,
+      key:index
+    })
+  })
+  const showTimes = []
+  selectedData?.dateAndTime?.map((x) => {
+    if (bookingDetails.date === x.date) {
+      // console.log(x,'selectedDate')
+      x.time.map((y,index) => {
+        showTimes.push({
+          label: `${y}`,
+          value: `${y}`,
+          key:index
+        })
+      })
+    }
+  })
+
+  console.log(showTimes)
   const kalyanMandap = [
     { value: "Biju Patnaik Kalyan Mandap", label: "Biju Patnaik Kalyan Mandap" },
   ];
@@ -53,19 +95,14 @@ function BookingForm(props) {
     { value: "Birthday", label: "Birthday" },
     { value: "other", label: "Other Reason" },
   ];
-  const options2 = [
-    { value: "chocolate", label: "Chocolate" },
-    { value: "strawberry", label: "Strawberry" },
-    { value: "vanilla", label: "Vanilla" },
-    { value: "other", label: "Other Reason" },
-  ];
-  const [showTimes,setShowTimes] = useState([
-    {id:1,time:'6:30PM-7:30PM'}
-  ])
-  const [activeShowTimes,setActivrShowTimes] = useState({})
 
-  
-  
+
+  const [activeShowTimes, setActivrShowTimes] = useState({label:showTimes[0]?.label,
+  value:showTimes[0]?.value,
+id:showTimes[0]?.key})
+
+
+
   const [activeForm, setActiveForm] = useState(props.active);
   const [pageOf, setPageOf] = useState(props.pageOf);
 
@@ -95,15 +132,9 @@ function BookingForm(props) {
   const [toggle, setToggle] = useState(false);
   const [activeModal, setActiveModal] = useState(false);
   const [activeModalTwo, setActiveModalTwo] = useState(false);
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
   const [showTextarea, setShowTextarea] = useState(false);
   const [tempState, setTempState] = useState(false);
   const [showSeatsAvailable, setShowSeatsAvailable] = useState(false)
-  useEffect(() => {
-    const finalDate=(new Date().getDate()+13)
-    setEndDate(new Date().setDate(finalDate))
-  }, [])
 
 
   /*************set purpose********** */
@@ -158,9 +189,9 @@ function BookingForm(props) {
                     style={{ borderBottom: "0px" }}
                   >
                     {type?.map((x, index) => {
-                      if(pageOf==="index"){
-                      
-                        if (index == 5){
+                      if (pageOf === "index") {
+
+                        if (index == 5) {
                           return (
                             <>
                               <li className="nav-item button-nav">
@@ -205,23 +236,24 @@ function BookingForm(props) {
                               </li>
                             </>
                           );
+                        }
+                        return (
+                          <li className="nav-item">
+                            <Nav.Link
+                              as="a"
+                              className="c-pointer"
+                              eventKey={x}
+                              key={index}
+                              onClick={(e) => {
+                                e.preventDefault();
+                                setActiveForm(x);
+                              }}
+                            >
+                              {x}
+                            </Nav.Link>
+                          </li>
+                        );
                       }
-                      return (
-                        <li className="nav-item">
-                          <Nav.Link
-                            as="a"
-                            className="c-pointer"
-                            eventKey={x}
-                            key={index}
-                            onClick={(e) => {
-                              e.preventDefault();
-                              setActiveForm(x);
-                            }}
-                          >
-                            {x}
-                          </Nav.Link>
-                        </li>
-                      );}
                     })}
                   </Nav>
                 </div>
@@ -236,46 +268,40 @@ function BookingForm(props) {
                 <div className="row">
                   <div className="col-lg-12 col-md-6 mt-2">
                     <label>Select Event</label>
-                    <Select options={options} />
+                    <Select options={options} onChange={(e) => { setBookingDetails({ ...bookingDetails, event: e.value }), setSelectedData(e.data) }} />
                   </div>
                   <div className="col-lg-12 col-md-6 mt-2">
                     <label>Select Date</label>
-                    <DatePicker
-                      dateFormat="dd-MM-yyyy"
-                      selected={startDate}
-                      onChange={(date) => setStartDate(date)
-                      }
-                      maxDate={endDate}
-                      minDate={startDate}
-                    />
+                    <Select options={dates} onChange={(e) => { setBookingDetails({ ...bookingDetails, date: e.value }) }} />
                   </div>
                   <div className="col-lg-12 col-md-6 mt-2">
                     <label>Select Time</label>
-                    <p id="id_work_days">
+                    <p id="id_work_days" className="mb-0">
                       {showTimes.map((x) => {
                         return (
-                          <label key={x.id} onClick={() => setShowSeatsAvailable(true)}>
-                            <input type="checkbox" name="work_days" value={x.time} checked={x.id===activeShowTimes.id} onClick={() => {x.id===activeShowTimes.id?setActivrShowTimes({}):setActivrShowTimes(x),setTempState(!tempState)}}/>
-                            <span>{x.time}</span>
+                          <label key={x.key}>
+                            <input type="checkbox" name="work_days" value={x.label} checked={x.key === activeShowTimes.id} onClick={() => { x.id === activeShowTimes.id ? setActivrShowTimes({}) : setActivrShowTimes(x), setTempState(!tempState) }} />
+                            <span>{x.label}</span>
                           </label>
                         )
                       })
                       }
                     </p>
                   </div>
-                  {(showSeatsAvailable) ? <small>122 seats available</small> : <small></small>}
                   <div className="col-lg-12 col-md-6 mt-2">
                     <label>Select Seat Category</label>
-                    <Select options={seatCategory} />
+                    <Select className='mb-2' options={seatCategory} onChange={(e) => { setBookingDetails({ ...bookingDetails, seat: e.value }), setSelectedSeatCapacity(e.capacity) }} />
                   </div>
+                  {(selectedSeatCapacity != null) ? <h6 className={(selectedSeatCapacity > 20) ? 'text-success' : 'text-danger'}>{selectedSeatCapacity} seats available</h6> : <h6></h6>}
+
                   <div className="col-lg-10 col-md-6 mt-4">
                     <button
                       onClick={() => activeModalFunction()}
-                      className="main-btn icon-btn">Search Now</button>
+                      className="main-btn icon-btn">Book Now</button>
                   </div>
                 </div>
               </Tab.Pane>
-              <FormModal active={activeModal} />
+              <FormModal active={activeModal} data={bookingDetails} />
               {/* *****************Sports Arena*************** */}
               <Tab.Pane
                 className={`show ${activeForm === "Sports Arena" ? "active" : ""

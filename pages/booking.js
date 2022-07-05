@@ -132,7 +132,7 @@ const Booking=()=> {
                 </div>
                 <div className="col-lg-3 d-flex flex-column justify-content-center">
                   <h4 className="text-center mt-4 mb-6">Rate Us</h4>
-                  <Ratings/>
+                  <Ratings size='50' align='center' rating={5} canHover='false'/>
                   <div className="review-link">
                     <button onClick={() => activeModalFunctionReview()}>Give a small review</button>
                   </div>

@@ -8,8 +8,9 @@ import {
   ModalFooter,
 } from "reactstrap";
 
-function FormModal({ active , activeTwo }) {
-
+function FormModal({ active , activeTwo, data }) {
+  const [totalData,setTotalData] = useState(data)
+console.log(totalData)
   // for main modal
   const [containerOne, setContainerOne] = useState(active);
   const [containerTwo, setContainerTwo] = useState(activeTwo);
@@ -21,6 +22,7 @@ function FormModal({ active , activeTwo }) {
   useEffect(() =>{
     setContainerOne(active)
     setContainerTwo(activeTwo)
+    setTotalData(data)
   },[activeTwo,active])
 
   return (
@@ -34,23 +36,23 @@ function FormModal({ active , activeTwo }) {
           <div className="row">
             <div className="col-lg-12 col-md-6 mt-2">
               <label>Enter No Of Adults</label>
-              <input type="number" className="otpinput m-0" />
+              <input type="number" className="otpinput m-0" onChange={(e)=>setTotalData({...totalData,adults:(e.target.value)})}/>
             </div>
             <div className="col-lg-12 col-md-6 mt-2">
               <label>Enter No Of child</label>
-              <input type="number" className="otpinput m-0" />
+              <input type="number" className="otpinput m-0" onChange={(e)=>setTotalData({...totalData,child:(e.target.value)})} />
             </div>
             <div className="col-lg-12 col-md-6 mt-2">
               <label>Enter Name</label>
-              <input type="text" className="otpinput m-0" />
+              <input type="text" className="otpinput m-0" onChange={(e)=>setTotalData({...totalData,name:(e.target.value)})} />
             </div>
             <div className="col-lg-12 col-md-6 mt-2">
               <label>Enter Phone Number</label>
-              <input type="number" className="otpinput m-0" />
+              <input type="number" className="otpinput m-0" onChange={(e)=>setTotalData({...totalData,contactNumber:(e.target.value)})} />
             </div>
             <div className="col-lg-12 col-md-6 mt-2">
               <label>Enter Email Address</label>
-              <input type="text" className="otpinput m-0" />
+              <input type="text" className="otpinput m-0" onChange={(e)=>setTotalData({...totalData,email:(e.target.value)})}/>
             </div>
           </div>
           <br />
