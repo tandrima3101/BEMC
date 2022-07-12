@@ -1,5 +1,5 @@
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import Slider from "react-slick";
 import Counter from "../src/components/Counter";
 import VideoPopup from "../src/components/VideoPopup";
@@ -9,6 +9,7 @@ import TestimoinalSlider from "../src/components/Slider/TestimonialSlider";
 import BookingForm from "../src/components/bookingForm";
 import Banner from "../src/components/Slider/banner";
 import Video from "../src/components/video";
+import { callApi } from "../src/apiHandlers/callApi";
 
 import {
   ClientSliderOne,
@@ -23,6 +24,8 @@ import Clients from "../src/components/clients";
 
 const Index = () => {
   const [video, setVideo] = useState(false);
+  const [ramlingamData,setRamlingamData] = useState([])
+  const [isLoaded,setIsLoaded] = useState(false)
 
   const bannerSlider = [
     {
@@ -246,11 +249,25 @@ const Index = () => {
   const videoLink = [
     {link : "https://www.youtube.com/embed/JHlY8w69wSE"}
 ];
+async function fetchEvents() {
+  let apiTest={
+    method:'post',
+    url:"ramalingampark/event/getEvent"
+}
+  let response = await  callApi(apiTest)
+  if(response.data.code==201){
+    setIsLoaded(true)
+    setRamlingamData(response.data.data)
+  }
+}
+useEffect(()=>{
+  fetchEvents()
+},[])
   return (
     <Layout>
       {video && <VideoPopup close={setVideo} />}
       {/* <!--====== Start Hero Section ======--> */}
-      <Banner mainSlider={bannerSlider} activeForm='Ramlingam Park' pageOf="index"/>
+      <Banner overallData={ramlingamData} mainSlider={bannerSlider} activeForm='Ramlingam Park' pageOf="index"/>
       {/* <!--====== End Hero Section ======--> */}
       {/* <!--====== Start Category Section ======--> */}
       <section className="category-area">
@@ -404,7 +421,7 @@ const Index = () => {
       {/* <!--====== End Category Section ======--> */}
       {/* <!--====== Start Listing Section ======--> */}
 
-      <ShowsList list={showList}/>
+      <ShowsList list={showList} overallData={ramlingamData}/>
       {/* <!--====== Start Intro Video Section ======--> */}
       <Video video = {videoLink} quote= {getFreeQuote}/>
       {/* <!--====== End Intro Video Section ======--> */}

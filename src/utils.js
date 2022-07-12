@@ -1,3 +1,6 @@
+import Router from "next/router";
+import { callApi } from "./apiHandlers/callApi";
+
 export const animation = () => {
   if (typeof window !== "undefined") {
     window.WOW = require("wowjs");
@@ -111,3 +114,51 @@ export const activeNavMenu = (path) => {
     }
   });
 };
+
+export const setRoutingData = async (data, path) => {
+  localStorage.setItem("routingData", JSON.stringify(data))
+  Router.push(path)
+
+}
+
+
+export const getRoutingData = async () => {
+  let data = await localStorage.getItem("routingData")
+  localStorage.removeItem("routingData")
+  return JSON.parse(data)
+}
+
+
+export const generateOTP = async (usersData) => {
+  
+  let generateOTPData = {
+    method: 'post',
+    url: "users/generateOtp",
+    data: usersData
+  }
+  let response = await callApi(generateOTPData)
+  // console.log(response,'otp response')
+  if(response.data.status=="SUCCESS"){
+    return true
+  }else{
+    return false
+  }
+}
+
+export const varifyOTP = async (data) => {
+  
+  let apiData = {
+    method: 'post',
+    url: "users/validateOtp",
+    data: data
+  }
+  let response = await callApi(apiData)
+
+  if(response.data.status=="SUCCESS"){
+    await localStorage.setItem("apiToken",response.data.data.token)
+    return true
+  }else{
+    return false
+  }
+}
+

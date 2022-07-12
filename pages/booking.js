@@ -1,46 +1,64 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Layout from "../src/layouts/Layout";
 import VideoPopup from "../src/components/VideoPopup";
 import Ratings from '../src/components/ratings'
 import TicketIssueModal from "../src/components/ticketIssueModal";
 import GiveReviewModal from "../src/components/giveReviewModal";
+import { callApi } from "../src/apiHandlers/callApi";
 
 const Booking=()=> {
+
   const [video, setVideo] = useState(false);
   const [activeModalThree, setActiveModalThree] = useState(false);
   const [activeModalReview, setActiveModalReview] = useState(false);
+  const [bookingList,setBookingLiast] = useState([])
+  const getBookingRequest=async ()=>{
+    let getBookingData={
+      method:'get',
+      url:"ramalingampark/booking/getAllBooking",
+  }
+    let response = await  callApi(getBookingData)
+    console.log(response.data.data,'responseeeeeeee')
+    if(response.status==200){
+      setBookingLiast(response.data.data)
+    }
+  }
+  useEffect(()=>{
+    getBookingRequest()
+  },[])
+  console.log(bookingList,'listt')
 
-  const bookingDetails = [
-    {
-      bookingId: 1,
-      bookingImgUrl:
-        "https://images.unsplash.com/photo-1566159266489-6158a42c3beb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
-      showName: "Show 1",
-      hallName: "Ramlingam Park",
-      time: "3:40AM",
-      date: "01-0602022",
-      count: 5,
-      seatNumber: 4,
-      ticketPrice: 240.0,
-      conveniencePrice: 100.0,
-      totalPrice: 340.0,
-    },
-    {
-      bookingId: 1,
-      bookingImgUrl:
-        "https://images.unsplash.com/photo-1566159266489-6158a42c3beb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
-      showName: "Show 1",
-      hallName: "Ramlingam Park",
-      time: "3:40AM",
-      date: "01-0602022",
-      count: 5,
-      seatNumber: 4,
-      ticketPrice: 240.0,
-      conveniencePrice: 100.0,
-      totalPrice: 340.0,
-    },
-  ];
+  // const bookingDetails = [
+  //   {
+  //     bookingId: 1,
+  //     bookingImgUrl:
+  //       "https://images.unsplash.com/photo-1566159266489-6158a42c3beb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
+  //     showName: "Show 1",
+  //     hallName: "Ramlingam Park",
+  //     time: "3:40AM",
+  //     date: "01-0602022",
+  //     count: 5,
+  //     seatNumber: 4,
+  //     ticketPrice: 240.0,
+  //     conveniencePrice: 100.0,
+  //     totalPrice: 340.0,
+  //   },
+  //   {
+  //     bookingId: 1,
+  //     bookingImgUrl:
+  //       "https://images.unsplash.com/photo-1566159266489-6158a42c3beb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
+  //     showName: "Show 1",
+  //     hallName: "Ramlingam Park",
+  //     time: "3:40AM",
+  //     date: "01-0602022",
+  //     count: 5,
+  //     seatNumber: 4,
+  //     ticketPrice: 240.0,
+  //     conveniencePrice: 100.0,
+  //     totalPrice: 340.0,
+  //   },
+  // ];
 
   const activeModalFunctionThree = () => {
     setActiveModalThree(!activeModalThree);
@@ -56,7 +74,7 @@ const Booking=()=> {
       {video && <VideoPopup close={setVideo} />}
       <div className="service">
         <div className="container-fluid light-bg pt-4 pb-4">
-          {bookingDetails.map((bookings,index) => {
+          {bookingList.map((bookings,index) => {
             return (
               <div className="row" key={index}>
                 <div className="col-lg-9 pr-4" key={bookings.bookingId}>
@@ -124,7 +142,7 @@ const Booking=()=> {
                         <hr />
                         <span>Still Available</span>
                         <h5 className="text-center">
-                          <b>T2ADRTY</b>
+                          <b>{bookings.bookingId}</b>
                         </h5>
                       </div>
                     </div>

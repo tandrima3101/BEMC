@@ -8,7 +8,7 @@ import Layout from "../src/layouts/Layout";
 import { Nav, Tab } from "react-bootstrap";
 import BookingForm from "../src/components/bookingForm";
 import PreLoader from "../src/components/PreLoader";
-
+import TestimoinalSlider from '../src/components/Slider/TestimonialSlider'
 import {
   ClientSliderOne,
   ListingSliderOne,
@@ -28,6 +28,7 @@ const Index = () => {
   const [video, setVideo] = useState(false);
   const [ramlingamData,setRamlingamData] = useState([])
   const [isLoaded,setIsLoaded] = useState(false)
+  const [reviews,setReviews] = useState([])
   // const [bannerSlider,setBannerSlider] = useState([])
 
   /**************fetch ramlingam park events*********************/
@@ -44,10 +45,22 @@ const Index = () => {
       setRamlingamData(response.data.data)
     }
   }
+  async function fetchReviews() {
+    let apiTest={
+      method:'get',
+      url:"ramalingampark/event/getAllReview"
+  }
+    let response = await  callApi(apiTest)
+    // console.log(response,'responseeeeeeeeee')
+    if(response.data.code==201){
+      setReviews(response.data.data)
+    }
+  }
   useEffect(()=>{
     fetchEvents()
+    fetchReviews()
   },[])
-// console.log(ramlingamData)
+console.log(reviews,'reviewssssssss')
 
   /*****************set banner data****************************/
   const bannerSlider = [];
@@ -109,6 +122,35 @@ const Index = () => {
     {/* <!--====== Start Place Section ======--> */}
     <Gallery gallery={photoGallery} />
     {/* <!--====== End Place Section ======--> */}
+    {/* <!--=================start testimonial section==============--> */}
+    <section
+        className="testimonial-area bg_cover pt-110 pb-140"
+        style={{
+          backgroundImage: "url(assets/images/bg/testimonial-bg-1.jpg)",
+        }}
+      >
+        <div className="container">
+          <div className="row justify-content-center">
+            <div className="col-lg-6">
+              <div className="section-title section-title-two section-title-white text-center mb-55">
+                <h2>
+                  <span className="line">Customer</span> Feedack
+                </h2>
+              </div>
+            </div>
+          </div>
+          <div className="row justify-content-center">
+            <div className="col-lg-8">
+              <div className="testimonial-wrapper-one text-center">
+                <div className="testimonial-review-area">
+                  <TestimoinalSlider data={reviews}/>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      {/* <!--==============end testimonial section==============--> */}
     {/* <!--====== Start Intro Video Section ======--> */}
     <Video video={videoLink} quote={getFreeQuote} />
     {/* <!--====== Start Newsletter Section ======--> */}

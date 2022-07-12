@@ -20,10 +20,10 @@ function ShowsList(props) {
   // },[props.overallData])
   const showList=[]
   for (let i =0;i<props.overallData.length;i++){
-    showList.push({price:props.overallData[i].price,eventName:props.overallData[i].eventName,location:props.overallData[i].location,card:props.overallData[i].card,review:props.overallData[i].review,reviewCount:props.overallData[i].reviewCount,seatCategory:props.overallData[i].seatCategory,dates:props.overallData[i].eventDates,time:props.overallData[i].eventTime    })
+    showList.push({price:props.overallData[i].price,eventName:props.overallData[i].eventName,location:props.overallData[i].location,card:props.overallData[i].card,review:props.overallData[i].review,reviewCount:props.overallData[i].reviewCount,seatCategory:props.overallData[i].seatCategory,dates:props.overallData[i].dateAndTime.map((x)=>{return x.date}),dateAndTime:props.overallData[i].dateAndTime})
   }
   console.log(showList)
-
+console.log(props.overallData,'overall data')
   return (
     <section className="listing-grid-area pt-115 pb-75">
       <div className="container">

@@ -3,9 +3,12 @@ import React, { useState } from "react";
 import PageBanner from "../src/components/PageBanner";
 import VideoPopup from "../src/components/VideoPopup";
 import Layout from "../src/layouts/Layout";
+import {useRouter} from 'next/router'
 
 const HowWork = () => {
   const [video, setVideo] = useState(false);
+  const router = useRouter()
+  
   return (
     <Layout>
       {video && <VideoPopup close={setVideo} />}

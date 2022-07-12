@@ -41,12 +41,6 @@ const Header2 = () => {
                         <Link href="/">
                           <a>Home</a>
                         </Link>
-                        {/* <ul className="sub-menu">
-                          <Home />
-                        </ul> */}
-                        {/* <span className="dd-trigger">
-                          <i className="ti-arrow-down"></i>
-                        </span> */}
                       </li>
                       {/* <About /> */}
                       <li className="menu-item has-children">

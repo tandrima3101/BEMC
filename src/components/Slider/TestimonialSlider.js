@@ -2,7 +2,7 @@ import React, { Component, Fragment } from "react";
 import Slider from "react-slick";
 
 export default class TestimoinalSlider extends Component {
-  
+
   constructor(props) {
     super(props);
     this.state = {
@@ -10,12 +10,6 @@ export default class TestimoinalSlider extends Component {
       nav2: null,
     };
   }
-  testimonialData = [{
-    imgUrl:'assets/images/avatar-370-456322.jpg',
-    review:' multiply given all hath given may meat god abundant appear lioud fourth madman mane said god dominion great gathering called very shall after cre ated from fruitful place over the mitual',
-    designation:'Sr. Designer',
-    name:'Melisa Powels'
-  }]
   componentDidMount() {
     this.setState({
       nav1: this.slider1,
@@ -24,6 +18,8 @@ export default class TestimoinalSlider extends Component {
   }
 
   render() {
+    let testimonialData = this.props.data
+    console.log(testimonialData, 'testimonial data')
     return (
       <Fragment>
         <Slider
@@ -38,11 +34,11 @@ export default class TestimoinalSlider extends Component {
           slidesToScroll={1}
           className="testimonial-thumb-slider-one"
         >
-          {this.testimonialData.map((data)=>{
+          {testimonialData?.map((data)=>{
             return(
               <div className="single-thumb">
             <img
-              src={data.imgUrl}
+              src='assets\images\avatar-370-456322.jpg'
               alt="testimonial thumb"
             />
           </div>
@@ -62,21 +58,21 @@ export default class TestimoinalSlider extends Component {
           slidesToScroll={1}
           className="testimonial-content-slider-one"
         >
-          {this.testimonialData.map((data)=>{
-            return(
+          {testimonialData?.map((data) => {
+            return (
               <div className="testimonial-item">
-            <div className="testimonial-content">
-              <p>
-               {data.review}
-              </p>
-              <div className="author-info">
-                <div className="author-title">
-                  <h4>{data.name}</h4>
-                  <span className="position">{data.designation}</span>
+                <div className="testimonial-content">
+                  <p className="text-capitalize">
+                    {data.review}
+                  </p>
+                  <div className="author-info">
+                    <div className="author-title">
+                      <h4>{data.userName}</h4>
+                      <span className="position">{data.designation}</span>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
             )
           })}
         </Slider>
