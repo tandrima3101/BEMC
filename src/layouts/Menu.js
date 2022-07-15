@@ -1,18 +1,15 @@
 import Link from "next/link";
 import React, { Fragment, useState } from "react";
 import LoginFormModal from "../components/LoginFormModal";
+import {useDispatch} from 'react-redux'
+import { setlogin, setToken } from "../../redux/slices/loginSlice";
+import  Router  from "next/router";
 
 export const Home = () => (
   <Fragment>
     <li className="menu-item">
       <Link href="/">Home</Link>
     </li>
-    {/* <li className="menu-item">
-      <Link href="/index-2">Home Two</Link>
-    </li>
-    <li className="menu-item">
-      <Link href="/index-3">Home Login</Link>
-    </li> */}
   </Fragment>
 );
 export const About = () => (
@@ -99,16 +96,22 @@ export const Login = ({ setLogin }) => {
 };
 
 export const LoginUserListing = ({ setLogin }) => {
+
+  const dispatch = useDispatch()
   const handleLogout = () =>{
-    setLogin(false);
+    // localStorage.removeItem("isLogin")
+    dispatch(setlogin(false))
+    dispatch(setToken(null))
+    Router.push("/")
+
   }
   return (
   <Fragment>
     <li className="menu-item">
-      <Link href="/booking">My Bookings</Link>
+      <Link href="authroutes/booking">My Bookings</Link>
     </li>
     <li className="menu-item">
-      <Link href="/my-complains">My Complains</Link>
+      <Link href="authroutes/my-complains">My Complains</Link>
     </li>
     <li className="menu-item">
       <button className="w-100 py-2" style={{background : 'inherit', fontWeight : 'bold'}} onClick={handleLogout}>Logout</button>

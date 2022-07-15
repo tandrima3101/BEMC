@@ -2,9 +2,16 @@ import Link from "next/link";
 import React,{ useState, useEffect } from "react";
 import { FaRegUser } from 'react-icons/fa';
 import { About, Blog, Contact, Home, Listing, Login, LoginUserListing, Pages } from "../Menu";
+import {useSelector} from 'react-redux'
+import Router from "next/router";
+import { handleLogoutUnAuthorised } from "../../utils";
 
 const Header2 = () => {
-  const [isLogin, setLogin] = useState(false);
+
+  const islogin = useSelector((state) => state.login.isLogin)
+    if(Router.pathname.includes("authroutes") && !islogin){
+      handleLogoutUnAuthorised()
+    }
 
   return (
     <header className="header-area header-area-two d-none d-xl-block">
@@ -18,12 +25,12 @@ const Header2 = () => {
                   <Link href="/">
                     <a className="brand-logo d-flex">
                     <img
-                        src="assets/images/logo/final-logo.png"
+                        src="/assets/images/logo/final-logo.png"
                         alt="Brand Logo"
                         style={{width : "80%", height : "80%",marginTop: "5%"}}
                       />
                       <img
-                        src="assets/images/logo/logo-2.png"
+                        src="/assets/images/logo/logo-2.png"
                         alt="Brand Logo"
                       />
                     </a>
@@ -59,7 +66,7 @@ const Header2 = () => {
                         </Link>
                       </li>
                       {
-                        !isLogin ? <Login  setLogin={setLogin} /> :
+                        !islogin ? <Login  setLogin={islogin} /> :
                         <li className="menu-item has-children my-auto">
                           <FaRegUser 
                               className="main-btn" 
@@ -77,7 +84,7 @@ const Header2 = () => {
                               
                           />
                           <ul className="sub-menu">
-                            <LoginUserListing setLogin={setLogin} />
+                            <LoginUserListing setLogin={islogin} />
                           </ul>
                         </li>
                       }

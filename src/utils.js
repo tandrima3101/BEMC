@@ -1,5 +1,6 @@
 import Router from "next/router";
 import { callApi } from "./apiHandlers/callApi";
+import { useDispatch } from "react-redux";
 
 export const animation = () => {
   if (typeof window !== "undefined") {
@@ -160,5 +161,13 @@ export const varifyOTP = async (data) => {
   }else{
     return false
   }
+}
+
+
+
+export const handleLogoutUnAuthorised = () =>{
+  
+  Router.push("/unauthorized")
+
 }
 

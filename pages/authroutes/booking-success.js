@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 
-import SuccessGif from '../public/assets/images/successGif.gif';
-import Layout from '../src/layouts/Layout';
-import { getRoutingData } from '../src/utils';
+import SuccessGif from '../../public/assets/images/successGif.gif';
+import Layout from '../../src/layouts/Layout';
+import { getRoutingData } from '../../src/utils';
 
 function BookingSuccess() {
   const [isLoaded, setIsLoade] = useState(false);

@@ -5,6 +5,8 @@ import FormModal from "./formModal";
 import "react-datepicker/dist/react-datepicker.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { callApi } from "../apiHandlers/callApi";
+import { useForm } from "react-hook-form";
+
 
 function BookingForm(props) {
   const current = new Date();
@@ -32,27 +34,27 @@ function BookingForm(props) {
       capacity: x.capacity
     })
   })
-  
-  const checkSeats =async (data) => {
+
+  const checkSeats = async (data) => {
     // console.log(data,'iddddddddddddddddddddddd')
 
     let apiTest = {
       method: 'post',
       url: "ramalingampark/bookingRequest/getSeatAvailability",
       data: {
-        eventId:data,
+        eventId: data,
         api_key: "registeruser"
       }
     }
     let response = await callApi(apiTest)
     // console.log(response.data,'dataa')
-    if(response.data.status == 'SUCCESS'){
-      response.data.data.map((x)=>{
+    if (response.data.status == 'SUCCESS') {
+      response.data.data.map((x) => {
         seatCategory.push({
           label: `${x.categoryName}`,
           value: `${x.categoryName}`,
           capacity: x.capacity,
-          available:x.available
+          available: x.available
         })
       })
     }
@@ -270,15 +272,16 @@ function BookingForm(props) {
               >
                 <div className="row">
                   <div className="col-lg-12 col-md-6 mt-2">
-                    <label>Select Event</label>
-                    <Select options={options} onChange={(e) => { setBookingDetails({ ...bookingDetails, eventName: e.value, eventId: e.id }), setSelectedData(e.data), checkSeats(e.id) }} />
+                    <label>Select Event<span className="text-danger"><b>*</b></span></label>
+                    <Select options={options}
+                      onChange={(e) => { setBookingDetails({ ...bookingDetails, eventName: e.value, eventId: e.id }), setSelectedData(e.data), checkSeats(e.id) }} />
                   </div>
                   <div className="col-lg-12 col-md-6 mt-2">
-                    <label>Select Date</label>
+                    <label>Select Date<span className="text-danger"><b>*</b></span></label>
                     <Select options={dates} onChange={(e) => { setBookingDetails({ ...bookingDetails, selectedDate: e.value }) }} />
                   </div>
                   <div className="col-lg-12 col-md-6 mt-2">
-                    <label>Select Time</label>
+                    <label>Select Time<span className="text-danger"><b>*</b></span></label>
                     <p id="id_work_days" className="mb-0">
                       {showTimes.map((x) => {
                         return (
@@ -292,7 +295,7 @@ function BookingForm(props) {
                     </p>
                   </div>
                   <div className="col-lg-12 col-md-6 mt-2">
-                    <label>Select Seat Category</label>
+                    <label>Select Seat Category<span className="text-danger"><b>*</b></span></label>
                     <Select className='mb-2' options={seatCategory} onChange={(e) => { setBookingDetails({ ...bookingDetails, selectedSeatCategory: e.value }), setSelectedSeatCapacity(e.capacity) }} />
                   </div>
                   {(selectedSeatCapacity != null) ? <h6 className={(selectedSeatCapacity > 20) ? 'text-success' : 'text-danger'}>{selectedSeatCapacity} seats available</h6> : <h6></h6>}
@@ -304,7 +307,7 @@ function BookingForm(props) {
                   </div>
                 </div>
               </Tab.Pane>
-              <FormModal active={activeModal} data={bookingDetails} adultPrice={selectedData?.price} childPrice={selectedData?.cPrice}/>
+              <FormModal active={activeModal} data={bookingDetails} adultPrice={selectedData?.price} childPrice={selectedData?.cPrice} />
               {/* *****************Sports Arena*************** */}
               <Tab.Pane
                 className={`show ${activeForm === "Sports Arena" ? "active" : ""

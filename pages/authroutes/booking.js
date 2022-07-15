@@ -1,65 +1,50 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import Layout from "../src/layouts/Layout";
-import VideoPopup from "../src/components/VideoPopup";
-import Ratings from '../src/components/ratings'
-import TicketIssueModal from "../src/components/ticketIssueModal";
-import GiveReviewModal from "../src/components/giveReviewModal";
-import { callApi } from "../src/apiHandlers/callApi";
+import Layout from "../../src/layouts/Layout";
+import VideoPopup from "../../src/components/VideoPopup";
+import Ratings from '../../src/components/ratings'
+import TicketIssueModal from "../../src/components/ticketIssueModal";
+import GiveReviewModal from "../../src/components/giveReviewModal";
+import { callApi } from "../../src/apiHandlers/callApi";
 
-const Booking=()=> {
+const Booking = () => {
 
   const [video, setVideo] = useState(false);
   const [activeModalThree, setActiveModalThree] = useState(false);
   const [activeModalReview, setActiveModalReview] = useState(false);
-  const [bookingList,setBookingLiast] = useState([])
-  const getBookingRequest=async ()=>{
-    let getBookingData={
-      method:'get',
-      url:"ramalingampark/booking/getAllBooking",
-  }
-    let response = await  callApi(getBookingData)
-    console.log(response.data.data,'responseeeeeeee')
-    if(response.status==200){
+  const [bookingList, setBookingLiast] = useState([])
+  const [ramlingamData, setRamlingamData] = useState([])
+
+  let temp =[];
+  const getBookingRequest = async () => {
+    let getBookingData = {
+      method: 'get',
+      url: "ramalingampark/booking/getAllBookingPopulated",
+    }
+    let response = await callApi(getBookingData)
+    console.log(response.data.data, 'responseeeeeeee')
+    if (response.status == 200) {
       setBookingLiast(response.data.data)
+      response.data.data.map(async (x) => {
+        let getBookingData = {
+          method: 'post',
+          url: "ramalingampark/event/getEventByEventId",
+          data: {
+            eventId: x.bookingRequest.eventId
+          }
+        }
+        let response = await callApi(getBookingData)
+        console.log(response,'response')
+        setRamlingamData([...ramlingamData,{image:response.data.data.banner.bannerImageUrl,eventId:response.data.data.eventId}])
+      })
     }
   }
-  useEffect(()=>{
+  console.log(ramlingamData)
+
+  useEffect(() => {
     getBookingRequest()
-  },[])
-  console.log(bookingList,'listt')
-
-  // const bookingDetails = [
-  //   {
-  //     bookingId: 1,
-  //     bookingImgUrl:
-  //       "https://images.unsplash.com/photo-1566159266489-6158a42c3beb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
-  //     showName: "Show 1",
-  //     hallName: "Ramlingam Park",
-  //     time: "3:40AM",
-  //     date: "01-0602022",
-  //     count: 5,
-  //     seatNumber: 4,
-  //     ticketPrice: 240.0,
-  //     conveniencePrice: 100.0,
-  //     totalPrice: 340.0,
-  //   },
-  //   {
-  //     bookingId: 1,
-  //     bookingImgUrl:
-  //       "https://images.unsplash.com/photo-1566159266489-6158a42c3beb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
-  //     showName: "Show 1",
-  //     hallName: "Ramlingam Park",
-  //     time: "3:40AM",
-  //     date: "01-0602022",
-  //     count: 5,
-  //     seatNumber: 4,
-  //     ticketPrice: 240.0,
-  //     conveniencePrice: 100.0,
-  //     totalPrice: 340.0,
-  //   },
-  // ];
-
+  }, [])
+  console.log(bookingList, 'listt')
   const activeModalFunctionThree = () => {
     setActiveModalThree(!activeModalThree);
   }
@@ -74,7 +59,7 @@ const Booking=()=> {
       {video && <VideoPopup close={setVideo} />}
       <div className="service">
         <div className="container-fluid light-bg pt-4 pb-4">
-          {bookingList.map((bookings,index) => {
+          {bookingList.map((bookings, index) => {
             return (
               <div className="row" key={index}>
                 <div className="col-lg-9 pr-4" key={bookings.bookingId}>
@@ -84,41 +69,43 @@ const Booking=()=> {
                         <div className="row booking-card-left">
                           <div className="col-lg-4 d-flex justify-content-center">
                             <img
-                              src={bookings.bookingImgUrl}
+                              src={ramlingamData[0]?.image}
                               alt="bookedshow"
                               className="bookingImage"
                             />
                           </div>
                           <div className="col-lg-8 pl-0">
                             <div className="ticket-details">
-                              <h4>{bookings.showName}</h4>
-                              <p className="m-0">{bookings.hallName}</p>
+                              <h4>{bookings.bookingRequest.eventName}</h4>
+                              <p className="m-0">{bookings.bookingRequest.ticketSource} BOOKING</p>
                               <p className="m-0">
                                 <i className="ti-time mr-2"></i>
-                                {bookings.time}
+                                {bookings.bookingRequest.selectedTime}
                               </p>
                               <p className="m-0 mb-2">
                                 <i className="ti-calendar mr-2"></i>
-                                {bookings.date}
+                                {bookings.bookingRequest.selectedDate}
                               </p>
                               <h6>
                                 <i className="ti-ticket mr-2"></i>
                                 <b>Number of Tickets :</b>
-                                <span>{bookings.count}</span>
+                                <span>{bookings.bookingRequest.adultNum} Adults & {bookings.bookingRequest.childNum} Child</span>
                               </h6>
                               <h6>
-                                <b>seatNumber</b>
+                                <i className="ti-ticket mr-2"></i>
+                                <b>Seat Category :</b>
+                                <span>{bookings.bookingRequest.selectedSeatCategory} </span>
                               </h6>
                               <div className="row d-flex justify-content-between">
                                 <span className="p-0">Ticket Price</span>
                                 <span className="p-0">
-                                  Rs. {bookings.ticketPrice}
+                                  Rs. {bookings.account.netAmount}
                                 </span>
                               </div>
                               <div className="row d-flex justify-content-between">
                                 <span className="p-0">Convenience Price</span>
                                 <span className="p-0">
-                                  Rs. {bookings.conveniencePrice}
+                                  Rs. {bookings.account.amount}
                                 </span>
                               </div>
                             </div>
@@ -133,16 +120,16 @@ const Booking=()=> {
                             <b>Total Price</b>
                           </h5>
                           <span>
-                            <b>Rs. {bookings.totalPrice}</b>
+                            <b>Rs. {bookings.account.amount}</b>
                           </span>
                         </div>
                       </div>
                       <div className="col-lg-4 qr-section">
-                        <img src="assets/images/qrcode.jpg" />
+                        <img src={bookings.bookingRequest.qrUrl} />
                         <hr />
-                        <span>Still Available</span>
+                        <span>{bookings.bankTransaction.status}</span>
                         <h5 className="text-center">
-                          <b>{bookings.bookingId}</b>
+                          <b>{bookings.account.bookingId}</b>
                         </h5>
                       </div>
                     </div>
@@ -150,7 +137,7 @@ const Booking=()=> {
                 </div>
                 <div className="col-lg-3 d-flex flex-column justify-content-center">
                   <h4 className="text-center mt-4 mb-6">Rate Us</h4>
-                  <Ratings size='50' align='center' rating={5} canHover='false'/>
+                  <Ratings size='50' align='center' rating={5} canHover='false' />
                   <div className="review-link">
                     <button onClick={() => activeModalFunctionReview()}>Give a small review</button>
                   </div>
@@ -159,8 +146,8 @@ const Booking=()=> {
                   </div>
 
                 </div>
-                  <TicketIssueModal activeThree={activeModalThree} />
-                  <GiveReviewModal activeReview={activeModalReview} />
+                <TicketIssueModal activeThree={activeModalThree} />
+                <GiveReviewModal activeReview={activeModalReview} />
               </div>
             );
           })}

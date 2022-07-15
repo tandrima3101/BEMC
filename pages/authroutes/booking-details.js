@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import Layout from "../src/layouts/Layout";
+import Layout from "../../src/layouts/Layout";
 import { Spinner } from "react-bootstrap";
-import { getRoutingData, setRoutingData } from "../src/utils";
-import { callApi } from "../src/apiHandlers/callApi";
+import { getRoutingData, setRoutingData } from "../../src/utils";
+import { callApi } from "../../src/apiHandlers/callApi";
 function BookingDetails() {
   const [isLoaded, setIsLoade] = useState(false);
   const [bookingDetails, setBookingDetails] = useState();

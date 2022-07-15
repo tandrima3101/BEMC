@@ -1,8 +1,8 @@
 import React,{ useState, useEffect } from 'react';
 import Image from 'next/image';
 
-import FailureGif from '../public/assets/images/failure_payment.gif';
-import Layout from "../src/layouts/Layout";
+import FailureGif from '../../public/assets/images/failure_payment.gif';
+import Layout from "../../src/layouts/Layout";
 import Link from 'next/link';
 
 function BookingFailure() {
