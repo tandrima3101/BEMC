@@ -177,6 +177,30 @@ function BookingForm(props) {
   const activeModalFunctionTwo = () => {
     setActiveModalTwo(true)
   }
+
+  //state for useForm
+  const {
+    register: register1,
+    formState: { errors: errors1 },
+    handleSubmit: handleSubmit1,
+  } = useForm();
+  const {
+    register: register2,
+    formState: { errors: errors2 },
+    handleSubmit: handleSubmit2,
+  } = useForm();
+
+  const {
+    register: register3,
+    formState: { errors: errors3 },
+    handleSubmit: handleSubmit3,
+  } = useForm();
+
+//functions for submit
+
+const onEventSelect = () =>{
+  activeModalFunction(), setBookingDetails({ ...bookingDetails, selectedTime: activeShowTimes.value }) 
+}
   return (
     <div>
       <Tab.Container defaultActiveKey={props.active}>
@@ -274,12 +298,18 @@ function BookingForm(props) {
                   <div className="col-lg-12 col-md-6 mt-2">
                     <label>Select Event<span className="text-danger"><b>*</b></span></label>
                     <Select options={options}
+                      {...register1("event",{
+                        required: true})}
                       onChange={(e) => { setBookingDetails({ ...bookingDetails, eventName: e.value, eventId: e.id }), setSelectedData(e.data), checkSeats(e.id) }} />
                   </div>
+                  {errors1.event?.type === 'required' && <small className="text-danger mt-2">Please select an event</small>}
+
                   <div className="col-lg-12 col-md-6 mt-2">
                     <label>Select Date<span className="text-danger"><b>*</b></span></label>
-                    <Select options={dates} onChange={(e) => { setBookingDetails({ ...bookingDetails, selectedDate: e.value }) }} />
+                    <Select {...register1("date",{
+                        required: true})} options={dates} onChange={(e) => { setBookingDetails({ ...bookingDetails, selectedDate: e.value }) }} />
                   </div>
+                  {errors1.date?.type === 'required' && <small className="text-danger mt-2">Please select a date</small>}
                   <div className="col-lg-12 col-md-6 mt-2">
                     <label>Select Time<span className="text-danger"><b>*</b></span></label>
                     <p id="id_work_days" className="mb-0">
@@ -296,13 +326,15 @@ function BookingForm(props) {
                   </div>
                   <div className="col-lg-12 col-md-6 mt-2">
                     <label>Select Seat Category<span className="text-danger"><b>*</b></span></label>
-                    <Select className='mb-2' options={seatCategory} onChange={(e) => { setBookingDetails({ ...bookingDetails, selectedSeatCategory: e.value }), setSelectedSeatCapacity(e.capacity) }} />
+                    <Select {...register1("seatCategory",{
+                        required: true})} className='mb-2' options={seatCategory} onChange={(e) => { setBookingDetails({ ...bookingDetails, selectedSeatCategory: e.value }), setSelectedSeatCapacity(e.capacity) }} />
                   </div>
                   {(selectedSeatCapacity != null) ? <h6 className={(selectedSeatCapacity > 20) ? 'text-success' : 'text-danger'}>{selectedSeatCapacity} seats available</h6> : <h6></h6>}
+                  {errors1.seatCategory?.type === 'required' && <small className="text-danger mt-2">Please select a seat category</small>}
 
                   <div className="col-lg-10 col-md-6 mt-4">
                     <button
-                      onClick={() => { activeModalFunction(), setBookingDetails({ ...bookingDetails, selectedTime: activeShowTimes.value }) }}
+                      onClick={handleSubmit1(onEventSelect)}
                       className="main-btn icon-btn">Book Now</button>
                   </div>
                 </div>

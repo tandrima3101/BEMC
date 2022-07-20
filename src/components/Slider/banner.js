@@ -14,9 +14,9 @@ return (
               <div className="hero-content d-none d-lg-block d-xl-block">
                 {(props.blur)?
                 <Slider {...PlaceSliderTwo} className="banner-slider-one">
-                  {props.mainSlider.map((x) => {
+                  {props.mainSlider.map((x,i) => {
                     return (
-                      <div className="banner-items hearse-banner-items">
+                      <div className="banner-items hearse-banner-items" key={i}>
                         <img
                           src={x?.bannerImageUrl}
                           alt=""
