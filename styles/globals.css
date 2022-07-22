@@ -26,6 +26,14 @@ html {
   padding-left: 15px;
   padding-right: 40px;
 }
+.place-slider-one .slick-track{
+  width: 100% !important;
+  display: flex !important;
+  justify-content: space-between !important;
+}
+.place-slider-one .slick-slide{
+  width: auto !important;
+}
 .testimonial-thumb-slider-one .slick-slide {
   padding-left: 0 !important;
   padding-right: 0 !important;

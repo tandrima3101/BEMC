@@ -9,6 +9,8 @@ import { useForm } from "react-hook-form";
 
 
 function BookingForm(props) {
+  console.log(props.data, 'propssssssss')
+
   const current = new Date();
 
   //booking forms value
@@ -32,6 +34,15 @@ function BookingForm(props) {
       label: `${x.categoryName}`,
       value: `${x.categoryName}`,
       capacity: x.capacity
+    })
+  })
+  const timeSlot = [];
+  props.data.map((y)=>{
+    y.eventDefaultTime?.map((x) => {
+      timeSlot.push({
+        label: `${x}`,
+        value: `${x}`,
+      })
     })
   })
 
@@ -82,9 +93,27 @@ function BookingForm(props) {
   })
 
   // console.log(showTimes)
-  const kalyanMandap = [
-    { value: "Biju Patnaik Kalyan Mandap", label: "Biju Patnaik Kalyan Mandap" },
-  ];
+  // const kalyanMandap = [
+  //   { value: "Biju Patnaik Kalyan Mandap", label: "Biju Patnaik Kalyan Mandap" },
+  // ];
+  const townhall = [];
+  for (let i = 0; i < props.data?.length; i++) {
+    townhall.push({
+      label: `${props.data[i].townhallName}`,
+      value: `${props.data[i].townhallName}`,
+      id: `${props.data[i].townhallId}`,
+      data: props.data[i]
+    })
+  }
+  const kalyanMandap = [];
+  for (let i = 0; i < props.data?.length; i++) {
+    kalyanMandap.push({
+      label: `${props.data[i].mandapName}`,
+      value: `${props.data[i].mandapName}`,
+      id: `${props.data[i].mandapId}`,
+      data: props.data[i]
+    })
+  }
   const sports = [
     { value: "Badminton", label: "Badminton" },
     { value: "Table Tennis", label: "Table Tennis" },
@@ -196,11 +225,11 @@ function BookingForm(props) {
     handleSubmit: handleSubmit3,
   } = useForm();
 
-//functions for submit
+  //functions for submit
 
-const onEventSelect = () =>{
-  activeModalFunction(), setBookingDetails({ ...bookingDetails, selectedTime: activeShowTimes.value }) 
-}
+  const onEventSelect = () => {
+    activeModalFunction(), setBookingDetails({ ...bookingDetails, selectedTime: activeShowTimes.value })
+  }
   return (
     <div>
       <Tab.Container defaultActiveKey={props.active}>
@@ -298,16 +327,13 @@ const onEventSelect = () =>{
                   <div className="col-lg-12 col-md-6 mt-2">
                     <label>Select Event<span className="text-danger"><b>*</b></span></label>
                     <Select options={options}
-                      {...register1("event",{
-                        required: true})}
                       onChange={(e) => { setBookingDetails({ ...bookingDetails, eventName: e.value, eventId: e.id }), setSelectedData(e.data), checkSeats(e.id) }} />
                   </div>
                   {errors1.event?.type === 'required' && <small className="text-danger mt-2">Please select an event</small>}
 
                   <div className="col-lg-12 col-md-6 mt-2">
                     <label>Select Date<span className="text-danger"><b>*</b></span></label>
-                    <Select {...register1("date",{
-                        required: true})} options={dates} onChange={(e) => { setBookingDetails({ ...bookingDetails, selectedDate: e.value }) }} />
+                    <Select options={dates} onChange={(e) => { setBookingDetails({ ...bookingDetails, selectedDate: e.value }) }} />
                   </div>
                   {errors1.date?.type === 'required' && <small className="text-danger mt-2">Please select a date</small>}
                   <div className="col-lg-12 col-md-6 mt-2">
@@ -326,8 +352,7 @@ const onEventSelect = () =>{
                   </div>
                   <div className="col-lg-12 col-md-6 mt-2">
                     <label>Select Seat Category<span className="text-danger"><b>*</b></span></label>
-                    <Select {...register1("seatCategory",{
-                        required: true})} className='mb-2' options={seatCategory} onChange={(e) => { setBookingDetails({ ...bookingDetails, selectedSeatCategory: e.value }), setSelectedSeatCapacity(e.capacity) }} />
+                    <Select className='mb-2' options={seatCategory} onChange={(e) => { setBookingDetails({ ...bookingDetails, selectedSeatCategory: e.value }), setSelectedSeatCapacity(e.capacity) }} />
                   </div>
                   {(selectedSeatCapacity != null) ? <h6 className={(selectedSeatCapacity > 20) ? 'text-success' : 'text-danger'}>{selectedSeatCapacity} seats available</h6> : <h6></h6>}
                   {errors1.seatCategory?.type === 'required' && <small className="text-danger mt-2">Please select a seat category</small>}
@@ -339,7 +364,7 @@ const onEventSelect = () =>{
                   </div>
                 </div>
               </Tab.Pane>
-              <FormModal active={activeModal} data={bookingDetails} adultPrice={selectedData?.price} childPrice={selectedData?.cPrice} />
+              <FormModal active={activeModal} data={bookingDetails} adultPrice={selectedData?.price} childPrice={selectedData?.cPrice} pageOf={props.pageOf} />
               {/* *****************Sports Arena*************** */}
               <Tab.Pane
                 className={`show ${activeForm === "Sports Arena" ? "active" : ""
@@ -373,7 +398,7 @@ const onEventSelect = () =>{
                   </div>
                 </div>
               </Tab.Pane>
-              <FormModal activeTwo={activeModalTwo} />
+              <FormModal activeTwo={activeModalTwo} data={bookingDetails} pageOf={props.pageOf} />
               {/* ************************Kalyan Mandap*************** */}
               <Tab.Pane
                 className={`show ${activeForm === "Kalyan Mandap" ? "active" : ""
@@ -382,7 +407,7 @@ const onEventSelect = () =>{
                 <div className="row">
                   <div className="col-lg-12 col-md-6 mt-2">
                     <label>Select Mandap</label>
-                    <Select options={kalyanMandap} />
+                    <Select options={kalyanMandap} onChange={(e) => { setBookingDetails({ ...bookingDetails, mandapName: e.value }) }} />
                   </div>
                   <div className="col-lg-12 col-md-6 mt-2">
                     <label>Select Date</label>
@@ -391,7 +416,7 @@ const onEventSelect = () =>{
                       className="form_control"
                       placeholder="Number of Adult"
                       name="location"
-
+                      onChange={(e) => { setBookingDetails({ ...bookingDetails, selectedDate: e.target.value }) }}
                     />
                   </div>
                   <div className="col-lg-12 col-md-6 mt-2">
@@ -416,40 +441,26 @@ const onEventSelect = () =>{
                 className={`show ${activeForm === "Townhall Booking" ? "active" : ""
                   }`}
               >
+
                 <div className="row">
                   <div className="col-lg-12 col-md-6 mt-2">
+                    <label>Select Townhall</label>
+                    <Select options={townhall} onChange={(e) => { setBookingDetails({ ...bookingDetails, townhallName: e.value ,townhallId:e.id}) }} />
+                  </div>
+                  <div className="col-lg-12 col-md-6 mt-2">
                     <label>Select Date</label>
-
                     <input
                       type="date"
                       className="form_control"
                       placeholder="Number of Adult"
                       name="location"
+                      onChange={(e) => { setBookingDetails({ ...bookingDetails, selectedDate: e.target.value }) }}
                     />
                   </div>
                   <div className="col-lg-12 col-md-6 mt-2">
                     <label>Select Time</label>
-                    <p id="id_work_days">
-                      <label onClick={() => setShowSeatsAvailable(true)}>
-                        <input type="checkbox" name="work_days" value="2" />
-                        <span>9:00AM-11:00AM</span>
-                      </label>
-                      <label onClick={() => setShowSeatsAvailable(true)}>
-                        <input type="checkbox" name="work_days" value="3" />
-                        <span>7:0PM-9:00PM</span>
-                      </label>
-                    </p>
+                    <Select options={timeSlot} onChange={(e) => { setBookingDetails({ ...bookingDetails, selectedTime: e.value }) }} />
                   </div>
-                  {(showSeatsAvailable) ? <small>122 seats available</small> : <small></small>}
-                  <div className="col-lg-12 col-md-6 mt-2">
-                    <label>Number of Persons</label>
-                    <input
-                      type="text"
-                      className="form_control"
-                      name="location"
-                    />
-                  </div>
-
                   <div className="col-lg-10 col-md-6 mt-4">
                     <button className="main-btn icon-btn" onClick={() => activeModalFunctionTwo()}>Book Now!</button>
                   </div>

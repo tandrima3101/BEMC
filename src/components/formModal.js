@@ -10,9 +10,12 @@ import {
 } from "reactstrap";
 import { callApi } from "../apiHandlers/callApi";
 import { generateOTP, verifyOTP } from "../utils";
-function FormModal({ active, activeTwo, data, adultPrice, childPrice }) {
+function FormModal({ active, activeTwo, data, adultPrice, childPrice,pageOf }) {
+  console.log(totalData,'dataaaaaaaaa')
   const [totalData, setTotalData] = useState(data)
   const [enteredOtp, setEnteredOtp] = useState(null)
+  let department = pageOf
+  console.log(department,'departmentttt')
   // for main modal
   const [containerOne, setContainerOne] = useState(active);
   const [containerTwo, setContainerTwo] = useState(activeTwo);
@@ -76,6 +79,16 @@ function FormModal({ active, activeTwo, data, adultPrice, childPrice }) {
     };
   }
 
+  let url;
+  if(pageOf == "Ramlingam Park"){
+    url ="ramalingampark/bookingRequest/createBookingRequest"
+  }
+  else if(pageOf =="Kalyan Mandap"){
+    url ="kalyanMandap/bookingRequest/createBookingRequest"
+  }
+  else if(pageOf =="Townhall"){
+    url ="townhall/bookingRequest/createBookingRequest"
+  }
   const createBookingRequest = async () => {
     console.log(totalData)
 
@@ -83,14 +96,13 @@ function FormModal({ active, activeTwo, data, adultPrice, childPrice }) {
 
       let createBookingData = {
         method: 'post',
-        url: "ramalingampark/bookingRequest/createBookingRequest",
+        url: url,
         data: totalData
       }
       let response = await callApi(createBookingData)
       console.log(response, 'responseeeeeeee')
       if (response.data.status == 'SUCCESS') {
         setBookingDetails(response.data.data)
-
       }
     }
 
@@ -109,7 +121,7 @@ function FormModal({ active, activeTwo, data, adultPrice, childPrice }) {
 
   useEffect(() => {
     if (bookingDetails != null) {
-      setRoutingData(bookingDetails?._id, "booking-details")
+      setRoutingData(bookingDetails?._id, "authroutes/booking-details")
     }
   }, [bookingDetails])
 
@@ -133,7 +145,7 @@ function FormModal({ active, activeTwo, data, adultPrice, childPrice }) {
             </div>
             <div className="col-lg-12 col-md-6 mt-2">
               <label>Enter Name</label>
-              <input type="text" className="otpinput m-0" onChange={(e) => setTotalData({ ...totalData, userName: (e.target.value), ticketSource: "ONLINE", amount: adultPrice * totalData?.adultNum + childPrice * totalData?.childNum, api_key: "registeruser" })} />
+              <input type="text" className="otpinput m-0" onChange={(e) => setTotalData({ ...totalData, userName: (e.target.value),department:department, ticketSource: "ONLINE", amount: adultPrice * totalData?.adultNum + childPrice * totalData?.childNum, api_key: "registeruser" })} />
             </div>
             <div className="col-lg-12 col-md-6 mt-2">
               <label>Enter Phone Number</label>
@@ -207,15 +219,15 @@ function FormModal({ active, activeTwo, data, adultPrice, childPrice }) {
           <div className="row">
             <div className="col-lg-12 col-md-6 mt-2">
               <label>Enter Name</label>
-              <input type="text" className="otpinput m-0" />
+              <input type="text" className="otpinput m-0" onChange={(e) => setTotalData({ ...totalData, userName: (e.target.value), department: pageOf, api_key: "registeruser" })} />
             </div>
             <div className="col-lg-12 col-md-6 mt-2">
               <label>Enter Phone Number</label>
-              <input type="number" className="otpinput m-0" />
+              <input type="number" className="otpinput m-0" onChange={(e) => setTotalData({ ...totalData, phoneNumber: (e.target.value) })}/>
             </div>
             <div className="col-lg-12 col-md-6 mt-2">
               <label>Enter Email Address</label>
-              <input type="text" className="otpinput m-0" />
+              <input type="text" className="otpinput m-0" onChange={(e) => setTotalData({ ...totalData, email: (e.target.value) })} />
             </div>
           </div>
           <br />
@@ -228,10 +240,11 @@ function FormModal({ active, activeTwo, data, adultPrice, childPrice }) {
         <ModalFooter>
           <button
             className="main-btn"
-            onClick={() => [
-              setSubmodalTwo(true),
-              setContainerTwo(false),
-            ]}
+            onClick={() => {
+              sendOtp(),
+              setSubmodalOne(true),
+              setContainerTwo(false)
+            }}
           >
             Send OTP
           </button>

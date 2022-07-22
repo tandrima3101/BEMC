@@ -54,7 +54,8 @@ console.log(bookingDetails,'booking details')
             <div className="card-curve booking-card-prepayment p-3 mt-4">
               <div className="row">
                 <div className="col-lg-3">
-                  <img src="assets/images/ticket.png" width="85%" />
+                  
+                  <img src="/assets/images/ticket.png" width="85%" />
                 </div>
                 <div className="col-lg-9 pl-5 booking-details">
                   <h4 className="text-uppercase">
@@ -77,11 +78,11 @@ console.log(bookingDetails,'booking details')
               <h4 className="text-uppercase text-center">
                 <b>{bookingDetails?.bookingRequestId}</b>
               </h4>
-              <img src="assets/images/armchair.png" style={{width:'50px'}}/>
+              <img src="/assets/images/armchair.png" style={{width:'50px'}}/>
               <h6>Your seat Category {bookingDetails?.selectedSeatCategory}</h6>
-              <img src="assets/images/calendar.png" style={{width:'50px'}}/>
+              <img src="/assets/images/calendar.png" style={{width:'50px'}}/>
               <h6>The show date is {bookingDetails?.selectedDate}</h6>
-              <img src="assets/images/clock.png" style={{width:'50px'}}/>
+              <img src="/assets/images/clock.png" style={{width:'50px'}}/>
               <h6>The show timing is {bookingDetails?.selectedTime}</h6>
             </div>
           </div>
@@ -89,12 +90,12 @@ console.log(bookingDetails,'booking details')
             {!isLoaded ? (
               <>
                 <h3 className="text-center">Preccessing Your Payment</h3>
-                <img src="assets/images/loading.gif" width="100px" />
+                <img src="/assets/images/loading.gif" width="100px" />
               </>
             ) : (
               <>
                 <img src="assets/images/card.png" alt="" style={{ width: "70%" }} />
-                <button className="main-btn mt-4" style={{ fontSize: '20px' }} onClick={()=>{setRoutingData(bookingDetails, "payment")}}>Make Your Payement</button>
+                <button className="main-btn mt-4" style={{ fontSize: '20px' }} onClick={()=>{setRoutingData(bookingDetails, "../payment")}}>Make Your Payment</button>
               </>
             )}
           </div>

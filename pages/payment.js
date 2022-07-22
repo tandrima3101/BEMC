@@ -9,10 +9,20 @@ function payment() {
     setBookingReq(await getRoutingData())
   },[])
   console.log(bookingReq)
+  let url 
+  if(bookingReq?.department == "Ramlingam Park"){
+    url = "ramalingampark/bookingRequest/response"
+  }
+  else if (bookingReq?.department == "Kalyan Mandap"){
+    url = "kalyanMandap/bookingRequest/response"
+  }
+  else if (bookingReq?.department == "Townhall"){
+    url = "townhall/bookingRequest/response"
+  }
   const paymentSuccess = async () =>{
     let paymentSuccess = {
       method: 'post',
-      url: "ramalingampark/bookingRequest/response",
+      url: url,
       data: {
         bookingRequestId : bookingReq._id,
         paymentStatus : "SUCCESS",
@@ -27,7 +37,7 @@ function payment() {
     }
     let response = await callApi(paymentSuccess)
     if(response.data.status=='SUCCESS'){
-      setRoutingData(response.data.data,'booking-success')
+      setRoutingData(response.data.data,'authroutes/booking-success')
     }
   }
   return (

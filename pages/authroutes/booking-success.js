@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 
-import SuccessGif from '../../public/assets/images/successGif.gif';
+import SuccessGif from '../../public//assets/images/successGif.gif';
 import Layout from '../../src/layouts/Layout';
 import { getRoutingData } from '../../src/utils';
 
@@ -45,7 +45,7 @@ function BookingSuccess() {
             <div className="card-curve booking-card-prepayment p-3 mt-4">
               <div className="row">
                 <div className="col-lg-3">
-                  <img src="assets/images/ticket.png" width="85%" />
+                  <img src="/assets/images/ticket.png" width="85%" />
                 </div>
                 <div className="col-lg-9 pl-5 booking-details">
                   <h4 className="text-uppercase">
@@ -70,11 +70,11 @@ function BookingSuccess() {
               <h4 className="text-uppercase text-center">
                 <b>{bookingDetails?.bookingRequest?.bookingRequestId}</b>
               </h4>
-              <img src="assets/images/armchair.png" />
+              <img src="/assets/images/armchair.png" />
               <h6>Your seat Category is {bookingDetails?.bookingRequest?.selectedSeatCategory}</h6>
-              <img src="assets/images/calendar.png" />
+              <img src="/assets/images/calendar.png" />
               <h6>The show date is {bookingDetails?.bookingRequest?.selectedDate}</h6>
-              <img src="assets/images/clock.png" />
+              <img src="/assets/images/clock.png" />
               <h6>The show timing is {bookingDetails?.bookingRequest?.selectedTime}</h6>
             </div>
           </div>
@@ -102,7 +102,7 @@ function BookingSuccess() {
             {!isLoaded ? (
               <>
                 <h3 className="text-center">Preccessing Your Payment</h3>
-                <img src="assets/images/loading.gif" width="100px" />
+                <img src="/assets/images/loading.gif" width="100px" />
               </>
             ) : (
               <>
