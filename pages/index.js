@@ -1,5 +1,5 @@
 import Link from "next/link";
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Slider from "react-slick";
 import Counter from "../src/components/Counter";
 import VideoPopup from "../src/components/VideoPopup";
@@ -24,152 +24,54 @@ import Clients from "../src/components/clients";
 
 const Index = () => {
   const [video, setVideo] = useState(false);
-  const [ramlingamData,setRamlingamData] = useState([])
-  const [isLoaded,setIsLoaded] = useState(false)
+  const [ramlingamData, setRamlingamData] = useState([])
+  const [isLoaded, setIsLoaded] = useState(false)
+  const [reviews,setReviews] = useState([])
 
-  const bannerSlider = [
-    {
-      heading: "LORD OF THE UNIVERSE: ",
-      subHeading:
-        "The Story Of MAHADEV in 3D laser show with musical fountain at Ramalingeswar Park.",
-      bannerImageUrl:
-        "assets/images/BEMCAssets/rmpark_1_slider.png",
-    },
-    {
-      heading: "In the SPORTS ARENA",
-      subHeading:
-        "You have to train your mind as much as your body.",
-      bannerImageUrl:
-        "assets/images/BEMCAssets/SportsComplex_2.png",
-    },
-    {
-      heading: "BEMC  Seva: Ambulance",
-      subHeading:
-        "Day or Night, We do it Right! When seconds count we're there first.",
-      bannerImageUrl:
-        "assets/images/BEMCAssets/ambulance_4.jpg",
-    },
-    {
-      heading: "Kalyan Mandap",
-      subHeading:
-        "with a sense of history and Southern charm, within the reach of your fingertips",
-      bannerImageUrl:
-        "assets/images/BEMCAssets/kalyanmandap_2.jpeg",
-    },
-    {
-      heading: "Town-Hall: BEMC Conference Hall",
-      subHeading:
-        "AC Auditorium available for booking with a capacity of 1000 pax maintained by BEMC",
-      bannerImageUrl:
-        "https://4ww1y37tl91gmoej12r01u1c-wpengine.netdna-ssl.com/wp-content/uploads/2019/08/8BFC5A45-C291-890F-3C5CEE495EC4402D.jpg",
+
+  //fetch events
+
+  async function fetchEvents() {
+    let tempArr = []
+    let apiTest = {
+      method: 'post',
+      url: "ramalingampark/event/getEvent"
     }
-  ];
-  const showList = [
-    {
-      featured: true,
-      imgUrl:
-        "assets/images/BEMCAssets/SportsComplex_2.png",
-      buttonIconUrl: "",
-      buttonName: "Book",
-      showName: "Sports Arena",
-      reviews: "ratings-four",
-      reviewNumber: "05",
-      Price: "",
-      contactNumber: "9876543210",
-      location: "Odisha",
-    },
-    {
-      featured: false,
-      imgUrl:
-        "assets/images/BEMCAssets/rmpark_2_slider.png",
-      buttonIconUrl: "",
-      buttonName: "Book",
-      showName: "Bande Utkala",
-      reviews: "ratings-four",
-      reviewNumber: "05",
-      Price: "",
-      contactNumber: "9876543210",
-      location: "Odisha",
-    },
-    {
-      featured: true,
-      imgUrl:
-        "assets/images/BEMCAssets/rmpark_1_slider.png",
-      buttonIconUrl: "",
-      buttonName: "Book",
-      showName: "Shivananda Show",
-      reviews: "ratings-four",
-      reviewNumber: "05",
-      Price: "",
-      contactNumber: "9876543210",
-      location: "Odisha",
-    },
-    {
-      featured: false,
-      imgUrl:
-        "https://4ww1y37tl91gmoej12r01u1c-wpengine.netdna-ssl.com/wp-content/uploads/2019/08/8BFC5A45-C291-890F-3C5CEE495EC4402D.jpg",
-      buttonIconUrl: "",
-      buttonName: "Book",
-      showName: "Townhall",
-      reviews: "ratings-four",
-      reviewNumber: "05",
-      Price: "",
-      contactNumber: "9876543210",
-      location: "Odisha",
-    },
-    {
-      featured: false,
-      imgUrl:
-        "assets/images/hearse.jpg",
-      buttonIconUrl: "",
-      buttonName: "Book",
-      showName: "Hearse",
-      reviews: "ratings-four",
-      reviewNumber: "05",
-      Price: "",
-      contactNumber: "9876543210",
-      location: "Odisha",
-    },
-    {
-      featured: false,
-      imgUrl:
-        "assets/images/BEMCAssets/kalyanmandap_2.jpeg",
-      buttonIconUrl: "",
-      buttonName: "Book",
-      showName: "Kalyan-Mandap",
-      reviews: "ratings-four",
-      reviewNumber: "05",
-      Price: "",
-      contactNumber: "9876543210",
-      location: "Odisha",
-    },
-    {
-      featured: false,
-      imgUrl:
-        "assets/images/BEMCAssets/rmpark_5.jpg",
-      buttonIconUrl: "",
-      buttonName: "Book",
-      showName: "Mo Odisha",
-      reviews: "ratings-four",
-      reviewNumber: "05",
-      Price: "",
-      contactNumber: "9876543210",
-      location: "Odisha",
-    },
-    {
-      featured: false,
-      imgUrl:
-        "assets/images/BEMCAssets/ambulance_4.jpg",
-      buttonIconUrl: "",
-      buttonName: "Book",
-      showName: "Ambulance",
-      reviews: "ratings-four",
-      reviewNumber: "05",
-      Price: "",
-      contactNumber: "9876543210",
-      location: "Odisha",
-    },
-  ];
+    let response = await callApi(apiTest)
+    tempArr.push(...response.data.data)
+    if (response.data.code == 201) {
+      let apiTest = {
+        method: 'post',
+        url: "townhall/createTownhall/getTownhallList"
+      }
+      let response = await callApi(apiTest)
+      tempArr.push(...response.data.data)
+      if (response.data.code == 201) {
+        let apiTest = {
+          method: 'post',
+          url: "kalyanMandap/createKalyanMandap/getKalyanMandapList"
+        }
+        let response = await callApi(apiTest)
+        tempArr.push(...response.data.data)
+        console.log(tempArr, 'tempArrrrrrrrrrrr')
+        setRamlingamData(tempArr)
+      }
+    }
+  }
+
+  //fetch reviews
+  async function fetchReviews() {
+    let apiTest={
+      method:'get',
+      url:"ramalingampark/event/getAllReview"
+  }
+    let response = await  callApi(apiTest)
+    console.log(response,'responseeeeeeeeee')
+    if(response.data.code==201){
+      setReviews(response.data.data)
+    }
+  }
+
   const getFreeQuote = [
     {
       smallText: "LORD OF THE UNIVERSE",
@@ -191,7 +93,7 @@ const Index = () => {
       imgUrl:
         "https://pbs.twimg.com/profile_images/948877813414703104/JStN81Ro_400x400.jpg",
     },
-    
+
     {
       imgUrl:
         "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Seal_of_Odisha.png/1200px-Seal_of_Odisha.png",
@@ -201,73 +103,28 @@ const Index = () => {
     //     "https://images.unsplash.com/photo-1488646953014-85cb44e25828?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735",
     // },
   ];
-  const categorySection = [
-    {
-      icon: "assetsimages\featureiconspark.png",
-      category: "Ramlingam Park",
-    },
-    {
-      icon: "C:UserssanimDesktopBEMCpublicassetsimages\featureicons\townhall.png",
-      category: "Town Hall",
-    },
-    {
-      icon: "C:UserssanimDesktopBEMCpublicassetsimages\featureiconskalyanimandap.png",
-      category: "Kalyan Mandap",
-    },
-    {
-      icon: "publicassetsimages\featureiconssportsarena.png",
-      category: "Sports Arena",
-    },
-    {
-      icon: "feature1",
-      category: "Ambulance",
-    },
-  ];
-  const photoGallery = [
-    {
-      imgId: 1,
-      imgUrl:
-        "assets/images/BEMCAssets/kalyanmandap_2.jpeg",
-    },
-    {
-      imgId: 2,
-      imgUrl: "assets/images/BEMCAssets/rmpark_2_slider.png",
-    },
-    {
-      imgId: 3,
-      imgUrl: "assets/images/BEMCAssets/kalyanmandap_1.jpeg",
-    },
-    {
-      imgId: 4,
-      imgUrl: "assets/images/BEMCAssets/SportsComplex_2.png",
-    },
-    {
-      imgId: 5,
-      imgUrl: "assets/images/BEMCAssets/ambulance_4.jpg",
-    },
-  ];
-  const videoLink = [
-    {link : "https://www.youtube.com/embed/JHlY8w69wSE"}
-];
-async function fetchEvents() {
-  let apiTest={
-    method:'post',
-    url:"ramalingampark/event/getEvent"
-}
-  let response = await  callApi(apiTest)
-  if(response.data.code==201){
-    setIsLoaded(true)
-    setRamlingamData(response.data.data)
+  const photoGallery = [];
+  for (let i=0;i<ramlingamData.length;i++){
+    photoGallery.push(...(ramlingamData[i].photoGallery))
   }
-}
-useEffect(()=>{
-  fetchEvents()
-},[])
+  const videoLink = [
+    { link: "https://www.youtube.com/embed/JHlY8w69wSE" }
+  ];
+  const bannerSlider = [];
+  for (let i=0;i<ramlingamData.length;i++){
+    bannerSlider.push(ramlingamData[i].banner)
+  }
+  
+  useEffect(() => {
+    fetchEvents()
+    fetchReviews()
+    bannerSlider.length && photoGallery.length && setIsLoaded(true)
+  }, [])
   return (
     <Layout>
       {video && <VideoPopup close={setVideo} />}
       {/* <!--====== Start Hero Section ======--> */}
-      <Banner overallData={ramlingamData} mainSlider={bannerSlider} activeForm='Ramlingam Park' pageOf="index"/>
+      <Banner overallData={ramlingamData} mainSlider={bannerSlider} activeForm='Ramlingam Park' pageOf="index" />
       {/* <!--====== End Hero Section ======--> */}
       {/* <!--====== Start Category Section ======--> */}
       <section className="category-area">
@@ -277,8 +134,8 @@ useEffect(()=>{
               <div className="category-column" style={{ flex: "1" }}>
                 <div className="category-item category-item-one">
                   <div className="info text-center">
-                    <div className="icon" style = {{height: '70px'}}>
-                      <img src="assets/images/featureicons/black/park.png" alt="" style={{width: "60px", height: "60px"}}/>
+                    <div className="icon" style={{ height: '70px' }}>
+                      <img src="assets/images/featureicons/black/park.png" alt="" style={{ width: "60px", height: "60px" }} />
                     </div>
                     <h6>Ramlingam Park</h6>
                   </div>
@@ -292,11 +149,11 @@ useEffect(()=>{
               <div className="category-column" style={{ flex: "1" }}>
                 <div className="category-item category-item-one">
                   <div className="info text-center">
-                    <div className="icon" style = {{height: '74px'}}>
+                    <div className="icon" style={{ height: '74px' }}>
                       <img
                         src="assets/images/featureicons/black/townhall.png"
                         alt=""
-                        style={{width: "60px", height: "60px",marginTop:'4px'}}
+                        style={{ width: "60px", height: "60px", marginTop: '4px' }}
                       />
                     </div>
                     <h6>Town Hall</h6>
@@ -311,11 +168,11 @@ useEffect(()=>{
               <div className="category-column" style={{ flex: "1" }}>
                 <div className="category-item category-item-one">
                   <div className="info text-center">
-                    <div className="icon" style = {{height: '70px'}}>
+                    <div className="icon" style={{ height: '70px' }}>
                       <img
                         src="assets/images/featureicons/black/kalyanimandap.png"
                         alt=""
-                        style={{width: "60px", height: "60px"}}
+                        style={{ width: "60px", height: "60px" }}
                       />
                     </div>
                     <h6>Kalyan Mandap</h6>
@@ -330,11 +187,11 @@ useEffect(()=>{
               <div className="category-column" style={{ flex: "1" }}>
                 <div className="category-item category-item-one">
                   <div className="info text-center">
-                    <div className="icon" style = {{height: '70px'}}>
+                    <div className="icon" style={{ height: '70px' }}>
                       <img
                         src="assets/images/featureicons/black/sportsarena.png"
                         alt=""
-                        style={{width: "60px", height: "60px"}}
+                        style={{ width: "60px", height: "60px" }}
                       />
                     </div>
                     <h6>Sports Arena</h6>
@@ -349,11 +206,11 @@ useEffect(()=>{
               <div className="category-column" style={{ flex: "1" }}>
                 <div className="category-item category-item-one">
                   <div className="info text-center">
-                    <div className="icon" style = {{height: '70px'}}>
+                    <div className="icon" style={{ height: '70px' }}>
                       <img
                         src="assets/images/featureicons/black/ambulance.png"
                         alt=""
-                        style={{width: "60px", height: "60px"}}
+                        style={{ width: "60px", height: "60px" }}
                       />
                     </div>
                     <h6>Ambulance</h6>
@@ -368,8 +225,8 @@ useEffect(()=>{
               <div className="category-column" style={{ flex: "1" }}>
                 <div className="category-item category-item-one">
                   <div className="info text-center">
-                    <div className="icon" style = {{height: '70px'}}>
-                      <img src="assets/images/featureicons/black/hearse.png" alt="" style={{width: "60px", height: "60px"}}/>
+                    <div className="icon" style={{ height: '70px' }}>
+                      <img src="assets/images/featureicons/black/hearse.png" alt="" style={{ width: "60px", height: "60px" }} />
                     </div>
                     <h6>Hearse</h6>
                   </div>
@@ -383,8 +240,8 @@ useEffect(()=>{
               <div className="category-column" style={{ flex: "1" }}>
                 <div className="category-item category-item-one">
                   <div className="info text-center">
-                    <div className="icon" style = {{height: '70px'}}>
-                      <img src="assets/images/featureicons/black/tax.png" alt="" style={{width: "60px", height: "60px"}}/>
+                    <div className="icon" style={{ height: '70px' }}>
+                      <img src="assets/images/featureicons/black/tax.png" alt="" style={{ width: "60px", height: "60px" }} />
                     </div>
                     <h6>Tax</h6>
                   </div>
@@ -398,11 +255,11 @@ useEffect(()=>{
               <div className="category-column" style={{ flex: "1" }}>
                 <div className="category-item category-item-one">
                   <div className="info text-center">
-                    <div className="icon" style = {{height: '70px'}}>
+                    <div className="icon" style={{ height: '70px' }}>
                       <img
                         src="assets/images/featureicons/black/grievance.png"
                         alt=""
-                        style={{width: "60px", height: "60px"}}
+                        style={{ width: "60px", height: "60px" }}
                       />
                     </div>
                     <h6>Grievance</h6>
@@ -421,12 +278,12 @@ useEffect(()=>{
       {/* <!--====== End Category Section ======--> */}
       {/* <!--====== Start Listing Section ======--> */}
 
-      <ShowsList list={showList} overallData={ramlingamData}/>
+      <ShowsList overallData={ramlingamData} />
       {/* <!--====== Start Intro Video Section ======--> */}
-      <Video video = {videoLink} quote= {getFreeQuote}/>
+      <Video video={videoLink} quote={getFreeQuote} />
       {/* <!--====== End Intro Video Section ======--> */}
       {/* <!--====== Start Place Section ======--> */}
-      <Gallery gallery={photoGallery}/>
+      <Gallery gallery={photoGallery} />
       {/* <!--====== End Place Section ======--> */}
 
       {/*====== Start Testimonial Section ======*/}
@@ -450,7 +307,7 @@ useEffect(()=>{
             <div className="col-lg-8">
               <div className="testimonial-wrapper-one text-center">
                 <div className="testimonial-review-area">
-                  <TestimoinalSlider />
+                  <TestimoinalSlider data={reviews}/>
                 </div>
               </div>
             </div>
@@ -459,10 +316,10 @@ useEffect(()=>{
       </section>
       {/*====== End Testimonial Section ======*/}
       {/* <!--====== Start Newsletter Section ======--> */}
-      <Newsletter/>
+      <Newsletter />
       {/* <!--====== End Newsletter Section ======--> */}
       {/* <!--====== Start Client Section ======--> */}
-      <Clients clients={clientSlider}/>
+      <Clients clients={clientSlider} />
     </Layout>
   );
 };

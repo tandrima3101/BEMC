@@ -443,10 +443,10 @@ console.log(reviews,'reviewssssssss')
     <Layout>
     {video && <VideoPopup close={setVideo} />}
     {/* <!--====== Start Hero Section ======--> */}
-    <Banner overallData={ramlingamData} mainSlider={bannerSlider} activeForm='Kalyan Mandap' pageOf="Kalyan Mandap" />
+    <Banner overallData={ramlingamData} mainSlider={bannerSlider} activeForm='Kalyan Mandap' pageOf="kalyanMandap" />
     {/* <!--====== End Hero Section ======--> */}
     {/* <!--====== Start Listing Section ======--> */}
-    <ShowsList overallData={ramlingamData}/>
+    <ShowsList overallData={ramlingamData} pageOf="kalyanMandap"/>
     {/* <!--====== Start Place Section ======--> */}
     <Gallery gallery={photoGallery} />
     {/* <!--====== End Place Section ======--> */}

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Spinner } from 'react-bootstrap'
+import { Button, ModalTitle, Spinner } from 'react-bootstrap'
 import { useForm } from "react-hook-form";
 import { callApi } from "../apiHandlers/callApi";
 import Router from "next/router";
@@ -12,10 +12,10 @@ import {
 
 import { generateOTP } from "../utils";
 import { useDispatch, useSelector } from 'react-redux'
-import { setlogin, setToken } from "../../redux/slices/loginSlice";
+import { setlogin, setToken, setUserId } from "../../redux/slices/loginSlice";
 
 
-function LoginFormModal({ activeLogin, setLogin }) {
+function LoginFormModal({ activeLogin, toggle }) {
 
   // state for modal
   const [containerLogin, setContainerLogin] = useState(activeLogin);
@@ -53,6 +53,7 @@ function LoginFormModal({ activeLogin, setLogin }) {
     generateOTP(logindata),
     setSubmodalLogin(true),
     setContainerLogin(false)
+    toggle(false)
   }
 console.log(errors3)
   
@@ -81,12 +82,14 @@ console.log(errors3)
     let response = await callApi(apiTest)
     console.log(response, 'responseeeeeeeeee')
     if (response.data.status == 'SUCCESS') {
+      console.log(response.data.data)
       dispatch(setlogin(true))
       dispatch(setToken(JSON.stringify(response.data.data.token)))
+      dispatch(setUserId(JSON.stringify(response.data.data.userData._id)))
       setOtpLoader(false)
       Router.push("#")
       setSubmodalLogin(false),
-        setContainerSignUp(false)
+      setContainerSignUp(false)
     }
   }
 
@@ -100,14 +103,17 @@ console.log(errors3)
       {/* Modal for login */}
 
       <Modal
-        isOpen={containerLogin}
-        toggle={() => setContainerLogin(!containerLogin)}
+        isOpen={activeLogin}
+        toggle={() => {setContainerLogin(!containerLogin),toggle(!containerLogin)}}
       >
+        <ModalHeader style={{background:'#3bacb6'}}>
+          <ModalTitle style={{color:'#fff'}}>Login Form</ModalTitle>
+        </ModalHeader>
         <ModalBody>
           <div className="row">
             <div className="col-lg-12 col-md-6 mt-2">
-              <label>Enter Phone Number<span className="text-danger"><b>*</b></span></label>
-              <input {...register1("phoneNumber", {
+              <label style={{fontSize:'17px'}}>Enter Phone Number<span className="text-danger"><b>*</b></span></label>
+              <input className="otpinput mt-3 ml-0"{...register1("phoneNumber", {
                 required: true, maxLength: 10, minLength: 10,pattern: {
                   value: /^[789]\d{9}$/,
                   message: "Invalid Phone Number"
@@ -131,7 +137,7 @@ console.log(errors3)
           </button>
           <button
             className="main-btn"
-            onClick={() => setContainerLogin(false)}
+            onClick={() => {setContainerLogin(!containerLogin),toggle(!containerLogin)}}
           >
             Cancel
           </button>
@@ -142,9 +148,11 @@ console.log(errors3)
       {/* otp modal */}
 
       <Modal isOpen={submodalLogin}>
-        <ModalHeader>Enter OTP</ModalHeader>
-        <ModalBody style={{ display: "flex", flexDirection: "row" }}>
-          <input {...register2("otp", {
+      <ModalHeader style={{background:'#3bacb6'}}>
+          <ModalTitle style={{color:'#fff'}}>Enter OTP</ModalTitle>
+        </ModalHeader>
+                <ModalBody style={{ display: "flex", flexDirection: "row" }}>
+          <input className="otpinput mt-3 ml-0" {...register2("otp", {
             required: true, maxLength: 6, minLength: 6
           })} onChange={(e) => { setEnteredOtp({ ...enteredOtp, otp: e.target.value }) }} />
           {errors2.otp?.type === 'required' && <small className="text-danger mt-2 d-block">OTP is required</small> || errors2.otp?.type === 'minLength' && <small className="text-danger mt-2 d-block">OTP must be of 6 digits</small> || errors2.otp?.type === 'maxLength' && <small className="text-danger mt-2 d-block">OTP must be of 6 digits</small>}
@@ -153,7 +161,7 @@ console.log(errors3)
           <button
             className="main-btn"
             onClick={() => {
-              setSubmodalLogin(false), setContainerLogin(true);
+              setSubmodalLogin(false), setContainerLogin(true),toggle(true);
             }}
           >
             Change Number
@@ -184,6 +192,10 @@ console.log(errors3)
         isOpen={containerSignUp}
         toggle={() => setContainerSignUp(!containerSignUp)}
       >
+        <ModalHeader style={{background:'#3bacb6'}}>
+          <ModalTitle style={{color:'#fff'}}>Signup Form</ModalTitle>
+        </ModalHeader>
+        <ModalBody></ModalBody>
         <ModalBody>
           <div className="row">
             <div className="col-lg-12 col-md-6 mt-2">

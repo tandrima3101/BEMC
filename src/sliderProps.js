@@ -26,8 +26,8 @@ export const PlaceSliderOne = {
   infinite: true,
   autoplaySpeed: 1500,
   autoplay: false,
-  slidesToShow: 4,
-  slidesToScroll: 1,
+  slidesToShow: 3,
+  slidesToScroll: 3,
   responsive: [
     {
       breakpoint: 1199,

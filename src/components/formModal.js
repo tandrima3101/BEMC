@@ -10,7 +10,7 @@ import {
 } from "reactstrap";
 import { callApi } from "../apiHandlers/callApi";
 import { generateOTP, verifyOTP } from "../utils";
-function FormModal({ active, activeTwo, data, adultPrice, childPrice,pageOf }) {
+function FormModal({ active, activeTwo, data, adultPrice, childPrice,pageOf ,price}) {
   console.log(totalData,'dataaaaaaaaa')
   const [totalData, setTotalData] = useState(data)
   const [enteredOtp, setEnteredOtp] = useState(null)
@@ -80,13 +80,13 @@ function FormModal({ active, activeTwo, data, adultPrice, childPrice,pageOf }) {
   }
 
   let url;
-  if(pageOf == "Ramlingam Park"){
+  if(pageOf == "ramlingamPark"){
     url ="ramalingampark/bookingRequest/createBookingRequest"
   }
-  else if(pageOf =="Kalyan Mandap"){
+  else if(pageOf =="kalyanMandap"){
     url ="kalyanMandap/bookingRequest/createBookingRequest"
   }
-  else if(pageOf =="Townhall"){
+  else if(pageOf =="townhall"){
     url ="townhall/bookingRequest/createBookingRequest"
   }
   const createBookingRequest = async () => {
@@ -117,6 +117,7 @@ function FormModal({ active, activeTwo, data, adultPrice, childPrice,pageOf }) {
 
   useEffect(() => {
     createBookingRequest()
+    console.log(otpValidator,'validatorrrrrrrrrrrr')
   }, [otpValidator])
 
   useEffect(() => {
@@ -219,7 +220,7 @@ function FormModal({ active, activeTwo, data, adultPrice, childPrice,pageOf }) {
           <div className="row">
             <div className="col-lg-12 col-md-6 mt-2">
               <label>Enter Name</label>
-              <input type="text" className="otpinput m-0" onChange={(e) => setTotalData({ ...totalData, userName: (e.target.value), department: pageOf, api_key: "registeruser" })} />
+              <input type="text" className="otpinput m-0" onChange={(e) => setTotalData({ ...totalData, userName: (e.target.value), department: pageOf,amount:price, api_key: "registeruser" })} />
             </div>
             <div className="col-lg-12 col-md-6 mt-2">
               <label>Enter Phone Number</label>

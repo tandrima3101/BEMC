@@ -37,14 +37,12 @@ function BookingForm(props) {
     })
   })
   const timeSlot = [];
-  props.data.map((y)=>{
-    y.eventDefaultTime?.map((x) => {
+    selectedData?.eventDefaultTime?.map((x) => {
       timeSlot.push({
         label: `${x}`,
         value: `${x}`,
       })
     })
-  })
 
   const checkSeats = async (data) => {
     // console.log(data,'iddddddddddddddddddddddd')
@@ -352,7 +350,7 @@ function BookingForm(props) {
                   </div>
                   <div className="col-lg-12 col-md-6 mt-2">
                     <label>Select Seat Category<span className="text-danger"><b>*</b></span></label>
-                    <Select className='mb-2' options={seatCategory} onChange={(e) => { setBookingDetails({ ...bookingDetails, selectedSeatCategory: e.value }), setSelectedSeatCapacity(e.capacity) }} />
+                    <Select className='mb-2' options={seatCategory} onChange={(e) => { setBookingDetails({ ...bookingDetails, selectedSeatCategory: e.value,selectedTime:activeShowTimes.value }), setSelectedSeatCapacity(e.capacity) }} />
                   </div>
                   {(selectedSeatCapacity != null) ? <h6 className={(selectedSeatCapacity > 20) ? 'text-success' : 'text-danger'}>{selectedSeatCapacity} seats available</h6> : <h6></h6>}
                   {errors1.seatCategory?.type === 'required' && <small className="text-danger mt-2">Please select a seat category</small>}
@@ -398,7 +396,7 @@ function BookingForm(props) {
                   </div>
                 </div>
               </Tab.Pane>
-              <FormModal activeTwo={activeModalTwo} data={bookingDetails} pageOf={props.pageOf} />
+              <FormModal activeTwo={activeModalTwo} data={bookingDetails} pageOf={props.pageOf} price={selectedData?.price}/>
               {/* ************************Kalyan Mandap*************** */}
               <Tab.Pane
                 className={`show ${activeForm === "Kalyan Mandap" ? "active" : ""
@@ -407,7 +405,7 @@ function BookingForm(props) {
                 <div className="row">
                   <div className="col-lg-12 col-md-6 mt-2">
                     <label>Select Mandap</label>
-                    <Select options={kalyanMandap} onChange={(e) => { setBookingDetails({ ...bookingDetails, mandapName: e.value }) }} />
+                    <Select options={kalyanMandap} onChange={(e) => { setBookingDetails({ ...bookingDetails, mandapName: e.value,mandapId: e.id }) ,setSelectedData(e.data)}} />
                   </div>
                   <div className="col-lg-12 col-md-6 mt-2">
                     <label>Select Date</label>
@@ -420,6 +418,10 @@ function BookingForm(props) {
                     />
                   </div>
                   <div className="col-lg-12 col-md-6 mt-2">
+                    <label>Select Time</label>
+                    <Select options={timeSlot} onChange={(e) => { setBookingDetails({ ...bookingDetails, selectedTime: e.value }) }} />
+                  </div>
+                  {/* <div className="col-lg-12 col-md-6 mt-2">
                     <label>Select Purspose</label>
                     <Select options={kalyanMandapPurpose} isMulti id="purpose-kalyan-mandap" onChange={(e) => setPurpose(e)} />
                   </div>
@@ -430,7 +432,7 @@ function BookingForm(props) {
                         outline: '1px solid #ccc'
                       }}
                     ></textarea>
-                  </div> : <></>}
+                  </div> : <></>} */}
                   <div className="col-lg-10 col-md-6 mt-4">
                     <button className="main-btn icon-btn" onClick={() => activeModalFunctionTwo()}>Search Now</button>
                   </div>
@@ -445,7 +447,7 @@ function BookingForm(props) {
                 <div className="row">
                   <div className="col-lg-12 col-md-6 mt-2">
                     <label>Select Townhall</label>
-                    <Select options={townhall} onChange={(e) => { setBookingDetails({ ...bookingDetails, townhallName: e.value ,townhallId:e.id}) }} />
+                    <Select options={townhall} onChange={(e) => { setBookingDetails({ ...bookingDetails, townhallName: e.value ,townhallId:e.id}) ,setSelectedData(e.data)}} />
                   </div>
                   <div className="col-lg-12 col-md-6 mt-2">
                     <label>Select Date</label>

@@ -42,7 +42,14 @@ const Index = () => {
     let response = await  callApi(apiTest)
     if(response.data.code==201){
       setIsLoaded(true)
-      setRamlingamData(response.data.data)
+      // setRamlingamData(response.data.data)
+      let tempArr=[];
+      response.data.data.map((x)=>{
+        if(x.status!="removed"){
+          tempArr.push(x)
+        }
+      })
+      setRamlingamData(tempArr)
     }
   }
   async function fetchReviews() {
@@ -115,10 +122,10 @@ console.log(reviews,'reviewssssssss')
     <Layout>
     {video && <VideoPopup close={setVideo} />}
     {/* <!--====== Start Hero Section ======--> */}
-    <Banner overallData={ramlingamData} mainSlider={bannerSlider} activeForm='Ramlingam Park' pageOf="Ramlingam Park" />
+    <Banner overallData={ramlingamData} mainSlider={bannerSlider} activeForm='Ramlingam Park' pageOf="ramlingamPark" />
     {/* <!--====== End Hero Section ======--> */}
     {/* <!--====== Start Listing Section ======--> */}
-    <ShowsList overallData={ramlingamData}/>
+    <ShowsList overallData={ramlingamData} pageOf="ramlingamPark"/>
     {/* <!--====== Start Place Section ======--> */}
     <Gallery gallery={photoGallery} />
     {/* <!--====== End Place Section ======--> */}

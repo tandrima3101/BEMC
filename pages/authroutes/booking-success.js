@@ -52,11 +52,11 @@ function BookingSuccess() {
                     <b>{bookingDetails?.bookingRequest?.eventName}</b>
                   </h4>
                   <h5>
-                    <i className="ti-location-pin pr-2"></i>Ramlingam Park
+                    <i className="ti-location-pin pr-2"></i>Odisha,bhubaneswar
                   </h5>
-                  <h5>
+                  {(bookingDetails?.bookingRequest?.adultNum||bookingDetails?.bookingRequest?.childNum)&& <h5>
                     <i className="ti-ticket pr-2"></i>{bookingDetails?.bookingRequest?.adultNum} Adults ,{bookingDetails?.bookingRequest?.childNum} Child
-                  </h5>
+                  </h5>}
                   <h5>
                     <i className="ti-money pr-2"></i>Rs {bookingDetails?.bookingRequest?.amount}
                   </h5>

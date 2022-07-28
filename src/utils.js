@@ -117,7 +117,7 @@ export const activeNavMenu = (path) => {
 };
 
 export const setRoutingData = async (data, path) => {
-  localStorage.setItem("routingData", JSON.stringify(data))
+  await localStorage.setItem("routingData", JSON.stringify(data))
   Router.push(path)
 
 }
@@ -125,7 +125,7 @@ export const setRoutingData = async (data, path) => {
 
 export const getRoutingData = async () => {
   let data = await localStorage.getItem("routingData")
-  localStorage.removeItem("routingData")
+  // localStorage.removeItem("routingData")
   return JSON.parse(data)
 }
 

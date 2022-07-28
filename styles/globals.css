@@ -26,14 +26,23 @@ html {
   padding-left: 15px;
   padding-right: 40px;
 }
-.place-slider-one .slick-track{
+.accordion__button{
+  display: flex !important;
+  align-items: center !important;
+  background-color: #3bacb6 !important;
+  color: #fff !important;
+}
+.accordion__button h5{
+  color: #fff !important;
+}
+/* .place-slider-one .slick-track{
   width: 100% !important;
   display: flex !important;
   justify-content: space-between !important;
 }
 .place-slider-one .slick-slide{
   width: auto !important;
-}
+} */
 .testimonial-thumb-slider-one .slick-slide {
   padding-left: 0 !important;
   padding-right: 0 !important;

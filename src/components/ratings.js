@@ -7,11 +7,8 @@ const Rate = (props) => {
     const [hover,setHover] = useState(null)
     const [size,setSize] = useState(props.size)
     const [align,setAlign] = useState(props.align)
-
-
-
     useEffect(()=>{
-        // console.log(rating)
+        console.log(rating,'ratingggggggggggg')
     },[rating])
     return (
         <>
@@ -22,8 +19,8 @@ const Rate = (props) => {
                         const ratingValue = i+1;
                         return (
                             <label key={i}>
-                                <input type='radio' name="rating" value={ratingValue} style={{display:'none'}} onClick={()=>{setRating(ratingValue)}} />
-                                <FaStar size={size} className='starIcon' style={{cursor:'pointer'}} color={ratingValue <= (hover || rating)?'#3bacb6':'#b3e8e5'} onMouseEnter={()=>{setHover(ratingValue)}} onMouseLeave={()=>{setHover(null),console.log(hover)}}/>
+                                <input type='radio' name="rating" value={ratingValue} style={{display:'none'}} onClick={()=> {props.canHover &&(setRating(ratingValue),props.callBack(ratingValue))}} />
+                                <FaStar size={size} className='starIcon' style={{cursor:props.canHover &&'pointer'}} color={ratingValue <= (hover || rating)?'#3bacb6':'#b3e8e5'} onMouseEnter={()=>{(props.canHover && setHover(ratingValue))}} onMouseLeave={()=>{(props.canHover && setHover(null),console.log(hover))}}/>
                             </label>
                         )
                     })

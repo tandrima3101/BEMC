@@ -282,10 +282,10 @@ console.log(reviews,'reviewssssssss')
     <Layout>
     {video && <VideoPopup close={setVideo} />}
     {/* <!--====== Start Hero Section ======--> */}
-    <Banner overallData={ramlingamData} mainSlider={bannerSlider} activeForm='Townhall Booking' pageOf="Townhall" />
+    <Banner overallData={ramlingamData} mainSlider={bannerSlider} activeForm='Townhall Booking' pageOf="townhall" />
     {/* <!--====== End Hero Section ======--> */}
     {/* <!--====== Start Listing Section ======--> */}
-    <ShowsList overallData={ramlingamData}/>
+    <ShowsList overallData={ramlingamData} pageOf="townhall"/>
     {/* <!--====== Start Place Section ======--> */}
     <Gallery gallery={photoGallery} />
     {/* <!--====== End Place Section ======--> */}

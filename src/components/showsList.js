@@ -3,27 +3,49 @@ import Link from "next/link";
 import Rate from './ratings';
 import GiveReviewModal from './giveReviewModal';
 import CardFormModal from './cardFormModal';
+import { callApi } from '../apiHandlers/callApi';
+import { Badge } from 'reactstrap';
+import PreLoader from './PreLoader';
 
-function ShowsList(props) {
-  const [modalOpen,setMOdalOpen] = useState(false)
-  const [cardModalOpen,setCardMOdalOpen] = useState(false)
-  const [selectedEvent,setSelectedEvent] = useState()
-
-  const togglemodal = (data) =>{
+const ShowsList = (props) => {
+  const [modalOpen, setMOdalOpen] = useState(false)
+  const [cardModalOpen, setCardMOdalOpen] = useState(false)
+  const [selectedEvent, setSelectedEvent] = useState()
+  const [eventId, setEventId] = useState()
+  const [showList, setShowList] = useState([])
+  const closeReviewMOdal = (data) => {
     setMOdalOpen(data)
   }
-  const togglecardModal = (data) =>{
+  const togglecardModal = (data) => {
     setCardMOdalOpen(data)
-  }  
-  // useEffect(()=>{
-  //   console.log(props.overallData,'overallDataa')
-  // },[props.overallData])
-  const showList=[]
-  for (let i =0;i<props.overallData.length;i++){
-    showList.push({price:props.overallData[i].price,eventName:props.overallData[i].eventName,location:props.overallData[i].location,card:props.overallData[i].card,review:props.overallData[i].review,reviewCount:props.overallData[i].reviewCount,seatCategory:props.overallData[i].seatCategory,dates:props.overallData[i].dateAndTime.map((x)=>{return x.date}),dateAndTime:props.overallData[i].dateAndTime})
   }
-  console.log(showList)
-console.log(props.overallData,'overall data')
+  const reviewedItem = localStorage.getItem("reviewedItem")
+  const [isReviewed, setIsReviewed] = useState(JSON.parse(reviewedItem))
+  console.log(isReviewed, 'revieweddddddddd')
+
+  let showData = [];
+  useEffect(async () => {
+    console.log(props.overallData, 'overall data on change')
+    for (let i = 0; i < props.overallData.length; i++) {
+      let getReviewData = {
+        method: 'post',
+        url: 'ramalingampark/event/getReview',
+        data: {
+          eventId: props.overallData[i].eventId || props.overallData[i].townhallId || props.overallData[i].mandapId
+        }
+      }
+      let response = await callApi(getReviewData)
+      console.log(response.data.data, 'response for review')
+      let avgRating = 0
+      response.data.data.map((x) => {
+        avgRating = avgRating + x.rating
+      })
+      showData.push({ department: props.pageOf, price: props.overallData[i].price, cPrice: props.overallData[i].cPrice, eventId: props.overallData[i].eventId, townhallId: props.overallData[i].townhallId, mandapId: props.overallData[i].mandapId, eventName: props.overallData[i].eventName, townhallName: props.overallData[i].townhallName, mandapName: props.overallData[i].mandapName, location: props.overallData[i].location, card: props.overallData[i].card, review: props.overallData[i].review, reviewCount: props.overallData[i].reviewCount, seatCategory: props.overallData[i].seatCategory, dates: props.overallData[i].dateAndTime.map((x) => { return x.date }), dateAndTime: props.overallData[i].dateAndTime, eventDefaultTime: props.overallData[i].eventDefaultTime, eventTag: props.overallData[i].eventTag, rating: Math.round(avgRating / response.data.data.length) })
+    }
+    setShowList(showData)
+  }, [props.overallData])
+  console.log(showList, 'showList outside')
+
   return (
     <section className="listing-grid-area pt-115 pb-75">
       <div className="container">
@@ -46,28 +68,29 @@ console.log(props.overallData,'overall data')
                     ) : (
                       <span className="featured-btn featured-btn-transparent"></span>
                     )}
-                      <div className="thumbnail-meta d-flex justify-content-between align-items-center">
-                        <div className="meta-icon-title d-flex align-items-center">
-                          <div className="icon">
-                            <i className="flaticon-chef"></i>
-                          </div>
-                          <div className="title">
-                            <button style={{backgroundColor:'transparent'}} onClick={()=>{setCardMOdalOpen(!cardModalOpen),setSelectedEvent(show)}}>{show?.card?.card_buttonName}</button>
-                          </div>
+                    <div className="thumbnail-meta d-flex justify-content-between align-items-center">
+                      <div className="meta-icon-title d-flex align-items-center">
+                        <div className="icon">
+                          <i className="flaticon-chef"></i>
                         </div>
-                        <img
-                          src="assets/images/right-arrow.png"
-                          style={{ height: "32px", width: "32px" }}
-                        />
+                        <div className="title">
+                          <button style={{ backgroundColor: 'transparent' }} onClick={() => { setCardMOdalOpen(!cardModalOpen), setSelectedEvent(show) }}>{show?.card?.card_buttonName}</button>
+                        </div>
                       </div>
+                      <img
+                        src="assets/images/right-arrow.png"
+                        style={{ height: "32px", width: "32px" }}
+                      />
+                    </div>
                   </div>
                   <div className="listing-content">
                     <h3 className="title">
                       <Link href="/listing-details-1">
-                        <a>{show.eventName}</a>
+                        <a>{show.eventName || show.townhallName || show.mandapName}</a>
                       </Link>
                     </h3>
-                    <Rate size='20' align='start' rating={show?.review} canHover='false'/>
+                    {show.eventTag && show.eventTag.map((x) => { return (<span className='badge badge-warning ml-0 mr-2 mb-2 text-capitalize'>{x}</span>) })}
+                    <Rate size='25' align='start' rating={show?.rating} canHover={false} />
                     <h6 className="price ml-0 mt-0">Price:{show?.price}</h6>
                     {show?.contactNumber ? (
                       <span
@@ -93,12 +116,22 @@ console.log(props.overallData,'overall data')
                         ) : (
                           <li></li>
                         )}
-                        <li>
+                        {isReviewed ? isReviewed.includes(show.eventId||show.townhallId||show.mandapId) ? <li>
+                          <span>
+                            <i className="ti-check"></i>
+                            <span className='text-success ml-0'>Reviewed</span>
+                          </span>
+                        </li> : <li>
                           <span>
                             <i className="ti-star"></i>
-                            <button style={{backgroundColor:'transparent'}} onClick={()=>setMOdalOpen(!modalOpen)}>Give a Review</button>
+                            <button style={{ backgroundColor: 'transparent' }} onClick={() => { setMOdalOpen(!modalOpen), setEventId(show.eventId || show.townhallId || show.mandapId) }}>Give a Review</button>
                           </span>
-                        </li>
+                        </li>:<li>
+                          <span>
+                            <i className="ti-star"></i>
+                            <button style={{ backgroundColor: 'transparent' }} onClick={() => { setMOdalOpen(!modalOpen), setEventId(show.eventId || show.townhallId || show.mandapId) }}>Give a Review</button>
+                          </span>
+                        </li>}
                       </ul>
                     </div>
                   </div>
@@ -108,8 +141,8 @@ console.log(props.overallData,'overall data')
           })}
         </div>
       </div>
-      <GiveReviewModal activeReview={modalOpen} toggle={togglemodal}/>
-      <CardFormModal activeModal={cardModalOpen} eventInfo={selectedEvent} toggleFunc={togglecardModal}/>
+      <GiveReviewModal activeReview={modalOpen} eventId={eventId} closeReviewMOdal={closeReviewMOdal} />
+      <CardFormModal activeModal={cardModalOpen} eventInfo={selectedEvent} toggleFunc={togglecardModal} department={props.pageOf} />
     </section>
   )
 }
