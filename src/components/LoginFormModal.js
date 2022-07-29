@@ -86,6 +86,7 @@ console.log(errors3)
       dispatch(setlogin(true))
       dispatch(setToken(JSON.stringify(response.data.data.token)))
       dispatch(setUserId(JSON.stringify(response.data.data.userData._id)))
+      localStorage.setItem('userData',JSON.stringify(response.data.data.userData))
       setOtpLoader(false)
       Router.push("#")
       setSubmodalLogin(false),
@@ -147,7 +148,7 @@ console.log(errors3)
 
       {/* otp modal */}
 
-      <Modal isOpen={submodalLogin}>
+      <Modal isOpen={submodalLogin} toggle={()=>setSubmodalLogin(!submodalLogin)}>
       <ModalHeader style={{background:'#3bacb6'}}>
           <ModalTitle style={{color:'#fff'}}>Enter OTP</ModalTitle>
         </ModalHeader>

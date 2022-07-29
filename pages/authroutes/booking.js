@@ -30,6 +30,8 @@ const Booking = () => {
   const [kalyanmandapData, setKalyanmandapData] = useState(false)
   const [eventId, setEventId] = useState(null)
   const [eventIdForList, setEventIdForList] = useState(null)
+  const [eventIdForGrievance,setEventIdForGrievance] = useState(null)
+  const [parentEventIdForGrievance,setParentEventIdForGrievance] = useState(null)
   const [reviewListModal, setReviewListModal] = useState(false)
   const [isLoaded, setIsLoaded] = useState(false)
 
@@ -87,6 +89,7 @@ const Booking = () => {
       setRamlingamData(tempArr)
     }
   }
+  console.log(ramlingamBookingList,'ramlingam')
   const getTownhallBookingRequest = async () => {
     let getBookingData = {
       method: 'post',
@@ -124,7 +127,6 @@ const Booking = () => {
       settownhallData(tempArr)
     }
   }
-  console.log(townhallData)
   const getKalyanmandapBookingRequest = async () => {
     let getBookingData = {
       method: 'post',
@@ -164,15 +166,15 @@ const Booking = () => {
       // setIsLoaded(true)
     }
   }
-
+  const activeModalFunctionThree = (data) => {
+    setActiveModalThree(data);
+  }
   useEffect(() => {
     getRamlingamBookingRequest()
     getTownhallBookingRequest()
     getKalyanmandapBookingRequest()
   }, [])
-  const activeModalFunctionThree = () => {
-    setActiveModalThree(!activeModalThree);
-  }
+
   return (
     (!isLoaded) ?
       <PreLoader /> :
@@ -267,22 +269,23 @@ const Booking = () => {
                           </div>
                           <div className="col-lg-3 d-flex flex-column justify-content-center">
                             <Ratings size='50' align='center' rating={ramlingamData[index]?.rating} canHover={false} />
+                            <p></p>
                             {isReviewed ? isReviewed.includes(ramlingamData[index].eventId) ? <div className="d-flex justify-content-center mt-2">
-                              <span className="d-flex align-item-center">
-                                <i className="ti-check" style={{fontSize:'20px'}}></i>
-                                <h5 className='text-success ml-2'>Reviewed</h5>
+                              <span className="d-flex align-item-center main-btn btn-success">
+                                <i className="ti-check" style={{ fontSize: '15px' }}></i>
+                                <h6 className='ml-2 mb-0' style={{ color: '#fff', letterSpacing: '1px' }}>Reviewed</h6>
                               </span>
                             </div> : <div className="review-link mt-2">
                               <button onClick={() => { setActiveModalReview(!activeModalReview), setEventId(ramlingamData[index].eventId) }}>Give a small review</button>
                             </div> : <div className="review-link mt-2">
-                              <button onClick={() => { setActiveModalReview(!activeModalReview), setEventId(ramlingamData[index].eventId) }}>Give a small review</button>
+                              <button style={{ backgroundColor: 'transparent' }} onClick={() => { setActiveModalReview(!activeModalReview), setEventId(ramlingamData[index].eventId) }}>Give a small review</button>
                             </div>}
                             <div className="review-link mt-2">
-                              <button onClick={() => { setReviewListModal(!reviewListModal), setEventIdForList(ramlingamData[index].eventId) }}>See all Reviews</button>
+                              <button style={{ backgroundColor: 'transparent' }} onClick={() => { setReviewListModal(!reviewListModal), setEventIdForList(ramlingamData[index].eventId) }}>See all Reviews</button>
                             </div>
 
                             <div className="review-link mt-2">
-                              <button onClick={() => activeModalFunctionThree()}>Having issue with this ticket?</button>
+                              <button style={{ backgroundColor: 'transparent' }} onClick={()=>{setActiveModalThree(!activeModalThree),setEventIdForGrievance(bookings.bookingRequestId),setParentEventIdForGrievance(bookings._id)}}>Having issue with this ticket?</button>
                             </div>
 
                           </div>
@@ -380,21 +383,21 @@ const Booking = () => {
                           <div className="col-lg-3 d-flex flex-column justify-content-center">
                             <Ratings size='50' align='center' rating={townhallData[index]?.rating} canHover={false} />
                             {isReviewed ? isReviewed.includes(townhallData[index].eventId) ? <div className="d-flex justify-content-center mt-2">
-                              <span className="d-flex align-item-center">
-                                <i className="ti-check" style={{fontSize:'20px'}}></i>
-                                <h5 className='text-success ml-2'>Reviewed</h5>
+                              <span className="d-flex align-item-center main-btn btn-success">
+                                <i className="ti-check" style={{ fontSize: '15px' }}></i>
+                                <h6 className='ml-2 mb-0' style={{ color: '#fff', letterSpacing: '1px' }}>Reviewed</h6>
                               </span>
                             </div> : <div className="review-link mt-2">
-                              <button onClick={() => { setActiveModalReview(!activeModalReview), setEventId(townhallData[index].eventId) }}>Give a small review</button>
+                              <button style={{ backgroundColor: 'transparent' }} onClick={() => { setActiveModalReview(!activeModalReview), setEventId(townhallData[index].eventId) }}>Give a small review</button>
                             </div> : <div className="review-link mt-2">
-                              <button onClick={() => { setActiveModalReview(!activeModalReview), setEventId(townhallData[index].eventId) }}>Give a small review</button>
+                              <button style={{ backgroundColor: 'transparent' }} onClick={() => { setActiveModalReview(!activeModalReview), setEventId(townhallData[index].eventId) }}>Give a small review</button>
                             </div>}
                             <div className="review-link mt-2">
-                              <button onClick={() => { setReviewListModal(!reviewListModal), setEventIdForList(townhallData[index].eventId) }}>See all Reviews</button>
+                              <button style={{ backgroundColor: 'transparent' }} onClick={() => { setReviewListModal(!reviewListModal), setEventIdForList(townhallData[index].eventId) }}>See all Reviews</button>
                             </div>
 
                             <div className="review-link mt-2">
-                              <button onClick={() => activeModalFunctionThree()}>Having issue with this ticket?</button>
+                              <button style={{ backgroundColor: 'transparent' }} onClick={()=>{setActiveModalThree(!activeModalThree),setEventIdForGrievance(bookings.bookingRequestId),setParentEventIdForGrievance(bookings._id)}}>Having issue with this ticket?</button>
                             </div>
 
                           </div>
@@ -490,25 +493,25 @@ const Booking = () => {
                           <div className="col-lg-3 d-flex flex-column justify-content-center">
                             <Ratings size='50' align='center' rating={kalyanmandapData[index]?.rating} canHover={false} />
                             {isReviewed ? isReviewed.includes(kalyanmandapData[index].eventId) ? <div className="d-flex justify-content-center mt-2">
-                              <span className="d-flex align-item-center">
-                                <i className="ti-check" style={{fontSize:'20px'}}></i>
-                                <h5 className='text-success ml-2'>Reviewed</h5>
+                              <span className="d-flex align-item-center main-btn btn-success">
+                                <i className="ti-check" style={{ fontSize: '15px' }}></i>
+                                <h6 className='ml-2 mb-0' style={{ color: '#fff', letterSpacing: '1px' }}>Reviewed</h6>
                               </span>
                             </div> : <div className="review-link mt-2">
-                              <button onClick={() => { setActiveModalReview(!activeModalReview), setEventId(kalyanmandapData[index].eventId) }}>Give a small review</button>
+                              <button style={{ backgroundColor: 'transparent' }} onClick={() => { setActiveModalReview(!activeModalReview), setEventId(kalyanmandapData[index].eventId) }}>Give a small review</button>
                             </div> : <div className="review-link mt-2">
-                              <button onClick={() => { setActiveModalReview(!activeModalReview), setEventId(kalyanmandapData[index].eventId) }}>Give a small review</button>
+                              <button style={{ backgroundColor: 'transparent' }} onClick={() => { setActiveModalReview(!activeModalReview), setEventId(kalyanmandapData[index].eventId) }}>Give a small review</button>
                             </div>}
                             <div className="review-link mt-2">
-                              <button onClick={() => { setReviewListModal(!reviewListModal), setEventIdForList(kalyanmandapData[index].eventId) }}>See all Reviews</button>
+                              <button style={{ backgroundColor: 'transparent' }} onClick={() => { setReviewListModal(!reviewListModal), setEventIdForList(kalyanmandapData[index].eventId) }}>See all Reviews</button>
                             </div>
 
                             <div className="review-link mt-2">
-                              <button onClick={() => activeModalFunctionThree()}>Having issue with this ticket?</button>
+                              <button style={{ backgroundColor: 'transparent' }} onClick={()=>{setActiveModalThree(!activeModalThree),setEventIdForGrievance(bookings.bookingRequestId),setEventIdForGrievance(bookings._id)}}>Having issue with this ticket?</button>
                             </div>
 
                           </div>
-                          <TicketIssueModal activeThree={activeModalThree} />
+                          <TicketIssueModal activeThree={activeModalFunctionThree} activeModal={activeModalThree} eventId={eventIdForGrievance} parentEventId={parentEventIdForGrievance}/>
                         </div>
                       );
                     })}

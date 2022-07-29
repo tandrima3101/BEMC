@@ -42,7 +42,6 @@ const Index = () => {
     let response = await  callApi(apiTest)
     if(response.data.code==201){
       setIsLoaded(true)
-      // setRamlingamData(response.data.data)
       let tempArr=[];
       response.data.data.map((x)=>{
         if(x.status!="removed"){
@@ -58,10 +57,12 @@ const Index = () => {
       url:"ramalingampark/event/getAllReview"
   }
     let response = await  callApi(apiTest)
-    // console.log(response,'responseeeeeeeeee')
+    // console.log(response.data.data,'reviewwwwwwwwww responseeeeeeeeee')
     if(response.data.code==201){
       setReviews(response.data.data)
     }
+    console.log(ramlingamData,'Ramlingam Data')
+    setReviews(response.data.data)
   }
   useEffect(()=>{
     fetchEvents()

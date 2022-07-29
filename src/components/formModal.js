@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import Link from "next/link";
-import { Button, Spinner } from 'react-bootstrap'
+import { Button, ModalTitle, Spinner } from 'react-bootstrap'
 import { setRoutingData, varifyOTP } from "../utils";
 import {
   Modal,
@@ -10,7 +10,7 @@ import {
 } from "reactstrap";
 import { callApi } from "../apiHandlers/callApi";
 import { generateOTP, verifyOTP } from "../utils";
-function FormModal({ active, activeTwo, data, adultPrice, childPrice,pageOf ,price}) {
+function FormModal({ active, activeTwo, data, adultPrice, childPrice,pageOf ,price,toggle}) {
   console.log(totalData,'dataaaaaaaaa')
   const [totalData, setTotalData] = useState(data)
   const [enteredOtp, setEnteredOtp] = useState(null)
@@ -132,8 +132,11 @@ function FormModal({ active, activeTwo, data, adultPrice, childPrice,pageOf ,pri
       {/* MOdal 1 for ramlingam park */}
       <Modal
         isOpen={containerOne}
-        toggle={() => setContainerOne(!containerOne)}
+        toggle={() => {setContainerOne(false),toggle(false)}}
       >
+        <ModalHeader style={{background:'#3bacb6'}}>
+          <ModalTitle style={{color:'#fff'}}>Enter Booking Details</ModalTitle>
+        </ModalHeader>
         <ModalBody>
           <div className="row">
             <div className="col-lg-12 col-md-6 mt-2">
@@ -183,7 +186,7 @@ function FormModal({ active, activeTwo, data, adultPrice, childPrice,pageOf ,pri
       </Modal>
 
       {/* submodal for ramlingam park */}
-      <Modal isOpen={submodalOne}>
+      <Modal isOpen={submodalOne} toggle={()=>{setSubmodalOne(false),toggle(false)}}>
         <ModalHeader>Enter OTP</ModalHeader>
         <ModalBody style={{ display: "flex", flexDirection: "row" }}>
           <input type="number"
@@ -193,7 +196,7 @@ function FormModal({ active, activeTwo, data, adultPrice, childPrice,pageOf ,pri
         <ModalFooter>
           {resendShow ? <button onClick={() => sendOtp()} style={{ backgroundColor: 'transparent' }}>
             <span>Resend OTP</span>
-          </button> : <p>{timerRef.current}</p>}
+          </button> : <div className="mr-auto d-flex align-items-center"><i className="ti-time"></i><h6 className="ml-2 mb-0"><b>{timerRef.current}</b></h6></div>}
           <button onClick={() => validateOtp()} disabled={otpLoader} className='main-btn'>
             {otpLoader && (
               <Spinner

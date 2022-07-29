@@ -39,6 +39,12 @@ function SeeAllReviewModal({ activeReview, eventId, closeReviewMOdal }) {
         }
     }
 
+    const handleCloseReview=() =>{
+        setContainerReview(!containerReview), closeReviewMOdal(false)
+        if(reviewDetails.length>0){
+            setReviewDetails(null)
+        } 
+    }
     useEffect(async () => {
         console.log(eventId, 'EVENTID')
         await showReview()
@@ -59,7 +65,7 @@ function SeeAllReviewModal({ activeReview, eventId, closeReviewMOdal }) {
                     <div className="container">
                         <div className="row">
                             <div className="col-lg-12">
-                                <Slider {...PlaceSliderTwo} className="place-slider-one">
+                                {reviewDetails?.length>0?<Slider {...PlaceSliderTwo} className="place-slider-one">
                                     {reviewDetails?.map((review,index) => {
                                         return (
                                             <div key={index}>
@@ -83,7 +89,8 @@ function SeeAllReviewModal({ activeReview, eventId, closeReviewMOdal }) {
                                             </div>
                                         );
                                     })}
-                                </Slider>
+                                </Slider>:<h5 className="mt-3 mb-3 text-center">No Reviews Yet</h5>}
+                                
                             </div>
                         </div>
                     </div>
@@ -92,7 +99,7 @@ function SeeAllReviewModal({ activeReview, eventId, closeReviewMOdal }) {
                     <Link href="#">
                         <button
                             className="main-btn"
-                            onClick={ () => { setContainerReview(!containerReview), closeReviewMOdal(false),setReviewDetails(null) }}
+                            onClick={ () => handleCloseReview()}
                         >
                             Close
                         </button>

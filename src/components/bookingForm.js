@@ -198,8 +198,8 @@ function BookingForm(props) {
 
 
 
-  const activeModalFunction = () => {
-    setActiveModal(true)
+  const activeModalFunction = (data) => {
+    setActiveModal(data)
   }
   const activeModalFunctionTwo = () => {
     setActiveModalTwo(true)
@@ -226,7 +226,7 @@ function BookingForm(props) {
   //functions for submit
 
   const onEventSelect = () => {
-    activeModalFunction(), setBookingDetails({ ...bookingDetails, selectedTime: activeShowTimes.value })
+    setActiveModal(true), setBookingDetails({ ...bookingDetails, selectedTime: activeShowTimes.value })
   }
   return (
     <div>
@@ -362,7 +362,7 @@ function BookingForm(props) {
                   </div>
                 </div>
               </Tab.Pane>
-              <FormModal active={activeModal} data={bookingDetails} adultPrice={selectedData?.price} childPrice={selectedData?.cPrice} pageOf={props.pageOf} />
+              <FormModal active={activeModal} toggle={activeModalFunction} data={bookingDetails} adultPrice={selectedData?.price} childPrice={selectedData?.cPrice} pageOf={props.pageOf} />
               {/* *****************Sports Arena*************** */}
               <Tab.Pane
                 className={`show ${activeForm === "Sports Arena" ? "active" : ""

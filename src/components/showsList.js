@@ -6,6 +6,7 @@ import CardFormModal from './cardFormModal';
 import { callApi } from '../apiHandlers/callApi';
 import { Badge } from 'reactstrap';
 import PreLoader from './PreLoader';
+import SeeAllReviewModal from './seeallreviewModal';
 
 const ShowsList = (props) => {
   const [modalOpen, setMOdalOpen] = useState(false)
@@ -13,11 +14,17 @@ const ShowsList = (props) => {
   const [selectedEvent, setSelectedEvent] = useState()
   const [eventId, setEventId] = useState()
   const [showList, setShowList] = useState([])
+  const [eventIdForList, setEventIdForList] = useState(null)
+  const [reviewListModal, setReviewListModal] = useState(false)
+
   const closeReviewMOdal = (data) => {
     setMOdalOpen(data)
   }
   const togglecardModal = (data) => {
     setCardMOdalOpen(data)
+  }
+  const closeReviewListMOdal = (data) => {
+    setReviewListModal(data)
   }
   const reviewedItem = localStorage.getItem("reviewedItem")
   const [isReviewed, setIsReviewed] = useState(JSON.parse(reviewedItem))
@@ -116,21 +123,24 @@ const ShowsList = (props) => {
                         ) : (
                           <li></li>
                         )}
-                        {isReviewed ? isReviewed.includes(show.eventId||show.townhallId||show.mandapId) ? <li>
+                        {isReviewed ? isReviewed.includes(show.eventId||show.townhallId||show.mandapId) ? <li className='d-flex flex-column'>
                           <span>
                             <i className="ti-check"></i>
                             <span className='text-success ml-0'>Reviewed</span>
                           </span>
-                        </li> : <li>
+                          <button style={{backgroundColor:'transparent'}} className='mt-2 ml-auto' onClick={() => { setReviewListModal(true), setEventIdForList(show.eventId || show.townhallId || show.mandapId) }}>See All Reviews</button>
+                        </li> : <li className='d-flex flex-column'>
                           <span>
                             <i className="ti-star"></i>
                             <button style={{ backgroundColor: 'transparent' }} onClick={() => { setMOdalOpen(!modalOpen), setEventId(show.eventId || show.townhallId || show.mandapId) }}>Give a Review</button>
                           </span>
-                        </li>:<li>
+                          <button style={{backgroundColor:'transparent'}} className='mt-2 ml-auto' onClick={() => { setReviewListModal(true), setEventIdForList(show.eventId || show.townhallId || show.mandapId) }}>See All Reviews</button>
+                        </li>:<li className='d-flex flex-column'>
                           <span>
                             <i className="ti-star"></i>
                             <button style={{ backgroundColor: 'transparent' }} onClick={() => { setMOdalOpen(!modalOpen), setEventId(show.eventId || show.townhallId || show.mandapId) }}>Give a Review</button>
                           </span>
+                          <button style={{backgroundColor:'transparent'}} className='mt-2 ml-auto' onClick={() => { setReviewListModal(true), setEventIdForList(show.eventId || show.townhallId || show.mandapId) }}>See All Reviews</button>
                         </li>}
                       </ul>
                     </div>
@@ -143,6 +153,7 @@ const ShowsList = (props) => {
       </div>
       <GiveReviewModal activeReview={modalOpen} eventId={eventId} closeReviewMOdal={closeReviewMOdal} />
       <CardFormModal activeModal={cardModalOpen} eventInfo={selectedEvent} toggleFunc={togglecardModal} department={props.pageOf} />
+      <SeeAllReviewModal activeReview={reviewListModal} eventId={eventIdForList} closeReviewMOdal={closeReviewListMOdal} />
     </section>
   )
 }

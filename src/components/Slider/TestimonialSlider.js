@@ -34,14 +34,15 @@ export default class TestimoinalSlider extends Component {
           slidesToScroll={1}
           className="testimonial-thumb-slider-one"
         >
-          {testimonialData?.map((data)=>{
-            return(
+          {testimonialData?.map((data) => {
+            return (
               <div className="single-thumb">
-            <img
-              src='assets\images\avatar-370-456322.jpg'
-              alt="testimonial thumb"
-            />
-          </div>
+                <h5 className="mb-4"><b>{data.eventId}</b></h5>
+                <img
+                  src='assets\images\avatar-370-456322.jpg'
+                  alt="testimonial thumb"
+                />
+              </div>
             )
           })}
         </Slider>
