@@ -1,21 +1,24 @@
 import React, { useEffect, useState } from "react";
-import Link from "next/link";
-import { AiOutlineCheckCircle } from 'react-icons/ai'
-import { AiFillFastForward, AiOutlineDelete, AiOutlineMobile } from 'react-icons/ai';
+import { AiOutlineMobile } from 'react-icons/ai';
 import Layout from "../../src/layouts/Layout";
 import VideoPopup from "../../src/components/VideoPopup";
 import { callApi } from "../../src/apiHandlers/callApi";
-import { Badge } from "react-bootstrap";
+import EscalationModal from "../../src/components/EscalationModal";
+import TicketIssueModal from "../../src/components/ticketIssueModal";
+import PreLoader from "../../src/components/PreLoader";
 
 
 const MyComplains = () => {
   const [video, setVideo] = useState(false);
   const [activeModalThree, setActiveModalThree] = useState(false);
   const [activeModalReview, setActiveModalReview] = useState(false);
-  const [bookingRDetails, setBookingDetails] = useState(null)
-  var currentDate = new Date();
-  var d = currentDate.getDate()
-console.log(d,'currentDate')
+  const [complainDetails, setComplainDetails] = useState(null)
+  const [diff, setDiff] = useState(null)
+  const [escalationModal, setEscalationModal] = useState(false)
+  const [escalationData, setEscalationData] = useState(null)
+  const [isLoaded, setIsLoaded] = useState(false)
+  const [dayDiff, setDayDiff] = useState([])
+  const tempArr = []
   const getAllGrievances = async () => {
     let dataForGrievance = {
       method: 'post',
@@ -23,107 +26,61 @@ console.log(d,'currentDate')
     }
     let response = await callApi(dataForGrievance)
     console.log(response.data.data.grievances, 'GRIEVANCESSSSSSSSSSS')
-    setBookingDetails(response.data.data.grievances)
+    setComplainDetails(response.data.data.grievances)
+    for (let i = 0; i < response.data.data.grievances.length; i++) {
+      const oneDay = 24 * 60 * 60 * 1000
+      let currentDate = new Date()
+      let grvDate;
+      if (response.data.data.grievances[i].status == 'Resolved') {
+        grvDate = new Date(response.data.data.grievances[i].resolvedDate[response.data.data.grievances[i].resolvedDate.length - 1])
+      } else if (response.data.data.grievances[i].status == 'Escalated') {
+        grvDate = new Date(response.data.data.grievances[i].escalationDate[response.data.data.grievances[i].escalationDate.length - 1])
+      } else {
+        grvDate = new Date(response.data.data.grievances[i].createdAt)
+      }
+      const diffDays = Math.round(Math.abs((grvDate - currentDate) / oneDay));
+      tempArr.push(diffDays)
+    }
+    setDayDiff(tempArr)
   }
 
   useEffect(async () => {
     getAllGrievances()
-    localStorage.setItem('lastEscalationDate',JSON.stringify(currentDate))
-    }, [])
+  }, [])
+  useEffect(() => {
+    if (dayDiff != [] && complainDetails != null) {
+      setIsLoaded(true)
+    }
+  }, [dayDiff, complainDetails])
 
-  const bookingDetails = [
-    {
-      bookingId: 1,
-      bookingImgUrl:
-        "https://images.unsplash.com/photo-1566159266489-6158a42c3beb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
-      showName: "Show 1",
-      hallName: "Ramlingam Park",
-      time: "3:40AM",
-      date: "01-0602022",
-      mobile: '9090909090',
-      count: 5,
-      seatNumber: 4,
-      ticketPrice: 240.0,
-      conveniencePrice: 100.0,
-      totalPrice: 340.0,
-      btnText: 'Completed',
-      icon: <i className="ti-check" style={{ fontSize: '1rem' }}></i>,
-      color: '#fff',
-      escalateText: 'Escalate',
-      background: '#3bacb6'
-    },
-    {
-      bookingId: 1,
-      bookingImgUrl:
-        "https://images.unsplash.com/photo-1566159266489-6158a42c3beb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
-      showName: "Show 1",
-      hallName: "Ramlingam Park",
-      time: "3:40AM",
-      mobile: '9090909090',
-      date: "01-0602022",
-      count: 5,
-      seatNumber: 4,
-      ticketPrice: 240.0,
-      conveniencePrice: 100.0,
-      totalPrice: 340.0,
-      color: '#111',
-      btnText: 'Pending',
-      icon: <i className="ti-time" style={{ fontSize: '1rem', fontWeight: 'bold' }}></i>,
-      background: '#ffd74e',
-      escalateText: 'Escalated'
-    },
-    {
-      bookingId: 1,
-      bookingImgUrl:
-        "https://images.unsplash.com/photo-1566159266489-6158a42c3beb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
-      showName: "Show 1",
-      hallName: "Ramlingam Park",
-      time: "3:40AM",
-      mobile: '9090909090',
-      date: "01-0602022",
-      count: 5,
-      seatNumber: 4,
-      ticketPrice: 240.0,
-      conveniencePrice: 100.0,
-      icon: <AiOutlineDelete style={{ fontSize: '1rem', fontWeight: 'bold' }} />,
-      color: '#fff',
-      totalPrice: 340.0,
-      btnText: 'Cancelled',
-      background: '#ff344f',
-      escalateText: 'Escalate'
-    },
-  ];
+  console.log(dayDiff, 'complainnn')
 
-  const activeModalFunctionThree = () => {
-    setActiveModalThree(!activeModalThree);
+  const toggleEscalation = (data) => {
+    setEscalationModal(data);
   }
 
-  const activeModalFunctionReview = () => {
-    setActiveModalReview(!activeModalReview);
+  const checkDateFunction = (value, data) => {
+    if (value < 3) {
+      setEscalationModal(true)
+      setEscalationData(data)
+    }
   }
 
-  const handleEscalation = async () =>{
-    var lastDate=await localStorage.getItem('lastEscalationDate')
-    // console.log(lastDate,'datesssssssssss')
-    // var diffInTime=currentDate.getTime() - lastDate.getTime()
-    // var diffInDays=diffInTime/(1000 * 3600 * 24)
-    // console.log(diffInDays,'diffffffffff')
-  }
   return (
-    <Layout>
+    (!isLoaded) ? <PreLoader /> : <Layout>
       {/* <Ratings/> */}
       {video && <VideoPopup close={setVideo} />}
       <div className="service">
         <div className="container-fluid light-bg pt-4 pb-4">
-          {(bookingRDetails?.length > 0) ?
-            bookingRDetails?.map((bookings, index) => {
+          {(complainDetails?.length > 0) ?
+            complainDetails?.map((bookings, index) => {
               return (
                 <div className="row" key={index}>
                   <div className="col-lg-12 pr-4" key={bookings.bookingRequestId}>
                     <div className="booking-card p-3">
                       <div className="row">
                         <div className="col-lg-6">
-                          <div className="row booking-card-left">
+                          <div className="row booking-card-left" style={{ height: '100%' }}>
                             <div className="col-lg-4 d-flex justify-content-center align-items-center">
                               <img
                                 src='/assets/images/ticket-complain.png'
@@ -131,7 +88,12 @@ console.log(d,'currentDate')
                                 className="bookingImage"
                               />
                             </div>
-                            <div className="col-lg-8 pl-0">
+                            <div className="col-lg-8 pl-0" style={{
+                              display: 'flex',
+                              flexDirection: 'column',
+                              justifyContent: 'center',
+                              paddingRight: '33px',
+                            }}>
                               <div className="d-flex justify-content-between">
                                 <div className="ticket-details  d-flex flex-column">
                                   <h5 className="m-0 mb-2">
@@ -144,10 +106,10 @@ console.log(d,'currentDate')
                                 </div>
                                 <div className="ticket-details d-flex justify-content-between flex-column">
                                   <h5 className="m-0 text-center">
-                                    {bookings.bookingRequestParentId.eventName}
+                                    {bookings.bookingRequestParentId.eventName || bookings.bookingRequestParentId.townhallName || bookings.bookingRequestParentId.mandapName}
                                   </h5>
                                   <h5 className="text-center m-0 mb-2">
-                                    <b>{bookings.bookingRequestParentId.eventId}</b>
+                                    <b>{bookings.bookingRequestParentId.eventId || bookings.bookingRequestParentId.townhallId || bookings.bookingRequestParentId.mandapId}</b>
                                   </h5>
                                 </div>
                               </div>
@@ -172,16 +134,25 @@ console.log(d,'currentDate')
                           }
                           {bookings.status === 'Cancelled' && <span className="escalate-badge escalate-badge-danger"><i className="ti-trash mr-2"></i>{bookings.status}</span>
                           }
-                          <p style={{ textAlign: 'justify', marginTop: '1rem' }}>
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s.
-                          </p>
-                          {
-                            bookings.status === 'Escalated' && <div className="d-flex flex-column text-center">
-                              <h6 className="mt-1">Escalated 2 Days ago</h6>
-                              <h6 className="mt-1 mb-1">Minimum 7 Days required to Reescalate</h6>
-                            </div>
+                          {bookings.status === 'Resolved' && <span className="escalate-badge escalate-badge-resolved"><i className="ti-check mr-2"></i>{bookings.status}</span>
                           }
-                          <button className="d-flex justify-content-center main-btn mt-2" id="escalate-btn" onClick={()=>{handleEscalation()}}>ESCALATE</button>
+                          {bookings.status === 'Resolved' && bookings.resolved.map((x) => {
+                            return <h6 className="text-center mt-1 text-capitalize">{x}</h6>
+                          })
+                          }
+                          {bookings.status === 'Escalated' && bookings.escalation.map((x) => {
+                            return <h6 className="text-center mt-3 text-capitalize">{x}</h6>
+                          })
+                          }
+
+                          <button className="d-flex justify-content-center main-btn mt-4 mx-auto mb-4" id="escalate-btn" onClick={() => checkDateFunction(dayDiff[index], bookings)} disabled={(dayDiff[index] < 3) ? true : false}>ESCALATE</button>
+                          {
+                            (dayDiff[index] < 3) ?
+                              <>
+                                {dayDiff[index] == 0 ? bookings.status == 'Pending' ? <h6 className="mt-1 text-center">Complain Raised today</h6> : <h6 className="mt-1 text-center">{bookings.status} today</h6> : <h6 className="mt-1 text-center">Escalated {dayDiff[index]} Days ago</h6>}
+                                <h6 className="mt-1 mb-1 text center">Minimum 3 Days required to Reescalate</h6>
+                              </> : <></>
+                          }
                         </div>
                       </div>
                     </div>
@@ -191,6 +162,8 @@ console.log(d,'currentDate')
             })
             : <h5>No Complains yet</h5>}
         </div>
+        <EscalationModal activeModal={escalationModal} escalationData={escalationData} toggle={toggleEscalation} />
+
       </div>
     </Layout>
   );

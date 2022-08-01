@@ -507,7 +507,7 @@ const Booking = () => {
                             </div>
 
                             <div className="review-link mt-2">
-                              <button style={{ backgroundColor: 'transparent' }} onClick={()=>{setActiveModalThree(!activeModalThree),setEventIdForGrievance(bookings.bookingRequestId),setEventIdForGrievance(bookings._id)}}>Having issue with this ticket?</button>
+                              <button style={{ backgroundColor: 'transparent' }} onClick={()=>{setActiveModalThree(!activeModalThree),setEventIdForGrievance(bookings.bookingRequestId),setParentEventIdForGrievance(bookings._id)}}>Having issue with this ticket?</button>
                             </div>
 
                           </div>
