@@ -95,7 +95,7 @@
 //       imgUrl:
 //         "https://pbs.twimg.com/profile_images/948877813414703104/JStN81Ro_400x400.jpg",
 //     },
-    
+
 //     {
 //       imgUrl:
 //         "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Seal_of_Odisha.png/1200px-Seal_of_Odisha.png",
@@ -150,7 +150,7 @@
 //       {/* <!--====== Start Intro Video Section ======--> */}
 //       <Video video = {videoLink} quote= {getFreeQuote}/>
 //       {/* <!--====== Start Newsletter Section ======--> */}
-      
+
 //       <Newsletter/>
 //       {/* <!--====== End Newsletter Section ======--> */}
 //       {/* <!--====== Start Client Section ======--> */}
@@ -257,7 +257,7 @@
 //       imgUrl:
 //         "https://pbs.twimg.com/profile_images/948877813414703104/JStN81Ro_400x400.jpg",
 //     },
-    
+
 //     {
 //       imgUrl:
 //         "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Seal_of_Odisha.png/1200px-Seal_of_Odisha.png",
@@ -302,7 +302,7 @@
 //     <Layout>
 //       {video && <VideoPopup close={setVideo} />}
 //       {/* <!--====== Start Hero Section ======--> */}
-      
+
 //       <Banner mainSlider={bannerSlider} activeForm='Townhall Booking' pageOf="Townhall Booking" />
 
 //       {/* <!--====== End Hero Section ======--> */}
@@ -354,48 +354,48 @@ import { callApi } from "../src/apiHandlers/callApi";
 
 const Index = () => {
   const [video, setVideo] = useState(false);
-  const [ramlingamData,setRamlingamData] = useState([])
-  const [isLoaded,setIsLoaded] = useState(false)
-  const [reviews,setReviews] = useState([])
+  const [ramlingamData, setRamlingamData] = useState([])
+  const [isLoaded, setIsLoaded] = useState(false)
+  const [reviews, setReviews] = useState([])
   // const [bannerSlider,setBannerSlider] = useState([])
 
   /**************fetch ramlingam park events*********************/
 
 
   async function fetchEvents() {
-    let apiTest={
-      method:'post',
-      url:"kalyanMandap/createKalyanMandap/getKalyanMandapList"
-  }
-    let response = await  callApi(apiTest)
-    if(response.data.code==201){
+    let apiTest = {
+      method: 'post',
+      url: "kalyanMandap/createKalyanMandap/getKalyanMandapList"
+    }
+    let response = await callApi(apiTest)
+    if (response.data.code == 201) {
       setIsLoaded(true)
       setRamlingamData(response.data.data)
     }
   }
   async function fetchReviews() {
-    let apiTest={
-      method:'get',
-      url:"ramalingampark/event/getAllReview"
-  }
-    let response = await  callApi(apiTest)
+    let apiTest = {
+      method: 'get',
+      url: "ramalingampark/event/getAllReview"
+    }
+    let response = await callApi(apiTest)
     // console.log(response,'responseeeeeeeeee')
-    if(response.data.code==201){
-      setReviews(response.data.data)
+    if (response.data.code == 201) {
+      setReviews(response.data.data.filter((obj) => obj.department == 'kalyanMandap'))
     }
   }
-  useEffect(()=>{
+  useEffect(() => {
     fetchEvents()
     fetchReviews()
-  },[])
-console.log(reviews,'reviewssssssss')
+  }, [])
+  console.log(reviews, 'reviewssssssss')
 
   /*****************set banner data****************************/
   const bannerSlider = [];
-  for (let i=0;i<ramlingamData.length;i++){
+  for (let i = 0; i < ramlingamData.length; i++) {
     bannerSlider.push(ramlingamData[i].banner)
   }
-  
+
   const getFreeQuote = [
     {
       smallText: "Checkout List",
@@ -417,7 +417,7 @@ console.log(reviews,'reviewssssssss')
       imgUrl:
         "https://pbs.twimg.com/profile_images/948877813414703104/JStN81Ro_400x400.jpg",
     },
-    
+
     {
       imgUrl:
         "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Seal_of_Odisha.png/1200px-Seal_of_Odisha.png",
@@ -428,7 +428,7 @@ console.log(reviews,'reviewssssssss')
     // },
   ];
   const photoGallery = [];
-  for (let i=0;i<ramlingamData.length;i++){
+  for (let i = 0; i < ramlingamData.length; i++) {
     photoGallery.push(...(ramlingamData[i].photoGallery))
     // console.log()
   }
@@ -438,55 +438,55 @@ console.log(reviews,'reviewssssssss')
   ];
 
   return (
-    (!isLoaded)?
-    <PreLoader/>:
-    <Layout>
-    {video && <VideoPopup close={setVideo} />}
-    {/* <!--====== Start Hero Section ======--> */}
-    <Banner overallData={ramlingamData} mainSlider={bannerSlider} activeForm='Kalyan Mandap' pageOf="kalyanMandap" />
-    {/* <!--====== End Hero Section ======--> */}
-    {/* <!--====== Start Listing Section ======--> */}
-    <ShowsList overallData={ramlingamData} pageOf="kalyanMandap"/>
-    {/* <!--====== Start Place Section ======--> */}
-    <Gallery gallery={photoGallery} />
-    {/* <!--====== End Place Section ======--> */}
-    {/* <!--=================start testimonial section==============--> */}
-    <section
-        className="testimonial-area bg_cover pt-110 pb-140"
-        style={{
-          backgroundImage: "url(assets/images/bg/testimonial-bg-1.jpg)",
-        }}
-      >
-        <div className="container">
-          <div className="row justify-content-center">
-            <div className="col-lg-6">
-              <div className="section-title section-title-two section-title-white text-center mb-55">
-                <h2>
-                  <span className="line">Customer</span> Feedack
-                </h2>
+    (!isLoaded) ?
+      <PreLoader /> :
+      <Layout>
+        {video && <VideoPopup close={setVideo} />}
+        {/* <!--====== Start Hero Section ======--> */}
+        <Banner overallData={ramlingamData} mainSlider={bannerSlider} activeForm='kalyanMandap' pageOf="kalyanMandap" />
+        {/* <!--====== End Hero Section ======--> */}
+        {/* <!--====== Start Listing Section ======--> */}
+        <ShowsList overallData={ramlingamData} pageOf="kalyanMandap" />
+        {/* <!--====== Start Place Section ======--> */}
+        <Gallery gallery={photoGallery} />
+        {/* <!--====== End Place Section ======--> */}
+        {/* <!--=================start testimonial section==============--> */}
+        {reviews.length > 0 && <section
+          className="testimonial-area bg_cover pt-110 pb-140"
+          style={{
+            backgroundImage: "url(assets/images/bg/testimonial-bg-1.jpg)",
+          }}
+        >
+          <div className="container">
+            <div className="row justify-content-center">
+              <div className="col-lg-6">
+                <div className="section-title section-title-two section-title-white text-center mb-55">
+                  <h2>
+                    <span className="line">Customer</span> Feedack
+                  </h2>
+                </div>
               </div>
             </div>
-          </div>
-          <div className="row justify-content-center">
-            <div className="col-lg-8">
-              <div className="testimonial-wrapper-one text-center">
-                <div className="testimonial-review-area">
-                  <TestimoinalSlider data={reviews}/>
+            <div className="row justify-content-center">
+              <div className="col-lg-8">
+                <div className="testimonial-wrapper-one text-center">
+                  <div className="testimonial-review-area">
+                    <TestimoinalSlider data={reviews} />
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
-      {/* <!--==============end testimonial section==============--> */}
-    {/* <!--====== Start Intro Video Section ======--> */}
-    <Video video={videoLink} quote={getFreeQuote} />
-    {/* <!--====== Start Newsletter Section ======--> */}
-    <Newsletter />
-    {/* <!--====== End Newsletter Section ======--> */}
-    {/* <!--====== Start Client Section ======--> */}
-    <Clients clients={clientSlider} />
-  </Layout>
+        </section>}
+        {/* <!--==============end testimonial section==============--> */}
+        {/* <!--====== Start Intro Video Section ======--> */}
+        <Video video={videoLink} quote={getFreeQuote} />
+        {/* <!--====== Start Newsletter Section ======--> */}
+        <Newsletter />
+        {/* <!--====== End Newsletter Section ======--> */}
+        {/* <!--====== Start Client Section ======--> */}
+        <Clients clients={clientSlider} />
+      </Layout>
   );
 };
 export default Index;

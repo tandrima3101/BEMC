@@ -71,7 +71,9 @@ function BookingSuccess() {
                 <b>{bookingDetails?.bookingRequest?.bookingRequestId}</b>
               </h4>
               <img src="/assets/images/armchair.png" />
-              <h6>Your seat Category is {bookingDetails?.bookingRequest?.selectedSeatCategory}</h6>
+              {(bookingDetails?.bookingRequest?.selectedSeatCategory) ? <h6>Your seat Category {bookingDetails?.bookingRequest?.selectedSeatCategory}</h6> : <h6>Your selected venue {bookingDetails?.bookingRequest?.townhallName || bookingDetails?.bookingRequest?.mandapName}</h6>}
+
+              {/* <h6>Your seat Category is {bookingDetails?.bookingRequest?.selectedSeatCategory}</h6> */}
               <img src="/assets/images/calendar.png" />
               <h6>The show date is {bookingDetails?.bookingRequest?.selectedDate}</h6>
               <img src="/assets/images/clock.png" />

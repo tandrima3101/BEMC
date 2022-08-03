@@ -127,7 +127,7 @@ function BookingFailure() {
     <Layout>
       <div className="container-fluid light-bg container-small">
         <div className="row booking-details-mobileview">
-          <div className="col-lg-4">
+          <div className="col-lg-6">
             <div className="card-curve person-card p-3">
               <div className="row">
                 <div className="col-lg-3">
@@ -178,14 +178,14 @@ function BookingFailure() {
                 <b>{bookingDetails?.bookingRequest?.bookingRequestId}</b>
               </h4>
               <img src="/assets/images/armchair.png" />
-              <h6>Your seat Category is {bookingDetails?.bookingRequest?.selectedSeatCategory}</h6>
+              {(bookingDetails?.bookingRequest?.selectedSeatCategory) ? <h6>Your seat Category {bookingDetails?.bookingRequest?.selectedSeatCategory}</h6> : <h6>Your selected venue {bookingDetails?.bookingRequest?.townhallName || bookingDetails?.bookingRequest?.mandapName}</h6>}
               <img src="/assets/images/calendar.png" />
               <h6>The show date is {bookingDetails?.bookingRequest?.selectedDate}</h6>
               <img src="/assets/images/clock.png" />
               <h6>The show timing is {bookingDetails?.bookingRequest?.selectedTime}</h6>
             </div>
           </div>
-          <div className="col-lg-2">
+          {/* <div className="col-lg-2">
             <div className="card-curve card-curve-no-shape">
               <h6 className="text-center">Ref Id</h6>
               <h6 className="text-uppercase text-center">
@@ -204,7 +204,7 @@ function BookingFailure() {
                 <b>{bookingDetails?.bankTransaction?.bankTransaction?.amount}</b>
               </h4>
             </div>
-          </div>
+          </div> */}
           <div className="col-lg-3 d-flex justify-content-center align-items-center flex-column pb-5">
             {!isLoaded ? (
               <>

@@ -16,6 +16,7 @@ const ShowsList = (props) => {
   const [showList, setShowList] = useState([])
   const [eventIdForList, setEventIdForList] = useState(null)
   const [reviewListModal, setReviewListModal] = useState(false)
+  const [departmentForIndex,setDepartmentForIndex] = useState()
 
   const closeReviewMOdal = (data) => {
     setMOdalOpen(data)
@@ -29,7 +30,27 @@ const ShowsList = (props) => {
   const reviewedItem = localStorage.getItem("reviewedItem")
   const [isReviewed, setIsReviewed] = useState(JSON.parse(reviewedItem))
   console.log(isReviewed, 'revieweddddddddd')
-
+  const handleBookingButton = (show) =>{
+    setCardMOdalOpen(!cardModalOpen),
+    setSelectedEvent(show)
+    if(show.eventId){
+      setDepartmentForIndex('ramlingamPark')
+    }else if(show.townhallId){
+      setDepartmentForIndex('townhall')
+    }else if(show.mandapId){
+      setDepartmentForIndex('kalyanMandap')
+    }
+  }
+  const handleReviewData = (show) => {
+    setMOdalOpen(!modalOpen), setEventId(show.eventId || show.townhallId || show.mandapId)
+    if(show.eventId){
+      setDepartmentForIndex('ramlingamPark')
+    }else if(show.townhallId){
+      setDepartmentForIndex('townhall')
+    }else if(show.mandapId){
+      setDepartmentForIndex('kalyanMandap')
+    }
+  }
   let showData = [];
   useEffect(async () => {
     console.log(props.overallData, 'overall data on change')
@@ -52,7 +73,6 @@ const ShowsList = (props) => {
     setShowList(showData)
   }, [props.overallData])
   console.log(showList, 'showList outside')
-
   return (
     <section className="listing-grid-area pt-115 pb-75">
       <div className="container">
@@ -81,7 +101,7 @@ const ShowsList = (props) => {
                           <i className="flaticon-chef"></i>
                         </div>
                         <div className="title">
-                          <button style={{ backgroundColor: 'transparent' }} onClick={() => { setCardMOdalOpen(!cardModalOpen), setSelectedEvent(show) }}>{show?.card?.card_buttonName}</button>
+                          <button style={{ backgroundColor: 'transparent' }} onClick={() => handleBookingButton(show)}>{show?.card?.card_buttonName}</button>
                         </div>
                       </div>
                       <img
@@ -132,13 +152,13 @@ const ShowsList = (props) => {
                         </li> : <li className='d-flex flex-column'>
                           <span>
                             <i className="ti-star"></i>
-                            <button style={{ backgroundColor: 'transparent' }} onClick={() => { setMOdalOpen(!modalOpen), setEventId(show.eventId || show.townhallId || show.mandapId) }}>Give a Review</button>
+                            <button style={{ backgroundColor: 'transparent' }} onClick={() => { handleReviewData(show) }}>Give a Review</button>
                           </span>
                           <button style={{backgroundColor:'transparent'}} className='mt-2 ml-auto' onClick={() => { setReviewListModal(true), setEventIdForList(show.eventId || show.townhallId || show.mandapId) }}>See All Reviews</button>
                         </li>:<li className='d-flex flex-column'>
                           <span>
                             <i className="ti-star"></i>
-                            <button style={{ backgroundColor: 'transparent' }} onClick={() => { setMOdalOpen(!modalOpen), setEventId(show.eventId || show.townhallId || show.mandapId) }}>Give a Review</button>
+                            <button style={{ backgroundColor: 'transparent' }} onClick={() => { handleReviewData(show) }}>Give a Review</button>
                           </span>
                           <button style={{backgroundColor:'transparent'}} className='mt-2 ml-auto' onClick={() => { setReviewListModal(true), setEventIdForList(show.eventId || show.townhallId || show.mandapId) }}>See All Reviews</button>
                         </li>}
@@ -151,8 +171,8 @@ const ShowsList = (props) => {
           })}
         </div>
       </div>
-      <GiveReviewModal activeReview={modalOpen} eventId={eventId} closeReviewMOdal={closeReviewMOdal} />
-      <CardFormModal activeModal={cardModalOpen} eventInfo={selectedEvent} toggleFunc={togglecardModal} department={props.pageOf} />
+      <GiveReviewModal activeReview={modalOpen} eventId={eventId} closeReviewMOdal={closeReviewMOdal} department={props.pageOf == 'index' ?departmentForIndex:props.pageOf}/>
+      <CardFormModal activeModal={cardModalOpen} eventInfo={selectedEvent} toggleFunc={togglecardModal} department={props.pageOf == 'index' ?departmentForIndex:props.pageOf} />
       <SeeAllReviewModal activeReview={reviewListModal} eventId={eventIdForList} closeReviewMOdal={closeReviewListMOdal} />
     </section>
   )

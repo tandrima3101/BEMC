@@ -78,7 +78,7 @@ function BookingDetails() {
                 <b>{bookingDetails?.bookingRequestId}</b>
               </h4>
               <img src="/assets/images/armchair.png" style={{ width: '50px' }} />
-              {(bookingDetails?.selectedSeatCategory) ? <h6>Your seat Category {bookingDetails?.selectedSeatCategory}</h6> : <h6>Your selected venue {bookingDetails?.townhallName}</h6>}
+              {(bookingDetails?.selectedSeatCategory) ? <h6>Your seat Category {bookingDetails?.selectedSeatCategory}</h6> : <h6>Your selected venue {bookingDetails?.townhallName || bookingDetails?.mandapName}</h6>}
                 <img src="/assets/images/calendar.png" style={{ width: '50px' }} />
                 <h6>The show date is {bookingDetails?.selectedDate}</h6>
                 <img src="/assets/images/clock.png" style={{ width: '50px' }} />

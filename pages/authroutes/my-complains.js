@@ -149,7 +149,7 @@ const MyComplains = () => {
                           {
                             (dayDiff[index] < 3) ?
                               <>
-                                {dayDiff[index] == 0 ? bookings.status == 'Pending' ? <h6 className="mt-1 text-center">Complain Raised today</h6> : <h6 className="mt-1 text-center">{bookings.status} today</h6> : <h6 className="mt-1 text-center">Escalated {dayDiff[index]} Days ago</h6>}
+                                {dayDiff[index] == 0 ? bookings.status == 'Pending' ? <h6 className="mt-1 text-center">Complain Raised today</h6> : <h6 className="mt-1 text-center">{bookings.status} today</h6> :bookings.status=='Pending'?<h6 className="mt-1 text-center">Complain Raised {dayDiff[index]} days ago </h6>: <h6 className="mt-1 text-center">{bookings.status} {dayDiff[index]} Days ago</h6>}
                                 <h6 className="mt-1 mb-1 text center">Minimum 3 Days required to Reescalate</h6>
                               </> : <></>
                           }

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
 import Counter from "../src/components/Counter";
 import VideoPopup from "../src/components/VideoPopup";
@@ -18,12 +18,22 @@ import Newsletter from "../src/components/newsletter";
 import Clients from "../src/components/clients";
 import Banner from "../src/components/Slider/banner";
 import Video from "../src/components/video";
+import { callApi } from "../src/apiHandlers/callApi";
 
 
 
 const Ambulance = () => {
   const [video, setVideo] = useState(false);
-
+  const [ambulanceData,setAmbulanceData] = useState()
+  const getAllAmbulance = async () => {
+    let apiTest = {
+      method: 'post',
+      url: "ambulance/ambulance/getAllAmbulance"
+    }
+    let response = await callApi(apiTest)
+    console.log(response,'ambulance response')
+    setAmbulanceData(response.data.data)
+  }
   const bannerSlider = [
     {
       heading: "BEMC  Seva: Ambulance",
@@ -33,47 +43,6 @@ const Ambulance = () => {
         "assets/images/BEMCAssets/ambulance_4.jpg",
     }
   ];
-  // const showList = [
-  //   {
-  //     featured: true,
-  //     imgUrl:
-  //       "https://media.istockphoto.com/photos/driving-on-idyllic-roads-picture-id1303391856?b=1&k=20&m=1303391856&s=170667a&w=0&h=RvzNO06n8AZHSw8B0xm6Lac0bBe6WLdsw5kMNSxgc5E=",
-  //     buttonIconUrl: "",
-  //     buttonName: "Book",
-  //     showName: "Mo Odisha",
-  //     reviews: "ratings-four",
-  //     reviewNumber: "05",
-  //     Price: "",
-  //     contactNumber: "9876543210",
-  //     location: "Odisha",
-  //   },
-  //   {
-  //     featured: true,
-  //     imgUrl:
-  //       "https://media.istockphoto.com/photos/driving-on-idyllic-roads-picture-id1303391856?b=1&k=20&m=1303391856&s=170667a&w=0&h=RvzNO06n8AZHSw8B0xm6Lac0bBe6WLdsw5kMNSxgc5E=",
-  //     buttonIconUrl: "",
-  //     buttonName: "Book",
-  //     showName: "Bande Utkala",
-  //     reviews: "ratings-four",
-  //     reviewNumber: "05",
-  //     Price: "",
-  //     contactNumber: "9876543210",
-  //     location: "Odisha",
-  //   },
-  //   {
-  //     featured: false,
-  //     imgUrl:
-  //       "https://media.istockphoto.com/photos/driving-on-idyllic-roads-picture-id1303391856?b=1&k=20&m=1303391856&s=170667a&w=0&h=RvzNO06n8AZHSw8B0xm6Lac0bBe6WLdsw5kMNSxgc5E=",
-  //     buttonIconUrl: "",
-  //     buttonName: "Book",
-  //     showName: "Shivananda Show",
-  //     reviews: "ratings-four",
-  //     reviewNumber: "05",
-  //     Price: "",
-  //     contactNumber: "9876543210",
-  //     location: "Odisha",
-  //   },
-  // ];
   const getFreeQuote = [
     {
       smallText: "Checkout List",
@@ -135,128 +104,18 @@ const Ambulance = () => {
   const videoLink = [
     {link : "https://www.youtube.com/embed/JHlY8w69wSE"}
   ];
-
+useEffect(()=>{
+  getAllAmbulance()
+},[])
   return (
     <Layout>
       {video && <VideoPopup close={setVideo} />}
       {/* <!--====== Start Hero Section ======--> */}
-      <Banner mainSlider={bannerSlider} activeForm='Ambulance' pageOf="Ambulance"/>
+      <Banner mainSlider={bannerSlider} activeForm='Ambulance' pageOf="ambulance"/>
       {/* <!--====== End Hero Section ======--> */}
       {/* <!--====== Start Listing Section ======--> */}
 
-      {/* <section className="listing-grid-area pt-115 pb-75">
-        <div className="container">
-          <div className="row justify-content-center">
-            <div className="col-lg-8">
-              <div className="section-title text-center mb-75">
-                <h2>Shows List </h2>
-              </div>
-            </div>
-          </div>
-          <div className="row">
-            {showList.map((show) => {
-              return (
-                <div className="col-lg-4 col-md-6 col-sm-12">
-                  <div
-                    className="listing-item listing-grid-one mb-45"
-
-                  >
-                    <div className="listing-thumbnail">
-                      <img
-                        src={show.imgUrl}
-                        alt="Listing Image"
-                      />
-                      {show.featured ? <span className="featured-btn">Featured</span> : <span className="featured-btn featured-btn-transparent"></span>}
-                      <Link href='#'>
-                        <div className="thumbnail-meta d-flex justify-content-between align-items-center">
-                          <div className="meta-icon-title d-flex align-items-center">
-                            <div className="icon">
-                              <i className="flaticon-chef"></i>
-                            </div>
-                            <div className="title">
-                              <h6>{show.buttonName}</h6>
-                            </div>
-                          </div>
-                          <img
-                            src="assets/images/right-arrow.png"
-                            style={{ height: "32px", width: "32px" }}
-                          />
-                        </div>
-                      </Link>
-                    </div>
-                    <div className="listing-content">
-                      <h3 className="title">
-                        <Link href="/listing-details-1">
-                          <a>{show.showName}</a>
-                        </Link>
-                      </h3>
-                      <div className="ratings">
-                        <ul className={`ratings ${show.reviews}`}>
-                          <li className="star">
-                            <i className="flaticon-star-1"></i>
-                          </li>
-                          <li className="star">
-                            <i className="flaticon-star-1"></i>
-                          </li>
-                          <li className="star">
-                            <i className="flaticon-star-1"></i>
-                          </li>
-                          <li className="star">
-                            <i className="flaticon-star-1"></i>
-                          </li>
-                          <li className="star">
-                            <i className="flaticon-star-1"></i>
-                          </li>
-                          <li>
-                            <span>
-                              <a href="#">({show.reviewNumber} Reviews)</a>
-                            </span>
-                          </li>
-                        </ul>
-                      </div>
-                      <span className="price">{show.Price}</span>
-                      {show.contactNumber ? (
-                        <span
-                          className="phone-meta"
-                          style={{ margin: "0px 5px 12px 0px" }}
-                        >
-                          <i className="ti-tablet"></i>
-                          <a href="tel:+982653652-05">{show.contactNumber}</a>
-                        </span>
-                      ) : (
-                        <span></span>
-                      )}
-
-                      <div className="listing-meta">
-                        <ul>
-                          {show.location ? (
-                            <li>
-                              <span>
-                                <i className="ti-location-pin"></i>
-                                {show.location}
-                              </span>
-                            </li>
-                          ) : (
-                            <li></li>
-                          )}
-
-                          <li>
-                            <span>
-                              <i className="ti-star"></i>
-                              <a href="#">Rate Us</a>
-                            </span>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section> */}
-      {/* <!--====== Start Place Section ======--> */}
+     {/* <!--====== Start Place Section ======--> */}
       
       <Gallery gallery={photoGallery}/>
       {/* <!--====== End Place Section ======--> */}

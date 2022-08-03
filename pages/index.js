@@ -1,32 +1,22 @@
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
-import Slider from "react-slick";
-import Counter from "../src/components/Counter";
 import VideoPopup from "../src/components/VideoPopup";
 import Layout from "../src/layouts/Layout";
-import { Nav, Tab } from "react-bootstrap";
 import TestimoinalSlider from "../src/components/Slider/TestimonialSlider";
-import BookingForm from "../src/components/bookingForm";
 import Banner from "../src/components/Slider/banner";
 import Video from "../src/components/video";
 import { callApi } from "../src/apiHandlers/callApi";
-
-import {
-  ClientSliderOne,
-  ListingSliderOne,
-  PlaceSliderOne,
-  PlaceSliderTwo,
-} from "../src/sliderProps";
 import ShowsList from "../src/components/showsList";
 import Gallery from "../src/components/Gallery";
 import Newsletter from "../src/components/newsletter";
 import Clients from "../src/components/clients";
+import PreLoader from "../src/components/PreLoader";
 
 const Index = () => {
   const [video, setVideo] = useState(false);
   const [ramlingamData, setRamlingamData] = useState([])
   const [isLoaded, setIsLoaded] = useState(false)
-  const [reviews,setReviews] = useState([])
+  const [reviews, setReviews] = useState([])
 
 
   //fetch events
@@ -61,13 +51,13 @@ const Index = () => {
 
   //fetch reviews
   async function fetchReviews() {
-    let apiTest={
-      method:'get',
-      url:"ramalingampark/event/getAllReview"
-  }
-    let response = await  callApi(apiTest)
-    console.log(response,'responseeeeeeeeee')
-    if(response.data.code==201){
+    let apiTest = {
+      method: 'get',
+      url: "ramalingampark/event/getAllReview"
+    }
+    let response = await callApi(apiTest)
+    console.log(response, 'responseeeeeeeeee')
+    if (response.data.code == 201) {
       setReviews(response.data.data)
     }
   }
@@ -104,27 +94,31 @@ const Index = () => {
     // },
   ];
   const photoGallery = [];
-  for (let i=0;i<ramlingamData.length;i++){
+  for (let i = 0; i < ramlingamData.length; i++) {
     photoGallery.push(...(ramlingamData[i].photoGallery))
   }
   const videoLink = [
     { link: "https://www.youtube.com/embed/JHlY8w69wSE" }
   ];
   const bannerSlider = [];
-  for (let i=0;i<ramlingamData.length;i++){
+  for (let i = 0; i < ramlingamData.length; i++) {
     bannerSlider.push(ramlingamData[i].banner)
   }
-  
+
   useEffect(() => {
     fetchEvents()
     fetchReviews()
-    bannerSlider.length && photoGallery.length && setIsLoaded(true)
   }, [])
+  useEffect(() => {
+   ramlingamData.length, bannerSlider.length && photoGallery.length && setIsLoaded(true)
+  }, [ramlingamData,bannerSlider, photoGallery])
+
+
   return (
-    <Layout>
+    (!isLoaded) ? <PreLoader /> : <Layout>
       {video && <VideoPopup close={setVideo} />}
       {/* <!--====== Start Hero Section ======--> */}
-      <Banner overallData={ramlingamData} mainSlider={bannerSlider} activeForm='Ramlingam Park' pageOf="index" />
+      <Banner overallData={ramlingamData} mainSlider={bannerSlider} activeForm='ramlingamPark' pageOf="index" />
       {/* <!--====== End Hero Section ======--> */}
       {/* <!--====== Start Category Section ======--> */}
       <section className="category-area">
@@ -264,7 +258,7 @@ const Index = () => {
                     </div>
                     <h6>Grievance</h6>
                   </div>
-                  <Link href="/">
+                  <Link href="/authroutes/my-complains">
                     <a className="category-btn">
                       <i className="ti-arrow-right"></i>
                     </a>
@@ -277,15 +271,13 @@ const Index = () => {
       </section>
       {/* <!--====== End Category Section ======--> */}
       {/* <!--====== Start Listing Section ======--> */}
-
-      <ShowsList overallData={ramlingamData} />
+      <ShowsList overallData={ramlingamData} pageOf="index" />
       {/* <!--====== Start Intro Video Section ======--> */}
       <Video video={videoLink} quote={getFreeQuote} />
       {/* <!--====== End Intro Video Section ======--> */}
       {/* <!--====== Start Place Section ======--> */}
       <Gallery gallery={photoGallery} />
       {/* <!--====== End Place Section ======--> */}
-
       {/*====== Start Testimonial Section ======*/}
       <section
         className="testimonial-area bg_cover pt-110 pb-140"
@@ -307,7 +299,7 @@ const Index = () => {
             <div className="col-lg-8">
               <div className="testimonial-wrapper-one text-center">
                 <div className="testimonial-review-area">
-                  <TestimoinalSlider data={reviews}/>
+                  <TestimoinalSlider data={reviews} />
                 </div>
               </div>
             </div>

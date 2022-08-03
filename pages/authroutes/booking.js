@@ -34,6 +34,8 @@ const Booking = () => {
   const [parentEventIdForGrievance,setParentEventIdForGrievance] = useState(null)
   const [reviewListModal, setReviewListModal] = useState(false)
   const [isLoaded, setIsLoaded] = useState(false)
+  const [eventDepartment, setEventDepartment] = useState(null)
+
 
   const reviewedItem = localStorage.getItem("reviewedItem")
   const [isReviewed, setIsReviewed] = useState(JSON.parse(reviewedItem))
@@ -208,36 +210,36 @@ const Booking = () => {
                                     </div>
                                     <div className="col-lg-8 pl-0">
                                       <div className="ticket-details">
-                                        <h4>{bookings.booking.eventName}</h4>
-                                        <p className="m-0">{bookings.ticketSource} BOOKING</p>
+                                        <h4>{bookings?.booking?.eventName}</h4>
+                                        <p className="m-0">{bookings?.ticketSource} BOOKING</p>
                                         <p className="m-0">
                                           <i className="ti-time mr-2"></i>
-                                          {bookings.selectedTime}
+                                          {bookings?.selectedTime}
                                         </p>
                                         <p className="m-0 mb-2">
                                           <i className="ti-calendar mr-2"></i>
-                                          {bookings.selectedDate}
+                                          {bookings?.selectedDate}
                                         </p>
-                                        {(bookings.adultNum || bookings.childNum) && <h6>
+                                        {(bookings?.adultNum || bookings?.childNum) && <h6>
                                           <i className="ti-ticket mr-2"></i>
                                           <b>Number of Tickets :</b>
-                                          <span>{bookings.adultNum} Adults & {bookings.childNum} Child</span>
+                                          <span>{bookings?.adultNum} Adults & {bookings?.childNum} Child</span>
                                         </h6>}
                                         <h6>
                                           <i className="ti-ticket mr-2"></i>
                                           <b>Seat Category :</b>
-                                          <span>{bookings.selectedSeatCategory} </span>
+                                          <span>{bookings?.selectedSeatCategory} </span>
                                         </h6>
                                         <div className="row d-flex justify-content-between">
                                           <span className="p-0">Ticket Price</span>
                                           <span className="p-0">
-                                            Rs. {bookings.account.netAmount}
+                                            Rs. {bookings?.account?.netAmount}
                                           </span>
                                         </div>
                                         <div className="row d-flex justify-content-between">
                                           <span className="p-0">Convenience Price</span>
                                           <span className="p-0">
-                                            Rs. {bookings.account.amount}
+                                            Rs. {bookings?.account?.amount}
                                           </span>
                                         </div>
                                       </div>
@@ -252,16 +254,16 @@ const Booking = () => {
                                       <b>Total Price</b>
                                     </h5>
                                     <span>
-                                      <b>Rs. {bookings.account.amount + bookings.account.netAmount}</b>
+                                      <b>Rs. {bookings?.account?.amount + bookings?.account?.netAmount}</b>
                                     </span>
                                   </div>
                                 </div>
                                 <div className="col-lg-4 qr-section">
-                                  <img src={bookings.qrUrl} />
+                                  <img src={bookings?.qrUrl} />
                                   <hr />
-                                  <span>{bookings.bankTransaction.status}</span>
+                                  <span>{bookings?.bankTransaction?.status}</span>
                                   <h5 className="text-center">
-                                    <b>{bookings.account.bookingId}</b>
+                                    <b>{bookings?.account?.bookingId}</b>
                                   </h5>
                                 </div>
                               </div>
@@ -270,15 +272,15 @@ const Booking = () => {
                           <div className="col-lg-3 d-flex flex-column justify-content-center">
                             <Ratings size='50' align='center' rating={ramlingamData[index]?.rating} canHover={false} />
                             <p></p>
-                            {isReviewed ? isReviewed.includes(ramlingamData[index].eventId) ? <div className="d-flex justify-content-center mt-2">
+                            {isReviewed ? isReviewed.includes(ramlingamData[index]?.eventId) ? <div className="d-flex justify-content-center mt-2">
                               <span className="d-flex align-item-center main-btn btn-success">
                                 <i className="ti-check" style={{ fontSize: '15px' }}></i>
                                 <h6 className='ml-2 mb-0' style={{ color: '#fff', letterSpacing: '1px' }}>Reviewed</h6>
                               </span>
                             </div> : <div className="review-link mt-2">
-                              <button onClick={() => { setActiveModalReview(!activeModalReview), setEventId(ramlingamData[index].eventId) }}>Give a small review</button>
+                              <button onClick={() => { setActiveModalReview(!activeModalReview), setEventId(ramlingamData[index].eventId),setEventDepartment('ramlingamPark') }}>Give a small review</button>
                             </div> : <div className="review-link mt-2">
-                              <button style={{ backgroundColor: 'transparent' }} onClick={() => { setActiveModalReview(!activeModalReview), setEventId(ramlingamData[index].eventId) }}>Give a small review</button>
+                              <button style={{ backgroundColor: 'transparent' }} onClick={() => { setActiveModalReview(!activeModalReview), setEventId(ramlingamData[index].eventId),setEventDepartment('ramlingamPark') }}>Give a small review</button>
                             </div>}
                             <div className="review-link mt-2">
                               <button style={{ backgroundColor: 'transparent' }} onClick={() => { setReviewListModal(!reviewListModal), setEventIdForList(ramlingamData[index].eventId) }}>See all Reviews</button>
@@ -289,8 +291,7 @@ const Booking = () => {
                             </div>
 
                           </div>
-                          <TicketIssueModal activeThree={activeModalThree} />
-                          <GiveReviewModal activeReview={activeModalReview} eventId={eventId} closeReviewMOdal={closeReviewMOdal} />
+                          <GiveReviewModal activeReview={activeModalReview} eventId={eventId} closeReviewMOdal={closeReviewMOdal} department={eventDepartment}/>
                           <SeeAllReviewModal activeReview={reviewListModal} eventId={eventIdForList} closeReviewMOdal={closeReviewListMOdal} />
                         </div>
                       );
@@ -321,20 +322,20 @@ const Booking = () => {
                                     </div>
                                     <div className="col-lg-8 pl-0">
                                       <div className="ticket-details">
-                                        <h4>{bookings.booking.eventName}</h4>
+                                        <h4>{bookings?.booking?.eventName}</h4>
                                         <p className="m-0">{bookings.ticketSource} BOOKING</p>
                                         <p className="m-0">
                                           <i className="ti-time mr-2"></i>
-                                          {bookings.selectedTime}
+                                          {bookings?.selectedTime}
                                         </p>
                                         <p className="m-0 mb-2">
                                           <i className="ti-calendar mr-2"></i>
-                                          {bookings.selectedDate}
+                                          {bookings?.selectedDate}
                                         </p>
-                                        {(bookings.adultNum || bookings.childNum) && <h6>
+                                        {(bookings?.adultNum || bookings?.childNum) && <h6>
                                           <i className="ti-ticket mr-2"></i>
                                           <b>Number of Tickets :</b>
-                                          <span>{bookings.adultNum} Adults & {bookings.childNum} Child</span>
+                                          <span>{bookings?.adultNum} Adults & {bookings?.childNum} Child</span>
                                         </h6>}
                                         <h6>
                                           <i className="ti-ticket mr-2"></i>
@@ -344,13 +345,13 @@ const Booking = () => {
                                         <div className="row d-flex justify-content-between">
                                           <span className="p-0">Ticket Price</span>
                                           <span className="p-0">
-                                            Rs. {bookings.account.netAmount}
+                                            Rs. {bookings?.account?.netAmount}
                                           </span>
                                         </div>
                                         <div className="row d-flex justify-content-between">
                                           <span className="p-0">Convenience Price</span>
                                           <span className="p-0">
-                                            Rs. {bookings.account.amount}
+                                            Rs. {bookings?.account?.amount}
                                           </span>
                                         </div>
                                       </div>
@@ -365,16 +366,16 @@ const Booking = () => {
                                       <b>Total Price</b>
                                     </h5>
                                     <span>
-                                      <b>Rs. {bookings.account.amount}</b>
+                                      <b>Rs. {bookings?.account?.amount}</b>
                                     </span>
                                   </div>
                                 </div>
                                 <div className="col-lg-4 qr-section">
-                                  <img src={bookings.qrUrl} />
+                                  <img src={bookings?.qrUrl} />
                                   <hr />
-                                  <span>{bookings.bankTransaction.status}</span>
+                                  <span>{bookings?.bankTransaction?.status}</span>
                                   <h5 className="text-center">
-                                    <b>{bookings.account.bookingId}</b>
+                                    <b>{bookings?.account?.bookingId}</b>
                                   </h5>
                                 </div>
                               </div>
@@ -388,9 +389,9 @@ const Booking = () => {
                                 <h6 className='ml-2 mb-0' style={{ color: '#fff', letterSpacing: '1px' }}>Reviewed</h6>
                               </span>
                             </div> : <div className="review-link mt-2">
-                              <button style={{ backgroundColor: 'transparent' }} onClick={() => { setActiveModalReview(!activeModalReview), setEventId(townhallData[index].eventId) }}>Give a small review</button>
+                              <button style={{ backgroundColor: 'transparent' }} onClick={() => { setActiveModalReview(!activeModalReview), setEventId(townhallData[index].eventId),setEventDepartment('townhall') }}>Give a small review</button>
                             </div> : <div className="review-link mt-2">
-                              <button style={{ backgroundColor: 'transparent' }} onClick={() => { setActiveModalReview(!activeModalReview), setEventId(townhallData[index].eventId) }}>Give a small review</button>
+                              <button style={{ backgroundColor: 'transparent' }} onClick={() => { setActiveModalReview(!activeModalReview), setEventId(townhallData[index].eventId),setEventDepartment('townhall') }}>Give a small review</button>
                             </div>}
                             <div className="review-link mt-2">
                               <button style={{ backgroundColor: 'transparent' }} onClick={() => { setReviewListModal(!reviewListModal), setEventIdForList(townhallData[index].eventId) }}>See all Reviews</button>
@@ -401,7 +402,6 @@ const Booking = () => {
                             </div>
 
                           </div>
-                          <TicketIssueModal activeThree={activeModalThree} />
                         </div>
                       );
                     })}
@@ -431,36 +431,36 @@ const Booking = () => {
                                     </div>
                                     <div className="col-lg-8 pl-0">
                                       <div className="ticket-details">
-                                        <h4>{bookings.booking.eventName}</h4>
+                                        <h4>{bookings?.booking?.eventName}</h4>
                                         <p className="m-0">{bookings.ticketSource} BOOKING</p>
                                         <p className="m-0">
                                           <i className="ti-time mr-2"></i>
-                                          {bookings.selectedTime}
+                                          {bookings?.selectedTime}
                                         </p>
                                         <p className="m-0 mb-2">
                                           <i className="ti-calendar mr-2"></i>
-                                          {bookings.selectedDate}
+                                          {bookings?.selectedDate}
                                         </p>
-                                        {(bookings.adultNum || bookings.childNum) && <h6>
+                                        {(bookings.adultNum || bookings?.childNum) && <h6>
                                           <i className="ti-ticket mr-2"></i>
                                           <b>Number of Tickets :</b>
-                                          <span>{bookings.adultNum} Adults & {bookings.childNum} Child</span>
+                                          <span>{bookings?.adultNum} Adults & {bookings?.childNum} Child</span>
                                         </h6>}
                                         <h6>
                                           <i className="ti-ticket mr-2"></i>
                                           Kalyan Mandap :
-                                          <span><b>{bookings.mandapName}</b> </span>
+                                          <span><b>{bookings?.mandapName}</b> </span>
                                         </h6>
                                         <div className="row d-flex justify-content-between">
                                           <span className="p-0">Ticket Price</span>
                                           <span className="p-0">
-                                            Rs. {bookings.account.netAmount}
+                                            Rs. {bookings?.account?.netAmount}
                                           </span>
                                         </div>
                                         <div className="row d-flex justify-content-between">
                                           <span className="p-0">Convenience Price</span>
                                           <span className="p-0">
-                                            Rs. {bookings.account.amount}
+                                            Rs. {bookings?.account?.amount}
                                           </span>
                                         </div>
                                       </div>
@@ -475,16 +475,16 @@ const Booking = () => {
                                       <b>Total Price</b>
                                     </h5>
                                     <span>
-                                      <b>Rs. {bookings.account.amount}</b>
+                                      <b>Rs. {bookings?.account?.amount}</b>
                                     </span>
                                   </div>
                                 </div>
                                 <div className="col-lg-4 qr-section">
-                                  <img src={bookings.qrUrl} />
+                                  <img src={bookings?.qrUrl} />
                                   <hr />
-                                  <span>{bookings.bankTransaction.status}</span>
+                                  <span>{bookings?.bankTransaction?.status}</span>
                                   <h5 className="text-center">
-                                    <b>{bookings.account.bookingId}</b>
+                                    <b>{bookings?.account?.bookingId}</b>
                                   </h5>
                                 </div>
                               </div>
@@ -498,9 +498,9 @@ const Booking = () => {
                                 <h6 className='ml-2 mb-0' style={{ color: '#fff', letterSpacing: '1px' }}>Reviewed</h6>
                               </span>
                             </div> : <div className="review-link mt-2">
-                              <button style={{ backgroundColor: 'transparent' }} onClick={() => { setActiveModalReview(!activeModalReview), setEventId(kalyanmandapData[index].eventId) }}>Give a small review</button>
+                              <button style={{ backgroundColor: 'transparent' }} onClick={() => { setActiveModalReview(!activeModalReview), setEventId(kalyanmandapData[index].eventId),setEventDepartment('kalyanMandap') }}>Give a small review</button>
                             </div> : <div className="review-link mt-2">
-                              <button style={{ backgroundColor: 'transparent' }} onClick={() => { setActiveModalReview(!activeModalReview), setEventId(kalyanmandapData[index].eventId) }}>Give a small review</button>
+                              <button style={{ backgroundColor: 'transparent' }} onClick={() => { setActiveModalReview(!activeModalReview), setEventId(kalyanmandapData[index].eventId),setEventDepartment('kalyanMandap') }}>Give a small review</button>
                             </div>}
                             <div className="review-link mt-2">
                               <button style={{ backgroundColor: 'transparent' }} onClick={() => { setReviewListModal(!reviewListModal), setEventIdForList(kalyanmandapData[index].eventId) }}>See all Reviews</button>

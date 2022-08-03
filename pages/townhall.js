@@ -220,7 +220,7 @@ const Index = () => {
     let response = await  callApi(apiTest)
     // console.log(response,'responseeeeeeeeee')
     if(response.data.code==201){
-      setReviews(response.data.data)
+      setReviews(response.data.data.filter((obj)=>obj.department == 'townhal'))
     }
   }
   useEffect(()=>{
@@ -282,7 +282,7 @@ console.log(reviews,'reviewssssssss')
     <Layout>
     {video && <VideoPopup close={setVideo} />}
     {/* <!--====== Start Hero Section ======--> */}
-    <Banner overallData={ramlingamData} mainSlider={bannerSlider} activeForm='Townhall Booking' pageOf="townhall" />
+    <Banner overallData={ramlingamData} mainSlider={bannerSlider} activeForm='townhall' pageOf="townhall" />
     {/* <!--====== End Hero Section ======--> */}
     {/* <!--====== Start Listing Section ======--> */}
     <ShowsList overallData={ramlingamData} pageOf="townhall"/>
@@ -290,33 +290,35 @@ console.log(reviews,'reviewssssssss')
     <Gallery gallery={photoGallery} />
     {/* <!--====== End Place Section ======--> */}
     {/* <!--=================start testimonial section==============--> */}
-    <section
-        className="testimonial-area bg_cover pt-110 pb-140"
-        style={{
-          backgroundImage: "url(assets/images/bg/testimonial-bg-1.jpg)",
-        }}
-      >
-        <div className="container">
-          <div className="row justify-content-center">
-            <div className="col-lg-6">
-              <div className="section-title section-title-two section-title-white text-center mb-55">
-                <h2>
-                  <span className="line">Customer</span> Feedack
-                </h2>
-              </div>
+    {
+      reviews.length > 0 && <section
+      className="testimonial-area bg_cover pt-110 pb-140"
+      style={{
+        backgroundImage: "url(assets/images/bg/testimonial-bg-1.jpg)",
+      }}
+    >
+      <div className="container">
+        <div className="row justify-content-center">
+          <div className="col-lg-6">
+            <div className="section-title section-title-two section-title-white text-center mb-55">
+              <h2>
+                <span className="line">Customer</span> Feedack
+              </h2>
             </div>
           </div>
-          <div className="row justify-content-center">
-            <div className="col-lg-8">
-              <div className="testimonial-wrapper-one text-center">
-                <div className="testimonial-review-area">
-                  <TestimoinalSlider data={reviews}/>
-                </div>
+        </div>
+        <div className="row justify-content-center">
+          <div className="col-lg-8">
+            <div className="testimonial-wrapper-one text-center">
+              <div className="testimonial-review-area">
+                <TestimoinalSlider data={reviews}/>
               </div>
             </div>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
+    }
       {/* <!--==============end testimonial section==============--> */}
     {/* <!--====== Start Intro Video Section ======--> */}
     <Video video={videoLink} quote={getFreeQuote} />

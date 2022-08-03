@@ -10,12 +10,12 @@ import {
 } from "reactstrap";
 import { callApi } from "../apiHandlers/callApi";
 import { generateOTP, verifyOTP } from "../utils";
-function FormModal({ active, activeTwo, data, adultPrice, childPrice,pageOf ,price,toggle}) {
-  console.log(totalData,'dataaaaaaaaa')
+function FormModal({ active, activeTwo, data, adultPrice, childPrice, pageOf, price, toggle, activeFormModal }) {
+  console.log(totalData, 'dataaaaaaaaa')
   const [totalData, setTotalData] = useState(data)
   const [enteredOtp, setEnteredOtp] = useState(null)
-  let department = pageOf
-  console.log(department,'departmentttt')
+  let department = activeFormModal
+  console.log(department, 'departmentttt')
   // for main modal
   const [containerOne, setContainerOne] = useState(active);
   const [containerTwo, setContainerTwo] = useState(activeTwo);
@@ -37,7 +37,7 @@ function FormModal({ active, activeTwo, data, adultPrice, childPrice,pageOf ,pri
   const timerRef = useRef(otpTimer);
   const sendOtp = async () => {
     setSubmodalOne(true),
-    setContainerOne(false)
+      setContainerOne(false)
     timerFunction()
     let dataForOtp = {
       email: totalData.email,
@@ -80,14 +80,14 @@ function FormModal({ active, activeTwo, data, adultPrice, childPrice,pageOf ,pri
   }
 
   let url;
-  if(pageOf == "ramlingamPark"){
-    url ="ramalingampark/bookingRequest/createBookingRequest"
+  if (activeFormModal == "ramlingamPark") {
+    url = "ramalingampark/bookingRequest/createBookingRequest"
   }
-  else if(pageOf =="kalyanMandap"){
-    url ="kalyanMandap/bookingRequest/createBookingRequest"
+  else if (activeFormModal == "kalyanMandap") {
+    url = "kalyanMandap/bookingRequest/createBookingRequest"
   }
-  else if(pageOf =="townhall"){
-    url ="townhall/bookingRequest/createBookingRequest"
+  else if (activeFormModal == "townhall") {
+    url = "townhall/bookingRequest/createBookingRequest"
   }
   const createBookingRequest = async () => {
     console.log(totalData)
@@ -117,7 +117,7 @@ function FormModal({ active, activeTwo, data, adultPrice, childPrice,pageOf ,pri
 
   useEffect(() => {
     createBookingRequest()
-    console.log(otpValidator,'validatorrrrrrrrrrrr')
+    console.log(otpValidator, 'validatorrrrrrrrrrrr')
   }, [otpValidator])
 
   useEffect(() => {
@@ -127,15 +127,58 @@ function FormModal({ active, activeTwo, data, adultPrice, childPrice,pageOf ,pri
   }, [bookingDetails])
 
   console.log(bookingDetails, 'details')
+  useEffect(() => {
+    console.log(totalData, 'total data')
+  }, [totalData])
+  const [errors, setErrors] = useState({ field: '', message: '' })
+  const handleSubmit = () => {
+    var pattern = new RegExp(
+      /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i
+    );
+    var pattern2 = new RegExp(/^((\+*)((0[ -]*)*|((91 )*))((\d{12})+|(\d{10})+))|\d{5}([- ]*)\d{6}$/)
+    if (activeFormModal == 'ramlingamPark') {
+      if (totalData && !totalData.adultNum) {
+        setErrors({ field: 'adult', message: 'Please enter the number of adults' })
+      } else if (totalData && !totalData.childNum) {
+        setErrors({ field: 'child', message: 'Please enter the number of child' })
+      } else if (totalData && !totalData.userName) {
+        setErrors({ field: 'username', message: 'Please enter your name' })
+      } else if (totalData && !totalData.phoneNumber) {
+        setErrors({ field: 'number', message: 'Please enter your phone number' })
+      } else if (totalData && !pattern2.test(totalData.phoneNumber)) {
+        setErrors({ field: 'number', message: 'Please enter a valid phone number' })
+      } else if (totalData && !totalData.email) {
+        setErrors({ field: 'email', message: 'Please enter your email' })
+      } else if (totalData && !pattern.test(totalData.email)) {
+        setErrors({ field: 'email', message: 'Please enter a valid email' })
+      } else {
+        sendOtp()
+      }
+    } else {
+      if (totalData && !totalData.userName) {
+        setErrors({ field: 'username', message: 'Please enter your name' })
+      } else if (totalData && !totalData.phoneNumber) {
+        setErrors({ field: 'number', message: 'Please enter your phone number' })
+      } else if (totalData && !pattern2.test(totalData.phoneNumber)) {
+        setErrors({ field: 'number', message: 'Please enter a valid phone number' })
+      } else if (totalData && !totalData.email) {
+        setErrors({ field: 'email', message: 'Please enter your email' })
+      } else if (totalData && !pattern.test(totalData.email)) {
+        setErrors({ field: 'email', message: 'Please enter a valid email' })
+      } else {
+        sendOtp()
+      }
+    }
+  }
   return (
     <>
       {/* MOdal 1 for ramlingam park */}
       <Modal
         isOpen={containerOne}
-        toggle={() => {setContainerOne(false),toggle(false)}}
+        toggle={() => { setContainerOne(false), toggle(false) }}
       >
-        <ModalHeader style={{background:'#3bacb6'}}>
-          <ModalTitle style={{color:'#fff'}}>Enter Booking Details</ModalTitle>
+        <ModalHeader style={{ background: '#3bacb6' }}>
+          <ModalTitle style={{ color: '#fff' }}>Enter Booking Details</ModalTitle>
         </ModalHeader>
         <ModalBody>
           <div className="row">
@@ -143,22 +186,37 @@ function FormModal({ active, activeTwo, data, adultPrice, childPrice,pageOf ,pri
               <label>Enter No Of Adults</label>
               <input type="number" className="otpinput m-0" onChange={(e) => setTotalData({ ...totalData, adultNum: parseInt(e.target.value) })} />
             </div>
+            {
+              errors && errors.field == 'adult' && <h6 className="text-danger mt-1">{errors.message}</h6>
+            }
             <div className="col-lg-12 col-md-6 mt-2">
               <label>Enter No Of child</label>
               <input type="number" className="otpinput m-0" onChange={(e) => setTotalData({ ...totalData, childNum: parseInt(e.target.value) })} />
             </div>
+            {
+              errors && errors.field == 'child' && <h6 className="text-danger mt-1">{errors.message}</h6>
+            }
             <div className="col-lg-12 col-md-6 mt-2">
               <label>Enter Name</label>
-              <input type="text" className="otpinput m-0" onChange={(e) => setTotalData({ ...totalData, userName: (e.target.value),department:department, ticketSource: "ONLINE", amount: adultPrice * totalData?.adultNum + childPrice * totalData?.childNum, api_key: "registeruser" })} />
+              <input type="text" className="otpinput m-0" onChange={(e) => setTotalData({ ...totalData, userName: (e.target.value), department: activeFormModal, ticketSource: "ONLINE", amount: adultPrice * totalData?.adultNum + childPrice * totalData?.childNum, api_key: "registeruser" })} />
             </div>
+            {
+              errors && errors.field == 'username' && <h6 className="text-danger mt-1">{errors.message}</h6>
+            }
             <div className="col-lg-12 col-md-6 mt-2">
               <label>Enter Phone Number</label>
               <input type="number" className="otpinput m-0" onChange={(e) => setTotalData({ ...totalData, phoneNumber: (e.target.value) })} />
             </div>
+            {
+              errors && errors.field == 'number' && <h6 className="text-danger mt-1">{errors.message}</h6>
+            }
             <div className="col-lg-12 col-md-6 mt-2">
               <label>Enter Email Address</label>
               <input type="text" className="otpinput m-0" onChange={(e) => setTotalData({ ...totalData, email: (e.target.value) })} />
             </div>
+            {
+              errors && errors.field == 'email' && <h6 className="text-danger mt-1">{errors.message}</h6>
+            }
           </div>
           <br />
           <div className="text-center m-2"></div>
@@ -171,10 +229,10 @@ function FormModal({ active, activeTwo, data, adultPrice, childPrice,pageOf ,pri
           <button
             className="main-btn"
             onClick={() => {
-              sendOtp()
+              handleSubmit()
             }}
           >
-            Send OTP
+            Book Now
           </button>
           <button
             className="main-btn"
@@ -186,7 +244,7 @@ function FormModal({ active, activeTwo, data, adultPrice, childPrice,pageOf ,pri
       </Modal>
 
       {/* submodal for ramlingam park */}
-      <Modal isOpen={submodalOne} toggle={()=>{setSubmodalOne(false),toggle(false)}}>
+      <Modal isOpen={submodalOne} toggle={() => { setSubmodalOne(false), toggle(false) }}>
         <ModalHeader>Enter OTP</ModalHeader>
         <ModalBody style={{ display: "flex", flexDirection: "row" }}>
           <input type="number"
@@ -223,16 +281,25 @@ function FormModal({ active, activeTwo, data, adultPrice, childPrice,pageOf ,pri
           <div className="row">
             <div className="col-lg-12 col-md-6 mt-2">
               <label>Enter Name</label>
-              <input type="text" className="otpinput m-0" onChange={(e) => setTotalData({ ...totalData, userName: (e.target.value), department: pageOf,amount:price, api_key: "registeruser" })} />
+              <input type="text" className="otpinput m-0" onChange={(e) => setTotalData({ ...totalData, userName: (e.target.value), department: activeFormModal, amount: price, api_key: "registeruser" })} />
             </div>
+            {
+              errors && errors.field == 'username' && <h6 className="text-danger mt-1">{errors.message}</h6>
+            }
             <div className="col-lg-12 col-md-6 mt-2">
               <label>Enter Phone Number</label>
-              <input type="number" className="otpinput m-0" onChange={(e) => setTotalData({ ...totalData, phoneNumber: (e.target.value) })}/>
+              <input type="number" className="otpinput m-0" onChange={(e) => setTotalData({ ...totalData, phoneNumber: (e.target.value) })} />
             </div>
+            {
+              errors && errors.field == 'number' && <h6 className="text-danger mt-1">{errors.message}</h6>
+            }
             <div className="col-lg-12 col-md-6 mt-2">
               <label>Enter Email Address</label>
               <input type="text" className="otpinput m-0" onChange={(e) => setTotalData({ ...totalData, email: (e.target.value) })} />
             </div>
+            {
+              errors && errors.field == 'email' && <h6 className="text-danger mt-1">{errors.message}</h6>
+            }
           </div>
           <br />
           <div className="text-center m-2"></div>
@@ -245,9 +312,9 @@ function FormModal({ active, activeTwo, data, adultPrice, childPrice,pageOf ,pri
           <button
             className="main-btn"
             onClick={() => {
-              sendOtp(),
+              handleSubmit()
               setSubmodalOne(true),
-              setContainerTwo(false)
+                setContainerTwo(false)
             }}
           >
             Send OTP
