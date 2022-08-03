@@ -7,16 +7,22 @@ import {
     ModalFooter,
 } from "reactstrap";
 import { Button, Spinner } from 'react-bootstrap'
+import { useDispatch, useSelector } from 'react-redux'
 import { generateOTP, setRoutingData, varifyOTP } from "../utils";
 import { callApi } from "../apiHandlers/callApi";
+import { setlogin, setToken, setUserId } from "../../redux/slices/loginSlice";
 
 function CardFormModal({ activeModal, eventInfo, toggleFunc, department }) {
+    const dispatch = useDispatch()
     const [totalData, setTotalData] = useState()
     const [modalActive, setModalActive] = useState(activeModal)
     const [subModalActive, setSubModalActive] = useState(false)
     const [activeShowTimes, setActiveShowTimes] = useState({ label: '', value: '', key: '' })
     const [bookingDetails, setBookingDetails] = useState(null)
     const [errors, setErrors] = useState({ field: '', message: '' })
+    const userData = (JSON.parse(localStorage.getItem('userData')))
+    const islogin = useSelector((state) => state.login.isLogin)
+    console.log(userData,'dataaaaaaaa')
     const showTimes = []
     const eventdates = []
     const seatsCategory = []
@@ -29,7 +35,7 @@ function CardFormModal({ activeModal, eventInfo, toggleFunc, department }) {
     })
     eventInfo?.seatCategory?.map((x) => {
         seatsCategory.push({
-            label: `${x.categoryName}`,
+            label: `${x.categoryName} (${x.capacity} seats available)`,
             value: `${x.categoryName}`
         })
     })
@@ -41,7 +47,7 @@ function CardFormModal({ activeModal, eventInfo, toggleFunc, department }) {
         })
     })
     const selectedDate = eventInfo?.dateAndTime?.find((x) => {
-        return (x.date == totalData.selectedDate)
+        return (x.date == totalData?.selectedDate)
     })
     selectedDate?.time?.map((x, index) => {
         showTimes.push({
@@ -52,10 +58,13 @@ function CardFormModal({ activeModal, eventInfo, toggleFunc, department }) {
     })
     useEffect(() => {
         setModalActive(activeModal)
-        setTotalData({ ...totalData })
+        if(islogin){
+            setTotalData({ ...totalData,userName:userData?.firstName.concat(' ').concat(userData?.lastName),phoneNumber:JSON.stringify(userData?.phoneNumber),email:userData?.email })
+        }else{
+            setTotalData({ ...totalData })
+        }
         console.log(eventInfo, 'event')
     }, [activeModal])
-
     useEffect(() => {
         if (bookingDetails != null) {
             setRoutingData(bookingDetails?._id, "authroutes/booking-details")
@@ -97,6 +106,7 @@ function CardFormModal({ activeModal, eventInfo, toggleFunc, department }) {
         setOtpValidator(otpValidatorHand)
         if (otpValidatorHand == true) {
             setOtpLoader(false)
+            dispatch(setlogin(true))
         }
     }
 
@@ -260,21 +270,21 @@ function CardFormModal({ activeModal, eventInfo, toggleFunc, department }) {
                         }
                         <div className="col-lg-12 col-md-12 mt-2">
                             <label>Enter Name</label>
-                            <input type="text" className="otpinput m-0" onChange={(e) => setTotalData({ ...totalData, userName: (e.target.value) })} />
+                            <input type="text" className="otpinput m-0" defaultValue={userData?.firstName.concat(' ').concat(userData?.lastName)} onChange={(e) => setTotalData({ ...totalData, userName: (e.target.value) })} />
                         </div>
                         {
                             errors && errors.field == 'username' && <h6 className="text-danger mt-1">{errors.message}</h6>
                         }
                         <div className="col-lg-12 col-md-12 mt-2">
                             <label>Enter Phone Number</label>
-                            <input type="number" className="otpinput m-0" onChange={(e) => setTotalData({ ...totalData, phoneNumber: (e.target.value) })} />
+                            <input type="number" className="otpinput m-0" defaultValue={userData?.phoneNumber} onChange={(e) => setTotalData({ ...totalData, phoneNumber: (e.target.value) })} />
                         </div>
                         {
                             errors && errors.field == 'number' && <h6 className="text-danger mt-1">{errors.message}</h6>
                         }
                         <div className="col-lg-12 col-md-12 mt-2">
                             <label>Enter Email Address</label>
-                            <input type="text" className="otpinput m-0" onChange={(e) => setTotalData({ ...totalData, email: (e.target.value) })} />
+                            <input type="text" className="otpinput m-0" defaultValue={userData?.email} onChange={(e) => setTotalData({ ...totalData, email: (e.target.value) })} />
                         </div>
                         {
                             errors && errors.field == 'email' && <h6 className="text-danger mt-1">{errors.message}</h6>
@@ -307,21 +317,21 @@ function CardFormModal({ activeModal, eventInfo, toggleFunc, department }) {
                         }
                         <div className="col-lg-12 col-md-12 mt-2">
                             <label>Enter Name</label>
-                            <input type="text" className="otpinput m-0" onChange={(e) => setTotalData({ ...totalData, userName: (e.target.value) })} />
+                            <input type="text" className="otpinput m-0" defaultValue={userData?.firstName.concat(' ').concat(userData?.lastName)} onChange={(e) => setTotalData({ ...totalData, userName: (e.target.value) })} />
                         </div>
                         {
                             errors && errors.field == 'username' && <h6 className="text-danger mt-1">{errors.message}</h6>
                         }
                         <div className="col-lg-12 col-md-12 mt-2">
                             <label>Enter Phone Number</label>
-                            <input type="number" className="otpinput m-0" onChange={(e) => setTotalData({ ...totalData, phoneNumber: (e.target.value) })} />
+                            <input type="number" className="otpinput m-0" defaultValue={userData?.phoneNumber} onChange={(e) => setTotalData({ ...totalData, phoneNumber: (e.target.value) })} />
                         </div>
                         {
                             errors && errors.field == 'phoneNumber' && <h6 className="text-danger mt-1">{errors.message}</h6>
                         }
                         <div className="col-lg-12 col-md-12 mt-2">
                             <label>Enter Email Address</label>
-                            <input type="text" className="otpinput m-0" onChange={(e) => setTotalData({ ...totalData, email: (e.target.value) })} />
+                            <input type="text" className="otpinput m-0" defaultValue={userData?.email} onChange={(e) => setTotalData({ ...totalData, email: (e.target.value) })} />
                         </div>
                         {
                             errors && errors.field == 'email' && <h6 className="text-danger mt-1">{errors.message}</h6>
@@ -342,22 +352,37 @@ function CardFormModal({ activeModal, eventInfo, toggleFunc, department }) {
                                 onChange={(e) => { setTotalData({ ...totalData, selectedDate: e.target.value, mandapName: eventInfo?.mandapName, mandapId: eventInfo?.mandapId }) }}
                             />
                         </div>
+                        {
+                            errors && errors.field == 'date' && <h6 className="text-danger mt-1">{errors.message}</h6>
+                        }
                         <div className="col-lg-12 col-md-12 mt-2">
                             <label>Select Time</label>
                             <Select options={timeSlot} onChange={(e) => { setTotalData({ ...totalData, selectedTime: e.value }) }} />
                         </div>
+                        {
+                            errors && errors.field == 'time' && <h6 className="text-danger mt-1">{errors.message}</h6>
+                        }
                         <div className="col-lg-12 col-md-12 mt-2">
                             <label>Enter Name</label>
-                            <input type="text" className="otpinput m-0" onChange={(e) => setTotalData({ ...totalData, userName: (e.target.value) })} />
+                            <input type="text" className="otpinput m-0" defaultValue={userData?.firstName.concat(' ').concat(userData?.lastName)} onChange={(e) => setTotalData({ ...totalData, userName: (e.target.value) })} />
                         </div>
+                        {
+                            errors && errors.field == 'username' && <h6 className="text-danger mt-1">{errors.message}</h6>
+                        }
                         <div className="col-lg-12 col-md-12 mt-2">
                             <label>Enter Phone Number</label>
-                            <input type="number" className="otpinput m-0" onChange={(e) => setTotalData({ ...totalData, phoneNumber: (e.target.value) })} />
+                            <input type="number" className="otpinput m-0" defaultValue={userData?.phoneNumber} onChange={(e) => setTotalData({ ...totalData, phoneNumber: (e.target.value) })} />
                         </div>
+                        {
+                            errors && errors.field == 'phoneNumber' && <h6 className="text-danger mt-1">{errors.message}</h6>
+                        }
                         <div className="col-lg-12 col-md-12 mt-2">
                             <label>Enter Email Address</label>
-                            <input type="text" className="otpinput m-0" onChange={(e) => setTotalData({ ...totalData, email: (e.target.value) })} />
+                            <input type="text" className="otpinput m-0" defaultValue={userData?.email} onChange={(e) => setTotalData({ ...totalData, email: (e.target.value) })} />
                         </div>
+                        {
+                            errors && errors.field == 'email' && <h6 className="text-danger mt-1">{errors.message}</h6>
+                        }
                     </div>}
 
                 </ModalBody>

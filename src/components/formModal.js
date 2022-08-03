@@ -10,12 +10,15 @@ import {
 } from "reactstrap";
 import { callApi } from "../apiHandlers/callApi";
 import { generateOTP, verifyOTP } from "../utils";
+import { useDispatch, useSelector } from 'react-redux'
+import { setlogin, setToken, setUserId } from "../../redux/slices/loginSlice";
+
 function FormModal({ active, activeTwo, data, adultPrice, childPrice, pageOf, price, toggle, activeFormModal }) {
-  console.log(totalData, 'dataaaaaaaaa')
+  const dispatch = useDispatch()
   const [totalData, setTotalData] = useState(data)
   const [enteredOtp, setEnteredOtp] = useState(null)
   let department = activeFormModal
-  console.log(department, 'departmentttt')
+  console.log(islogin, 'islogin')
   // for main modal
   const [containerOne, setContainerOne] = useState(active);
   const [containerTwo, setContainerTwo] = useState(activeTwo);
@@ -26,8 +29,9 @@ function FormModal({ active, activeTwo, data, adultPrice, childPrice, pageOf, pr
   const [bookingDetails, setBookingDetails] = useState(null)
   const [otpValidator, setOtpValidator] = useState(false)
   const [otpSender, setOtpSender] = useState(false)
-
-
+  const userData = (JSON.parse(localStorage.getItem('userData')))
+  const islogin = useSelector((state) => state.login.isLogin)
+  console.log(userData, 'userData formModal')
   //for button loader
   const [otpLoader, setOtpLoader] = useState()
 
@@ -36,8 +40,12 @@ function FormModal({ active, activeTwo, data, adultPrice, childPrice, pageOf, pr
   const [resendShow, setResendShow] = useState(false);
   const timerRef = useRef(otpTimer);
   const sendOtp = async () => {
-    setSubmodalOne(true),
+    setSubmodalOne(true)
+    if(activeFormModal=='ramlingamPark'){
       setContainerOne(false)
+    }else{
+      setContainerTwo(false)
+    }
     timerFunction()
     let dataForOtp = {
       email: totalData.email,
@@ -60,6 +68,7 @@ function FormModal({ active, activeTwo, data, adultPrice, childPrice, pageOf, pr
     setOtpValidator(otpValidatorHand)
     if (otpValidatorHand == true) {
       setOtpLoader(false)
+      dispatch(setlogin(true))
     }
   }
 
@@ -91,9 +100,7 @@ function FormModal({ active, activeTwo, data, adultPrice, childPrice, pageOf, pr
   }
   const createBookingRequest = async () => {
     console.log(totalData)
-
     if (otpSender == true && otpValidator == true) {
-
       let createBookingData = {
         method: 'post',
         url: url,
@@ -105,16 +112,18 @@ function FormModal({ active, activeTwo, data, adultPrice, childPrice, pageOf, pr
         setBookingDetails(response.data.data)
       }
     }
-
-
   }
   useEffect(() => {
     setContainerOne(active)
     setContainerTwo(activeTwo)
-    setTotalData(data)
+    if (islogin == true) {
+      setTotalData({ ...data, userName: userData?.firstName.concat(' ').concat(userData?.lastName), phoneNumber: JSON.stringify(userData.phoneNumber), email: userData.email })
+    } else {
+      setTotalData(data)
+    }
   }, [activeTwo, active])
 
-
+  console.log(totalData, 'totaaaaaaaaaaaaaaaaaaaaaaaallllllllllllllllllllllllllllllllll')
   useEffect(() => {
     createBookingRequest()
     console.log(otpValidator, 'validatorrrrrrrrrrrr')
@@ -125,10 +134,11 @@ function FormModal({ active, activeTwo, data, adultPrice, childPrice, pageOf, pr
       setRoutingData(bookingDetails?._id, "authroutes/booking-details")
     }
   }, [bookingDetails])
-
-  console.log(bookingDetails, 'details')
+console.log(activeFormModal,'activeFormmmmmmmmmm')
   useEffect(() => {
+    console.log(adultPrice, childPrice, 'priceeeeee adult child')
     console.log(totalData, 'total data')
+
   }, [totalData])
   const [errors, setErrors] = useState({ field: '', message: '' })
   const handleSubmit = () => {
@@ -152,6 +162,7 @@ function FormModal({ active, activeTwo, data, adultPrice, childPrice, pageOf, pr
       } else if (totalData && !pattern.test(totalData.email)) {
         setErrors({ field: 'email', message: 'Please enter a valid email' })
       } else {
+        setTotalData({ ...totalData, department: activeFormModal, ticketSource: "ONLINE", amount: (adultPrice * totalData?.adultNum + childPrice * totalData?.childNum), api_key: "registeruser" })
         sendOtp()
       }
     } else {
@@ -166,6 +177,7 @@ function FormModal({ active, activeTwo, data, adultPrice, childPrice, pageOf, pr
       } else if (totalData && !pattern.test(totalData.email)) {
         setErrors({ field: 'email', message: 'Please enter a valid email' })
       } else {
+        setTotalData({ ...totalData, department: activeFormModal, amount: price, api_key: "registeruser" })
         sendOtp()
       }
     }
@@ -198,21 +210,21 @@ function FormModal({ active, activeTwo, data, adultPrice, childPrice, pageOf, pr
             }
             <div className="col-lg-12 col-md-6 mt-2">
               <label>Enter Name</label>
-              <input type="text" className="otpinput m-0" onChange={(e) => setTotalData({ ...totalData, userName: (e.target.value), department: activeFormModal, ticketSource: "ONLINE", amount: adultPrice * totalData?.adultNum + childPrice * totalData?.childNum, api_key: "registeruser" })} />
+              <input type="text" className="otpinput m-0" defaultValue={userData?.firstName.concat(' ').concat(userData?.lastName)} onChange={(e) => setTotalData({ ...totalData, userName: (e.target.value) })} />
             </div>
             {
               errors && errors.field == 'username' && <h6 className="text-danger mt-1">{errors.message}</h6>
             }
             <div className="col-lg-12 col-md-6 mt-2">
               <label>Enter Phone Number</label>
-              <input type="number" className="otpinput m-0" onChange={(e) => setTotalData({ ...totalData, phoneNumber: (e.target.value) })} />
+              <input type="number" className="otpinput m-0" defaultValue={userData?.phoneNumber} onChange={(e) => setTotalData({ ...totalData, phoneNumber: (e.target.value) })} />
             </div>
             {
               errors && errors.field == 'number' && <h6 className="text-danger mt-1">{errors.message}</h6>
             }
             <div className="col-lg-12 col-md-6 mt-2">
               <label>Enter Email Address</label>
-              <input type="text" className="otpinput m-0" onChange={(e) => setTotalData({ ...totalData, email: (e.target.value) })} />
+              <input type="text" className="otpinput m-0" defaultValue={userData?.email} onChange={(e) => setTotalData({ ...totalData, email: (e.target.value) })} />
             </div>
             {
               errors && errors.field == 'email' && <h6 className="text-danger mt-1">{errors.message}</h6>
@@ -243,11 +255,72 @@ function FormModal({ active, activeTwo, data, adultPrice, childPrice, pageOf, pr
         </ModalFooter>
       </Modal>
 
-      {/* submodal for ramlingam park */}
+
+      {/* MOdal 1 for all except ramlingam park */}
+      <Modal
+        isOpen={containerTwo}
+        toggle={() => setContainerTwo(!containerTwo)}
+      >
+        <ModalHeader style={{ background: '#3bacb6' }}>
+          <ModalTitle style={{ color: '#fff' }}>Your Personal Details</ModalTitle>
+        </ModalHeader>
+        <ModalBody>
+          <div className="row">
+            <div className="col-lg-12 col-md-6 mt-2">
+              <label>Enter Name</label>
+              <input type="text" className="otpinput m-0" defaultValue={userData?.firstName.concat(' ').concat(userData?.lastName)} onChange={(e) => setTotalData({ ...totalData, userName: (e.target.value) })} />
+            </div>
+            {
+              errors && errors.field == 'username' && <h6 className="text-danger mt-1">{errors.message}</h6>
+            }
+            <div className="col-lg-12 col-md-6 mt-2">
+              <label>Enter Phone Number</label>
+              <input type="number" className="otpinput m-0" defaultValue={userData?.phoneNumber} onChange={(e) => setTotalData({ ...totalData, phoneNumber: (e.target.value) })} />
+            </div>
+            {
+              errors && errors.field == 'number' && <h6 className="text-danger mt-1">{errors.message}</h6>
+            }
+            <div className="col-lg-12 col-md-6 mt-2">
+              <label>Enter Email Address</label>
+              <input type="text" className="otpinput m-0" defaultValue={userData?.email} onChange={(e) => setTotalData({ ...totalData, email: (e.target.value) })} />
+            </div>
+            {
+              errors && errors.field == 'email' && <h6 className="text-danger mt-1">{errors.message}</h6>
+            }
+          </div>
+          <br />
+          <div className="text-center m-2"></div>
+          <Modal
+            isOpen={submodalTwo}
+            toggle={() => setSubmodalTwo(!submodalTwo)}
+          ></Modal>
+        </ModalBody>
+        <ModalFooter>
+          <button
+            className="main-btn"
+            onClick={() => {
+              handleSubmit()
+            }}
+          >
+            Send OTP
+          </button>
+          <button
+            className="main-btn"
+            onClick={() => setContainerTwo(false)}
+          >
+            Cancel
+          </button>
+        </ModalFooter>
+      </Modal>
+
+
+      {/* submodal for All */}
       <Modal isOpen={submodalOne} toggle={() => { setSubmodalOne(false), toggle(false) }}>
-        <ModalHeader>Enter OTP</ModalHeader>
+        <ModalHeader style={{ background: '#3bacb6' }}>
+          <ModalTitle style={{ color: '#fff' }}>Enter OTP</ModalTitle>
+        </ModalHeader>
         <ModalBody style={{ display: "flex", flexDirection: "row" }}>
-          <input type="number"
+          <input type="number" className="otpinput m-0"
             onChange={(e) => { setEnteredOtp(e.target.value) }}
           />
         </ModalBody>
@@ -272,91 +345,8 @@ function FormModal({ active, activeTwo, data, adultPrice, childPrice, pageOf, pr
 
 
 
-      {/* MOdal 1 for all excep ramlingam park */}
-      <Modal
-        isOpen={containerTwo}
-        toggle={() => setContainerTwo(!containerTwo)}
-      >
-        <ModalBody>
-          <div className="row">
-            <div className="col-lg-12 col-md-6 mt-2">
-              <label>Enter Name</label>
-              <input type="text" className="otpinput m-0" onChange={(e) => setTotalData({ ...totalData, userName: (e.target.value), department: activeFormModal, amount: price, api_key: "registeruser" })} />
-            </div>
-            {
-              errors && errors.field == 'username' && <h6 className="text-danger mt-1">{errors.message}</h6>
-            }
-            <div className="col-lg-12 col-md-6 mt-2">
-              <label>Enter Phone Number</label>
-              <input type="number" className="otpinput m-0" onChange={(e) => setTotalData({ ...totalData, phoneNumber: (e.target.value) })} />
-            </div>
-            {
-              errors && errors.field == 'number' && <h6 className="text-danger mt-1">{errors.message}</h6>
-            }
-            <div className="col-lg-12 col-md-6 mt-2">
-              <label>Enter Email Address</label>
-              <input type="text" className="otpinput m-0" onChange={(e) => setTotalData({ ...totalData, email: (e.target.value) })} />
-            </div>
-            {
-              errors && errors.field == 'email' && <h6 className="text-danger mt-1">{errors.message}</h6>
-            }
-          </div>
-          <br />
-          <div className="text-center m-2"></div>
-          <Modal
-            isOpen={submodalTwo}
-            toggle={() => setSubmodalTwo(!submodalTwo)}
-          ></Modal>
-        </ModalBody>
-        <ModalFooter>
-          <button
-            className="main-btn"
-            onClick={() => {
-              handleSubmit()
-              setSubmodalOne(true),
-                setContainerTwo(false)
-            }}
-          >
-            Send OTP
-          </button>
-          <button
-            className="main-btn"
-            onClick={() => setContainerTwo(false)}
-          >
-            Cancel
-          </button>
-        </ModalFooter>
-      </Modal>
 
 
-      {/* submodal for all except ramlingam park */}
-      <Modal isOpen={submodalTwo}>
-        <ModalHeader>Enter OTP</ModalHeader>
-        <ModalBody style={{ display: "flex", flexDirection: "row" }}>
-          <input type="number" className="otpinput" />
-          <input type="number" className="otpinput" />
-          <input type="number" className="otpinput" />
-          <input type="number" className="otpinput" />
-        </ModalBody>
-        <ModalFooter>
-          <button
-            className="main-btn"
-            onClick={() => {
-              setSubmodalTwo(false), setContainerTwo(true);
-            }}
-          >
-            Change Number
-          </button>{" "}
-          <button
-            className="main-btn"
-            onClick={() => {
-              setSubmodalTwo(false);
-            }}
-          >
-            Done
-          </button>
-        </ModalFooter>
-      </Modal>
     </>
   );
 }

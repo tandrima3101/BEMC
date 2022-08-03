@@ -157,6 +157,7 @@ export const varifyOTP = async (data) => {
 
   if(response.data.status=="SUCCESS"){
     await localStorage.setItem("apiToken",response.data.data.token)
+    await localStorage.setItem('userData',JSON.stringify(response.data.data.userData))
     return true
   }else{
     return false

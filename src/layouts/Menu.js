@@ -99,7 +99,7 @@ export const LoginUserListing = ({ setLogin }) => {
 
   const dispatch = useDispatch()
   const handleLogout = () =>{
-    // localStorage.removeItem("isLogin")
+    localStorage.removeItem("userData")
     dispatch(setlogin(false))
     dispatch(setToken(null))
     Router.push("/")
@@ -108,10 +108,10 @@ export const LoginUserListing = ({ setLogin }) => {
   return (
   <Fragment>
     <li className="menu-item">
-      <Link href="authroutes/booking">My Bookings</Link>
+      <Link href="/authroutes/booking">My Bookings</Link>
     </li>
     <li className="menu-item">
-      <Link href="authroutes/my-complains">My Complains</Link>
+      <Link href="/authroutes/my-complains">My Complains</Link>
     </li>
     <li className="menu-item">
       <button className="w-100 py-2" style={{background : 'inherit', fontWeight : 'bold'}} onClick={handleLogout}>Logout</button>

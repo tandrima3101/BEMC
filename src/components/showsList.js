@@ -4,8 +4,6 @@ import Rate from './ratings';
 import GiveReviewModal from './giveReviewModal';
 import CardFormModal from './cardFormModal';
 import { callApi } from '../apiHandlers/callApi';
-import { Badge } from 'reactstrap';
-import PreLoader from './PreLoader';
 import SeeAllReviewModal from './seeallreviewModal';
 
 const ShowsList = (props) => {
@@ -16,7 +14,7 @@ const ShowsList = (props) => {
   const [showList, setShowList] = useState([])
   const [eventIdForList, setEventIdForList] = useState(null)
   const [reviewListModal, setReviewListModal] = useState(false)
-  const [departmentForIndex,setDepartmentForIndex] = useState()
+  const [departmentForIndex, setDepartmentForIndex] = useState()
 
   const closeReviewMOdal = (data) => {
     setMOdalOpen(data)
@@ -30,24 +28,24 @@ const ShowsList = (props) => {
   const reviewedItem = localStorage.getItem("reviewedItem")
   const [isReviewed, setIsReviewed] = useState(JSON.parse(reviewedItem))
   console.log(isReviewed, 'revieweddddddddd')
-  const handleBookingButton = (show) =>{
+  const handleBookingButton = (show) => {
     setCardMOdalOpen(!cardModalOpen),
-    setSelectedEvent(show)
-    if(show.eventId){
+      setSelectedEvent(show)
+    if (show.eventId) {
       setDepartmentForIndex('ramlingamPark')
-    }else if(show.townhallId){
+    } else if (show.townhallId) {
       setDepartmentForIndex('townhall')
-    }else if(show.mandapId){
+    } else if (show.mandapId) {
       setDepartmentForIndex('kalyanMandap')
     }
   }
   const handleReviewData = (show) => {
     setMOdalOpen(!modalOpen), setEventId(show.eventId || show.townhallId || show.mandapId)
-    if(show.eventId){
+    if (show.eventId) {
       setDepartmentForIndex('ramlingamPark')
-    }else if(show.townhallId){
+    } else if (show.townhallId) {
       setDepartmentForIndex('townhall')
-    }else if(show.mandapId){
+    } else if (show.mandapId) {
       setDepartmentForIndex('kalyanMandap')
     }
   }
@@ -65,10 +63,13 @@ const ShowsList = (props) => {
       let response = await callApi(getReviewData)
       console.log(response.data.data, 'response for review')
       let avgRating = 0
-      response.data.data.map((x) => {
+      response.data.data?.map((x) => {
         avgRating = avgRating + x.rating
       })
-      showData.push({ department: props.pageOf, price: props.overallData[i].price, cPrice: props.overallData[i].cPrice, eventId: props.overallData[i].eventId, townhallId: props.overallData[i].townhallId, mandapId: props.overallData[i].mandapId, eventName: props.overallData[i].eventName, townhallName: props.overallData[i].townhallName, mandapName: props.overallData[i].mandapName, location: props.overallData[i].location, card: props.overallData[i].card, review: props.overallData[i].review, reviewCount: props.overallData[i].reviewCount, seatCategory: props.overallData[i].seatCategory, dates: props.overallData[i].dateAndTime.map((x) => { return x.date }), dateAndTime: props.overallData[i].dateAndTime, eventDefaultTime: props.overallData[i].eventDefaultTime, eventTag: props.overallData[i].eventTag, rating: Math.round(avgRating / response.data.data.length) })
+      !(props.overallData[i].ambulanceName) && showData.push({ department: props.pageOf, price: props.overallData[i].price, cPrice: props.overallData[i].cPrice, eventId: props.overallData[i].eventId, townhallId: props.overallData[i].townhallId, mandapId: props.overallData[i].mandapId, eventName: props.overallData[i].eventName, townhallName: props.overallData[i].townhallName, mandapName: props.overallData[i].mandapName, location: props.overallData[i].location, card: props.overallData[i].card, review: props.overallData[i].review, reviewCount: props.overallData[i].reviewCount, seatCategory: props.overallData[i].seatCategory, dates: props.overallData[i].dateAndTime?.map((x) => { return x.date }), dateAndTime: props.overallData[i].dateAndTime, eventDefaultTime: props.overallData[i].eventDefaultTime, eventTag: props.overallData[i].eventTag, rating: Math.round(avgRating / response.data.data.length) })
+      if (props.overallData[i].ambulanceName) {
+        showData.push({ department: props.pageOf, ambulanceId: props.overallData[i].vehicles[0].vehicleId, ambulanceName: props.overallData[i].ambulanceName, card: props.overallData[i].card, eventTag: props.overallData[i].tag, price: 'Depends on distance', status: props.overallData[i].status })
+      }
     }
     setShowList(showData)
   }, [props.overallData])
@@ -113,7 +114,7 @@ const ShowsList = (props) => {
                   <div className="listing-content">
                     <h3 className="title">
                       <Link href="/listing-details-1">
-                        <a>{show.eventName || show.townhallName || show.mandapName}</a>
+                        <a>{show.eventName || show.townhallName || show.mandapName || show.ambulanceName}</a>
                       </Link>
                     </h3>
                     {show.eventTag && show.eventTag.map((x) => { return (<span className='badge badge-warning ml-0 mr-2 mb-2 text-capitalize'>{x}</span>) })}
@@ -141,26 +142,32 @@ const ShowsList = (props) => {
                             </span>
                           </li>
                         ) : (
-                          <li></li>
+                          show.status ? (
+                            <li>
+                              <span className='escalate-badge escalate-badge-success' style={{padding:'5px 20px',fontSize:'13px'}}>
+                                {show?.status}
+                              </span>
+                            </li>
+                          ) : <li></li>
                         )}
-                        {isReviewed ? isReviewed.includes(show.eventId||show.townhallId||show.mandapId) ? <li className='d-flex flex-column'>
+                        {isReviewed ? isReviewed.includes(show.eventId || show.townhallId || show.mandapId) ? <li className='d-flex flex-column'>
                           <span>
                             <i className="ti-check"></i>
                             <span className='text-success ml-0'>Reviewed</span>
                           </span>
-                          <button style={{backgroundColor:'transparent'}} className='mt-2 ml-auto' onClick={() => { setReviewListModal(true), setEventIdForList(show.eventId || show.townhallId || show.mandapId) }}>See All Reviews</button>
+                          <button style={{ backgroundColor: 'transparent' }} className='mt-2 ml-auto' onClick={() => { setReviewListModal(true), setEventIdForList(show.eventId || show.townhallId || show.mandapId) }}>See All Reviews</button>
                         </li> : <li className='d-flex flex-column'>
                           <span>
                             <i className="ti-star"></i>
                             <button style={{ backgroundColor: 'transparent' }} onClick={() => { handleReviewData(show) }}>Give a Review</button>
                           </span>
-                          <button style={{backgroundColor:'transparent'}} className='mt-2 ml-auto' onClick={() => { setReviewListModal(true), setEventIdForList(show.eventId || show.townhallId || show.mandapId) }}>See All Reviews</button>
-                        </li>:<li className='d-flex flex-column'>
+                          <button style={{ backgroundColor: 'transparent' }} className='mt-2 ml-auto' onClick={() => { setReviewListModal(true), setEventIdForList(show.eventId || show.townhallId || show.mandapId) }}>See All Reviews</button>
+                        </li> : <li className='d-flex flex-column'>
                           <span>
                             <i className="ti-star"></i>
                             <button style={{ backgroundColor: 'transparent' }} onClick={() => { handleReviewData(show) }}>Give a Review</button>
                           </span>
-                          <button style={{backgroundColor:'transparent'}} className='mt-2 ml-auto' onClick={() => { setReviewListModal(true), setEventIdForList(show.eventId || show.townhallId || show.mandapId) }}>See All Reviews</button>
+                          <button style={{ backgroundColor: 'transparent' }} className='mt-2 ml-auto' onClick={() => { setReviewListModal(true), setEventIdForList(show.eventId || show.townhallId || show.mandapId) }}>See All Reviews</button>
                         </li>}
                       </ul>
                     </div>
@@ -171,8 +178,8 @@ const ShowsList = (props) => {
           })}
         </div>
       </div>
-      <GiveReviewModal activeReview={modalOpen} eventId={eventId} closeReviewMOdal={closeReviewMOdal} department={props.pageOf == 'index' ?departmentForIndex:props.pageOf}/>
-      <CardFormModal activeModal={cardModalOpen} eventInfo={selectedEvent} toggleFunc={togglecardModal} department={props.pageOf == 'index' ?departmentForIndex:props.pageOf} />
+      <GiveReviewModal activeReview={modalOpen} eventId={eventId} closeReviewMOdal={closeReviewMOdal} department={props.pageOf == 'index' ? departmentForIndex : props.pageOf} />
+      <CardFormModal activeModal={cardModalOpen} eventInfo={selectedEvent} toggleFunc={togglecardModal} department={props.pageOf == 'index' ? departmentForIndex : props.pageOf} />
       <SeeAllReviewModal activeReview={reviewListModal} eventId={eventIdForList} closeReviewMOdal={closeReviewListMOdal} />
     </section>
   )
