@@ -6,14 +6,20 @@ import { callApi } from "../../src/apiHandlers/callApi";
 import EscalationModal from "../../src/components/EscalationModal";
 import TicketIssueModal from "../../src/components/ticketIssueModal";
 import PreLoader from "../../src/components/PreLoader";
-
+import SuccessGif from '../../public/assets/images/successGif.gif';
+import Image from "next/image";
+import {
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  ModalTitle
+} from "reactstrap";
 
 const MyComplains = () => {
   const [video, setVideo] = useState(false);
-  const [activeModalThree, setActiveModalThree] = useState(false);
-  const [activeModalReview, setActiveModalReview] = useState(false);
+  const [openSubmodal, setOpenSubmodal] = useState(false)
   const [complainDetails, setComplainDetails] = useState(null)
-  const [diff, setDiff] = useState(null)
   const [escalationModal, setEscalationModal] = useState(false)
   const [escalationData, setEscalationData] = useState(null)
   const [isLoaded, setIsLoaded] = useState(false)
@@ -60,12 +66,27 @@ const MyComplains = () => {
   }
 
   const checkDateFunction = (value, data) => {
-    if (value < 3) {
+    if (value > 3) {
       setEscalationModal(true)
       setEscalationData(data)
     }
   }
-
+  const setHandleEscalation = async (data) => {
+    let dataForEscalation = {
+      method: 'post',
+      url: 'admin/grievacnes/changeStatusGrievance',
+      data: data
+    }
+    console.log(escalationData?._id, 'dataaaaaaaaaaa')
+    let response = await callApi(dataForEscalation)
+    if (response.data.code === 201) {
+      setOpenSubmodal(true)
+      setContainerEscalation(false),
+        toggle(false)
+      getAllGrievances()
+    }
+    console.log(data, 'datafor grievience')
+  }
   return (
     (!isLoaded) ? <PreLoader /> : <Layout>
       {/* <Ratings/> */}
@@ -77,15 +98,15 @@ const MyComplains = () => {
               return (
                 <div className="row" key={index}>
                   <div className="col-lg-12 pr-4" key={bookings.bookingRequestId}>
-                    <div className="booking-card p-3">
+                    <div className="booking-card booking-card-complain p-3">
                       <div className="row">
                         <div className="col-lg-6">
-                          <div className="row booking-card-left" style={{ height: '100%' }}>
+                          <div className="row booking-card-left booking-card-left-complain" style={{ height: '100%' }}>
                             <div className="col-lg-4 d-flex justify-content-center align-items-center">
                               <img
                                 src='/assets/images/ticket-complain.png'
                                 alt="bookedshow"
-                                className="bookingImage"
+                                className="bookingImageComplain"
                               />
                             </div>
                             <div className="col-lg-8 pl-0" style={{
@@ -136,20 +157,18 @@ const MyComplains = () => {
                           }
                           {bookings.status === 'Resolved' && <span className="escalate-badge escalate-badge-resolved"><i className="ti-check mr-2"></i>{bookings.status}</span>
                           }
-                          {bookings.status === 'Resolved' && bookings.resolved.map((x) => {
-                            return <h6 className="text-center mt-1 text-capitalize">{x}</h6>
-                          })
+                          {bookings.status === 'Resolved' &&
+                            <h6 className="text-center mt-3 text-capitalize">{bookings.resolved[bookings.resolved.length - 1]}</h6>
                           }
-                          {bookings.status === 'Escalated' && bookings.escalation.map((x) => {
-                            return <h6 className="text-center mt-3 text-capitalize">{x}</h6>
-                          })
+                          {bookings.status === 'Escalated' &&
+                            <h6 className="text-center mt-3 text-capitalize">{bookings.escalation[bookings.escalation.length - 1]}</h6>
                           }
 
                           <button className="d-flex justify-content-center main-btn mt-4 mx-auto mb-4" id="escalate-btn" onClick={() => checkDateFunction(dayDiff[index], bookings)} disabled={(dayDiff[index] < 3) ? true : false}>ESCALATE</button>
                           {
                             (dayDiff[index] < 3) ?
                               <>
-                                {dayDiff[index] == 0 ? bookings.status == 'Pending' ? <h6 className="mt-1 text-center">Complain Raised today</h6> : <h6 className="mt-1 text-center">{bookings.status} today</h6> :bookings.status=='Pending'?<h6 className="mt-1 text-center">Complain Raised {dayDiff[index]} days ago </h6>: <h6 className="mt-1 text-center">{bookings.status} {dayDiff[index]} Days ago</h6>}
+                                {dayDiff[index] == 0 ? bookings.status == 'Pending' ? <h6 className="mt-1 text-center">Complain Raised today</h6> : <h6 className="mt-1 text-center">{bookings.status} today</h6> : bookings.status == 'Pending' ? <h6 className="mt-1 text-center">Complain Raised {dayDiff[index]} days ago </h6> : <h6 className="mt-1 text-center">{bookings.status} {dayDiff[index]} Days ago</h6>}
                                 <h6 className="mt-1 mb-1 text center">Minimum 3 Days required to Reescalate</h6>
                               </> : <></>
                           }
@@ -162,8 +181,22 @@ const MyComplains = () => {
             })
             : <h5>No Complains yet</h5>}
         </div>
-        <EscalationModal activeModal={escalationModal} escalationData={escalationData} toggle={toggleEscalation} />
-
+        <EscalationModal activeModal={escalationModal} escalationData={escalationData} toggle={toggleEscalation} createEscalation={setHandleEscalation} />
+        <Modal isOpen={openSubmodal}>
+          <ModalBody>
+            <Image src={SuccessGif} alt='success' />
+          </ModalBody>
+          <ModalFooter>
+            <button
+              className="main-btn"
+              onClick={() => {
+                setOpenSubmodal(false);
+              }}
+            >
+              Done
+            </button>
+          </ModalFooter>
+        </Modal>
       </div>
     </Layout>
   );

@@ -74,7 +74,7 @@ for (let i = 0; i < ambulanceData?.length; i++) {
     (!isLoaded) ? <PreLoader /> : <Layout>
       {video && <VideoPopup close={setVideo} />}
       {/* <!--====== Start Hero Section ======--> */}
-      <Banner overallData={ambulanceData} mainSlider={bannerSlider} activeForm='Ambulance' pageOf="ambulance" />
+      <Banner overallData={ambulanceData} mainSlider={bannerSlider} activeForm='ambulance' pageOf="ambulance" />
       {/* <!--====== End Hero Section ======--> */}
       {/* <!--====== Start Listing Section ======--> */}
       <ShowsList overallData={ambulanceData} pageOf="ambulance" />

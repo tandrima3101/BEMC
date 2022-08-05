@@ -6949,8 +6949,8 @@ a {
   border-radius: 38px;
 }
 
-.booking-card .row .col-lg-8 .row {
-  /* height: 275px; */
+.booking-card .row .col-lg-8 .row.booking-card-left {
+  height: 312px !important;
 }
 
 /* .booking-card .row .col-lg-8 .row .col-lg-4 {
@@ -6961,16 +6961,18 @@ a {
   margin-left: 20px !important;
 }
 
-/* .bookingImage {
+.bookingImage {
   height: 100%;
   object-fit: cover;
-  border-radius: 13px;
-  padding-top: 2%;
-} */
+}
 
 .ticket-details {
   margin-left: 10px;
   margin-top: 10px;
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .ticket-details>* {
@@ -7044,8 +7046,28 @@ a {
 .review-link button {
   color: #308b93;
 }
-
 .booking-card::before {
+  position: absolute;
+  content: '';
+  height: 40px;
+  width: 40px;
+  background-color: #ebebeb;
+  left: 64.7%;
+  top: -5%;
+  border-radius: 50%;
+}
+
+.booking-card::after {
+  position: absolute;
+  content: '';
+  height: 40px;
+  width: 40px;
+  background-color: #ebebeb;
+  left: 64.7%;
+  bottom: -5%;
+  border-radius: 50%;
+}
+.booking-card-complain::before {
   position: absolute;
   content: '';
   height: 40px;
@@ -7056,7 +7078,7 @@ a {
   border-radius: 50%;
 }
 
-.booking-card::after {
+.booking-card-complain::after {
   position: absolute;
   content: '';
   height: 40px;
@@ -7067,7 +7089,8 @@ a {
   border-radius: 50%;
 }
 
-.qr-section::before {
+
+.booking-card-complain .qr-section::before {
   position: absolute;
   content: '';
   height: 40px;
@@ -7078,7 +7101,7 @@ a {
   border-radius: 50%;
 }
 
-.qr-section::after {
+.booking-card-complain .qr-section::after {
   position: absolute;
   content: '';
   height: 40px;

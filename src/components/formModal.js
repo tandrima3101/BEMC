@@ -12,11 +12,13 @@ import { callApi } from "../apiHandlers/callApi";
 import { generateOTP, verifyOTP } from "../utils";
 import { useDispatch, useSelector } from 'react-redux'
 import { setlogin, setToken, setUserId } from "../../redux/slices/loginSlice";
+import AmbulanceRequestModal from "./ambulanceRequestModal";
 
 function FormModal({ active, activeTwo, data, adultPrice, childPrice, pageOf, price, toggle, activeFormModal }) {
   const dispatch = useDispatch()
   const [totalData, setTotalData] = useState(data)
   const [enteredOtp, setEnteredOtp] = useState(null)
+  const [reqAmbulanceModal, setReqAmbulanceModal] = useState(false)
   let department = activeFormModal
   console.log(islogin, 'islogin')
   // for main modal
@@ -41,9 +43,9 @@ function FormModal({ active, activeTwo, data, adultPrice, childPrice, pageOf, pr
   const timerRef = useRef(otpTimer);
   const sendOtp = async () => {
     setSubmodalOne(true)
-    if(activeFormModal=='ramlingamPark'){
+    if (activeFormModal == 'ramlingamPark') {
       setContainerOne(false)
-    }else{
+    } else {
       setContainerTwo(false)
     }
     timerFunction()
@@ -97,6 +99,8 @@ function FormModal({ active, activeTwo, data, adultPrice, childPrice, pageOf, pr
   }
   else if (activeFormModal == "townhall") {
     url = "townhall/bookingRequest/createBookingRequest"
+  } else if (activeFormModal == "ambulance") {
+    url = "ambulance/ambulance/createBookingRequest"
   }
   const createBookingRequest = async () => {
     console.log(totalData)
@@ -113,6 +117,7 @@ function FormModal({ active, activeTwo, data, adultPrice, childPrice, pageOf, pr
       }
     }
   }
+  console.log(bookingDetails,'booooooooooooooooooooooookkkkkkkkkkkkkkkkkkkkkkkiiiiiiiiiiiiiiiiiiiiiiiiinnnnnnnnnnnnnnnnnngggggggggggggggggg')
   useEffect(() => {
     setContainerOne(active)
     setContainerTwo(activeTwo)
@@ -131,10 +136,14 @@ function FormModal({ active, activeTwo, data, adultPrice, childPrice, pageOf, pr
 
   useEffect(() => {
     if (bookingDetails != null) {
-      setRoutingData(bookingDetails?._id, "authroutes/booking-details")
+      if (activeFormModal == 'ambulance') {
+        setReqAmbulanceModal(true)
+      } else {
+        setRoutingData(bookingDetails?._id, "authroutes/booking-details")
+      }
     }
   }, [bookingDetails])
-console.log(activeFormModal,'activeFormmmmmmmmmm')
+  console.log(activeFormModal, 'activeFormmmmmmmmmm')
   useEffect(() => {
     console.log(adultPrice, childPrice, 'priceeeeee adult child')
     console.log(totalData, 'total data')
@@ -181,6 +190,10 @@ console.log(activeFormModal,'activeFormmmmmmmmmm')
         sendOtp()
       }
     }
+  }
+  const ambulanceModalToggle = (data) => {
+    setReqAmbulanceModal(data)
+    setSubmodalOne(false)
   }
   return (
     <>
@@ -345,7 +358,8 @@ console.log(activeFormModal,'activeFormmmmmmmmmm')
 
 
 
-
+      {/* submodal for Ambulance Booking */}
+      <AmbulanceRequestModal activeAmbulanceModal={reqAmbulanceModal}  toggle={()=>ambulanceModalToggle()}/>
 
     </>
   );

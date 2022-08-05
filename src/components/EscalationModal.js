@@ -7,35 +7,20 @@ import {
     ModalFooter,
     ModalTitle
 } from "reactstrap";
-import SuccessGif from '../../public/assets/images/successGif.gif';
-import { callApi } from '../apiHandlers/callApi';
-import Image from "next/image";
 
 
 
-const EscalationModal = ({ activeModal, toggle, escalationData }) => {
-    const [openSubmodal, setOpenSubmodal] = useState(false)
+const EscalationModal = ({ activeModal, toggle, escalationData,createEscalation ,openSubmodal}) => {
     const [containerEscalation, setContainerEscalation] = useState(activeModal)
     const [escalationDetails, setEscalationDetails] = useState()
-    const setHandleEscalation = async () => {
-        let dataForEscalation = {
-            method: 'post',
-            url: 'admin/grievacnes/changeStatusGrievance',
-            data: {
-                _id: escalationData?._id,
-                status: 'Escalated',
-                escalation: escalationDetails.complain,
-                escalationDate: escalationData?.createdAt
-            }
-        }
-        console.log(escalationData?._id, 'dataaaaaaaaaaa')
-        let response = await callApi(dataForEscalation)
-        if (response.data.code === 201) {
-            setOpenSubmodal(true)
-            setContainerEscalation(false),
-            toggle(false)
-        }
+    var today = new Date();
+    let data = {
+        _id: escalationData?._id,
+        status: 'Escalated',
+        escalation: escalationDetails?.complain,
+        escalationDate: today
     }
+   
     useEffect(() => {
         setContainerEscalation(activeModal)
         console.log(activeModal)
@@ -65,30 +50,14 @@ const EscalationModal = ({ activeModal, toggle, escalationData }) => {
                 <ModalFooter>
                     <button
                         className="main-btn"
-                        onClick={() => setHandleEscalation()}
+                        onClick={() => createEscalation(data)}
                     >
                         Submit
                     </button>
                 </ModalFooter>
             </Modal>
 
-            <Modal isOpen={openSubmodal}>
-                {/* <ModalHeader>Escalation Request Created Successfully</ModalHeader> */}
-                <ModalBody>
-                    <Image src={SuccessGif} alt='success' />
-                    {/* <p>hiiiiiiiiii</p> */}
-                </ModalBody>
-                <ModalFooter>
-                    <button
-                        className="main-btn"
-                        onClick={() => {
-                            setOpenSubmodal(false);
-                        }}
-                    >
-                        Done
-                    </button>
-                </ModalFooter>
-            </Modal>
+            
         </>
     )
 }

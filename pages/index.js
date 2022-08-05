@@ -43,6 +43,14 @@ const Index = () => {
         }
         let response = await callApi(apiTest)
         tempArr.push(...response.data.data)
+        if (response.data.code == 201) {
+          let apiTest = {
+            method: 'post',
+            url: "ambulance/ambulance/getAllAmbulance"
+          }
+          let response = await callApi(apiTest)
+          tempArr.push(...response.data.data)
+        }
         console.log(tempArr, 'tempArrrrrrrrrrrr')
         setRamlingamData(tempArr)
       }

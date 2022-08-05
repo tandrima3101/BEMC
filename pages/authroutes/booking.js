@@ -16,9 +16,8 @@ import {
 import 'react-accessible-accordion/dist/fancy-example.css';
 import SeeAllReviewModal from "../../src/components/seeallreviewModal";
 import PreLoader from "../../src/components/PreLoader";
-
+import moment from "moment";
 const Booking = () => {
-
   const [video, setVideo] = useState(false);
   const [activeModalThree, setActiveModalThree] = useState(false);
   const [activeModalReview, setActiveModalReview] = useState(false);
@@ -28,10 +27,12 @@ const Booking = () => {
   const [townhallData, settownhallData] = useState(false)
   const [kalyanmandapList, setKalyanmandapList] = useState([])
   const [kalyanmandapData, setKalyanmandapData] = useState(false)
+  const [ambulanceList, setAmbulanceList] = useState([])
+  const [ambulanceData, setAmbulanceData] = useState(false)
   const [eventId, setEventId] = useState(null)
   const [eventIdForList, setEventIdForList] = useState(null)
-  const [eventIdForGrievance,setEventIdForGrievance] = useState(null)
-  const [parentEventIdForGrievance,setParentEventIdForGrievance] = useState(null)
+  const [eventIdForGrievance, setEventIdForGrievance] = useState(null)
+  const [parentEventIdForGrievance, setParentEventIdForGrievance] = useState(null)
   const [reviewListModal, setReviewListModal] = useState(false)
   const [isLoaded, setIsLoaded] = useState(false)
   const [eventDepartment, setEventDepartment] = useState(null)
@@ -41,7 +42,7 @@ const Booking = () => {
   const [isReviewed, setIsReviewed] = useState(JSON.parse(reviewedItem))
   useEffect(() => {
 
-    if (ramlingamData && kalyanmandapData && townhallData) {
+    if (ramlingamData && kalyanmandapData && townhallData && ambulanceData) {
       setIsLoaded(true)
     }
 
@@ -87,11 +88,11 @@ const Booking = () => {
         )
         console.log(responseReview.data.data.length, 'lengthhhhhhhhhh')
         tempArr.push({ image: response.data.data?.banner.bannerImageUrl, eventId: response.data.data?.eventId, eventName: response.data.data?.eventName, rating: Math.round(avgReview / responseReview.data.data.length) })
+        console.log(tempArr, 'temppppp')
       }
       setRamlingamData(tempArr)
     }
   }
-  console.log(ramlingamBookingList,'ramlingam')
   const getTownhallBookingRequest = async () => {
     let getBookingData = {
       method: 'post',
@@ -168,15 +169,49 @@ const Booking = () => {
       // setIsLoaded(true)
     }
   }
+  const getAmbulanceBookingRequest = async () => {
+    let getBookingData = {
+      method: 'post',
+      url: "ambulance/ambulance/getAllBookingRequest",
+      data: {
+        departmentName: "ambulance"
+      }
+    }
+    let response = await callApi(getBookingData)
+    if (response.status === 200) {
+      console.log('ambulance')
+      setAmbulanceList(response.data.data)
+      let getAmbulanceData = {
+        method: 'post',
+        url: "ambulance/ambulance/getAllAmbulance",
+      }
+      let responseAmbulance = await callApi(getAmbulanceData)
+      console.log(responseAmbulance.data.data[0].banner.bannerImageUrl, 'ambulance')
+      setAmbulanceData({ image: responseAmbulance.data.data[0].banner.bannerImageUrl, event: 'ambulance', eventName: responseAmbulance.data.data[0].ambulanceName })
+    }
+  }
   const activeModalFunctionThree = (data) => {
     setActiveModalThree(data);
   }
+
+  var current = new Date()
+  console.log(current, 'current')
   useEffect(() => {
     getRamlingamBookingRequest()
     getTownhallBookingRequest()
     getKalyanmandapBookingRequest()
-  }, [])
+    getAmbulanceBookingRequest()
 
+  }, [])
+  useEffect(() => {
+    console.log(ambulanceList, '222222')
+  }, [ambulanceList])
+
+  const formatDate = (value) => {
+    return moment(value).format('DD-MMM-YYYY'); // store localTime
+    console.log(new Date(localTime), 'valueeee')
+    // return localTime
+  }
   return (
     (!isLoaded) ?
       <PreLoader /> :
@@ -210,7 +245,7 @@ const Booking = () => {
                                     </div>
                                     <div className="col-lg-8 pl-0">
                                       <div className="ticket-details">
-                                        <h4>{bookings?.booking?.eventName}</h4>
+                                        <h4>{ramlingamData[index]?.eventName}</h4>
                                         <p className="m-0">{bookings?.ticketSource} BOOKING</p>
                                         <p className="m-0">
                                           <i className="ti-time mr-2"></i>
@@ -278,20 +313,20 @@ const Booking = () => {
                                 <h6 className='ml-2 mb-0' style={{ color: '#fff', letterSpacing: '1px' }}>Reviewed</h6>
                               </span>
                             </div> : <div className="review-link mt-2">
-                              <button onClick={() => { setActiveModalReview(!activeModalReview), setEventId(ramlingamData[index].eventId),setEventDepartment('ramlingamPark') }}>Give a small review</button>
+                              <button onClick={() => { setActiveModalReview(!activeModalReview), setEventId(ramlingamData[index].eventId), setEventDepartment('ramlingamPark') }}>Give a small review</button>
                             </div> : <div className="review-link mt-2">
-                              <button style={{ backgroundColor: 'transparent' }} onClick={() => { setActiveModalReview(!activeModalReview), setEventId(ramlingamData[index].eventId),setEventDepartment('ramlingamPark') }}>Give a small review</button>
+                              <button style={{ backgroundColor: 'transparent' }} onClick={() => { setActiveModalReview(!activeModalReview), setEventId(ramlingamData[index].eventId), setEventDepartment('ramlingamPark') }}>Give a small review</button>
                             </div>}
                             <div className="review-link mt-2">
                               <button style={{ backgroundColor: 'transparent' }} onClick={() => { setReviewListModal(!reviewListModal), setEventIdForList(ramlingamData[index].eventId) }}>See all Reviews</button>
                             </div>
 
                             <div className="review-link mt-2">
-                              <button style={{ backgroundColor: 'transparent' }} onClick={()=>{setActiveModalThree(!activeModalThree),setEventIdForGrievance(bookings.bookingRequestId),setParentEventIdForGrievance(bookings._id)}}>Having issue with this ticket?</button>
+                              <button style={{ backgroundColor: 'transparent' }} onClick={() => { setActiveModalThree(!activeModalThree), setEventIdForGrievance(bookings.bookingRequestId), setParentEventIdForGrievance(bookings._id) }}>Having issue with this ticket?</button>
                             </div>
 
                           </div>
-                          <GiveReviewModal activeReview={activeModalReview} eventId={eventId} closeReviewMOdal={closeReviewMOdal} department={eventDepartment}/>
+                          <GiveReviewModal activeReview={activeModalReview} eventId={eventId} closeReviewMOdal={closeReviewMOdal} department={eventDepartment} />
                           <SeeAllReviewModal activeReview={reviewListModal} eventId={eventIdForList} closeReviewMOdal={closeReviewListMOdal} />
                         </div>
                       );
@@ -322,7 +357,7 @@ const Booking = () => {
                                     </div>
                                     <div className="col-lg-8 pl-0">
                                       <div className="ticket-details">
-                                        <h4>{bookings?.booking?.eventName}</h4>
+                                        <h4>{townhallData[index]?.eventName}</h4>
                                         <p className="m-0">{bookings.ticketSource} BOOKING</p>
                                         <p className="m-0">
                                           <i className="ti-time mr-2"></i>
@@ -389,16 +424,16 @@ const Booking = () => {
                                 <h6 className='ml-2 mb-0' style={{ color: '#fff', letterSpacing: '1px' }}>Reviewed</h6>
                               </span>
                             </div> : <div className="review-link mt-2">
-                              <button style={{ backgroundColor: 'transparent' }} onClick={() => { setActiveModalReview(!activeModalReview), setEventId(townhallData[index].eventId),setEventDepartment('townhall') }}>Give a small review</button>
+                              <button style={{ backgroundColor: 'transparent' }} onClick={() => { setActiveModalReview(!activeModalReview), setEventId(townhallData[index].eventId), setEventDepartment('townhall') }}>Give a small review</button>
                             </div> : <div className="review-link mt-2">
-                              <button style={{ backgroundColor: 'transparent' }} onClick={() => { setActiveModalReview(!activeModalReview), setEventId(townhallData[index].eventId),setEventDepartment('townhall') }}>Give a small review</button>
+                              <button style={{ backgroundColor: 'transparent' }} onClick={() => { setActiveModalReview(!activeModalReview), setEventId(townhallData[index].eventId), setEventDepartment('townhall') }}>Give a small review</button>
                             </div>}
                             <div className="review-link mt-2">
                               <button style={{ backgroundColor: 'transparent' }} onClick={() => { setReviewListModal(!reviewListModal), setEventIdForList(townhallData[index].eventId) }}>See all Reviews</button>
                             </div>
 
                             <div className="review-link mt-2">
-                              <button style={{ backgroundColor: 'transparent' }} onClick={()=>{setActiveModalThree(!activeModalThree),setEventIdForGrievance(bookings.bookingRequestId),setParentEventIdForGrievance(bookings._id)}}>Having issue with this ticket?</button>
+                              <button style={{ backgroundColor: 'transparent' }} onClick={() => { setActiveModalThree(!activeModalThree), setEventIdForGrievance(bookings.bookingRequestId), setParentEventIdForGrievance(bookings._id) }}>Having issue with this ticket?</button>
                             </div>
 
                           </div>
@@ -431,7 +466,7 @@ const Booking = () => {
                                     </div>
                                     <div className="col-lg-8 pl-0">
                                       <div className="ticket-details">
-                                        <h4>{bookings?.booking?.eventName}</h4>
+                                        <h4>{kalyanmandapData[index]?.eventName}</h4>
                                         <p className="m-0">{bookings.ticketSource} BOOKING</p>
                                         <p className="m-0">
                                           <i className="ti-time mr-2"></i>
@@ -498,20 +533,129 @@ const Booking = () => {
                                 <h6 className='ml-2 mb-0' style={{ color: '#fff', letterSpacing: '1px' }}>Reviewed</h6>
                               </span>
                             </div> : <div className="review-link mt-2">
-                              <button style={{ backgroundColor: 'transparent' }} onClick={() => { setActiveModalReview(!activeModalReview), setEventId(kalyanmandapData[index].eventId),setEventDepartment('kalyanMandap') }}>Give a small review</button>
+                              <button style={{ backgroundColor: 'transparent' }} onClick={() => { setActiveModalReview(!activeModalReview), setEventId(kalyanmandapData[index].eventId), setEventDepartment('kalyanMandap') }}>Give a small review</button>
                             </div> : <div className="review-link mt-2">
-                              <button style={{ backgroundColor: 'transparent' }} onClick={() => { setActiveModalReview(!activeModalReview), setEventId(kalyanmandapData[index].eventId),setEventDepartment('kalyanMandap') }}>Give a small review</button>
+                              <button style={{ backgroundColor: 'transparent' }} onClick={() => { setActiveModalReview(!activeModalReview), setEventId(kalyanmandapData[index].eventId), setEventDepartment('kalyanMandap') }}>Give a small review</button>
                             </div>}
                             <div className="review-link mt-2">
                               <button style={{ backgroundColor: 'transparent' }} onClick={() => { setReviewListModal(!reviewListModal), setEventIdForList(kalyanmandapData[index].eventId) }}>See all Reviews</button>
                             </div>
 
                             <div className="review-link mt-2">
-                              <button style={{ backgroundColor: 'transparent' }} onClick={()=>{setActiveModalThree(!activeModalThree),setEventIdForGrievance(bookings.bookingRequestId),setParentEventIdForGrievance(bookings._id)}}>Having issue with this ticket?</button>
+                              <button style={{ backgroundColor: 'transparent' }} onClick={() => { setActiveModalThree(!activeModalThree), setEventIdForGrievance(bookings.bookingRequestId), setParentEventIdForGrievance(bookings._id) }}>Having issue with this ticket?</button>
                             </div>
 
                           </div>
-                          <TicketIssueModal activeThree={activeModalFunctionThree} activeModal={activeModalThree} eventId={eventIdForGrievance} parentEventId={parentEventIdForGrievance}/>
+                          <TicketIssueModal activeThree={activeModalFunctionThree} activeModal={activeModalThree} eventId={eventIdForGrievance} parentEventId={parentEventIdForGrievance} />
+                        </div>
+                      );
+                    })}
+                  </AccordionItemPanel>
+                </AccordionItem>
+                <AccordionItem uuid="ambulance">
+                  <AccordionItemHeading>
+                    <AccordionItemButton>
+                      <h5 className="mb-0 ml-3">Ambulance</h5>
+                    </AccordionItemButton>
+                  </AccordionItemHeading>
+                  <AccordionItemPanel>
+                    {ambulanceList?.map((bookings, index) => {
+                      return (
+                        <div className="row" key={index}>
+                          <div className="col-lg-9 pr-4" key={bookings.bookingId}>
+                            <div className="booking-card p-3">
+                              <div className="row">
+                                <div className="col-lg-8">
+                                  <div className="row booking-card-left">
+                                    <div className="col-lg-4 d-flex justify-content-center">
+                                      <img
+                                        src={ambulanceData?.image}
+                                        alt="bookedshow"
+                                        className="bookingImage"
+                                      />
+                                    </div>
+                                    <div className="col-lg-8 pl-0">
+                                      <div className="ticket-details">
+                                        <h4>{ambulanceData?.eventName}</h4>
+                                        <p className="m-0">{bookings.ticketSource} BOOKING</p>
+                                        <p className="m-0">
+                                          <i className="ti-time mr-2"></i>
+                                          {bookings?.time}
+                                        </p>
+                                        <p className="m-0 mb-2">
+                                          <i className="ti-calendar mr-2"></i>
+                                          {formatDate(bookings.date)}
+                                        </p>
+                                        {(bookings.adultNum || bookings?.childNum) && <h6>
+                                          <i className="ti-ticket mr-2"></i>
+                                          <b>Journey Description :</b>
+                                          <span>{bookings.from} to {bookings.to}</span>
+                                        </h6>}
+                                        <h6>
+                                          <i className="ti-ticket mr-2"></i>
+                                          selected Scheme :
+                                          <span><b>{bookings?.selectedScheme}</b> </span>
+                                        </h6>
+                                        {/* <div className="row d-flex justify-content-between">
+                                          <span className="p-0">Ticket Price</span>
+                                          <span className="p-0">
+                                            Rs. {bookings?.account?.netAmount}
+                                          </span>
+                                        </div>
+                                        <div className="row d-flex justify-content-between">
+                                          <span className="p-0">Convenience Price</span>
+                                          <span className="p-0">
+                                            Rs. {bookings?.account?.amount}
+                                          </span>
+                                        </div> */}
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <hr className="booking-card-left" />
+                                  {/* <div
+                                    className="d-flex justify-content-between"
+                                    style={{ padding: "20px 0px 0px 30px" }}
+                                  >
+                                    <h5>
+                                      <b>Total Price</b>
+                                    </h5>
+                                    <span>
+                                      <b>Rs. {bookings?.account?.amount}</b>
+                                    </span>
+                                  </div> */}
+                                </div>
+                                <div className="col-lg-4 qr-section">
+                                  <img src={bookings?.qrUrl} />
+                                  <hr />
+                                  <h5 className="text-center">
+                                    <b>{bookings?.bookingRequestId}</b>
+                                  </h5>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="col-lg-3 d-flex flex-column justify-content-center">
+                            <Ratings size='50' align='center' rating={ambulanceData?.rating} canHover={false} />
+                            {isReviewed ? isReviewed.includes(ambulanceData?.event) ? <div className="d-flex justify-content-center mt-2">
+                              <span className="d-flex align-item-center main-btn btn-success">
+                                <i className="ti-check" style={{ fontSize: '15px' }}></i>
+                                <h6 className='ml-2 mb-0' style={{ color: '#fff', letterSpacing: '1px' }}>Reviewed</h6>
+                              </span>
+                            </div> : <div className="review-link mt-2">
+                              <button style={{ backgroundColor: 'transparent' }} onClick={() => { setActiveModalReview(!activeModalReview), setEventId(kalyanmandapData[index].eventId), setEventDepartment('kalyanMandap') }}>Give a small review</button>
+                            </div> : <div className="review-link mt-2">
+                              <button style={{ backgroundColor: 'transparent' }} onClick={() => { setActiveModalReview(!activeModalReview), setEventId(kalyanmandapData[index].eventId), setEventDepartment('kalyanMandap') }}>Give a small review</button>
+                            </div>}
+                            <div className="review-link mt-2">
+                              <button style={{ backgroundColor: 'transparent' }} onClick={() => { setReviewListModal(!reviewListModal), setEventIdForList(kalyanmandapData[index].eventId) }}>See all Reviews</button>
+                            </div>
+
+                            <div className="review-link mt-2">
+                              <button style={{ backgroundColor: 'transparent' }} onClick={() => { setActiveModalThree(!activeModalThree), setEventIdForGrievance(bookings.bookingRequestId), setParentEventIdForGrievance(bookings._id) }}>Having issue with this ticket?</button>
+                            </div>
+
+                          </div>
+                          <TicketIssueModal activeThree={activeModalFunctionThree} activeModal={activeModalThree} eventId={eventIdForGrievance} parentEventId={parentEventIdForGrievance} />
                         </div>
                       );
                     })}
