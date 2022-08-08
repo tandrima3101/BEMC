@@ -9,7 +9,7 @@ import {
   ModalBody,
   ModalFooter,
 } from "reactstrap";
-
+import OtpInput from 'react-otp-input';
 import { generateOTP } from "../utils";
 import { useDispatch, useSelector } from 'react-redux'
 import { setlogin, setToken, setUserId } from "../../redux/slices/loginSlice";
@@ -21,11 +21,11 @@ function LoginFormModal({ activeLogin, toggle }) {
   const [containerLogin, setContainerLogin] = useState(activeLogin);
   const [containerSignUp, setContainerSignUp] = useState(false);
   const [submodalLogin, setSubmodalLogin] = useState(false);
-
+  const [otpTest, setOtpTest] = useState()
   const dispatch = useDispatch()
   //state for storing form data
   const [signUpData, setSignUpData] = useState({})
-  const [enteredOtp, setEnteredOtp] = useState()
+  const [enteredOtp, setEnteredOtp] = useState({ otp: '' })
 
 
   //state for useForm
@@ -51,19 +51,19 @@ function LoginFormModal({ activeLogin, toggle }) {
 
   const onSubmit = (logindata) => {
     generateOTP(logindata),
-    setSubmodalLogin(true),
-    setContainerLogin(false)
+      setSubmodalLogin(true),
+      setContainerLogin(false)
     toggle(false)
   }
-console.log(errors3)
-  
+  console.log(errors3)
+
   // function fr signup
 
-  const onRegistration =  (signUpData) => {
+  const onRegistration = (signUpData) => {
 
     generateOTP(signUpData),
-    setSubmodalLogin(true),
-    setContainerSignUp(false)
+      setSubmodalLogin(true),
+      setContainerSignUp(false)
   }
   const [otpLoader, setOtpLoader] = useState()
 
@@ -86,11 +86,11 @@ console.log(errors3)
       dispatch(setlogin(true))
       dispatch(setToken(JSON.stringify(response.data.data.token)))
       dispatch(setUserId(JSON.stringify(response.data.data.userData._id)))
-      localStorage.setItem('userData',JSON.stringify(response.data.data.userData))
+      localStorage.setItem('userData', JSON.stringify(response.data.data.userData))
       setOtpLoader(false)
       Router.push("#")
       setSubmodalLogin(false),
-      setContainerSignUp(false)
+        setContainerSignUp(false)
     }
   }
 
@@ -99,23 +99,34 @@ console.log(errors3)
     setContainerLogin(activeLogin);
   }, [activeLogin])
 
+  console.log(otpTest, 'otpTest')
   return (
     <>
       {/* Modal for login */}
 
       <Modal
         isOpen={activeLogin}
-        toggle={() => {setContainerLogin(!containerLogin),toggle(!containerLogin)}}
+        toggle={() => { setContainerLogin(!containerLogin), toggle(!containerLogin) }}
       >
-        <ModalHeader style={{background:'#3bacb6'}}>
-          <ModalTitle style={{color:'#fff'}}>Login Form</ModalTitle>
+        <ModalHeader style={{ background: '#3bacb6' }}>
+          <ModalTitle style={{ color: '#fff' }}>Login Form</ModalTitle>
         </ModalHeader>
         <ModalBody>
           <div className="row">
             <div className="col-lg-12 col-md-6 mt-2">
-              <label style={{fontSize:'17px'}}>Enter Phone Number<span className="text-danger"><b>*</b></span></label>
+              <label>Enter OTP</label>
+              <div>
+                <OtpInput
+                  inputStyle={width='100%'}
+                  value={enteredOtp}
+                  onChange={otp => console.log(otp)}
+                  numInputs={6}
+                  separator={<span> </span>}
+                />
+              </div>
+              <label style={{ fontSize: '17px' }}>Enter Phone Number<span className="text-danger"><b>*</b></span></label>
               <input className="otpinput mt-3 ml-0"{...register1("phoneNumber", {
-                required: true, maxLength: 10, minLength: 10,pattern: {
+                required: true, maxLength: 10, minLength: 10, pattern: {
                   value: /^[789]\d{9}$/,
                   message: "Invalid Phone Number"
                 }
@@ -138,7 +149,7 @@ console.log(errors3)
           </button>
           <button
             className="main-btn"
-            onClick={() => {setContainerLogin(!containerLogin),toggle(!containerLogin)}}
+            onClick={() => { setContainerLogin(!containerLogin), toggle(!containerLogin) }}
           >
             Cancel
           </button>
@@ -148,11 +159,11 @@ console.log(errors3)
 
       {/* otp modal */}
 
-      <Modal isOpen={submodalLogin} toggle={()=>setSubmodalLogin(!submodalLogin)}>
-      <ModalHeader style={{background:'#3bacb6'}}>
-          <ModalTitle style={{color:'#fff'}}>Enter OTP</ModalTitle>
+      <Modal isOpen={submodalLogin} toggle={() => setSubmodalLogin(!submodalLogin)}>
+        <ModalHeader style={{ background: '#3bacb6' }}>
+          <ModalTitle style={{ color: '#fff' }}>Enter OTP</ModalTitle>
         </ModalHeader>
-                <ModalBody style={{ display: "flex", flexDirection: "row" }}>
+        <ModalBody style={{ display: "flex", flexDirection: "row" }}>
           <input className="otpinput mt-3 ml-0" {...register2("otp", {
             required: true, maxLength: 6, minLength: 6
           })} onChange={(e) => { setEnteredOtp({ ...enteredOtp, otp: e.target.value }) }} />
@@ -162,7 +173,7 @@ console.log(errors3)
           <button
             className="main-btn"
             onClick={() => {
-              setSubmodalLogin(false), setContainerLogin(true),toggle(true);
+              setSubmodalLogin(false), setContainerLogin(true), toggle(true);
             }}
           >
             Change Number
@@ -193,8 +204,8 @@ console.log(errors3)
         isOpen={containerSignUp}
         toggle={() => setContainerSignUp(!containerSignUp)}
       >
-        <ModalHeader style={{background:'#3bacb6'}}>
-          <ModalTitle style={{color:'#fff'}}>Signup Form</ModalTitle>
+        <ModalHeader style={{ background: '#3bacb6' }}>
+          <ModalTitle style={{ color: '#fff' }}>Signup Form</ModalTitle>
         </ModalHeader>
         <ModalBody></ModalBody>
         <ModalBody>
@@ -210,7 +221,7 @@ console.log(errors3)
             <div className="col-lg-12 col-md-6 mt-2">
               <label>Enter Phone Number</label>
               <input type="number" className="otpinput m-0"{...register3("phoneNumber", {
-                required: true, maxLength: 10, minLength: 10,pattern: {
+                required: true, maxLength: 10, minLength: 10, pattern: {
                   value: /^[789]\d{9}$/,
                   message: "Invalid Phone Number"
                 }
@@ -222,11 +233,11 @@ console.log(errors3)
             <div className="col-lg-12 col-md-6 mt-2">
               <label>Enter Email</label>
               <input type="text1" className="otpinput m-0"{...register3("email", {
-                required: true,pattern: {
+                required: true, pattern: {
                   value: /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
                   message: "Invalid email address"
                 }
-                
+
               })}
                 onChange={(e) => { setSignUpData({ ...signUpData, email: e.target.value }) }} />
             </div>
@@ -248,7 +259,7 @@ console.log(errors3)
             // onClick={(e)=>{e.preventDefault(); handleSubmit3(onRegistrationSubmit())}}
             onClick={handleSubmit3(onRegistration)}
           >
-           SEND OTP
+            SEND OTP
           </button>
 
           <button

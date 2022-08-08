@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Link from "next/link";
 import Layout from "../../src/layouts/Layout";
 import VideoPopup from "../../src/components/VideoPopup";
 import Ratings from '../../src/components/ratings'
@@ -44,12 +43,11 @@ const Booking = () => {
   const reviewedItem = localStorage.getItem("reviewedItem")
   const [isReviewed, setIsReviewed] = useState(JSON.parse(reviewedItem))
   useEffect(() => {
-
     if (ramlingamData && kalyanmandapData && townhallData && ambulanceData) {
       setIsLoaded(true)
     }
-
   }, [ramlingamData, townhallData, kalyanmandapData])
+
 
   const closeReviewMOdal = (data) => {
     setActiveModalReview(data)
