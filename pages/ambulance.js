@@ -10,8 +10,6 @@ import { callApi } from "../src/apiHandlers/callApi";
 import ShowsList from "../src/components/showsList";
 import PreLoader from "../src/components/PreLoader";
 
-
-
 const Ambulance = () => {
   const [video, setVideo] = useState(false);
   const [ambulanceData, setAmbulanceData] = useState()
@@ -62,7 +60,6 @@ for (let i = 0; i < ambulanceData?.length; i++) {
   const photoGallery = [];
   for (let i = 0; i < ambulanceData?.length; i++) {
     photoGallery.push(...(ambulanceData[i].photoGallery))
-    // console.log()
   }
   const videoLink = [
     { link: "https://www.youtube.com/embed/JHlY8w69wSE" }

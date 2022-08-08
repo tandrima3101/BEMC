@@ -20,7 +20,7 @@ function FormModal({ active, activeTwo, data, adultPrice, childPrice, pageOf, pr
   const [enteredOtp, setEnteredOtp] = useState(null)
   const [reqAmbulanceModal, setReqAmbulanceModal] = useState(false)
   let department = activeFormModal
-  console.log(islogin, 'islogin')
+  // console.log(islogin, 'islogin')
   // for main modal
   const [containerOne, setContainerOne] = useState(active);
   const [containerTwo, setContainerTwo] = useState(activeTwo);
@@ -33,7 +33,7 @@ function FormModal({ active, activeTwo, data, adultPrice, childPrice, pageOf, pr
   const [otpSender, setOtpSender] = useState(false)
   const userData = (JSON.parse(localStorage.getItem('userData')))
   const islogin = useSelector((state) => state.login.isLogin)
-  console.log(userData, 'userData formModal')
+  // console.log(userData, 'userData formModal')
   //for button loader
   const [otpLoader, setOtpLoader] = useState()
 
@@ -101,6 +101,8 @@ function FormModal({ active, activeTwo, data, adultPrice, childPrice, pageOf, pr
     url = "townhall/bookingRequest/createBookingRequest"
   } else if (activeFormModal == "ambulance") {
     url = "ambulance/ambulance/createBookingRequest"
+  } else {
+    url = "harse/harse/createBookingRequest"
   }
   const createBookingRequest = async () => {
     console.log(totalData)
@@ -117,7 +119,7 @@ function FormModal({ active, activeTwo, data, adultPrice, childPrice, pageOf, pr
       }
     }
   }
-  console.log(bookingDetails,'booooooooooooooooooooooookkkkkkkkkkkkkkkkkkkkkkkiiiiiiiiiiiiiiiiiiiiiiiiinnnnnnnnnnnnnnnnnngggggggggggggggggg')
+  // console.log(bookingDetails,'booooooooooooooooooooooookkkkkkkkkkkkkkkkkkkkkkkiiiiiiiiiiiiiiiiiiiiiiiiinnnnnnnnnnnnnnnnnngggggggggggggggggg')
   useEffect(() => {
     setContainerOne(active)
     setContainerTwo(activeTwo)
@@ -127,8 +129,7 @@ function FormModal({ active, activeTwo, data, adultPrice, childPrice, pageOf, pr
       setTotalData(data)
     }
   }, [activeTwo, active])
-
-  console.log(totalData, 'totaaaaaaaaaaaaaaaaaaaaaaaallllllllllllllllllllllllllllllllll')
+  // console.log(totalData, 'totaaaaaaaaaaaaaaaaaaaaaaaallllllllllllllllllllllllllllllllll')
   useEffect(() => {
     createBookingRequest()
     console.log(otpValidator, 'validatorrrrrrrrrrrr')
@@ -143,7 +144,7 @@ function FormModal({ active, activeTwo, data, adultPrice, childPrice, pageOf, pr
       }
     }
   }, [bookingDetails])
-  console.log(activeFormModal, 'activeFormmmmmmmmmm')
+  // console.log(activeFormModal, 'activeFormmmmmmmmmm')
   useEffect(() => {
     console.log(adultPrice, childPrice, 'priceeeeee adult child')
     console.log(totalData, 'total data')
@@ -268,7 +269,6 @@ function FormModal({ active, activeTwo, data, adultPrice, childPrice, pageOf, pr
         </ModalFooter>
       </Modal>
 
-
       {/* MOdal 1 for all except ramlingam park */}
       <Modal
         isOpen={containerTwo}
@@ -326,7 +326,6 @@ function FormModal({ active, activeTwo, data, adultPrice, childPrice, pageOf, pr
         </ModalFooter>
       </Modal>
 
-
       {/* submodal for All */}
       <Modal isOpen={submodalOne} toggle={() => { setSubmodalOne(false), toggle(false) }}>
         <ModalHeader style={{ background: '#3bacb6' }}>
@@ -356,11 +355,8 @@ function FormModal({ active, activeTwo, data, adultPrice, childPrice, pageOf, pr
         </ModalFooter>
       </Modal>
 
-
-
       {/* submodal for Ambulance Booking */}
-      <AmbulanceRequestModal activeAmbulanceModal={reqAmbulanceModal}  toggle={()=>ambulanceModalToggle()}/>
-
+      <AmbulanceRequestModal activeAmbulanceModal={reqAmbulanceModal} toggle={() => ambulanceModalToggle()} />
     </>
   );
 }

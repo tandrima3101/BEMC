@@ -30,6 +30,8 @@ const Booking = () => {
   const [kalyanmandapData, setKalyanmandapData] = useState(false)
   const [ambulanceList, setAmbulanceList] = useState([])
   const [ambulanceData, setAmbulanceData] = useState(false)
+  const [hearseList, setHearseList] = useState([])
+  const [hearseData, setHearseData] = useState(false)
   const [eventId, setEventId] = useState(null)
   const [eventIdForList, setEventIdForList] = useState(null)
   const [eventIdForGrievance, setEventIdForGrievance] = useState(null)
@@ -191,6 +193,27 @@ const Booking = () => {
       setAmbulanceData({ image: responseAmbulance.data.data[0].banner.bannerImageUrl, event: 'ambulance', eventName: responseAmbulance.data.data[0].ambulanceName })
     }
   }
+  const getHearseBookingRequest = async () => {
+    let getBookingData = {
+      method: 'post',
+      url: "harse/harse/getAllBookingRequest",
+      data: {
+        departmentName: "harse"
+      }
+    }
+    let response = await callApi(getBookingData)
+    if (response.status === 200) {
+      console.log('ambulance')
+      setHearseList(response.data.data)
+      let getHearseData = {
+        method: 'post',
+        url: "harse/harse/getAllHarse",
+      }
+      let responseAmbulance = await callApi(getHearseData)
+      // console.log(responseAmbulance.data.data[0].banner.bannerImageUrl, 'ambulance')
+      setHearseData({ image: responseAmbulance.data.data[0]?.banner?.bannerImageUrl, event: 'hearse', eventName: responseAmbulance.data.data[0]?.harseName })
+    }
+  }
   const activeModalFunctionThree = (data) => {
     setActiveModalThree(data);
   }
@@ -202,7 +225,7 @@ const Booking = () => {
     getTownhallBookingRequest()
     getKalyanmandapBookingRequest()
     getAmbulanceBookingRequest()
-
+    getHearseBookingRequest()
   }, [])
   useEffect(() => {
     console.log(ambulanceList, '222222')
@@ -215,9 +238,9 @@ const Booking = () => {
     let ambulanceData = {
       idBookingRequest: data?.booking?.bookingRequest,
       idBooking: data?.booking?._id,
-      department:'ambulance'
+      department: 'ambulance'
     }
-    setRoutingData(ambulanceData, "../payment") 
+    setRoutingData(ambulanceData, "../payment")
     console.log(ambulanceData, 'ambulanceData')
   }
   return (
@@ -229,466 +252,611 @@ const Booking = () => {
           <div className="row">
             <div className="col-lg-10 pr-4 mx-auto">
               <Accordion preExpanded={['ramlingamPark']} allowZeroExpanded>
-                <AccordionItem uuid="ramlingamPark">
-                  <AccordionItemHeading>
-                    <AccordionItemButton>
-                      <h5 className="mb-0 ml-3">Ramlingam Park</h5>
-                    </AccordionItemButton>
-                  </AccordionItemHeading>
-                  <AccordionItemPanel>
-                    {ramlingamBookingList.map((bookings, index) => {
-                      return (
-                        <div className="row" key={ramlingamData.eventId}>
-                          <div className="col-lg-9 pr-4" key={bookings.bookingId}>
-                            <div className="booking-card p-3">
-                              <div className="row">
-                                <div className="col-lg-8">
-                                  <div className="row booking-card-left">
-                                    <div className="col-lg-4 d-flex justify-content-center">
-                                      <img
-                                        src={ramlingamData[index]?.image}
-                                        alt="bookedshow"
-                                        className="bookingImage"
-                                      />
-                                    </div>
-                                    <div className="col-lg-8 pl-0">
-                                      <div className="ticket-details">
-                                        <h4>{ramlingamData[index]?.eventName}</h4>
-                                        <p className="m-0">{bookings?.ticketSource} BOOKING</p>
-                                        <p className="m-0">
-                                          <i className="ti-time mr-2"></i>
-                                          {bookings?.selectedTime}
-                                        </p>
-                                        <p className="m-0 mb-2">
-                                          <i className="ti-calendar mr-2"></i>
-                                          {bookings?.selectedDate}
-                                        </p>
-                                        {(bookings?.adultNum || bookings?.childNum) && <h6>
-                                          <i className="ti-ticket mr-2"></i>
-                                          <b>Number of Tickets :</b>
-                                          <span>{bookings?.adultNum} Adults & {bookings?.childNum} Child</span>
-                                        </h6>}
-                                        <h6>
-                                          <i className="ti-ticket mr-2"></i>
-                                          <b>Seat Category :</b>
-                                          <span>{bookings?.selectedSeatCategory} </span>
-                                        </h6>
-                                        <div className="row d-flex justify-content-between">
-                                          <span className="p-0">Ticket Price</span>
-                                          <span className="p-0">
-                                            Rs. {bookings?.account?.netAmount}
-                                          </span>
-                                        </div>
-                                        <div className="row d-flex justify-content-between">
-                                          <span className="p-0">Convenience Price</span>
-                                          <span className="p-0">
-                                            Rs. {bookings?.account?.amount}
-                                          </span>
+                {
+                  ramlingamBookingList.length > 0 && <AccordionItem uuid="ramlingamPark">
+                    <AccordionItemHeading>
+                      <AccordionItemButton>
+                        <h5 className="mb-0 ml-3">Ramlingam Park</h5>
+                      </AccordionItemButton>
+                    </AccordionItemHeading>
+                    <AccordionItemPanel>
+                      {ramlingamBookingList.map((bookings, index) => {
+                        return (
+                          <div className="row" key={ramlingamData.eventId}>
+                            <div className="col-lg-9 pr-4" key={bookings.bookingId}>
+                              <div className="booking-card p-3">
+                                <div className="row">
+                                  <div className="col-lg-8">
+                                    <div className="row booking-card-left">
+                                      <div className="col-lg-4 d-flex justify-content-center">
+                                        <img
+                                          src={ramlingamData[index]?.image}
+                                          alt="bookedshow"
+                                          className="bookingImage"
+                                        />
+                                      </div>
+                                      <div className="col-lg-8 pl-0">
+                                        <div className="ticket-details">
+                                          <h4>{ramlingamData[index]?.eventName}</h4>
+                                          <p className="m-0">{bookings?.ticketSource} BOOKING</p>
+                                          <p className="m-0">
+                                            <i className="ti-time mr-2"></i>
+                                            {bookings?.selectedTime}
+                                          </p>
+                                          <p className="m-0 mb-2">
+                                            <i className="ti-calendar mr-2"></i>
+                                            {bookings?.selectedDate}
+                                          </p>
+                                          {(bookings?.adultNum || bookings?.childNum) && <h6>
+                                            <i className="ti-ticket mr-2"></i>
+                                            <b>Number of Tickets :</b>
+                                            <span>{bookings?.adultNum} Adults & {bookings?.childNum} Child</span>
+                                          </h6>}
+                                          <h6>
+                                            <i className="ti-ticket mr-2"></i>
+                                            <b>Seat Category :</b>
+                                            <span>{bookings?.selectedSeatCategory} </span>
+                                          </h6>
+                                          <div className="row d-flex justify-content-between">
+                                            <span className="p-0">Ticket Price</span>
+                                            <span className="p-0">
+                                              Rs. {bookings?.account?.netAmount}
+                                            </span>
+                                          </div>
+                                          <div className="row d-flex justify-content-between">
+                                            <span className="p-0">Convenience Price</span>
+                                            <span className="p-0">
+                                              Rs. {bookings?.account?.amount}
+                                            </span>
+                                          </div>
                                         </div>
                                       </div>
                                     </div>
+                                    <hr className="booking-card-left" />
+                                    <div
+                                      className="d-flex justify-content-between"
+                                      style={{ padding: "20px 0px 0px 30px" }}
+                                    >
+                                      <h5>
+                                        <b>Total Price</b>
+                                      </h5>
+                                      <span>
+                                        <b>Rs. {bookings?.account?.amount + bookings?.account?.netAmount}</b>
+                                      </span>
+                                    </div>
                                   </div>
-                                  <hr className="booking-card-left" />
-                                  <div
-                                    className="d-flex justify-content-between"
-                                    style={{ padding: "20px 0px 0px 30px" }}
-                                  >
-                                    <h5>
-                                      <b>Total Price</b>
+                                  <div className="col-lg-4 qr-section">
+                                    <img src={bookings?.qrUrl} />
+                                    <hr />
+                                    <span>{bookings?.bankTransaction?.status}</span>
+                                    <h5 className="text-center">
+                                      <b>{bookings?.account?.bookingId}</b>
                                     </h5>
-                                    <span>
-                                      <b>Rs. {bookings?.account?.amount + bookings?.account?.netAmount}</b>
-                                    </span>
                                   </div>
-                                </div>
-                                <div className="col-lg-4 qr-section">
-                                  <img src={bookings?.qrUrl} />
-                                  <hr />
-                                  <span>{bookings?.bankTransaction?.status}</span>
-                                  <h5 className="text-center">
-                                    <b>{bookings?.account?.bookingId}</b>
-                                  </h5>
                                 </div>
                               </div>
                             </div>
-                          </div>
-                          <div className="col-lg-3 d-flex flex-column justify-content-center">
-                            <Ratings size='50' align='center' rating={ramlingamData[index]?.rating} canHover={false} />
-                            <p></p>
-                            {isReviewed ? isReviewed.includes(ramlingamData[index]?.eventId) ? <div className="d-flex justify-content-center mt-2">
-                              <span className="d-flex align-item-center main-btn btn-success">
-                                <i className="ti-check" style={{ fontSize: '15px' }}></i>
-                                <h6 className='ml-2 mb-0' style={{ color: '#fff', letterSpacing: '1px' }}>Reviewed</h6>
-                              </span>
-                            </div> : <div className="review-link mt-2">
-                              <button onClick={() => { setActiveModalReview(!activeModalReview), setEventId(ramlingamData[index].eventId), setEventDepartment('ramlingamPark') }}>Give a small review</button>
-                            </div> : <div className="review-link mt-2">
-                              <button style={{ backgroundColor: 'transparent' }} onClick={() => { setActiveModalReview(!activeModalReview), setEventId(ramlingamData[index].eventId), setEventDepartment('ramlingamPark') }}>Give a small review</button>
-                            </div>}
-                            <div className="review-link mt-2">
-                              <button style={{ backgroundColor: 'transparent' }} onClick={() => { setReviewListModal(!reviewListModal), setEventIdForList(ramlingamData[index].eventId) }}>See all Reviews</button>
-                            </div>
-
-                            <div className="review-link mt-2">
-                              <button style={{ backgroundColor: 'transparent' }} onClick={() => { setActiveModalThree(!activeModalThree), setEventIdForGrievance(bookings.bookingRequestId), setParentEventIdForGrievance(bookings._id) }}>Having issue with this ticket?</button>
-                            </div>
-
-                          </div>
-                          <GiveReviewModal activeReview={activeModalReview} eventId={eventId} closeReviewMOdal={closeReviewMOdal} department={eventDepartment} />
-                          <SeeAllReviewModal activeReview={reviewListModal} eventId={eventIdForList} closeReviewMOdal={closeReviewListMOdal} />
-                        </div>
-                      );
-                    })}
-                  </AccordionItemPanel>
-                </AccordionItem>
-                <AccordionItem uuid="townhall">
-                  <AccordionItemHeading>
-                    <AccordionItemButton>
-                      <h5 className="mb-0 ml-3">Townhall</h5>
-                    </AccordionItemButton>
-                  </AccordionItemHeading>
-                  <AccordionItemPanel>
-                    {townhallBookingList.map((bookings, index) => {
-                      return (
-                        <div className="row" key={index}>
-                          <div className="col-lg-9 pr-4" key={bookings.bookingId}>
-                            <div className="booking-card p-3">
-                              <div className="row">
-                                <div className="col-lg-8">
-                                  <div className="row booking-card-left">
-                                    <div className="col-lg-4 d-flex justify-content-center">
-                                      <img
-                                        src={townhallData[index]?.image}
-                                        alt="bookedshow"
-                                        className="bookingImage"
-                                      />
-                                    </div>
-                                    <div className="col-lg-8 pl-0">
-                                      <div className="ticket-details">
-                                        <h4>{townhallData[index]?.eventName}</h4>
-                                        <p className="m-0">{bookings.ticketSource} BOOKING</p>
-                                        <p className="m-0">
-                                          <i className="ti-time mr-2"></i>
-                                          {bookings?.selectedTime}
-                                        </p>
-                                        <p className="m-0 mb-2">
-                                          <i className="ti-calendar mr-2"></i>
-                                          {bookings?.selectedDate}
-                                        </p>
-                                        {(bookings?.adultNum || bookings?.childNum) && <h6>
-                                          <i className="ti-ticket mr-2"></i>
-                                          <b>Number of Tickets :</b>
-                                          <span>{bookings?.adultNum} Adults & {bookings?.childNum} Child</span>
-                                        </h6>}
-                                        <h6>
-                                          <i className="ti-ticket mr-2"></i>
-                                          Townhall :
-                                          <span><b>{townhallData[index]?.eventName} </b></span>
-                                        </h6>
-                                        <div className="row d-flex justify-content-between">
-                                          <span className="p-0">Ticket Price</span>
-                                          <span className="p-0">
-                                            Rs. {bookings?.account?.netAmount}
-                                          </span>
-                                        </div>
-                                        <div className="row d-flex justify-content-between">
-                                          <span className="p-0">Convenience Price</span>
-                                          <span className="p-0">
-                                            Rs. {bookings?.account?.amount}
-                                          </span>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <hr className="booking-card-left" />
-                                  <div
-                                    className="d-flex justify-content-between"
-                                    style={{ padding: "20px 0px 0px 30px" }}
-                                  >
-                                    <h5>
-                                      <b>Total Price</b>
-                                    </h5>
-                                    <span>
-                                      <b>Rs. {bookings?.account?.amount}</b>
-                                    </span>
-                                  </div>
-                                </div>
-                                <div className="col-lg-4 qr-section">
-                                  <img src={bookings?.qrUrl} />
-                                  <hr />
-                                  <span>{bookings?.bankTransaction?.status}</span>
-                                  <h5 className="text-center">
-                                    <b>{bookings?.account?.bookingId}</b>
-                                  </h5>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div className="col-lg-3 d-flex flex-column justify-content-center">
-                            <Ratings size='50' align='center' rating={townhallData[index]?.rating} canHover={false} />
-                            {isReviewed ? isReviewed.includes(townhallData[index].eventId) ? <div className="d-flex justify-content-center mt-2">
-                              <span className="d-flex align-item-center main-btn btn-success">
-                                <i className="ti-check" style={{ fontSize: '15px' }}></i>
-                                <h6 className='ml-2 mb-0' style={{ color: '#fff', letterSpacing: '1px' }}>Reviewed</h6>
-                              </span>
-                            </div> : <div className="review-link mt-2">
-                              <button style={{ backgroundColor: 'transparent' }} onClick={() => { setActiveModalReview(!activeModalReview), setEventId(townhallData[index].eventId), setEventDepartment('townhall') }}>Give a small review</button>
-                            </div> : <div className="review-link mt-2">
-                              <button style={{ backgroundColor: 'transparent' }} onClick={() => { setActiveModalReview(!activeModalReview), setEventId(townhallData[index].eventId), setEventDepartment('townhall') }}>Give a small review</button>
-                            </div>}
-                            <div className="review-link mt-2">
-                              <button style={{ backgroundColor: 'transparent' }} onClick={() => { setReviewListModal(!reviewListModal), setEventIdForList(townhallData[index].eventId) }}>See all Reviews</button>
-                            </div>
-
-                            <div className="review-link mt-2">
-                              <button style={{ backgroundColor: 'transparent' }} onClick={() => { setActiveModalThree(!activeModalThree), setEventIdForGrievance(bookings.bookingRequestId), setParentEventIdForGrievance(bookings._id) }}>Having issue with this ticket?</button>
-                            </div>
-
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </AccordionItemPanel>
-                </AccordionItem>
-                <AccordionItem uuid="kalyanMandap">
-                  <AccordionItemHeading>
-                    <AccordionItemButton>
-                      <h5 className="mb-0 ml-3">Kalyan Mandap</h5>
-                    </AccordionItemButton>
-                  </AccordionItemHeading>
-                  <AccordionItemPanel>
-                    {kalyanmandapList.map((bookings, index) => {
-                      return (
-                        <div className="row" key={index}>
-                          <div className="col-lg-9 pr-4" key={bookings.bookingId}>
-                            <div className="booking-card p-3">
-                              <div className="row">
-                                <div className="col-lg-8">
-                                  <div className="row booking-card-left">
-                                    <div className="col-lg-4 d-flex justify-content-center">
-                                      <img
-                                        src={kalyanmandapData[index]?.image}
-                                        alt="bookedshow"
-                                        className="bookingImage"
-                                      />
-                                    </div>
-                                    <div className="col-lg-8 pl-0">
-                                      <div className="ticket-details">
-                                        <h4>{kalyanmandapData[index]?.eventName}</h4>
-                                        <p className="m-0">{bookings.ticketSource} BOOKING</p>
-                                        <p className="m-0">
-                                          <i className="ti-time mr-2"></i>
-                                          {bookings?.selectedTime}
-                                        </p>
-                                        <p className="m-0 mb-2">
-                                          <i className="ti-calendar mr-2"></i>
-                                          {bookings?.selectedDate}
-                                        </p>
-                                        {(bookings.adultNum || bookings?.childNum) && <h6>
-                                          <i className="ti-ticket mr-2"></i>
-                                          <b>Number of Tickets :</b>
-                                          <span>{bookings?.adultNum} Adults & {bookings?.childNum} Child</span>
-                                        </h6>}
-                                        <h6>
-                                          <i className="ti-ticket mr-2"></i>
-                                          Kalyan Mandap :
-                                          <span><b>{bookings?.mandapName}</b> </span>
-                                        </h6>
-                                        <div className="row d-flex justify-content-between">
-                                          <span className="p-0">Ticket Price</span>
-                                          <span className="p-0">
-                                            Rs. {bookings?.account?.netAmount}
-                                          </span>
-                                        </div>
-                                        <div className="row d-flex justify-content-between">
-                                          <span className="p-0">Convenience Price</span>
-                                          <span className="p-0">
-                                            Rs. {bookings?.account?.amount}
-                                          </span>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <hr className="booking-card-left" />
-                                  <div
-                                    className="d-flex justify-content-between"
-                                    style={{ padding: "20px 0px 0px 30px" }}
-                                  >
-                                    <h5>
-                                      <b>Total Price</b>
-                                    </h5>
-                                    <span>
-                                      <b>Rs. {bookings?.account?.amount}</b>
-                                    </span>
-                                  </div>
-                                </div>
-                                <div className="col-lg-4 qr-section">
-                                  <img src={bookings?.qrUrl} />
-                                  <hr />
-                                  <span>{bookings?.bankTransaction?.status}</span>
-                                  <h5 className="text-center">
-                                    <b>{bookings?.account?.bookingId}</b>
-                                  </h5>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div className="col-lg-3 d-flex flex-column justify-content-center">
-                            <Ratings size='50' align='center' rating={kalyanmandapData[index]?.rating} canHover={false} />
-                            {isReviewed ? isReviewed.includes(kalyanmandapData[index].eventId) ? <div className="d-flex justify-content-center mt-2">
-                              <span className="d-flex align-item-center main-btn btn-success">
-                                <i className="ti-check" style={{ fontSize: '15px' }}></i>
-                                <h6 className='ml-2 mb-0' style={{ color: '#fff', letterSpacing: '1px' }}>Reviewed</h6>
-                              </span>
-                            </div> : <div className="review-link mt-2">
-                              <button style={{ backgroundColor: 'transparent' }} onClick={() => { setActiveModalReview(!activeModalReview), setEventId(kalyanmandapData[index].eventId), setEventDepartment('kalyanMandap') }}>Give a small review</button>
-                            </div> : <div className="review-link mt-2">
-                              <button style={{ backgroundColor: 'transparent' }} onClick={() => { setActiveModalReview(!activeModalReview), setEventId(kalyanmandapData[index].eventId), setEventDepartment('kalyanMandap') }}>Give a small review</button>
-                            </div>}
-                            <div className="review-link mt-2">
-                              <button style={{ backgroundColor: 'transparent' }} onClick={() => { setReviewListModal(!reviewListModal), setEventIdForList(kalyanmandapData[index].eventId) }}>See all Reviews</button>
-                            </div>
-
-                            <div className="review-link mt-2">
-                              <button style={{ backgroundColor: 'transparent' }} onClick={() => { setActiveModalThree(!activeModalThree), setEventIdForGrievance(bookings.bookingRequestId), setParentEventIdForGrievance(bookings._id) }}>Having issue with this ticket?</button>
-                            </div>
-
-                          </div>
-                          <TicketIssueModal activeThree={activeModalFunctionThree} activeModal={activeModalThree} eventId={eventIdForGrievance} parentEventId={parentEventIdForGrievance} />
-                        </div>
-                      );
-                    })}
-                  </AccordionItemPanel>
-                </AccordionItem>
-                <AccordionItem uuid="ambulance">
-                  <AccordionItemHeading>
-                    <AccordionItemButton>
-                      <h5 className="mb-0 ml-3">Ambulance</h5>
-                    </AccordionItemButton>
-                  </AccordionItemHeading>
-                  <AccordionItemPanel>
-                    {ambulanceList?.map((bookings, index) => {
-                      return (
-                        <div className="row" key={index}>
-                          <div className="col-lg-9 pr-4" key={bookings.bookingId}>
-                            <div className="booking-card p-3">
-                              <div className="row">
-                                <div className="col-lg-8">
-                                  <div className="row booking-card-left" style={{ minHeight: '312px', height: 'auto' }}>
-                                    <div className="col-lg-4 d-flex justify-content-center">
-                                      <img
-                                        src={ambulanceData?.image}
-                                        alt="bookedshow"
-                                        className="bookingImage"
-                                      />
-                                    </div>
-                                    <div className="col-lg-8 pl-0">
-                                      <div className="ticket-details">
-                                        <h4>{ambulanceData?.eventName}</h4>
-                                        <p className="m-0">{bookings.ticketSource} BOOKING</p>
-                                        <p className="m-0">
-                                          <i className="ti-time mr-2"></i>
-                                          {bookings?.time}
-                                        </p>
-                                        <p className="m-0 mb-2">
-                                          <i className="ti-calendar mr-2"></i>
-                                          {formatDate(bookings.date)}
-                                        </p>
-                                        {(bookings.from || bookings?.to) && <h6>
-                                          <i className="ti-ticket mr-2"></i>
-                                          Journey Description :
-                                          <span><b>{bookings.from} to {bookings.to}</b></span>
-                                        </h6>}
-                                        <h6>
-                                          <i className="ti-ticket mr-2"></i>
-                                          selected Scheme :
-                                          <span><b>{bookings?.selectedScheme?.key}</b> </span>
-                                        </h6>
-                                        {
-                                          bookings.vehicleAssigned.length > 0 &&
-                                          <>
-                                            <h6><b>Vehicle Description</b></h6>
-                                            {
-                                              bookings.vehicleAssigned.map((vehicle) => {
-                                                return (
-                                                  <div className="row">
-                                                    <div className="col-lg-6">
-                                                      <h6>Driver Details</h6>
-                                                      <span className="ml-0"><i className="ti-user mr-2"></i>{vehicle.driverName}</span><br />
-                                                      <span className="ml-0"><i className="ti-headphone mr-2"></i>{vehicle.driverPhoneNumber}</span>
-                                                    </div>
-                                                    <div className="col-lg-6">
-                                                      <h6>Vehicle Details</h6>
-                                                      <span className="ml-0"><i className="ti-truck mr-2"></i>{vehicle.vehicleId}</span><br />
-                                                      <span className="ml-0"><i className="ti-truck mr-2"></i>{vehicle.vehicleName}</span><br />
-                                                      <span className="ml-0"><i className="ti-truck mr-2"></i>{vehicle.vehicleType}</span>
-                                                    </div>
-                                                  </div>
-                                                )
-                                              })
-                                            }
-                                          </>
-                                        }
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <hr className="booking-card-left" />
-                                </div>
-                                <div className="col-lg-4 qr-section">
-                                  <img src={bookings?.qrUrl} />
-                                  <hr />
-                                  <h5 className="text-center">
-                                    <b>{bookings?.bookingRequestId}</b>
-                                  </h5>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div className="col-lg-3 d-flex flex-column justify-content-center">
-                            {bookings.status === 'ASSIGNED' &&
-                              <>
-                                <span className="escalate-badge escalate-badge-success mb-4"><i className="ti-check mr-2"></i>{bookings.status}</span>
-                                <button className="main-btn mb-4 mx-auto" style={{ fontSize: '15px', width: 'max-content' }} onClick={() => handleAmbulancePayment(bookings)}>Make Your Payment</button>
-                              </>
-                            }
-                            {bookings.status === 'PAID PARTIALLY' &&
-                              <>
-                                <span className="escalate-badge escalate-badge-resolved mb-4"><i className="ti-check mr-2"></i>{bookings.status}</span>
-                                <span className="d-flex align-item-center main-btn btn-success mb-4 mx-auto" style={{ width: 'max-content' }}>
+                            <div className="col-lg-3 d-flex flex-column justify-content-center">
+                              <Ratings size='50' align='center' rating={ramlingamData[index]?.rating} canHover={false} />
+                              <p></p>
+                              {isReviewed ? isReviewed.includes(ramlingamData[index]?.eventId) ? <div className="d-flex justify-content-center mt-2">
+                                <span className="d-flex align-item-center main-btn btn-success">
                                   <i className="ti-check" style={{ fontSize: '15px' }}></i>
-                                  <h6 className='ml-2 mb-0' style={{ color: '#fff', letterSpacing: '1px' }}>Your Ride is CONFIRMED</h6>
+                                  <h6 className='ml-2 mb-0' style={{ color: '#fff', letterSpacing: '1px' }}>Reviewed</h6>
                                 </span>
-                              </>
-                            }
-                            {bookings.status === 'PENDING' &&
-                              <span className="escalate-badge escalate-badge-warning mb-4"><i className="ti-time mr-2"></i>{bookings.status}</span>
-                            }
-                            <Ratings size='50' align='center' rating={ambulanceData?.rating} canHover={false} />
-                            {isReviewed ? isReviewed.includes(ambulanceData?.event) ? <div className="d-flex justify-content-center mt-2">
-                              <span className="d-flex align-item-center main-btn btn-success">
-                                <i className="ti-check" style={{ fontSize: '15px' }}></i>
-                                <h6 className='ml-2 mb-0' style={{ color: '#fff', letterSpacing: '1px' }}>Reviewed</h6>
-                              </span>
-                            </div> : <div className="review-link mt-2">
-                              <button style={{ backgroundColor: 'transparent' }} onClick={() => { setActiveModalReview(!activeModalReview), setEventDepartment('ambulance') }}>Give a small review</button>
-                            </div> : <div className="review-link mt-2">
-                              <button style={{ backgroundColor: 'transparent' }} onClick={() => { setActiveModalReview(!activeModalReview), setEventDepartment('ambulance') }}>Give a small review</button>
-                            </div>}
-                            <div className="review-link mt-2">
-                              <button style={{ backgroundColor: 'transparent' }} onClick={() => { setReviewListModal(!reviewListModal), setEventIdForList(ambulanceData.eventName) }}>See all Reviews</button>
-                            </div>
+                              </div> : <div className="review-link mt-2">
+                                <button onClick={() => { setActiveModalReview(!activeModalReview), setEventId(ramlingamData[index].eventId), setEventDepartment('ramlingamPark') }}>Give a small review</button>
+                              </div> : <div className="review-link mt-2">
+                                <button style={{ backgroundColor: 'transparent' }} onClick={() => { setActiveModalReview(!activeModalReview), setEventId(ramlingamData[index].eventId), setEventDepartment('ramlingamPark') }}>Give a small review</button>
+                              </div>}
+                              <div className="review-link mt-2">
+                                <button style={{ backgroundColor: 'transparent' }} onClick={() => { setReviewListModal(!reviewListModal), setEventIdForList(ramlingamData[index].eventId) }}>See all Reviews</button>
+                              </div>
 
-                            <div className="review-link mt-2">
-                              <button style={{ backgroundColor: 'transparent' }} onClick={() => { setActiveModalThree(!activeModalThree), setEventIdForGrievance(bookings.bookingRequestId), setParentEventIdForGrievance(bookings._id) }}>Having issue with this ticket?</button>
-                            </div>
+                              <div className="review-link mt-2">
+                                <button style={{ backgroundColor: 'transparent' }} onClick={() => { setActiveModalThree(!activeModalThree), setEventIdForGrievance(bookings.bookingRequestId), setParentEventIdForGrievance(bookings._id) }}>Having issue with this ticket?</button>
+                              </div>
 
+                            </div>
+                            <GiveReviewModal activeReview={activeModalReview} eventId={eventId} closeReviewMOdal={closeReviewMOdal} department={eventDepartment} />
+                            <SeeAllReviewModal activeReview={reviewListModal} eventId={eventIdForList} closeReviewMOdal={closeReviewListMOdal} />
                           </div>
-                          <TicketIssueModal activeThree={activeModalFunctionThree} activeModal={activeModalThree} eventId={eventIdForGrievance} parentEventId={parentEventIdForGrievance} />
-                        </div>
-                      );
-                    })}
-                  </AccordionItemPanel>
-                </AccordionItem>
+                        );
+                      })}
+                    </AccordionItemPanel>
+                  </AccordionItem>
+                }
+                {
+                  townhallBookingList.length > 0 && <AccordionItem uuid="townhall">
+                    <AccordionItemHeading>
+                      <AccordionItemButton>
+                        <h5 className="mb-0 ml-3">Townhall</h5>
+                      </AccordionItemButton>
+                    </AccordionItemHeading>
+                    <AccordionItemPanel>
+                      {townhallBookingList.map((bookings, index) => {
+                        return (
+                          <div className="row" key={index}>
+                            <div className="col-lg-9 pr-4" key={bookings.bookingId}>
+                              <div className="booking-card p-3">
+                                <div className="row">
+                                  <div className="col-lg-8">
+                                    <div className="row booking-card-left">
+                                      <div className="col-lg-4 d-flex justify-content-center">
+                                        <img
+                                          src={townhallData[index]?.image}
+                                          alt="bookedshow"
+                                          className="bookingImage"
+                                        />
+                                      </div>
+                                      <div className="col-lg-8 pl-0">
+                                        <div className="ticket-details">
+                                          <h4>{townhallData[index]?.eventName}</h4>
+                                          <p className="m-0">{bookings.ticketSource} BOOKING</p>
+                                          <p className="m-0">
+                                            <i className="ti-time mr-2"></i>
+                                            {bookings?.selectedTime}
+                                          </p>
+                                          <p className="m-0 mb-2">
+                                            <i className="ti-calendar mr-2"></i>
+                                            {bookings?.selectedDate}
+                                          </p>
+                                          {(bookings?.adultNum || bookings?.childNum) && <h6>
+                                            <i className="ti-ticket mr-2"></i>
+                                            <b>Number of Tickets :</b>
+                                            <span>{bookings?.adultNum} Adults & {bookings?.childNum} Child</span>
+                                          </h6>}
+                                          <h6>
+                                            <i className="ti-ticket mr-2"></i>
+                                            Townhall :
+                                            <span><b>{townhallData[index]?.eventName} </b></span>
+                                          </h6>
+                                          <div className="row d-flex justify-content-between">
+                                            <span className="p-0">Ticket Price</span>
+                                            <span className="p-0">
+                                              Rs. {bookings?.account?.netAmount}
+                                            </span>
+                                          </div>
+                                          <div className="row d-flex justify-content-between">
+                                            <span className="p-0">Convenience Price</span>
+                                            <span className="p-0">
+                                              Rs. {bookings?.account?.amount}
+                                            </span>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <hr className="booking-card-left" />
+                                    <div
+                                      className="d-flex justify-content-between"
+                                      style={{ padding: "20px 0px 0px 30px" }}
+                                    >
+                                      <h5>
+                                        <b>Total Price</b>
+                                      </h5>
+                                      <span>
+                                        <b>Rs. {bookings?.account?.amount}</b>
+                                      </span>
+                                    </div>
+                                  </div>
+                                  <div className="col-lg-4 qr-section">
+                                    <img src={bookings?.qrUrl} />
+                                    <hr />
+                                    <span>{bookings?.bankTransaction?.status}</span>
+                                    <h5 className="text-center">
+                                      <b>{bookings?.account?.bookingId}</b>
+                                    </h5>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div className="col-lg-3 d-flex flex-column justify-content-center">
+                              <Ratings size='50' align='center' rating={townhallData[index]?.rating} canHover={false} />
+                              {isReviewed ? isReviewed.includes(townhallData[index].eventId) ? <div className="d-flex justify-content-center mt-2">
+                                <span className="d-flex align-item-center main-btn btn-success">
+                                  <i className="ti-check" style={{ fontSize: '15px' }}></i>
+                                  <h6 className='ml-2 mb-0' style={{ color: '#fff', letterSpacing: '1px' }}>Reviewed</h6>
+                                </span>
+                              </div> : <div className="review-link mt-2">
+                                <button style={{ backgroundColor: 'transparent' }} onClick={() => { setActiveModalReview(!activeModalReview), setEventId(townhallData[index].eventId), setEventDepartment('townhall') }}>Give a small review</button>
+                              </div> : <div className="review-link mt-2">
+                                <button style={{ backgroundColor: 'transparent' }} onClick={() => { setActiveModalReview(!activeModalReview), setEventId(townhallData[index].eventId), setEventDepartment('townhall') }}>Give a small review</button>
+                              </div>}
+                              <div className="review-link mt-2">
+                                <button style={{ backgroundColor: 'transparent' }} onClick={() => { setReviewListModal(!reviewListModal), setEventIdForList(townhallData[index].eventId) }}>See all Reviews</button>
+                              </div>
+
+                              <div className="review-link mt-2">
+                                <button style={{ backgroundColor: 'transparent' }} onClick={() => { setActiveModalThree(!activeModalThree), setEventIdForGrievance(bookings.bookingRequestId), setParentEventIdForGrievance(bookings._id) }}>Having issue with this ticket?</button>
+                              </div>
+
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </AccordionItemPanel>
+                  </AccordionItem>
+                }
+                {
+                  kalyanmandapList.length > 0 && <AccordionItem uuid="kalyanMandap">
+                    <AccordionItemHeading>
+                      <AccordionItemButton>
+                        <h5 className="mb-0 ml-3">Kalyan Mandap</h5>
+                      </AccordionItemButton>
+                    </AccordionItemHeading>
+                    <AccordionItemPanel>
+                      {kalyanmandapList.map((bookings, index) => {
+                        return (
+                          <div className="row" key={index}>
+                            <div className="col-lg-9 pr-4" key={bookings.bookingId}>
+                              <div className="booking-card p-3">
+                                <div className="row">
+                                  <div className="col-lg-8">
+                                    <div className="row booking-card-left">
+                                      <div className="col-lg-4 d-flex justify-content-center">
+                                        <img
+                                          src={kalyanmandapData[index]?.image}
+                                          alt="bookedshow"
+                                          className="bookingImage"
+                                        />
+                                      </div>
+                                      <div className="col-lg-8 pl-0">
+                                        <div className="ticket-details">
+                                          <h4>{kalyanmandapData[index]?.eventName}</h4>
+                                          <p className="m-0">{bookings.ticketSource} BOOKING</p>
+                                          <p className="m-0">
+                                            <i className="ti-time mr-2"></i>
+                                            {bookings?.selectedTime}
+                                          </p>
+                                          <p className="m-0 mb-2">
+                                            <i className="ti-calendar mr-2"></i>
+                                            {bookings?.selectedDate}
+                                          </p>
+                                          {(bookings.adultNum || bookings?.childNum) && <h6>
+                                            <i className="ti-ticket mr-2"></i>
+                                            <b>Number of Tickets :</b>
+                                            <span>{bookings?.adultNum} Adults & {bookings?.childNum} Child</span>
+                                          </h6>}
+                                          <h6>
+                                            <i className="ti-ticket mr-2"></i>
+                                            Kalyan Mandap :
+                                            <span><b>{bookings?.mandapName}</b> </span>
+                                          </h6>
+                                          <div className="row d-flex justify-content-between">
+                                            <span className="p-0">Ticket Price</span>
+                                            <span className="p-0">
+                                              Rs. {bookings?.account?.netAmount}
+                                            </span>
+                                          </div>
+                                          <div className="row d-flex justify-content-between">
+                                            <span className="p-0">Convenience Price</span>
+                                            <span className="p-0">
+                                              Rs. {bookings?.account?.amount}
+                                            </span>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <hr className="booking-card-left" />
+                                    <div
+                                      className="d-flex justify-content-between"
+                                      style={{ padding: "20px 0px 0px 30px" }}
+                                    >
+                                      <h5>
+                                        <b>Total Price</b>
+                                      </h5>
+                                      <span>
+                                        <b>Rs. {bookings?.account?.amount}</b>
+                                      </span>
+                                    </div>
+                                  </div>
+                                  <div className="col-lg-4 qr-section">
+                                    <img src={bookings?.qrUrl} />
+                                    <hr />
+                                    <span>{bookings?.bankTransaction?.status}</span>
+                                    <h5 className="text-center">
+                                      <b>{bookings?.account?.bookingId}</b>
+                                    </h5>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div className="col-lg-3 d-flex flex-column justify-content-center">
+                              <Ratings size='50' align='center' rating={kalyanmandapData[index]?.rating} canHover={false} />
+                              {isReviewed ? isReviewed.includes(kalyanmandapData[index].eventId) ? <div className="d-flex justify-content-center mt-2">
+                                <span className="d-flex align-item-center main-btn btn-success">
+                                  <i className="ti-check" style={{ fontSize: '15px' }}></i>
+                                  <h6 className='ml-2 mb-0' style={{ color: '#fff', letterSpacing: '1px' }}>Reviewed</h6>
+                                </span>
+                              </div> : <div className="review-link mt-2">
+                                <button style={{ backgroundColor: 'transparent' }} onClick={() => { setActiveModalReview(!activeModalReview), setEventId(kalyanmandapData[index].eventId), setEventDepartment('kalyanMandap') }}>Give a small review</button>
+                              </div> : <div className="review-link mt-2">
+                                <button style={{ backgroundColor: 'transparent' }} onClick={() => { setActiveModalReview(!activeModalReview), setEventId(kalyanmandapData[index].eventId), setEventDepartment('kalyanMandap') }}>Give a small review</button>
+                              </div>}
+                              <div className="review-link mt-2">
+                                <button style={{ backgroundColor: 'transparent' }} onClick={() => { setReviewListModal(!reviewListModal), setEventIdForList(kalyanmandapData[index].eventId) }}>See all Reviews</button>
+                              </div>
+
+                              <div className="review-link mt-2">
+                                <button style={{ backgroundColor: 'transparent' }} onClick={() => { setActiveModalThree(!activeModalThree), setEventIdForGrievance(bookings.bookingRequestId), setParentEventIdForGrievance(bookings._id) }}>Having issue with this ticket?</button>
+                              </div>
+
+                            </div>
+                            <TicketIssueModal activeThree={activeModalFunctionThree} activeModal={activeModalThree} eventId={eventIdForGrievance} parentEventId={parentEventIdForGrievance} />
+                          </div>
+                        );
+                      })}
+                    </AccordionItemPanel>
+                  </AccordionItem>
+                }
+                {
+                  ambulanceList.length > 0 && <AccordionItem uuid="ambulance">
+                    <AccordionItemHeading>
+                      <AccordionItemButton>
+                        <h5 className="mb-0 ml-3">Ambulance</h5>
+                      </AccordionItemButton>
+                    </AccordionItemHeading>
+                    <AccordionItemPanel>
+                      {ambulanceList?.map((bookings, index) => {
+                        return (
+                          <div className="row" key={index}>
+                            <div className="col-lg-9 pr-4" key={bookings.bookingId}>
+                              <div className="booking-card p-3">
+                                <div className="row">
+                                  <div className="col-lg-8">
+                                    <div className="row booking-card-left" style={{ minHeight: '312px', height: 'auto' }}>
+                                      <div className="col-lg-4 d-flex justify-content-center">
+                                        <img
+                                          src={ambulanceData?.image}
+                                          alt="bookedshow"
+                                          className="bookingImage"
+                                        />
+                                      </div>
+                                      <div className="col-lg-8 pl-0">
+                                        <div className="ticket-details">
+                                          <h4>{ambulanceData?.eventName}</h4>
+                                          <p className="m-0">{bookings.ticketSource} BOOKING</p>
+                                          <p className="m-0">
+                                            <i className="ti-time mr-2"></i>
+                                            {bookings?.time}
+                                          </p>
+                                          <p className="m-0 mb-2">
+                                            <i className="ti-calendar mr-2"></i>
+                                            {formatDate(bookings.date)}
+                                          </p>
+                                          {(bookings.from || bookings?.to) && <h6>
+                                            <i className="ti-ticket mr-2"></i>
+                                            Journey Description :
+                                            <span><b>{bookings.from} to {bookings.to}</b></span>
+                                          </h6>}
+                                          <h6>
+                                            <i className="ti-ticket mr-2"></i>
+                                            selected Scheme :
+                                            <span><b>{bookings?.selectedScheme?.key}</b> </span>
+                                          </h6>
+                                          {
+                                            bookings.vehicleAssigned.length > 0 &&
+                                            <>
+                                              <h6><b>Vehicle Description</b></h6>
+                                              {
+                                                bookings.vehicleAssigned.map((vehicle) => {
+                                                  return (
+                                                    <div className="row">
+                                                      <div className="col-lg-6">
+                                                        <h6>Driver Details</h6>
+                                                        <span className="ml-0"><i className="ti-user mr-2"></i>{vehicle.driverName}</span><br />
+                                                        <span className="ml-0"><i className="ti-headphone mr-2"></i>{vehicle.driverPhoneNumber}</span>
+                                                      </div>
+                                                      <div className="col-lg-6">
+                                                        <h6>Vehicle Details</h6>
+                                                        <span className="ml-0"><i className="ti-truck mr-2"></i>{vehicle.vehicleId}</span><br />
+                                                        <span className="ml-0"><i className="ti-truck mr-2"></i>{vehicle.vehicleName}</span><br />
+                                                        <span className="ml-0"><i className="ti-truck mr-2"></i>{vehicle.vehicleType}</span>
+                                                      </div>
+                                                    </div>
+                                                  )
+                                                })
+                                              }
+                                            </>
+                                          }
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <hr className="booking-card-left" />
+                                  </div>
+                                  <div className="col-lg-4 qr-section">
+                                    <img src={bookings?.qrUrl} />
+                                    <hr />
+                                    <h5 className="text-center">
+                                      <b>{bookings?.bookingRequestId}</b>
+                                    </h5>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div className="col-lg-3 d-flex flex-column justify-content-center">
+                              {bookings.status === 'ASSIGNED' &&
+                                <>
+                                  <span className="escalate-badge escalate-badge-success mb-4"><i className="ti-check mr-2"></i>{bookings.status}</span>
+                                </>
+                              }
+                              {bookings.status === 'PAID PARTIALLY' &&
+                                <>
+                                  <span className="escalate-badge escalate-badge-resolved mb-4"><i className="ti-check mr-2"></i>{bookings.status}</span>
+                                  <span className="d-flex align-item-center main-btn btn-success mb-4 mx-auto" style={{ width: 'max-content' }}>
+                                    <i className="ti-check" style={{ fontSize: '15px' }}></i>
+                                    <h6 className='ml-2 mb-0' style={{ color: '#fff', letterSpacing: '1px' }}>Your Ride is CONFIRMED</h6>
+                                  </span>
+                                </>
+                              }
+                              {bookings.status === 'PENDING' &&
+                                <span className="escalate-badge escalate-badge-warning mb-4"><i className="ti-time mr-2"></i>{bookings.status}</span>
+                              }
+                              {
+                                bookings.amountLeftToBePaid > 0 &&
+                                <button className="main-btn mb-4 mx-auto" style={{ fontSize: '15px', width: 'max-content' }} onClick={() => handleAmbulancePayment(bookings)}>Make Your Payment</button>
+                              }
+                              <Ratings size='50' align='center' rating={ambulanceData?.rating} canHover={false} />
+                              {isReviewed ? isReviewed.includes(ambulanceData?.event) ? <div className="d-flex justify-content-center mt-2">
+                                <span className="d-flex align-item-center main-btn btn-success">
+                                  <i className="ti-check" style={{ fontSize: '15px' }}></i>
+                                  <h6 className='ml-2 mb-0' style={{ color: '#fff', letterSpacing: '1px' }}>Reviewed</h6>
+                                </span>
+                              </div> : <div className="review-link mt-2">
+                                <button style={{ backgroundColor: 'transparent' }} onClick={() => { setActiveModalReview(!activeModalReview), setEventDepartment('ambulance') }}>Give a small review</button>
+                              </div> : <div className="review-link mt-2">
+                                <button style={{ backgroundColor: 'transparent' }} onClick={() => { setActiveModalReview(!activeModalReview), setEventDepartment('ambulance') }}>Give a small review</button>
+                              </div>}
+                              <div className="review-link mt-2">
+                                <button style={{ backgroundColor: 'transparent' }} onClick={() => { setReviewListModal(!reviewListModal), setEventIdForList(ambulanceData.eventName) }}>See all Reviews</button>
+                              </div>
+
+                              <div className="review-link mt-2">
+                                <button style={{ backgroundColor: 'transparent' }} onClick={() => { setActiveModalThree(!activeModalThree), setEventIdForGrievance(bookings.bookingRequestId), setParentEventIdForGrievance(bookings._id) }}>Having issue with this ticket?</button>
+                              </div>
+
+                            </div>
+                            <TicketIssueModal activeThree={activeModalFunctionThree} activeModal={activeModalThree} eventId={eventIdForGrievance} parentEventId={parentEventIdForGrievance} />
+                          </div>
+                        );
+                      })}
+                    </AccordionItemPanel>
+                  </AccordionItem>
+                }
+                {
+                  hearseList.length > 0 && <AccordionItem uuid="hearse">
+                    <AccordionItemHeading>
+                      <AccordionItemButton>
+                        <h5 className="mb-0 ml-3">Hearse</h5>
+                      </AccordionItemButton>
+                    </AccordionItemHeading>
+                    <AccordionItemPanel>
+                      {hearseList?.map((bookings, index) => {
+                        return (
+                          <div className="row" key={index}>
+                            <div className="col-lg-9 pr-4" key={bookings.bookingId}>
+                              <div className="booking-card p-3">
+                                <div className="row">
+                                  <div className="col-lg-8">
+                                    <div className="row booking-card-left" style={{ minHeight: '312px', height: 'auto' }}>
+                                      <div className="col-lg-4 d-flex justify-content-center">
+                                        <img
+                                          src={hearseData?.image}
+                                          alt="bookedshow"
+                                          className="bookingImage"
+                                        />
+                                      </div>
+                                      <div className="col-lg-8 pl-0">
+                                        <div className="ticket-details">
+                                          <h4>{hearseData?.eventName}</h4>
+                                          <p className="m-0">{bookings.ticketSource} BOOKING</p>
+                                          <p className="m-0">
+                                            <i className="ti-time mr-2"></i>
+                                            {bookings?.time}
+                                          </p>
+                                          <p className="m-0 mb-2">
+                                            <i className="ti-calendar mr-2"></i>
+                                            {formatDate(bookings.date)}
+                                          </p>
+                                          {(bookings.from || bookings?.to) && <h6>
+                                            <i className="ti-ticket mr-2"></i>
+                                            Journey Description :
+                                            <span><b>{bookings.from} to {bookings.to}</b></span>
+                                          </h6>}
+                                          <h6>
+                                            <i className="ti-ticket mr-2"></i>
+                                            selected Scheme :
+                                            <span><b>{bookings?.selectedScheme?.key}</b> </span>
+                                          </h6>
+                                          {
+                                            bookings.vehicleAssigned.length > 0 &&
+                                            <>
+                                              <h6><b>Vehicle Description</b></h6>
+                                              {
+                                                bookings.vehicleAssigned.map((vehicle) => {
+                                                  return (
+                                                    <div className="row">
+                                                      <div className="col-lg-6">
+                                                        <h6>Driver Details</h6>
+                                                        <span className="ml-0"><i className="ti-user mr-2"></i>{vehicle.driverName}</span><br />
+                                                        <span className="ml-0"><i className="ti-headphone mr-2"></i>{vehicle.driverPhoneNumber}</span>
+                                                      </div>
+                                                      <div className="col-lg-6">
+                                                        <h6>Vehicle Details</h6>
+                                                        <span className="ml-0"><i className="ti-truck mr-2"></i>{vehicle.vehicleId}</span><br />
+                                                        <span className="ml-0"><i className="ti-truck mr-2"></i>{vehicle.vehicleName}</span><br />
+                                                        <span className="ml-0"><i className="ti-truck mr-2"></i>{vehicle.vehicleType}</span>
+                                                      </div>
+                                                    </div>
+                                                  )
+                                                })
+                                              }
+                                            </>
+                                          }
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <hr className="booking-card-left" />
+                                  </div>
+                                  <div className="col-lg-4 qr-section">
+                                    <img src={bookings?.qrUrl} />
+                                    <hr />
+                                    <h5 className="text-center">
+                                      <b>{bookings?.bookingRequestId}</b>
+                                    </h5>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div className="col-lg-3 d-flex flex-column justify-content-center">
+                              {bookings.status === 'ASSIGNED' &&
+                                <>
+                                  <span className="escalate-badge escalate-badge-success mb-4"><i className="ti-check mr-2"></i>{bookings.status}</span>
+                                </>
+                              }
+                              {bookings.status === 'PAID PARTIALLY' &&
+                                <>
+                                  <span className="escalate-badge escalate-badge-resolved mb-4"><i className="ti-check mr-2"></i>{bookings.status}</span>
+                                  <span className="d-flex align-item-center main-btn btn-success mb-4 mx-auto" style={{ width: 'max-content' }}>
+                                    <i className="ti-check" style={{ fontSize: '15px' }}></i>
+                                    <h6 className='ml-2 mb-0' style={{ color: '#fff', letterSpacing: '1px' }}>Your Ride is CONFIRMED</h6>
+                                  </span>
+                                </>
+                              }
+                              {bookings.status === 'PENDING' &&
+                                <span className="escalate-badge escalate-badge-warning mb-4"><i className="ti-time mr-2"></i>{bookings.status}</span>
+                              }
+                              {
+                                bookings.amountLeftToBePaid > 0 &&
+                                <button className="main-btn mb-4 mx-auto" style={{ fontSize: '15px', width: 'max-content' }} onClick={() => handleAmbulancePayment(bookings)}>Make Your Payment</button>
+                              }
+                              <Ratings size='50' align='center' rating={ambulanceData?.rating} canHover={false} />
+                              {isReviewed ? isReviewed.includes(ambulanceData?.event) ? <div className="d-flex justify-content-center mt-2">
+                                <span className="d-flex align-item-center main-btn btn-success">
+                                  <i className="ti-check" style={{ fontSize: '15px' }}></i>
+                                  <h6 className='ml-2 mb-0' style={{ color: '#fff', letterSpacing: '1px' }}>Reviewed</h6>
+                                </span>
+                              </div> : <div className="review-link mt-2">
+                                <button style={{ backgroundColor: 'transparent' }} onClick={() => { setActiveModalReview(!activeModalReview), setEventDepartment('ambulance') }}>Give a small review</button>
+                              </div> : <div className="review-link mt-2">
+                                <button style={{ backgroundColor: 'transparent' }} onClick={() => { setActiveModalReview(!activeModalReview), setEventDepartment('ambulance') }}>Give a small review</button>
+                              </div>}
+                              <div className="review-link mt-2">
+                                <button style={{ backgroundColor: 'transparent' }} onClick={() => { setReviewListModal(!reviewListModal), setEventIdForList(ambulanceData.eventName) }}>See all Reviews</button>
+                              </div>
+
+                              <div className="review-link mt-2">
+                                <button style={{ backgroundColor: 'transparent' }} onClick={() => { setActiveModalThree(!activeModalThree), setEventIdForGrievance(bookings.bookingRequestId), setParentEventIdForGrievance(bookings._id) }}>Having issue with this ticket?</button>
+                              </div>
+
+                            </div>
+                            <TicketIssueModal activeThree={activeModalFunctionThree} activeModal={activeModalThree} eventId={eventIdForGrievance} parentEventId={parentEventIdForGrievance} />
+                          </div>
+                        );
+                      })}
+                    </AccordionItemPanel>
+                  </AccordionItem>
+                }
               </Accordion>
             </div>
           </div>

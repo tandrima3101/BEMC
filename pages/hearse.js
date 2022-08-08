@@ -1,18 +1,6 @@
-import Link from "next/link";
-import React, { useState } from "react";
-import Slider from "react-slick";
-import Counter from "../src/components/Counter";
+import React, { useEffect, useState } from "react";
 import VideoPopup from "../src/components/VideoPopup";
 import Layout from "../src/layouts/Layout";
-import { Nav, Tab } from "react-bootstrap";
-import BookingForm from "../src/components/bookingForm";
-
-import {
-  ClientSliderOne,
-  ListingSliderOne,
-  PlaceSliderOne,
-  PlaceSliderTwo,
-} from "../src/sliderProps";
 import PreLoader from "../src/components/PreLoader";
 import Banner from "../src/components/Slider/banner";
 import ShowsList from "../src/components/showsList";
@@ -20,20 +8,25 @@ import Gallery from "../src/components/Gallery";
 import Video from "../src/components/video";
 import Newsletter from "../src/components/newsletter";
 import Clients from "../src/components/clients";
+import { callApi } from "../src/apiHandlers/callApi";
 
 
 const Hearse = () => {
   const [video, setVideo] = useState(false);
-
-  const bannerSlider = [
-    {
-      heading: "Book a hearse",
-      subHeading:
-        "Give your loved one a proper farewell...",
-      bannerImageUrl:
-        "assets/images/hearse.jpg",
+  const [hearseData, setHearseData] = useState();
+  const getAllHarse = async () => {
+    let apiTest = {
+      method: 'post',
+      url: "harse/harse/getAllHarse"
     }
-  ];
+    let response = await callApi(apiTest)
+    setHearseData(response.data.data)
+  }
+  console.log(hearseData,'hearseeeeeee')
+  const bannerSlider = [];
+for (let i = 0; i < hearseData?.length; i++) {
+  bannerSlider.push(hearseData[i].banner)
+}
   const showList = [
     {
       featured: true,
@@ -96,7 +89,7 @@ const Hearse = () => {
       imgUrl:
         "https://pbs.twimg.com/profile_images/948877813414703104/JStN81Ro_400x400.jpg",
     },
-    
+
     {
       imgUrl:
         "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Seal_of_Odisha.png/1200px-Seal_of_Odisha.png",
@@ -106,45 +99,24 @@ const Hearse = () => {
     //     "https://images.unsplash.com/photo-1488646953014-85cb44e25828?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735",
     // },
   ];
-  const photoGallery = [
-    {
-      imgId: 1,
-      imgUrl:
-        "https://media.istockphoto.com/photos/driving-on-idyllic-roads-picture-id1303391856?b=1&k=20&m=1303391856&s=170667a&w=0&h=RvzNO06n8AZHSw8B0xm6Lac0bBe6WLdsw5kMNSxgc5E=",
-    },
-    {
-      imgId: 1,
-      imgUrl:
-        "https://media.istockphoto.com/photos/driving-on-idyllic-roads-picture-id1303391856?b=1&k=20&m=1303391856&s=170667a&w=0&h=RvzNO06n8AZHSw8B0xm6Lac0bBe6WLdsw5kMNSxgc5E=",
-    },
-    {
-      imgId: 1,
-      imgUrl:
-        "https://media.istockphoto.com/photos/driving-on-idyllic-roads-picture-id1303391856?b=1&k=20&m=1303391856&s=170667a&w=0&h=RvzNO06n8AZHSw8B0xm6Lac0bBe6WLdsw5kMNSxgc5E=",
-    },
-    {
-      imgId: 1,
-      imgUrl:
-        "https://media.istockphoto.com/photos/driving-on-idyllic-roads-picture-id1303391856?b=1&k=20&m=1303391856&s=170667a&w=0&h=RvzNO06n8AZHSw8B0xm6Lac0bBe6WLdsw5kMNSxgc5E=",
-    },
-    {
-      imgId: 1,
-      imgUrl:
-        "https://media.istockphoto.com/photos/driving-on-idyllic-roads-picture-id1303391856?b=1&k=20&m=1303391856&s=170667a&w=0&h=RvzNO06n8AZHSw8B0xm6Lac0bBe6WLdsw5kMNSxgc5E=",
-    },
-  ];
+  const photoGallery = [];
+  for (let i = 0; i < hearseData?.length; i++) {
+    photoGallery.push(...(hearseData[i].photoGallery))
+  }
   const videoLink = [
-    {link : "https://www.youtube.com/embed/JHlY8w69wSE"}
-];
-
-  return (
+    { link: "https://www.youtube.com/embed/JHlY8w69wSE" }
+  ];
+  useEffect(() => {
+   getAllHarse()
+  }, [])
+    return (
     <Layout>
       {video && <VideoPopup close={setVideo} />}
       {/* <!--====== Start Hero Section ======--> */}
-      <Banner mainSlider={bannerSlider} activeForm='Hearse' pageOf="Hearse" />
+      <Banner overallData={hearseData} mainSlider={bannerSlider} activeForm='hearse' pageOf="hearse" />
       {/* <!--====== End Hero Section ======--> */}
       {/* <!--====== Start Listing Section ======--> */}
-      <ShowsList list={showList} />
+      <ShowsList overallData={hearseData} pageOf="hearse" />
       {/* <!--====== Start Place Section ======--> */}
       <Gallery gallery={photoGallery} />
       {/* <!--====== End Place Section ======--> */}

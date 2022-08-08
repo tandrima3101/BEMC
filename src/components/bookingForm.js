@@ -41,7 +41,7 @@ function BookingForm(props) {
     { label: 'Townhall', value: 'townhall' },
     { label: 'Sports Arena', value: 'sportsArena' },
     { label: 'Ambulance', value: 'ambulance' },
-    { label: 'Hearse', value: 'Hearse' },
+    { label: 'Hearse', value: 'hearse' },
   ];
   const [type, setType] = useState(formTypes);
 
@@ -180,7 +180,7 @@ function BookingForm(props) {
 
   ///ambulance
   let journeyDetails = [];
-  for (let i = 0; i < props.data.length; i++) {
+  for (let i = 0; i < props.data?.length; i++) {
     if (props.data[i].ambulanceName != undefined) {
       for (let j = 0; j < props.data[i]?.price?.length; j++) {
         journeyDetails.push({
@@ -237,7 +237,7 @@ function BookingForm(props) {
         setActiveModalTwo(true)
       }
     }
-    if (activeForm == 'ambulance') {
+    if (activeForm == 'ambulance' || 'hearse') {
       if (bookingDetails && !bookingDetails.from) {
         setErrors({ field: 'from', message: 'Please enter the pickup location' })
       } else if (bookingDetails && !bookingDetails.to) {
@@ -248,8 +248,6 @@ function BookingForm(props) {
         setErrors({ field: 'date', message: 'Please select a date' })
       } else if (bookingDetails && !bookingDetails.time) {
         setErrors({ field: 'time', message: 'Please select a time' })
-      } else if (bookingDetails && !bookingDetails.emergency) {
-        setErrors({ field: 'emergency', message: 'Is it a case of emergency' })
       } else {
         setActiveModalTwo(true)
       }
@@ -588,19 +586,16 @@ function BookingForm(props) {
                       type="time"
                       className="form_control"
                       name="location"
-                      onChange={(e) => setBookingDetails({ ...bookingDetails, time: e.target.value })}
+                      onChange={(e) => setBookingDetails({ ...bookingDetails, time: e.target.value,emergency:'true'})}
                     />
                   </div>
                   {
                     errors && errors.field == 'time' && <h6 className="text-danger mt-1">{errors.message}</h6>
                   }
-                  <div className="col-lg-12 col-md-6 mt-2 d-flex justify-content-start align-items-center">
+                  {/* <div className="col-lg-12 col-md-6 mt-2 d-flex justify-content-start align-items-center">
                     <input type="checkbox" style={{ maxWidth: "4%" }} onChange={(e) => { e.target.checked ? setBookingDetails({ ...bookingDetails, emergency: 'true' }) : setBookingDetails({ ...bookingDetails, emergency: 'false' }) }} />
                     <label className="mb-0">Is it a case of Emergency?</label>
-                  </div>
-                  {
-                    errors && errors.field == 'emergency' && <h6 className="text-danger mt-1">{errors.message}</h6>
-                  }
+                  </div> */}
                   <div className="col-lg-10 col-md-6 mt-4">
                     <button className="main-btn icon-btn" onClick={() => activeModalFunctionTwo(activeForm)}>Book Now!</button>
                   </div>
@@ -608,19 +603,21 @@ function BookingForm(props) {
               </Tab.Pane>
               {/* ***********************Hearse************** */}
               <Tab.Pane
-                className={`show ${activeForm === "Hearse" ? "active" : ""}`}
+                className={`show ${activeForm === "hearse" ? "active" : ""}`}
               >
                 <div className="row">
                   <div className="col-lg-12 col-md-6 mt-2">
                     <label>From</label>
-
                     <input
                       type="text"
                       className="form_control"
                       name="location"
+                      onChange={(e) => setBookingDetails({ ...bookingDetails, from: e.target.value })}
                     />
                   </div>
-
+                  {
+                    errors && errors.field == 'from' && <h6 className="text-danger mt-1">{errors.message}</h6>
+                  }
                   <div className="col-lg-12 col-md-6 mt-2">
                     <label>To</label>
 
@@ -628,30 +625,47 @@ function BookingForm(props) {
                       type="text"
                       className="form_control"
                       name="location"
+                      onChange={(e) => setBookingDetails({ ...bookingDetails, to: e.target.value })}
                     />
                   </div>
+                  {
+                    errors && errors.field == 'to' && <h6 className="text-danger mt-1">{errors.message}</h6>
+                  }
+                  <div className="col-lg-12 col-md-6 mt-2">
+                    <label>Select Your Journey Details</label>
+                    <Select options={journeyDetails} 
+                    onChange={(e) => { setBookingDetails({ ...bookingDetails, selectedScheme: e.value }) }} 
+                    />
+                  </div>
+                  {
+                    errors && errors.field == 'journey' && <h6 className="text-danger mt-1">{errors.message}</h6>
+                  }
                   <div className="col-lg-12 col-md-6 mt-2">
                     <label>Date</label>
-
                     <input
-                      type="text"
+                      type="date"
                       className="form_control"
                       name="location"
-
+                      onChange={(e) => setBookingDetails({ ...bookingDetails, date: e.target.value })}
                     />
                   </div>
+                  {
+                    errors && errors.field == 'date' && <h6 className="text-danger mt-1">{errors.message}</h6>
+                  }
                   <div className="col-lg-12 col-md-6 mt-2">
                     <label>Time</label>
-
                     <input
-                      type="text"
+                      type="time"
                       className="form_control"
                       name="location"
+                      onChange={(e) => setBookingDetails({ ...bookingDetails, time: e.target.value,emergency:'true' })}
                     />
                   </div>
-
+                  {
+                    errors && errors.field == 'time' && <h6 className="text-danger mt-1">{errors.message}</h6>
+                  }
                   <div className="col-lg-10 col-md-6 mt-4">
-                    <button className="main-btn icon-btn" onClick={() => activeModalFunctionTwo()}>Book Now!</button>
+                    <button className="main-btn icon-btn" onClick={() => activeModalFunctionTwo(activeForm)}>Book Now!</button>
                   </div>
                 </div>
               </Tab.Pane>

@@ -52,7 +52,7 @@ const ShowsList = (props) => {
   let showData = [];
   useEffect(async () => {
     console.log(props.overallData, 'overall data on change')
-    for (let i = 0; i < props.overallData.length; i++) {
+    for (let i = 0; i < props.overallData?.length; i++) {
       let getReviewData = {
         method: 'post',
         url: 'ramalingampark/event/getReview',
