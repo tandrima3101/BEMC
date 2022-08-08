@@ -68,7 +68,7 @@ const ShowsList = (props) => {
       })
       !(props.overallData[i].ambulanceName) && showData.push({ department: props.pageOf, price: props.overallData[i].price, cPrice: props.overallData[i].cPrice, eventId: props.overallData[i].eventId, townhallId: props.overallData[i].townhallId, mandapId: props.overallData[i].mandapId, eventName: props.overallData[i].eventName, townhallName: props.overallData[i].townhallName, mandapName: props.overallData[i].mandapName, location: props.overallData[i].location, card: props.overallData[i].card, review: props.overallData[i].review, reviewCount: props.overallData[i].reviewCount, seatCategory: props.overallData[i].seatCategory, dates: props.overallData[i].dateAndTime?.map((x) => { return x.date }), dateAndTime: props.overallData[i].dateAndTime, eventDefaultTime: props.overallData[i].eventDefaultTime, eventTag: props.overallData[i].eventTag, rating: Math.round(avgRating / response.data.data.length) })
       if (props.overallData[i].ambulanceName) {
-        showData.push({ department: props.pageOf, ambulanceId: props.overallData[i].vehicles[0].vehicleId, ambulanceName: props.overallData[i].ambulanceName, card: props.overallData[i].card, eventTag: props.overallData[i].tag, price: 'Depends on distance', status: props.overallData[i].status })
+        showData.push({ department: props.pageOf, ambulanceId: props.overallData[i]?.vehicles[0]?.vehicleId, ambulanceName: props.overallData[i]?.ambulanceName, card: props.overallData[i].card, eventTag: props.overallData[i].tag ||props.overallData[i].townhallTag || props.overallData[i].mandapTag, price: 'Depends on distance', status: props.overallData[i].status })
       }
     }
     setShowList(showData)

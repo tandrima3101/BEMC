@@ -6950,7 +6950,7 @@ a {
 }
 
 .booking-card .row .col-lg-8 .row.booking-card-left {
-  height: 312px !important;
+  height: 312px;
 }
 
 /* .booking-card .row .col-lg-8 .row .col-lg-4 {

@@ -185,9 +185,10 @@ function BookingForm(props) {
       for (let j = 0; j < props.data[i]?.price?.length; j++) {
         journeyDetails.push({
           label: `${props.data[i].price[j].key},Price:${props.data[i].price[j].value},(${props.data[i].price[j].extraPrice} Rs will be charged for extra ${props.data[i].price[j]?.thresholdKm} km)`,
-          value: `${props.data[i].price[j].value},${props.data[i].price[j].key}`,
+          value: props.data[i].price[j],
           key: `${props.data[i].price[j].key}`
         })
+        console.log(props.data[i].price[j],'priceeeeeeee')
       }
     }
   }
@@ -562,7 +563,9 @@ function BookingForm(props) {
                   }
                   <div className="col-lg-12 col-md-6 mt-2">
                     <label>Select Your Journey Details</label>
-                    <Select options={journeyDetails} onChange={(e) => { setBookingDetails({ ...bookingDetails, selectedScheme: e.value }) }} />
+                    <Select options={journeyDetails} 
+                    onChange={(e) => { setBookingDetails({ ...bookingDetails, selectedScheme: e.value }) }} 
+                    />
                   </div>
                   {
                     errors && errors.field == 'journey' && <h6 className="text-danger mt-1">{errors.message}</h6>
