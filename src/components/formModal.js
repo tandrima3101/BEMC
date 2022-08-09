@@ -19,8 +19,6 @@ function FormModal({ active, activeTwo, data, adultPrice, childPrice, pageOf, pr
   const [totalData, setTotalData] = useState(data)
   const [enteredOtp, setEnteredOtp] = useState(null)
   const [reqAmbulanceModal, setReqAmbulanceModal] = useState(false)
-  let department = activeFormModal
-  // console.log(islogin, 'islogin')
   // for main modal
   const [containerOne, setContainerOne] = useState(active);
   const [containerTwo, setContainerTwo] = useState(activeTwo);
@@ -33,7 +31,7 @@ function FormModal({ active, activeTwo, data, adultPrice, childPrice, pageOf, pr
   const [otpSender, setOtpSender] = useState(false)
   const userData = (JSON.parse(localStorage.getItem('userData')))
   const islogin = useSelector((state) => state.login.isLogin)
-  // console.log(userData, 'userData formModal')
+
   //for button loader
   const [otpLoader, setOtpLoader] = useState()
 
@@ -119,7 +117,6 @@ function FormModal({ active, activeTwo, data, adultPrice, childPrice, pageOf, pr
       }
     }
   }
-  // console.log(bookingDetails,'booooooooooooooooooooooookkkkkkkkkkkkkkkkkkkkkkkiiiiiiiiiiiiiiiiiiiiiiiiinnnnnnnnnnnnnnnnnngggggggggggggggggg')
   useEffect(() => {
     setContainerOne(active)
     setContainerTwo(activeTwo)
@@ -129,22 +126,19 @@ function FormModal({ active, activeTwo, data, adultPrice, childPrice, pageOf, pr
       setTotalData(data)
     }
   }, [activeTwo, active])
-  // console.log(totalData, 'totaaaaaaaaaaaaaaaaaaaaaaaallllllllllllllllllllllllllllllllll')
   useEffect(() => {
     createBookingRequest()
     console.log(otpValidator, 'validatorrrrrrrrrrrr')
   }, [otpValidator])
-
   useEffect(() => {
     if (bookingDetails != null) {
-      if (activeFormModal == 'ambulance') {
+      if (activeFormModal == 'ambulance' || 'harse') {
         setReqAmbulanceModal(true)
       } else {
         setRoutingData(bookingDetails?._id, "authroutes/booking-details")
       }
     }
   }, [bookingDetails])
-  // console.log(activeFormModal, 'activeFormmmmmmmmmm')
   useEffect(() => {
     console.log(adultPrice, childPrice, 'priceeeeee adult child')
     console.log(totalData, 'total data')

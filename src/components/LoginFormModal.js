@@ -29,6 +29,7 @@ function LoginFormModal({ activeLogin, toggle }) {
 
 
   //state for useForm
+
   const {
     register: register1,
     formState: { errors: errors1 },
@@ -39,7 +40,6 @@ function LoginFormModal({ activeLogin, toggle }) {
     formState: { errors: errors2 },
     handleSubmit: handleSubmit2,
   } = useForm();
-
   const {
     register: register3,
     formState: { errors: errors3 },
@@ -51,8 +51,8 @@ function LoginFormModal({ activeLogin, toggle }) {
 
   const onSubmit = (logindata) => {
     generateOTP(logindata),
-      setSubmodalLogin(true),
-      setContainerLogin(false)
+    setSubmodalLogin(true),
+    setContainerLogin(false)
     toggle(false)
   }
   console.log(errors3)
@@ -62,8 +62,8 @@ function LoginFormModal({ activeLogin, toggle }) {
   const onRegistration = (signUpData) => {
 
     generateOTP(signUpData),
-      setSubmodalLogin(true),
-      setContainerSignUp(false)
+    setSubmodalLogin(true),
+    setContainerSignUp(false)
   }
   const [otpLoader, setOtpLoader] = useState()
 
@@ -93,8 +93,6 @@ function LoginFormModal({ activeLogin, toggle }) {
         setContainerSignUp(false)
     }
   }
-
-
   useEffect(() => {
     setContainerLogin(activeLogin);
   }, [activeLogin])
@@ -114,16 +112,6 @@ function LoginFormModal({ activeLogin, toggle }) {
         <ModalBody>
           <div className="row">
             <div className="col-lg-12 col-md-6 mt-2">
-              <label>Enter OTP</label>
-              <div>
-                <OtpInput
-                  inputStyle={width='100%'}
-                  value={enteredOtp}
-                  onChange={otp => console.log(otp)}
-                  numInputs={6}
-                  separator={<span> </span>}
-                />
-              </div>
               <label style={{ fontSize: '17px' }}>Enter Phone Number<span className="text-danger"><b>*</b></span></label>
               <input className="otpinput mt-3 ml-0"{...register1("phoneNumber", {
                 required: true, maxLength: 10, minLength: 10, pattern: {
@@ -177,7 +165,7 @@ function LoginFormModal({ activeLogin, toggle }) {
             }}
           >
             Change Number
-          </button>{" "}
+          </button>
           <button
             className="main-btn"
             disabled={otpLoader}
@@ -207,7 +195,6 @@ function LoginFormModal({ activeLogin, toggle }) {
         <ModalHeader style={{ background: '#3bacb6' }}>
           <ModalTitle style={{ color: '#fff' }}>Signup Form</ModalTitle>
         </ModalHeader>
-        <ModalBody></ModalBody>
         <ModalBody>
           <div className="row">
             <div className="col-lg-12 col-md-6 mt-2">
@@ -246,17 +233,12 @@ function LoginFormModal({ activeLogin, toggle }) {
           </div>
           <br />
           <div className="text-center m-2"></div>
-          {/* <Modal
-            isOpen={submodalLogin}
-            toggle={() => setSubmodalLogin(!submodalLogin)}
-          ></Modal> */}
         </ModalBody>
         <ModalFooter>
           <button className="main-btn" style={{ float: 'left', marginRight: 'auto' }} onClick={() => { setContainerLogin(true), setContainerSignUp(false) }}>Login</button>
           <button
             className="main-btn"
             type="submit"
-            // onClick={(e)=>{e.preventDefault(); handleSubmit3(onRegistrationSubmit())}}
             onClick={handleSubmit3(onRegistration)}
           >
             SEND OTP

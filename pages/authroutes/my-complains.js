@@ -127,7 +127,7 @@ const MyComplains = () => {
                                 </div>
                                 <div className="ticket-details d-flex justify-content-between flex-column">
                                   <h5 className="m-0 text-center">
-                                    {bookings.bookingRequestParentId.eventName || bookings.bookingRequestParentId.townhallName || bookings.bookingRequestParentId.mandapName}
+                                    {bookings.bookingRequestParentId.eventName || bookings.bookingRequestParentId.townhallName || bookings.bookingRequestParentId.mandapName || bookings.bookingRequestParentId.ambulanceName || bookings.bookingRequestParentId.harseName}
                                   </h5>
                                   <h5 className="text-center m-0 mb-2">
                                     <b>{bookings.bookingRequestParentId.eventId || bookings.bookingRequestParentId.townhallId || bookings.bookingRequestParentId.mandapId}</b>

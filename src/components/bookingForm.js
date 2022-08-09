@@ -41,7 +41,7 @@ function BookingForm(props) {
     { label: 'Townhall', value: 'townhall' },
     { label: 'Sports Arena', value: 'sportsArena' },
     { label: 'Ambulance', value: 'ambulance' },
-    { label: 'Hearse', value: 'hearse' },
+    { label: 'Hearse', value: 'harse' },
   ];
   const [type, setType] = useState(formTypes);
 
@@ -181,11 +181,12 @@ function BookingForm(props) {
   ///ambulance
   let journeyDetails = [];
   for (let i = 0; i < props.data?.length; i++) {
-    if (props.data[i].ambulanceName != undefined) {
+    if (props.data[i].ambulanceName != undefined || props.data[i].harseName != undefined) {
       for (let j = 0; j < props.data[i]?.price?.length; j++) {
         journeyDetails.push({
           label: `${props.data[i].price[j].key},Price:${props.data[i].price[j].value},(${props.data[i].price[j].extraPrice} Rs will be charged for extra ${props.data[i].price[j]?.thresholdKm} km)`,
           value: props.data[i].price[j],
+          price:`${props.data[i].price[j].value}`,
           key: `${props.data[i].price[j].key}`
         })
         console.log(props.data[i].price[j],'priceeeeeeee')
@@ -237,7 +238,7 @@ function BookingForm(props) {
         setActiveModalTwo(true)
       }
     }
-    if (activeForm == 'ambulance' || 'hearse') {
+    if (activeForm == 'ambulance' || 'harse') {
       if (bookingDetails && !bookingDetails.from) {
         setErrors({ field: 'from', message: 'Please enter the pickup location' })
       } else if (bookingDetails && !bookingDetails.to) {
@@ -562,7 +563,7 @@ function BookingForm(props) {
                   <div className="col-lg-12 col-md-6 mt-2">
                     <label>Select Your Journey Details</label>
                     <Select options={journeyDetails} 
-                    onChange={(e) => { setBookingDetails({ ...bookingDetails, selectedScheme: e.value }) }} 
+                    onChange={(e) => { setBookingDetails({ ...bookingDetails, selectedScheme: e.value,amountLeftToBePaid:e.price }) }} 
                     />
                   </div>
                   {
@@ -592,10 +593,6 @@ function BookingForm(props) {
                   {
                     errors && errors.field == 'time' && <h6 className="text-danger mt-1">{errors.message}</h6>
                   }
-                  {/* <div className="col-lg-12 col-md-6 mt-2 d-flex justify-content-start align-items-center">
-                    <input type="checkbox" style={{ maxWidth: "4%" }} onChange={(e) => { e.target.checked ? setBookingDetails({ ...bookingDetails, emergency: 'true' }) : setBookingDetails({ ...bookingDetails, emergency: 'false' }) }} />
-                    <label className="mb-0">Is it a case of Emergency?</label>
-                  </div> */}
                   <div className="col-lg-10 col-md-6 mt-4">
                     <button className="main-btn icon-btn" onClick={() => activeModalFunctionTwo(activeForm)}>Book Now!</button>
                   </div>
@@ -603,7 +600,7 @@ function BookingForm(props) {
               </Tab.Pane>
               {/* ***********************Hearse************** */}
               <Tab.Pane
-                className={`show ${activeForm === "hearse" ? "active" : ""}`}
+                className={`show ${activeForm === "harse" ? "active" : ""}`}
               >
                 <div className="row">
                   <div className="col-lg-12 col-md-6 mt-2">
@@ -634,7 +631,7 @@ function BookingForm(props) {
                   <div className="col-lg-12 col-md-6 mt-2">
                     <label>Select Your Journey Details</label>
                     <Select options={journeyDetails} 
-                    onChange={(e) => { setBookingDetails({ ...bookingDetails, selectedScheme: e.value }) }} 
+                    onChange={(e) => { setBookingDetails({ ...bookingDetails, selectedScheme: e.value ,amountLeftToBePaid:e.price}) }} 
                     />
                   </div>
                   {

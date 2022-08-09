@@ -43,10 +43,10 @@ const Booking = () => {
   const reviewedItem = localStorage.getItem("reviewedItem")
   const [isReviewed, setIsReviewed] = useState(JSON.parse(reviewedItem))
   useEffect(() => {
-    if (ramlingamData && kalyanmandapData && townhallData && ambulanceData) {
+    if (ramlingamBookingList.length > 0 && kalyanmandapList.length > 0 && townhallBookingList.length > 0 && ambulanceList.length > 0 && hearseList.length > 0) {
       setIsLoaded(true)
     }
-  }, [ramlingamData, townhallData, kalyanmandapData])
+  }, [ramlingamBookingList,kalyanmandapList,townhallBookingList,ambulanceList,hearseList])
 
 
   const closeReviewMOdal = (data) => {
@@ -70,7 +70,7 @@ const Booking = () => {
           method: 'post',
           url: "ramalingampark/event/getEventByEventId",
           data: {
-            eventId: ramlingamArray[i].eventId
+            eventId: ramlingamArray[i]?.eventId
           }
         }
         let response = await callApi(getBookingData)
@@ -78,7 +78,7 @@ const Booking = () => {
           method: 'post',
           url: "ramalingampark/event/getReview",
           data: {
-            eventId: ramlingamArray[i].eventId
+            eventId: ramlingamArray[i]?.eventId
           }
         }
         let responseReview = await callApi(getBookingReviewData)
@@ -117,7 +117,7 @@ const Booking = () => {
           method: 'post',
           url: "ramalingampark/event/getReview",
           data: {
-            eventId: townhallArray[i].townhallId
+            eventId: townhallArray[i]?.townhallId
           }
         }
         let responseReview = await callApi(getBookingReviewData)
@@ -154,7 +154,7 @@ const Booking = () => {
           method: 'post',
           url: "ramalingampark/event/getReview",
           data: {
-            eventId: mandapArray[i].mandapId
+            eventId: mandapArray[i]?.mandapId
           }
         }
         let responseReview = await callApi(getBookingReviewData)
@@ -260,7 +260,7 @@ const Booking = () => {
                     <AccordionItemPanel>
                       {ramlingamBookingList.map((bookings, index) => {
                         return (
-                          <div className="row" key={ramlingamData.eventId}>
+                          <div className="row" key={ramlingamData?.eventId}>
                             <div className="col-lg-9 pr-4" key={bookings.bookingId}>
                               <div className="booking-card p-3">
                                 <div className="row">
@@ -343,12 +343,12 @@ const Booking = () => {
                                   <h6 className='ml-2 mb-0' style={{ color: '#fff', letterSpacing: '1px' }}>Reviewed</h6>
                                 </span>
                               </div> : <div className="review-link mt-2">
-                                <button onClick={() => { setActiveModalReview(!activeModalReview), setEventId(ramlingamData[index].eventId), setEventDepartment('ramlingamPark') }}>Give a small review</button>
+                                <button onClick={() => { setActiveModalReview(!activeModalReview), setEventId(ramlingamData[index]?.eventId), setEventDepartment('ramlingamPark') }}>Give a small review</button>
                               </div> : <div className="review-link mt-2">
-                                <button style={{ backgroundColor: 'transparent' }} onClick={() => { setActiveModalReview(!activeModalReview), setEventId(ramlingamData[index].eventId), setEventDepartment('ramlingamPark') }}>Give a small review</button>
+                                <button style={{ backgroundColor: 'transparent' }} onClick={() => { setActiveModalReview(!activeModalReview), setEventId(ramlingamData[index]?.eventId), setEventDepartment('ramlingamPark') }}>Give a small review</button>
                               </div>}
                               <div className="review-link mt-2">
-                                <button style={{ backgroundColor: 'transparent' }} onClick={() => { setReviewListModal(!reviewListModal), setEventIdForList(ramlingamData[index].eventId) }}>See all Reviews</button>
+                                <button style={{ backgroundColor: 'transparent' }} onClick={() => { setReviewListModal(!reviewListModal), setEventIdForList(ramlingamData[index]?.eventId) }}>See all Reviews</button>
                               </div>
 
                               <div className="review-link mt-2">
@@ -450,18 +450,18 @@ const Booking = () => {
                             </div>
                             <div className="col-lg-3 d-flex flex-column justify-content-center">
                               <Ratings size='50' align='center' rating={townhallData[index]?.rating} canHover={false} />
-                              {isReviewed ? isReviewed.includes(townhallData[index].eventId) ? <div className="d-flex justify-content-center mt-2">
+                              {isReviewed ? isReviewed.includes(townhallData[index]?.eventId) ? <div className="d-flex justify-content-center mt-2">
                                 <span className="d-flex align-item-center main-btn btn-success">
                                   <i className="ti-check" style={{ fontSize: '15px' }}></i>
                                   <h6 className='ml-2 mb-0' style={{ color: '#fff', letterSpacing: '1px' }}>Reviewed</h6>
                                 </span>
                               </div> : <div className="review-link mt-2">
-                                <button style={{ backgroundColor: 'transparent' }} onClick={() => { setActiveModalReview(!activeModalReview), setEventId(townhallData[index].eventId), setEventDepartment('townhall') }}>Give a small review</button>
+                                <button style={{ backgroundColor: 'transparent' }} onClick={() => { setActiveModalReview(!activeModalReview), setEventId(townhallData[index]?.eventId), setEventDepartment('townhall') }}>Give a small review</button>
                               </div> : <div className="review-link mt-2">
-                                <button style={{ backgroundColor: 'transparent' }} onClick={() => { setActiveModalReview(!activeModalReview), setEventId(townhallData[index].eventId), setEventDepartment('townhall') }}>Give a small review</button>
+                                <button style={{ backgroundColor: 'transparent' }} onClick={() => { setActiveModalReview(!activeModalReview), setEventId(townhallData[index]?.eventId), setEventDepartment('townhall') }}>Give a small review</button>
                               </div>}
                               <div className="review-link mt-2">
-                                <button style={{ backgroundColor: 'transparent' }} onClick={() => { setReviewListModal(!reviewListModal), setEventIdForList(townhallData[index].eventId) }}>See all Reviews</button>
+                                <button style={{ backgroundColor: 'transparent' }} onClick={() => { setReviewListModal(!reviewListModal), setEventIdForList(townhallData[index]?.eventId) }}>See all Reviews</button>
                               </div>
 
                               <div className="review-link mt-2">
@@ -561,18 +561,18 @@ const Booking = () => {
                             </div>
                             <div className="col-lg-3 d-flex flex-column justify-content-center">
                               <Ratings size='50' align='center' rating={kalyanmandapData[index]?.rating} canHover={false} />
-                              {isReviewed ? isReviewed.includes(kalyanmandapData[index].eventId) ? <div className="d-flex justify-content-center mt-2">
+                              {isReviewed ? isReviewed.includes(kalyanmandapData[index]?.eventId) ? <div className="d-flex justify-content-center mt-2">
                                 <span className="d-flex align-item-center main-btn btn-success">
                                   <i className="ti-check" style={{ fontSize: '15px' }}></i>
                                   <h6 className='ml-2 mb-0' style={{ color: '#fff', letterSpacing: '1px' }}>Reviewed</h6>
                                 </span>
                               </div> : <div className="review-link mt-2">
-                                <button style={{ backgroundColor: 'transparent' }} onClick={() => { setActiveModalReview(!activeModalReview), setEventId(kalyanmandapData[index].eventId), setEventDepartment('kalyanMandap') }}>Give a small review</button>
+                                <button style={{ backgroundColor: 'transparent' }} onClick={() => { setActiveModalReview(!activeModalReview), setEventId(kalyanmandapData[index]?.eventId), setEventDepartment('kalyanMandap') }}>Give a small review</button>
                               </div> : <div className="review-link mt-2">
-                                <button style={{ backgroundColor: 'transparent' }} onClick={() => { setActiveModalReview(!activeModalReview), setEventId(kalyanmandapData[index].eventId), setEventDepartment('kalyanMandap') }}>Give a small review</button>
+                                <button style={{ backgroundColor: 'transparent' }} onClick={() => { setActiveModalReview(!activeModalReview), setEventId(kalyanmandapData[index]?.eventId), setEventDepartment('kalyanMandap') }}>Give a small review</button>
                               </div>}
                               <div className="review-link mt-2">
-                                <button style={{ backgroundColor: 'transparent' }} onClick={() => { setReviewListModal(!reviewListModal), setEventIdForList(kalyanmandapData[index].eventId) }}>See all Reviews</button>
+                                <button style={{ backgroundColor: 'transparent' }} onClick={() => { setReviewListModal(!reviewListModal), setEventIdForList(kalyanmandapData[index]?.eventId) }}>See all Reviews</button>
                               </div>
 
                               <div className="review-link mt-2">
@@ -706,7 +706,7 @@ const Booking = () => {
                                 <button style={{ backgroundColor: 'transparent' }} onClick={() => { setActiveModalReview(!activeModalReview), setEventDepartment('ambulance') }}>Give a small review</button>
                               </div>}
                               <div className="review-link mt-2">
-                                <button style={{ backgroundColor: 'transparent' }} onClick={() => { setReviewListModal(!reviewListModal), setEventIdForList(ambulanceData.eventName) }}>See all Reviews</button>
+                                <button style={{ backgroundColor: 'transparent' }} onClick={() => { setReviewListModal(!reviewListModal), setEventIdForList(ambulanceData?.eventName) }}>See all Reviews</button>
                               </div>
 
                               <div className="review-link mt-2">
@@ -840,7 +840,7 @@ const Booking = () => {
                                 <button style={{ backgroundColor: 'transparent' }} onClick={() => { setActiveModalReview(!activeModalReview), setEventDepartment('ambulance') }}>Give a small review</button>
                               </div>}
                               <div className="review-link mt-2">
-                                <button style={{ backgroundColor: 'transparent' }} onClick={() => { setReviewListModal(!reviewListModal), setEventIdForList(ambulanceData.eventName) }}>See all Reviews</button>
+                                <button style={{ backgroundColor: 'transparent' }} onClick={() => { setReviewListModal(!reviewListModal), setEventIdForList(ambulanceData?.eventName) }}>See all Reviews</button>
                               </div>
 
                               <div className="review-link mt-2">

@@ -14,6 +14,7 @@ import { callApi } from "../src/apiHandlers/callApi";
 const Hearse = () => {
   const [video, setVideo] = useState(false);
   const [hearseData, setHearseData] = useState();
+  const [isLoaded,setIsLoaded] = useState(false)
   const getAllHarse = async () => {
     let apiTest = {
       method: 'post',
@@ -21,6 +22,7 @@ const Hearse = () => {
     }
     let response = await callApi(apiTest)
     setHearseData(response.data.data)
+    setIsLoaded(true)
   }
   console.log(hearseData,'hearseeeeeee')
   const bannerSlider = [];
@@ -113,10 +115,10 @@ for (let i = 0; i < hearseData?.length; i++) {
     <Layout>
       {video && <VideoPopup close={setVideo} />}
       {/* <!--====== Start Hero Section ======--> */}
-      <Banner overallData={hearseData} mainSlider={bannerSlider} activeForm='hearse' pageOf="hearse" />
+      <Banner overallData={hearseData} mainSlider={bannerSlider} activeForm='harse' pageOf="harse" />
       {/* <!--====== End Hero Section ======--> */}
       {/* <!--====== Start Listing Section ======--> */}
-      <ShowsList overallData={hearseData} pageOf="hearse" />
+      <ShowsList overallData={hearseData} pageOf="harse" />
       {/* <!--====== Start Place Section ======--> */}
       <Gallery gallery={photoGallery} />
       {/* <!--====== End Place Section ======--> */}

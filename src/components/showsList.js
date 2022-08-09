@@ -66,9 +66,9 @@ const ShowsList = (props) => {
       response.data.data?.map((x) => {
         avgRating = avgRating + x.rating
       })
-      !(props.overallData[i].ambulanceName) && showData.push({ department: props.pageOf, price: props.overallData[i].price, cPrice: props.overallData[i].cPrice, eventId: props.overallData[i].eventId, townhallId: props.overallData[i].townhallId, mandapId: props.overallData[i].mandapId, eventName: props.overallData[i].eventName, townhallName: props.overallData[i].townhallName, mandapName: props.overallData[i].mandapName, location: props.overallData[i].location, card: props.overallData[i].card, review: props.overallData[i].review, reviewCount: props.overallData[i].reviewCount, seatCategory: props.overallData[i].seatCategory, dates: props.overallData[i].dateAndTime?.map((x) => { return x.date }), dateAndTime: props.overallData[i].dateAndTime, eventDefaultTime: props.overallData[i].eventDefaultTime, eventTag: props.overallData[i].eventTag, rating: Math.round(avgRating / response.data.data.length) })
-      if (props.overallData[i].ambulanceName) {
-        showData.push({ department: props.pageOf, ambulanceId: props.overallData[i]?.vehicles[0]?.vehicleId, ambulanceName: props.overallData[i]?.ambulanceName, card: props.overallData[i].card, eventTag: props.overallData[i].tag ||props.overallData[i].townhallTag || props.overallData[i].mandapTag, price: 'Depends on distance', status: props.overallData[i].status })
+      !(props.overallData[i].ambulanceName || props.overallData[i].harseName) && showData.push({ department: props.pageOf, price: props.overallData[i].price, cPrice: props.overallData[i].cPrice, eventId: props.overallData[i].eventId, townhallId: props.overallData[i].townhallId, mandapId: props.overallData[i].mandapId, eventName: props.overallData[i].eventName, townhallName: props.overallData[i].townhallName, mandapName: props.overallData[i].mandapName, location: props.overallData[i].location, card: props.overallData[i].card, review: props.overallData[i].review, reviewCount: props.overallData[i].reviewCount, seatCategory: props.overallData[i].seatCategory, dates: props.overallData[i].dateAndTime?.map((x) => { return x.date }), dateAndTime: props.overallData[i].dateAndTime, eventDefaultTime: props.overallData[i].eventDefaultTime, eventTag: props.overallData[i].eventTag, rating: Math.round(avgRating / response.data.data.length) })
+      if (props.overallData[i].ambulanceName || props.overallData[i].harseName) {
+        showData.push({ department: props.pageOf, ambulanceId: props.overallData[i]?.vehicles[0]?.vehicleId, ambulanceName: props.overallData[i]?.ambulanceName,harseName: props.overallData[i]?.harseName, card: props.overallData[i].card, eventTag: props.overallData[i].tag ||props.overallData[i].townhallTag || props.overallData[i].mandapTag, price: 'Depends on distance', status: props.overallData[i].status })
       }
     }
     setShowList(showData)
@@ -80,7 +80,7 @@ const ShowsList = (props) => {
         <div className="row justify-content-center">
           <div className="col-lg-8">
             <div className="section-title text-center mb-75">
-              <h2>Shows List </h2>
+              <h2>Shows List</h2>
             </div>
           </div>
         </div>
@@ -114,7 +114,7 @@ const ShowsList = (props) => {
                   <div className="listing-content">
                     <h3 className="title">
                       <Link href="/listing-details-1">
-                        <a>{show.eventName || show.townhallName || show.mandapName || show.ambulanceName}</a>
+                        <a>{show.eventName || show.townhallName || show.mandapName || show.ambulanceName || show.harseName}</a>
                       </Link>
                     </h3>
                     {show.eventTag && show.eventTag.map((x) => { return (<span className='badge badge-warning ml-0 mr-2 mb-2 text-capitalize'>{x}</span>) })}
