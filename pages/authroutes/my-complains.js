@@ -119,18 +119,18 @@ const MyComplains = () => {
                                 <div className="ticket-details  d-flex flex-column">
                                   <h5 className="m-0 mb-2">
                                     <AiOutlineMobile /> &nbsp;
-                                    <b>{bookings.bookingRequestParentId.phoneNumber}</b>
+                                    <b>{bookings?.bookingRequestParentId?.phoneNumber}</b>
                                   </h5>
                                   <h5 className="m-0 mb-2 text-center">
-                                    {bookings.bookingRequestId}
+                                    {bookings?.bookingRequestId}
                                   </h5>
                                 </div>
                                 <div className="ticket-details d-flex justify-content-between flex-column">
                                   <h5 className="m-0 text-center">
-                                    {bookings.bookingRequestParentId.eventName || bookings.bookingRequestParentId.townhallName || bookings.bookingRequestParentId.mandapName || bookings.bookingRequestParentId.ambulanceName || bookings.bookingRequestParentId.harseName}
+                                    {bookings?.bookingRequestParentId?.eventName || bookings.bookingRequestParentId?.townhallName || bookings.bookingRequestParentId?.mandapName || bookings.bookingRequestParentId?.ambulanceName || bookings.bookingRequestParentId?.harseName}
                                   </h5>
                                   <h5 className="text-center m-0 mb-2">
-                                    <b>{bookings.bookingRequestParentId.eventId || bookings.bookingRequestParentId.townhallId || bookings.bookingRequestParentId.mandapId}</b>
+                                    <b>{bookings?.bookingRequestParentId?.eventId || bookings.bookingRequestParentId?.townhallId || bookings.bookingRequestParentId?.mandapId}</b>
                                   </h5>
                                 </div>
                               </div>
@@ -142,10 +142,10 @@ const MyComplains = () => {
 
                         </div>
                         <div className="col-lg-3 qr-section">
-                          <img src={bookings.bookingRequestParentId.qrUrl} />
+                          <img src={bookings.bookingRequestParentId?.qrUrl} />
                           <hr />
                           <h5 className="text-center">
-                            <b>{bookings.bookingRequestId}</b>
+                            <b>{bookings?.bookingRequestId}</b>
                           </h5>
                         </div>
                         <div className="col-lg-3 d-flex flex-column justify-content-center" style={{ borderLeft: '1px solid #ccc', padding: '30px' }}>

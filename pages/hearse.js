@@ -14,7 +14,7 @@ import { callApi } from "../src/apiHandlers/callApi";
 const Hearse = () => {
   const [video, setVideo] = useState(false);
   const [hearseData, setHearseData] = useState();
-  const [isLoaded,setIsLoaded] = useState(false)
+  const [isLoaded, setIsLoaded] = useState(false)
   const getAllHarse = async () => {
     let apiTest = {
       method: 'post',
@@ -24,52 +24,10 @@ const Hearse = () => {
     setHearseData(response.data.data)
     setIsLoaded(true)
   }
-  console.log(hearseData,'hearseeeeeee')
   const bannerSlider = [];
-for (let i = 0; i < hearseData?.length; i++) {
-  bannerSlider.push(hearseData[i].banner)
-}
-  const showList = [
-    {
-      featured: true,
-      imgUrl:
-        "https://media.istockphoto.com/photos/driving-on-idyllic-roads-picture-id1303391856?b=1&k=20&m=1303391856&s=170667a&w=0&h=RvzNO06n8AZHSw8B0xm6Lac0bBe6WLdsw5kMNSxgc5E=",
-      buttonIconUrl: "",
-      buttonName: "Book",
-      showName: "Mo Odisha",
-      reviews: "ratings-four",
-      reviewNumber: "05",
-      Price: "",
-      contactNumber: "9876543210",
-      location: "Odisha",
-    },
-    {
-      featured: true,
-      imgUrl:
-        "https://media.istockphoto.com/photos/driving-on-idyllic-roads-picture-id1303391856?b=1&k=20&m=1303391856&s=170667a&w=0&h=RvzNO06n8AZHSw8B0xm6Lac0bBe6WLdsw5kMNSxgc5E=",
-      buttonIconUrl: "",
-      buttonName: "Book",
-      showName: "Bande Utkala",
-      reviews: "ratings-four",
-      reviewNumber: "05",
-      Price: "",
-      contactNumber: "9876543210",
-      location: "Odisha",
-    },
-    {
-      featured: false,
-      imgUrl:
-        "https://media.istockphoto.com/photos/driving-on-idyllic-roads-picture-id1303391856?b=1&k=20&m=1303391856&s=170667a&w=0&h=RvzNO06n8AZHSw8B0xm6Lac0bBe6WLdsw5kMNSxgc5E=",
-      buttonIconUrl: "",
-      buttonName: "Book",
-      showName: "Shivananda Show",
-      reviews: "ratings-four",
-      reviewNumber: "05",
-      Price: "",
-      contactNumber: "9876543210",
-      location: "Odisha",
-    },
-  ];
+  for (let i = 0; i < hearseData?.length; i++) {
+    bannerSlider.push(hearseData[i].banner)
+  }
   const getFreeQuote = [
     {
       smallText: "Checkout List",
@@ -109,10 +67,10 @@ for (let i = 0; i < hearseData?.length; i++) {
     { link: "https://www.youtube.com/embed/JHlY8w69wSE" }
   ];
   useEffect(() => {
-   getAllHarse()
+    getAllHarse()
   }, [])
-    return (
-    <Layout>
+  return (
+    !isLoaded ? <PreLoader /> : <Layout>
       {video && <VideoPopup close={setVideo} />}
       {/* <!--====== Start Hero Section ======--> */}
       <Banner overallData={hearseData} mainSlider={bannerSlider} activeForm='harse' pageOf="harse" />

@@ -5,11 +5,9 @@ import FormModal from "./formModal";
 import "react-datepicker/dist/react-datepicker.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { callApi } from "../apiHandlers/callApi";
-import { useForm } from "react-hook-form";
 
 
 function BookingForm(props) {
-  console.log(props.data, 'propssssssss')
 
   //booking forms value
 
@@ -129,7 +127,6 @@ function BookingForm(props) {
       })
     }
   }
-
   //kalyan mandap
   const kalyanMandap = [];
   for (let i = 0; i < props.data?.length; i++) {
@@ -193,8 +190,6 @@ function BookingForm(props) {
       }
     }
   }
-
-  console.log(...journeyDetails, 'journeyDetails')
 
   //form submit 
 
@@ -270,7 +265,6 @@ function BookingForm(props) {
   useEffect(() => {
     console.log(errors, 'errors')
   }, [errors])
-
   useEffect(() => {
     console.log(bookingDetails, 'bookingdetails')
   }, [bookingDetails])

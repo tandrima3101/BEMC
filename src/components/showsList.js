@@ -40,7 +40,16 @@ const ShowsList = (props) => {
     }
   }
   const handleReviewData = (show) => {
-    setMOdalOpen(!modalOpen), setEventId(show.eventId || show.townhallId || show.mandapId)
+    setMOdalOpen(!modalOpen)
+    if(props.pageOf == 'ambulance'){
+      setEventId('AMB001')
+    }
+    else if (props.pageOf == 'harse'){
+      setEventId("HAR001")
+    }
+    else{
+      setEventId(show.eventId || show.townhallId || show.mandapId)
+    }
     if (show.eventId) {
       setDepartmentForIndex('ramlingamPark')
     } else if (show.townhallId) {
@@ -57,7 +66,7 @@ const ShowsList = (props) => {
         method: 'post',
         url: 'ramalingampark/event/getReview',
         data: {
-          eventId: props.overallData[i].eventId || props.overallData[i].townhallId || props.overallData[i].mandapId
+          eventId: props.overallData[i].eventId || props.overallData[i].townhallId || props.overallData[i].mandapId || 'AMB001' || 'HAR001'
         }
       }
       let response = await callApi(getReviewData)
@@ -68,7 +77,7 @@ const ShowsList = (props) => {
       })
       !(props.overallData[i].ambulanceName || props.overallData[i].harseName) && showData.push({ department: props.pageOf, price: props.overallData[i].price, cPrice: props.overallData[i].cPrice, eventId: props.overallData[i].eventId, townhallId: props.overallData[i].townhallId, mandapId: props.overallData[i].mandapId, eventName: props.overallData[i].eventName, townhallName: props.overallData[i].townhallName, mandapName: props.overallData[i].mandapName, location: props.overallData[i].location, card: props.overallData[i].card, review: props.overallData[i].review, reviewCount: props.overallData[i].reviewCount, seatCategory: props.overallData[i].seatCategory, dates: props.overallData[i].dateAndTime?.map((x) => { return x.date }), dateAndTime: props.overallData[i].dateAndTime, eventDefaultTime: props.overallData[i].eventDefaultTime, eventTag: props.overallData[i].eventTag, rating: Math.round(avgRating / response.data.data.length) })
       if (props.overallData[i].ambulanceName || props.overallData[i].harseName) {
-        showData.push({ department: props.pageOf, ambulanceId: props.overallData[i]?.vehicles[0]?.vehicleId, ambulanceName: props.overallData[i]?.ambulanceName,harseName: props.overallData[i]?.harseName, card: props.overallData[i].card, eventTag: props.overallData[i].tag ||props.overallData[i].townhallTag || props.overallData[i].mandapTag, price: 'Depends on distance', status: props.overallData[i].status })
+        showData.push({ department: props.pageOf, ambulanceId: props.overallData[i]?.vehicles[0]?.vehicleId, ambulanceName: props.overallData[i]?.ambulanceName,harseName: props.overallData[i]?.harseName, card: props.overallData[i].card, eventTag: props.overallData[i].tag ||props.overallData[i].townhallTag || props.overallData[i].mandapTag, price: 'Depends on distance', status: props.overallData[i].status,rating: Math.round(avgRating / response.data.data.length),scheme:props.overallData[i].price ,ambulanceId : 'AMB001' ,harseId: 'HAR001'})
       }
     }
     setShowList(showData)
@@ -150,24 +159,24 @@ const ShowsList = (props) => {
                             </li>
                           ) : <li></li>
                         )}
-                        {isReviewed ? isReviewed.includes(show.eventId || show.townhallId || show.mandapId) ? <li className='d-flex flex-column'>
+                        {isReviewed ? isReviewed.includes(show.eventId || show.townhallId || show.mandapId || 'AMB001' || 'HAR001') ? <li className='d-flex flex-column'>
                           <span>
                             <i className="ti-check"></i>
                             <span className='text-success ml-0'>Reviewed</span>
                           </span>
-                          <button style={{ backgroundColor: 'transparent' }} className='mt-2 ml-auto' onClick={() => { setReviewListModal(true), setEventIdForList(show.eventId || show.townhallId || show.mandapId) }}>See All Reviews</button>
+                          <button style={{ backgroundColor: 'transparent' }} className='mt-2 ml-auto' onClick={() => { setReviewListModal(true), setEventIdForList(show.eventId || show.townhallId || show.mandapId || 'AMB001' || 'HAR001') }}>See All Reviews</button>
                         </li> : <li className='d-flex flex-column'>
                           <span>
                             <i className="ti-star"></i>
                             <button style={{ backgroundColor: 'transparent' }} onClick={() => { handleReviewData(show) }}>Give a Review</button>
                           </span>
-                          <button style={{ backgroundColor: 'transparent' }} className='mt-2 ml-auto' onClick={() => { setReviewListModal(true), setEventIdForList(show.eventId || show.townhallId || show.mandapId) }}>See All Reviews</button>
+                          <button style={{ backgroundColor: 'transparent' }} className='mt-2 ml-auto' onClick={() => { setReviewListModal(true), setEventIdForList(show.eventId || show.townhallId || show.mandapId || 'AMB001' || 'HAR001') }}>See All Reviews</button>
                         </li> : <li className='d-flex flex-column'>
                           <span>
                             <i className="ti-star"></i>
                             <button style={{ backgroundColor: 'transparent' }} onClick={() => { handleReviewData(show) }}>Give a Review</button>
                           </span>
-                          <button style={{ backgroundColor: 'transparent' }} className='mt-2 ml-auto' onClick={() => { setReviewListModal(true), setEventIdForList(show.eventId || show.townhallId || show.mandapId) }}>See All Reviews</button>
+                          <button style={{ backgroundColor: 'transparent' }} className='mt-2 ml-auto' onClick={() => { setReviewListModal(true), setEventIdForList(show.eventId || show.townhallId || show.mandapId || 'AMB001' || 'HAR001') }}>See All Reviews</button>
                         </li>}
                       </ul>
                     </div>

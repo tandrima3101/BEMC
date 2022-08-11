@@ -17,6 +17,7 @@ import SeeAllReviewModal from "../../src/components/seeallreviewModal";
 import PreLoader from "../../src/components/PreLoader";
 import moment from "moment";
 import { setRoutingData } from "../../src/utils";
+
 const Booking = () => {
   const [video, setVideo] = useState(false);
   const [activeModalThree, setActiveModalThree] = useState(false);
@@ -36,19 +37,16 @@ const Booking = () => {
   const [eventIdForGrievance, setEventIdForGrievance] = useState(null)
   const [parentEventIdForGrievance, setParentEventIdForGrievance] = useState(null)
   const [reviewListModal, setReviewListModal] = useState(false)
-  const [isLoaded, setIsLoaded] = useState(false)
+  const [isLoaded, setIsLoaded] = useState(true)
   const [eventDepartment, setEventDepartment] = useState(null)
-
-
   const reviewedItem = localStorage.getItem("reviewedItem")
   const [isReviewed, setIsReviewed] = useState(JSON.parse(reviewedItem))
+
   useEffect(() => {
     if (ramlingamBookingList.length > 0 && kalyanmandapList.length > 0 && townhallBookingList.length > 0 && ambulanceList.length > 0 && hearseList.length > 0) {
       setIsLoaded(true)
     }
-  }, [ramlingamBookingList,kalyanmandapList,townhallBookingList,ambulanceList,hearseList])
-
-
+  }, [ramlingamBookingList, kalyanmandapList, townhallBookingList, ambulanceList, hearseList])
   const closeReviewMOdal = (data) => {
     setActiveModalReview(data)
   }
@@ -187,8 +185,22 @@ const Booking = () => {
         url: "ambulance/ambulance/getAllAmbulance",
       }
       let responseAmbulance = await callApi(getAmbulanceData)
+      let getBookingReviewData = {
+        method: 'post',
+        url: "ramalingampark/event/getReview",
+        data: {
+          eventId: "AMB001"
+        }
+      }
+      let responseReview = await callApi(getBookingReviewData)
+      console.log(responseReview, 'response for review')
+      let avgReview = 0;
+      responseReview.data.data.map((x) =>
+        avgReview = (avgReview + Math.round(x.rating))
+      )
+      console.log(avgReview, 'avggggggggggggg')
       console.log(responseAmbulance.data.data[0].banner.bannerImageUrl, 'ambulance')
-      setAmbulanceData({ image: responseAmbulance.data.data[0].banner.bannerImageUrl, event: 'ambulance', eventName: responseAmbulance.data.data[0].ambulanceName })
+      setAmbulanceData({ image: responseAmbulance.data.data[0].banner.bannerImageUrl, event: 'ambulance', eventName: responseAmbulance.data.data[0].ambulanceName, rating: Math.round(avgReview / responseReview.data.data.length) })
     }
   }
   const getHearseBookingRequest = async () => {
@@ -230,7 +242,7 @@ const Booking = () => {
   }, [ambulanceList])
 
   const formatDate = (value) => {
-    return moment(value).format('DD-MMM-YYYY'); // store localTime
+    return moment(value).format('DD-MMM-YYYY');
   }
   const handleAmbulancePayment = (data) => {
     let ambulanceData = {
@@ -691,11 +703,17 @@ const Booking = () => {
                                 <span className="escalate-badge escalate-badge-warning mb-4"><i className="ti-time mr-2"></i>{bookings.status}</span>
                               }
                               {
-                                bookings.amountLeftToBePaid > 0 &&
-                                <button className="main-btn mb-4 mx-auto" style={{ fontSize: '15px', width: 'max-content' }} onClick={() => handleAmbulancePayment(bookings)}>Make Your Payment</button>
+                                bookings.status != 'PENDING' && bookings.status != 'TRIP STARTED' && bookings.status != 'TRIP ENDED' &&  
+                                  bookings.amountLeftToBePaid > 0 &&
+                                  <button className="main-btn mb-4 mx-auto" style={{ fontSize: '15px', width: 'max-content' }} onClick={() => handleAmbulancePayment(bookings)}>Make Your Payment</button>
+                              }
+                              {
+                                bookings.status == 'TRIP ENDED'  && 
+                                  bookings.amountLeftToBePaid > 0 &&
+                                  <button className="main-btn mb-4 mx-auto" style={{ fontSize: '15px', width: 'max-content' }} onClick={() => handleAmbulancePayment(bookings)}>Pay {bookings.amountLeftToBePaid}</button>
                               }
                               <Ratings size='50' align='center' rating={ambulanceData?.rating} canHover={false} />
-                              {isReviewed ? isReviewed.includes(ambulanceData?.event) ? <div className="d-flex justify-content-center mt-2">
+                              {isReviewed ? isReviewed.includes("AMB001") ? <div className="d-flex justify-content-center mt-2">
                                 <span className="d-flex align-item-center main-btn btn-success">
                                   <i className="ti-check" style={{ fontSize: '15px' }}></i>
                                   <h6 className='ml-2 mb-0' style={{ color: '#fff', letterSpacing: '1px' }}>Reviewed</h6>
@@ -807,7 +825,7 @@ const Booking = () => {
                               </div>
                             </div>
                             <div className="col-lg-3 d-flex flex-column justify-content-center">
-                              {bookings.status === 'ASSIGNED' &&
+                            {bookings.status === 'ASSIGNED' &&
                                 <>
                                   <span className="escalate-badge escalate-badge-success mb-4"><i className="ti-check mr-2"></i>{bookings.status}</span>
                                 </>
@@ -825,8 +843,14 @@ const Booking = () => {
                                 <span className="escalate-badge escalate-badge-warning mb-4"><i className="ti-time mr-2"></i>{bookings.status}</span>
                               }
                               {
-                                bookings.amountLeftToBePaid > 0 &&
-                                <button className="main-btn mb-4 mx-auto" style={{ fontSize: '15px', width: 'max-content' }} onClick={() => handleAmbulancePayment(bookings)}>Make Your Payment</button>
+                                bookings.status != 'PENDING' && bookings.status != 'TRIP STARTED' && bookings.status != 'TRIP ENDED' &&  
+                                  bookings.amountLeftToBePaid > 0 &&
+                                  <button className="main-btn mb-4 mx-auto" style={{ fontSize: '15px', width: 'max-content' }} onClick={() => handleAmbulancePayment(bookings)}>Make Your Payment</button>
+                              }
+                              {
+                                bookings.status == 'TRIP ENDED'  && 
+                                  bookings.amountLeftToBePaid > 0 &&
+                                  <button className="main-btn mb-4 mx-auto" style={{ fontSize: '15px', width: 'max-content' }} onClick={() => handleAmbulancePayment(bookings)}>Pay {bookings.amountLeftToBePaid}</button>
                               }
                               <Ratings size='50' align='center' rating={ambulanceData?.rating} canHover={false} />
                               {isReviewed ? isReviewed.includes(ambulanceData?.event) ? <div className="d-flex justify-content-center mt-2">

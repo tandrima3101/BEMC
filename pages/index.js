@@ -50,13 +50,20 @@ const Index = () => {
           }
           let response = await callApi(apiTest)
           tempArr.push(...response.data.data)
+          if (response.data.code == 201) {
+            let apiTest = {
+              method: 'post',
+              url: "harse/harse/getAllHarse"
+            }
+            let response = await callApi(apiTest)
+            tempArr.push(...response.data.data)
+          }
+          console.log(tempArr, 'tempArrrrrrrrrrrr')
+          setRamlingamData(tempArr)
         }
-        console.log(tempArr, 'tempArrrrrrrrrrrr')
-        setRamlingamData(tempArr)
       }
     }
   }
-
   //fetch reviews
   async function fetchReviews() {
     let apiTest = {
@@ -118,8 +125,8 @@ const Index = () => {
     fetchReviews()
   }, [])
   useEffect(() => {
-   ramlingamData.length, bannerSlider.length && photoGallery.length && setIsLoaded(true)
-  }, [ramlingamData,bannerSlider, photoGallery])
+    ramlingamData.length, bannerSlider.length && photoGallery.length && setIsLoaded(true)
+  }, [ramlingamData, bannerSlider, photoGallery])
 
 
   return (

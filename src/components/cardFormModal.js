@@ -11,10 +11,12 @@ import { useDispatch, useSelector } from 'react-redux'
 import { generateOTP, setRoutingData, varifyOTP } from "../utils";
 import { callApi } from "../apiHandlers/callApi";
 import { setlogin, setToken, setUserId } from "../../redux/slices/loginSlice";
+import AmbulanceRequestModal from "./ambulanceRequestModal";
 
 function CardFormModal({ activeModal, eventInfo, toggleFunc, department }) {
     const dispatch = useDispatch()
     const [totalData, setTotalData] = useState()
+    const [reqAmbulanceModal, setReqAmbulanceModal] = useState(false)
     const [modalActive, setModalActive] = useState(activeModal)
     const [subModalActive, setSubModalActive] = useState(false)
     const [activeShowTimes, setActiveShowTimes] = useState({ label: '', value: '', key: '' })
@@ -22,7 +24,8 @@ function CardFormModal({ activeModal, eventInfo, toggleFunc, department }) {
     const [errors, setErrors] = useState({ field: '', message: '' })
     const userData = (JSON.parse(localStorage.getItem('userData')))
     const islogin = useSelector((state) => state.login.isLogin)
-    console.log(userData,'dataaaaaaaa')
+    console.log(eventInfo, department, 'cardformmodal')
+    console.log(userData, 'dataaaaaaaa')
     const showTimes = []
     const eventdates = []
     const seatsCategory = []
@@ -58,16 +61,20 @@ function CardFormModal({ activeModal, eventInfo, toggleFunc, department }) {
     })
     useEffect(() => {
         setModalActive(activeModal)
-        if(islogin){
-            setTotalData({ ...totalData,userName:userData?.firstName.concat(' ').concat(userData?.lastName),phoneNumber:JSON.stringify(userData?.phoneNumber),email:userData?.email })
-        }else{
+        if (islogin) {
+            setTotalData({ ...totalData, userName: userData?.firstName.concat(' ').concat(userData?.lastName), phoneNumber: JSON.stringify(userData?.phoneNumber), email: userData?.email })
+        } else {
             setTotalData({ ...totalData })
         }
         console.log(eventInfo, 'event')
     }, [activeModal])
     useEffect(() => {
         if (bookingDetails != null) {
-            setRoutingData(bookingDetails?._id, "authroutes/booking-details")
+            if (department == 'ambulance' || 'harse') {
+                setReqAmbulanceModal(true)
+              } else {
+                setRoutingData(bookingDetails?._id, "authroutes/booking-details")
+              }
         }
     }, [bookingDetails])
     //for button loader
@@ -82,7 +89,7 @@ function CardFormModal({ activeModal, eventInfo, toggleFunc, department }) {
     const sendOtp = async () => {
         setSubModalActive(true),
         setModalActive(false),
-        setTotalData({ ...totalData, ticketSource: "ONLINE", amount: department === "ramlingamPark" ? (eventInfo.price * totalData?.adultNum + eventInfo.cPrice * totalData?.childNum) : eventInfo?.price, department: department })
+        setTotalData({ ...totalData, ticketSource: "ONLINE", amount: department === "ramlingamPark" ? (eventInfo.price * totalData?.adultNum + eventInfo.cPrice * totalData?.childNum) : (department=='ambulance' || 'harse') ? totalData?.amountLeftToBePaid :eventInfo?.price, department: department })
         timerFunction()
         let dataForOtp = {
             email: totalData.email,
@@ -125,7 +132,19 @@ function CardFormModal({ activeModal, eventInfo, toggleFunc, department }) {
             clearInterval(timerId);
         };
     }
-
+    let journeyDetails = [];
+    if (eventInfo?.ambulanceName != undefined || eventInfo?.harseName != undefined) {
+        console.log(eventInfo?.scheme)
+        for (let j = 0; j < eventInfo?.scheme?.length; j++) {
+            journeyDetails.push({
+                label: `${eventInfo?.scheme[j].key},Price:${eventInfo?.scheme[j].value},(${eventInfo?.scheme[j].extraPrice} Rs will be charged for extra ${eventInfo?.scheme[j]?.thresholdKm} km)`,
+                value: eventInfo?.scheme[j],
+                price: `${eventInfo?.scheme[j].value}`,
+                key: `${eventInfo?.scheme[j].key}`
+            })
+            console.log('hiiiiiiiiiii')
+        }
+    }
     let url;
     if (department == "ramlingamPark") {
         url = "ramalingampark/bookingRequest/createBookingRequest"
@@ -135,6 +154,12 @@ function CardFormModal({ activeModal, eventInfo, toggleFunc, department }) {
     }
     else if (department == "townhall") {
         url = "townhall/bookingRequest/createBookingRequest"
+    }
+    else if (department == "ambulance") {
+        url = "ambulance/ambulance/createBookingRequest"
+    }
+    else if (department == "harse") {
+        url = "harse/harse/createBookingRequest"
     }
     const createBookingRequest = async () => {
         console.log(totalData)
@@ -185,6 +210,20 @@ function CardFormModal({ activeModal, eventInfo, toggleFunc, department }) {
             } else {
                 sendOtp()
             }
+        } else if (department == 'ambulance' || 'harse') {
+            if (totalData && !totalData.date) {
+                setErrors({ field: 'date', message: 'Please select a date' })
+            } else if (totalData && !totalData.time) {
+                setErrors({ field: 'time', message: 'Please select a time' })
+            } else if (totalData && !totalData.selectedScheme) {
+                setErrors({ field: 'scheme', message: 'Please select your journey details' })
+            } else if (totalData && !totalData.from) {
+                setErrors({ field: 'from', message: 'Please select your pickup location' })
+            } else if (totalData && !totalData.to) {
+                setErrors({ field: 'to', message: 'Please select your drop location' })
+            } else {
+                sendOtp()
+            }
         } else {
             if (totalData && !totalData.selectedDate) {
                 setErrors({ field: 'date', message: 'Please select a date' })
@@ -205,6 +244,10 @@ function CardFormModal({ activeModal, eventInfo, toggleFunc, department }) {
             }
         }
     }
+    const ambulanceModalToggle = (data) => {
+        setReqAmbulanceModal(data)
+        setSubmodalOne(false)
+      }
     return (
         <>
             {/* Main Modal */}
@@ -384,6 +427,83 @@ function CardFormModal({ activeModal, eventInfo, toggleFunc, department }) {
                             errors && errors.field == 'email' && <h6 className="text-danger mt-1">{errors.message}</h6>
                         }
                     </div>}
+                    {(department === "ambulance" || "harse") && <div className="row">
+                        <div className="col-lg-12 col-md-12 mt-2">
+                            <label>Select Vehicle</label>
+                            <input value={eventInfo?.ambulanceName || eventInfo?.harseName} type="text" className="otpinput m-0" />
+                        </div>
+                        <div className="col-lg-12 col-md-12 mt-2">
+                            <label>From</label>
+                            <input onChange={(e) => { setTotalData({ ...totalData, from: e.target.value }) }}
+                                type="text" className="otpinput m-0" />
+                        </div>
+                        {
+                            errors && errors.field == 'from' && <h6 className="text-danger mt-1">{errors.message}</h6>
+                        }
+                        <div className="col-lg-12 col-md-12 mt-2">
+                            <label>To</label>
+                            <input onChange={(e) => { setTotalData({ ...totalData, to: e.target.value }) }}
+                                type="text" className="otpinput m-0" />
+                        </div>
+                        {
+                            errors && errors.field == 'to' && <h6 className="text-danger mt-1">{errors.message}</h6>
+                        }
+                        <div className="col-lg-12 col-md-12 mt-2">
+                            <label>Select Date</label>
+                            <input
+                                type="date"
+                                className="form_control"
+                                placeholder="Number of Adult"
+                                name="location"
+                                onChange={(e) => { setTotalData({ ...totalData, date: e.target.value }) }}
+                            />
+                        </div>
+                        {
+                            errors && errors.field == 'date' && <h6 className="text-danger mt-1">{errors.message}</h6>
+                        }
+                        <div className="col-lg-12 col-md-12 mt-2">
+                            <label>Select Time</label>
+                            <input
+                                type="time"
+                                className="form_control"
+                                placeholder="Number of Adult"
+                                name="location"
+                                onChange={(e) => { setTotalData({ ...totalData, time: e.target.value}) }}
+                            />                        </div>
+                        {
+                            errors && errors.field == 'time' && <h6 className="text-danger mt-1">{errors.message}</h6>
+                        }
+                        <div className="col-lg-12 col-md-6 mt-2">
+                            <label>Select Your Journey Details</label>
+                            <Select options={journeyDetails}
+                                onChange={(e) => { setTotalData({ ...totalData, selectedScheme: e.value, amountLeftToBePaid: e.price }) }}
+                            />
+                        </div>
+                        {
+                            errors && errors.field == 'scheme' && <h6 className="text-danger mt-1">{errors.message}</h6>
+                        }
+                        <div className="col-lg-12 col-md-12 mt-2">
+                            <label>Enter Name</label>
+                            <input type="text" className="otpinput m-0" defaultValue={userData?.firstName.concat(' ').concat(userData?.lastName)} onChange={(e) => setTotalData({ ...totalData, userName: (e.target.value) })} />
+                        </div>
+                        {
+                            errors && errors.field == 'username' && <h6 className="text-danger mt-1">{errors.message}</h6>
+                        }
+                        <div className="col-lg-12 col-md-12 mt-2">
+                            <label>Enter Phone Number</label>
+                            <input type="number" className="otpinput m-0" defaultValue={userData?.phoneNumber} onChange={(e) => setTotalData({ ...totalData, phoneNumber: (e.target.value) })} />
+                        </div>
+                        {
+                            errors && errors.field == 'phoneNumber' && <h6 className="text-danger mt-1">{errors.message}</h6>
+                        }
+                        <div className="col-lg-12 col-md-12 mt-2">
+                            <label>Enter Email Address</label>
+                            <input type="text" className="otpinput m-0" defaultValue={userData?.email} onChange={(e) => setTotalData({ ...totalData, email: (e.target.value) })} />
+                        </div>
+                        {
+                            errors && errors.field == 'email' && <h6 className="text-danger mt-1">{errors.message}</h6>
+                        }
+                    </div>}
 
                 </ModalBody>
                 <ModalFooter>
@@ -417,6 +537,7 @@ function CardFormModal({ activeModal, eventInfo, toggleFunc, department }) {
                     </button>
                 </ModalFooter>
             </Modal>
+            <AmbulanceRequestModal activeAmbulanceModal={reqAmbulanceModal} toggle={() => ambulanceModalToggle()} />
         </>
     )
 }

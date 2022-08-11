@@ -69,9 +69,6 @@ function payment() {
       console.log(response.data.data, 'dataaaaaaaaaaaaa')
       setRoutingData(response.data.data, 'authroutes/booking-success')
     }
-    // else{
-    //   setRoutingData(response.data.data, 'authroutes/booking-failure')
-    // }
   }
   const paymentFailure = async () => {
     setOtpLoader(true)
