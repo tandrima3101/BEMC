@@ -22,6 +22,8 @@ function BookingForm(props) {
   const [activeModal, setActiveModal] = useState(false);
   const [activeModalTwo, setActiveModalTwo] = useState(false);
   const [errors, setErrors] = useState({ field: '', message: '' });
+  const [arenaData, setArenaData] = useState();
+  const [membershipData, setMembershipData] = useState();
   const newType = [
     "Ramlingam Park",
     "Kalyan Mandap",
@@ -166,15 +168,54 @@ function BookingForm(props) {
   }
 
   //sports arena
-  const sports = [
-    { value: "Badminton", label: "Badminton" },
-    { value: "Table Tennis", label: "Table Tennis" },
-  ];
-  const sportsMembership = [
-    { value: "Monthly", label: "Monthly" },
-    { value: "Yearly", label: "Yearly" },
-  ];
-
+  async function fetchActivities() {
+    let apiTest = {
+      method: 'post',
+      url: "sportsArena/sportsArena/getAllActivity"
+    }
+    let response = await callApi(apiTest)
+    if (response.data.code == 201) {
+      setArenaData(response.data.data)
+    }
+  }
+  async function fetchMembership() {
+    let apiTest = {
+      method: 'post',
+      url: "sportsArena/sportsArena/getAllMembership"
+    }
+    let response = await callApi(apiTest)
+    if (response.data.code == 201) {
+      setMembershipData(response.data.data)
+    }
+  }
+  useEffect(() => {
+    fetchActivities();
+    fetchMembership();
+  }, [])
+  let sports = [];
+  {
+    if (arenaData?.length > 0) {
+      for (let i = 0; i < arenaData?.length; i++) {
+        sports.push({
+          label: arenaData[i].activityName.toUpperCase(),
+          value: `${arenaData[i].activityName}`,
+          key: `${arenaData[i].activityName}`
+        })
+      }
+    }
+  }
+  const sportsMembership = [];
+  {
+    if (membershipData?.length > 0) {
+      for (let i = 0; i < membershipData?.length; i++) {
+        sportsMembership.push({
+          label: membershipData[i].membershipName.toUpperCase(),
+          value: `${membershipData[i].membershipName}`,
+          key: `${membershipData[i].membershipName}`
+        })
+      }
+    }
+  }
   ///ambulance
   let journeyDetails = [];
   for (let i = 0; i < props.data?.length; i++) {
@@ -183,10 +224,10 @@ function BookingForm(props) {
         journeyDetails.push({
           label: `${props.data[i].price[j].key},Price:${props.data[i].price[j].value},(${props.data[i].price[j].extraPrice} Rs will be charged for extra ${props.data[i].price[j]?.thresholdKm} km)`,
           value: props.data[i].price[j],
-          price:`${props.data[i].price[j].value}`,
+          price: `${props.data[i].price[j].value}`,
           key: `${props.data[i].price[j].key}`
         })
-        console.log(props.data[i].price[j],'priceeeeeeee')
+        console.log(props.data[i].price[j], 'priceeeeeeee')
       }
     }
   }
@@ -414,7 +455,7 @@ function BookingForm(props) {
               <FormModal active={activeModal} toggle={activeModalFunction} data={bookingDetails} adultPrice={selectedData?.price} childPrice={selectedData?.cPrice} pageOf={props.pageOf} activeFormModal={activeForm} />
               {/* *****************Sports Arena*************** */}
               <Tab.Pane
-                className={`show ${activeForm === "Sports Arena" ? "active" : ""
+                className={`show ${activeForm === "sportsArena" ? "active" : ""
                   }`}
               >
                 <div className="row">
@@ -556,8 +597,8 @@ function BookingForm(props) {
                   }
                   <div className="col-lg-12 col-md-6 mt-2">
                     <label>Select Your Journey Details</label>
-                    <Select options={journeyDetails} 
-                    onChange={(e) => { setBookingDetails({ ...bookingDetails, selectedScheme: e.value,amountLeftToBePaid:e.price }) }} 
+                    <Select options={journeyDetails}
+                      onChange={(e) => { setBookingDetails({ ...bookingDetails, selectedScheme: e.value, amountLeftToBePaid: e.price }) }}
                     />
                   </div>
                   {
@@ -581,7 +622,7 @@ function BookingForm(props) {
                       type="time"
                       className="form_control"
                       name="location"
-                      onChange={(e) => setBookingDetails({ ...bookingDetails, time: e.target.value,emergency:'true'})}
+                      onChange={(e) => setBookingDetails({ ...bookingDetails, time: e.target.value, emergency: 'true' })}
                     />
                   </div>
                   {
@@ -624,8 +665,8 @@ function BookingForm(props) {
                   }
                   <div className="col-lg-12 col-md-6 mt-2">
                     <label>Select Your Journey Details</label>
-                    <Select options={journeyDetails} 
-                    onChange={(e) => { setBookingDetails({ ...bookingDetails, selectedScheme: e.value ,amountLeftToBePaid:e.price}) }} 
+                    <Select options={journeyDetails}
+                      onChange={(e) => { setBookingDetails({ ...bookingDetails, selectedScheme: e.value, amountLeftToBePaid: e.price }) }}
                     />
                   </div>
                   {
@@ -649,7 +690,7 @@ function BookingForm(props) {
                       type="time"
                       className="form_control"
                       name="location"
-                      onChange={(e) => setBookingDetails({ ...bookingDetails, time: e.target.value,emergency:'true' })}
+                      onChange={(e) => setBookingDetails({ ...bookingDetails, time: e.target.value, emergency: 'true' })}
                     />
                   </div>
                   {

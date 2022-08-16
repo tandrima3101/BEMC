@@ -430,9 +430,7 @@ const Index = () => {
   const photoGallery = [];
   for (let i = 0; i < ramlingamData.length; i++) {
     photoGallery.push(...(ramlingamData[i].photoGallery))
-    // console.log()
   }
-  // console.log(photoGallery,'photos')
   const videoLink = [
     { link: "https://www.youtube.com/embed/JHlY8w69wSE" }
   ];

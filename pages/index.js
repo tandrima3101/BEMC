@@ -64,6 +64,7 @@ const Index = () => {
       }
     }
   }
+  
   //fetch reviews
   async function fetchReviews() {
     let apiTest = {
@@ -76,7 +77,6 @@ const Index = () => {
       setReviews(response.data.data)
     }
   }
-
   const getFreeQuote = [
     {
       smallText: "LORD OF THE UNIVERSE",

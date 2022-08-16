@@ -37,16 +37,11 @@ const Booking = () => {
   const [eventIdForGrievance, setEventIdForGrievance] = useState(null)
   const [parentEventIdForGrievance, setParentEventIdForGrievance] = useState(null)
   const [reviewListModal, setReviewListModal] = useState(false)
-  const [isLoaded, setIsLoaded] = useState(true)
+  const [isLoaded, setIsLoaded] = useState(false)
   const [eventDepartment, setEventDepartment] = useState(null)
   const reviewedItem = localStorage.getItem("reviewedItem")
   const [isReviewed, setIsReviewed] = useState(JSON.parse(reviewedItem))
 
-  useEffect(() => {
-    if (ramlingamBookingList.length > 0 && kalyanmandapList.length > 0 && townhallBookingList.length > 0 && ambulanceList.length > 0 && hearseList.length > 0) {
-      setIsLoaded(true)
-    }
-  }, [ramlingamBookingList, kalyanmandapList, townhallBookingList, ambulanceList, hearseList])
   const closeReviewMOdal = (data) => {
     setActiveModalReview(data)
   }
@@ -80,7 +75,6 @@ const Booking = () => {
           }
         }
         let responseReview = await callApi(getBookingReviewData)
-        // console.log(responseReview, 'response for review')
         let avgReview = 0;
         responseReview.data.data.map((x) =>
           avgReview = (avgReview + Math.round(x.rating))
@@ -90,6 +84,7 @@ const Booking = () => {
         console.log(tempArr, 'temppppp')
       }
       setRamlingamData(tempArr)
+      setIsLoaded(true)
     }
   }
   const getTownhallBookingRequest = async () => {
@@ -165,7 +160,6 @@ const Booking = () => {
         tempArr.push({ image: response.data.data?.banner.bannerImageUrl, eventId: response.data.data?.mandapId, eventName: response.data.data?.mandapName, rating: Math.round(avgReview / responseReview.data.data.length) })
       }
       setKalyanmandapData(tempArr)
-      // setIsLoaded(true)
     }
   }
   const getAmbulanceBookingRequest = async () => {
@@ -251,10 +245,9 @@ const Booking = () => {
       department: 'ambulance'
     }
     setRoutingData(ambulanceData, "../payment")
-    console.log(ambulanceData, 'ambulanceData')
   }
   return (
-    (!isLoaded) ?
+    !isLoaded ?
       <PreLoader /> :
       <Layout>
         {video && <VideoPopup close={setVideo} />}
@@ -378,7 +371,7 @@ const Booking = () => {
                 }
                 {
                   townhallBookingList.length > 0 && <AccordionItem uuid="townhall">
-                    <AccordionItemHeading>
+                    <AccordionItemHeading onClick={()=>getTownhallBookingRequest()}>
                       <AccordionItemButton>
                         <h5 className="mb-0 ml-3">Townhall</h5>
                       </AccordionItemButton>
