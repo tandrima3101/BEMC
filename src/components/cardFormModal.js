@@ -70,11 +70,16 @@ function CardFormModal({ activeModal, eventInfo, toggleFunc, department }) {
     }, [activeModal])
     useEffect(() => {
         if (bookingDetails != null) {
-            if (department == 'ambulance' || 'harse') {
-                setReqAmbulanceModal(true)
-              } else {
+            // if (department == 'ambulance' || 'harse') {
+            //     setReqAmbulanceModal(true)
+            //   } else {
+            //     setRoutingData(bookingDetails?._id, "authroutes/booking-details")
+            //   }
+            if (department != 'ambulance' && 'harse') {
                 setRoutingData(bookingDetails?._id, "authroutes/booking-details")
-              }
+            } else {
+                setReqAmbulanceModal(true)
+            }
         }
     }, [bookingDetails])
     //for button loader
@@ -88,8 +93,8 @@ function CardFormModal({ activeModal, eventInfo, toggleFunc, department }) {
     const timerRef = useRef(otpTimer);
     const sendOtp = async () => {
         setSubModalActive(true),
-        setModalActive(false),
-        setTotalData({ ...totalData, ticketSource: "ONLINE", amount: department === "ramlingamPark" ? (eventInfo.price * totalData?.adultNum + eventInfo.cPrice * totalData?.childNum) : (department=='ambulance' || 'harse') ? totalData?.amountLeftToBePaid :eventInfo?.price, department: department })
+            setModalActive(false),
+            setTotalData({ ...totalData, ticketSource: "ONLINE", amount: department === "ramlingamPark" ? (eventInfo.price * totalData?.adultNum + eventInfo.cPrice * totalData?.childNum) : (department == 'ambulance' || 'harse') ? totalData?.amountLeftToBePaid : eventInfo?.price, department: department })
         timerFunction()
         let dataForOtp = {
             email: totalData.email,
@@ -246,8 +251,9 @@ function CardFormModal({ activeModal, eventInfo, toggleFunc, department }) {
     }
     const ambulanceModalToggle = (data) => {
         setReqAmbulanceModal(data)
-        setSubmodalOne(false)
-      }
+        setSubModalActive(false)
+        // setSubmodalOne(false)
+    }
     return (
         <>
             {/* Main Modal */}
@@ -427,7 +433,7 @@ function CardFormModal({ activeModal, eventInfo, toggleFunc, department }) {
                             errors && errors.field == 'email' && <h6 className="text-danger mt-1">{errors.message}</h6>
                         }
                     </div>}
-                    {(department === "ambulance" || "harse") && <div className="row">
+                    {department === "ambulance" && <div className="row">
                         <div className="col-lg-12 col-md-12 mt-2">
                             <label>Select Vehicle</label>
                             <input value={eventInfo?.ambulanceName || eventInfo?.harseName} type="text" className="otpinput m-0" />
@@ -468,7 +474,84 @@ function CardFormModal({ activeModal, eventInfo, toggleFunc, department }) {
                                 className="form_control"
                                 placeholder="Number of Adult"
                                 name="location"
-                                onChange={(e) => { setTotalData({ ...totalData, time: e.target.value}) }}
+                                onChange={(e) => { setTotalData({ ...totalData, time: e.target.value }) }}
+                            />                        </div>
+                        {
+                            errors && errors.field == 'time' && <h6 className="text-danger mt-1">{errors.message}</h6>
+                        }
+                        <div className="col-lg-12 col-md-6 mt-2">
+                            <label>Select Your Journey Details</label>
+                            <Select options={journeyDetails}
+                                onChange={(e) => { setTotalData({ ...totalData, selectedScheme: e.value, amountLeftToBePaid: e.price }) }}
+                            />
+                        </div>
+                        {
+                            errors && errors.field == 'scheme' && <h6 className="text-danger mt-1">{errors.message}</h6>
+                        }
+                        <div className="col-lg-12 col-md-12 mt-2">
+                            <label>Enter Name</label>
+                            <input type="text" className="otpinput m-0" defaultValue={userData?.firstName.concat(' ').concat(userData?.lastName)} onChange={(e) => setTotalData({ ...totalData, userName: (e.target.value) })} />
+                        </div>
+                        {
+                            errors && errors.field == 'username' && <h6 className="text-danger mt-1">{errors.message}</h6>
+                        }
+                        <div className="col-lg-12 col-md-12 mt-2">
+                            <label>Enter Phone Number</label>
+                            <input type="number" className="otpinput m-0" defaultValue={userData?.phoneNumber} onChange={(e) => setTotalData({ ...totalData, phoneNumber: (e.target.value) })} />
+                        </div>
+                        {
+                            errors && errors.field == 'phoneNumber' && <h6 className="text-danger mt-1">{errors.message}</h6>
+                        }
+                        <div className="col-lg-12 col-md-12 mt-2">
+                            <label>Enter Email Address</label>
+                            <input type="text" className="otpinput m-0" defaultValue={userData?.email} onChange={(e) => setTotalData({ ...totalData, email: (e.target.value) })} />
+                        </div>
+                        {
+                            errors && errors.field == 'email' && <h6 className="text-danger mt-1">{errors.message}</h6>
+                        }
+                    </div>}
+                    {department === "harse" && <div className="row">
+                        <div className="col-lg-12 col-md-12 mt-2">
+                            <label>Select Vehicle</label>
+                            <input value={eventInfo?.ambulanceName || eventInfo?.harseName} type="text" className="otpinput m-0" />
+                        </div>
+                        <div className="col-lg-12 col-md-12 mt-2">
+                            <label>From</label>
+                            <input onChange={(e) => { setTotalData({ ...totalData, from: e.target.value }) }}
+                                type="text" className="otpinput m-0" />
+                        </div>
+                        {
+                            errors && errors.field == 'from' && <h6 className="text-danger mt-1">{errors.message}</h6>
+                        }
+                        <div className="col-lg-12 col-md-12 mt-2">
+                            <label>To</label>
+                            <input onChange={(e) => { setTotalData({ ...totalData, to: e.target.value }) }}
+                                type="text" className="otpinput m-0" />
+                        </div>
+                        {
+                            errors && errors.field == 'to' && <h6 className="text-danger mt-1">{errors.message}</h6>
+                        }
+                        <div className="col-lg-12 col-md-12 mt-2">
+                            <label>Select Date</label>
+                            <input
+                                type="date"
+                                className="form_control"
+                                placeholder="Number of Adult"
+                                name="location"
+                                onChange={(e) => { setTotalData({ ...totalData, date: e.target.value }) }}
+                            />
+                        </div>
+                        {
+                            errors && errors.field == 'date' && <h6 className="text-danger mt-1">{errors.message}</h6>
+                        }
+                        <div className="col-lg-12 col-md-12 mt-2">
+                            <label>Select Time</label>
+                            <input
+                                type="time"
+                                className="form_control"
+                                placeholder="Number of Adult"
+                                name="location"
+                                onChange={(e) => { setTotalData({ ...totalData, time: e.target.value }) }}
                             />                        </div>
                         {
                             errors && errors.field == 'time' && <h6 className="text-danger mt-1">{errors.message}</h6>

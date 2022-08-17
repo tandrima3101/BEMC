@@ -1,18 +1,6 @@
-import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import Slider from "react-slick";
-import Counter from "../src/components/Counter";
 import VideoPopup from "../src/components/VideoPopup";
 import Layout from "../src/layouts/Layout";
-import { Nav, Tab } from "react-bootstrap";
-import BookingForm from "../src/components/bookingForm";
-
-import {
-  ClientSliderOne,
-  ListingSliderOne,
-  PlaceSliderOne,
-  PlaceSliderTwo,
-} from "../src/sliderProps";
 import PreLoader from "../src/components/PreLoader";
 import Banner from "../src/components/Slider/banner";
 import ShowsList from "../src/components/showsList";

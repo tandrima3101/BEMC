@@ -171,11 +171,12 @@ function BookingForm(props) {
   async function fetchActivities() {
     let apiTest = {
       method: 'post',
-      url: "sportsArena/sportsArena/getAllActivity"
+      url: "sportsArena/sportsArena/getAllSportsArena"
     }
     let response = await callApi(apiTest)
     if (response.data.code == 201) {
       setArenaData(response.data.data)
+      console.log(response.data.data,'arenaData')
     }
   }
   async function fetchMembership() {
@@ -192,26 +193,51 @@ function BookingForm(props) {
     fetchActivities();
     fetchMembership();
   }, [])
-  let sports = [];
+  let sportsArena = [];
+  let sportsMembership = [];
+  let sportsMembershipTenure = [];
+  let sportsMembershipTimeslots = [];
+  // const sevenDaysNext= Date = new Date(new Date.now() - 7 * 24 * 60 * 60 * 1000)  
+  // console.log(sevenDaysNext,'sevenDaysNext')
   {
     if (arenaData?.length > 0) {
       for (let i = 0; i < arenaData?.length; i++) {
-        sports.push({
-          label: arenaData[i].activityName.toUpperCase(),
-          value: `${arenaData[i].activityName}`,
-          key: `${arenaData[i].activityName}`
+        sportsArena.push({
+          label: arenaData[i].arenaName.toUpperCase(),
+          value: `${arenaData[i].arenaName}`,
+          key: `${arenaData[i].arenaName}`
         })
       }
     }
   }
-  const sportsMembership = [];
   {
     if (membershipData?.length > 0) {
-      for (let i = 0; i < membershipData?.length; i++) {
+      let tempArr=(membershipData.filter((obj)=>obj.sportsArena.arenaName==bookingDetails.selectedArena))
+      for(let i =0;i<tempArr.length;i++){
         sportsMembership.push({
-          label: membershipData[i].membershipName.toUpperCase(),
-          value: `${membershipData[i].membershipName}`,
-          key: `${membershipData[i].membershipName}`
+          label: tempArr[i].membershipName.toUpperCase(),
+          value: `${tempArr[i].membershipName}`,
+          key: `${tempArr[i].membershipName}`
+        })
+      }
+    }
+  }
+  {
+    if (membershipData?.length > 0) {
+      let tempArr=(membershipData.filter((obj)=>obj.membershipName==bookingDetails.selectedMembership))
+      for(let i =0;i<tempArr[0]?.plans?.length;i++){
+        sportsMembershipTenure.push({
+          label: `${ tempArr[0].plans[i].tenure}  (Rs ${ tempArr[0].plans[i].price}/-)`,
+          value: `${ tempArr[0].plans[i].tenure}`,
+          key: `${tempArr[0].plans[i].tenure}`,
+          price: tempArr[0].plans[i].price,
+        })
+      }
+      for(let i =0;i<tempArr[0]?.defultSlots?.length;i++){
+        sportsMembershipTimeslots.push({
+          label: `${ tempArr[0].defultSlots[i].startTime}-${ tempArr[0].defultSlots[i].endTime}`,
+          value: `${ tempArr[0].defultSlots[i].startTime}-${ tempArr[0].defultSlots[i].endTime}`,
+          key: `${tempArr[0].defultSlots[i].startTime}-${ tempArr[0].defultSlots[i].endTime}`,
         })
       }
     }
@@ -460,25 +486,27 @@ function BookingForm(props) {
               >
                 <div className="row">
                   <div className="col-lg-12 col-md-6 mt-2">
-                    <label>Select Sports</label>
-                    <Select options={sports} />
+                    <label>Select Sports Arena</label>
+                    <Select options={sportsArena} onChange={(e)=>setBookingDetails({...bookingDetails,selectedArena:e.value})}/>
+                  </div>
+                  <div className="col-lg-12 col-md-6 mt-2">
+                    <label>SelectMembership Plan</label>
+                    <Select options={sportsMembership} onChange={(e)=>setBookingDetails({...bookingDetails,selectedMembership:e.value})}/>
+                  </div>
+                  <div className="col-lg-12 col-md-6 mt-2">
+                    <label>Select Tenure</label>
+                    <Select options={sportsMembershipTenure} onChange={(e)=>setBookingDetails({...bookingDetails,selectedTenure:e.value,price:e.price})}/>
+                  </div>
+                  <div className="col-lg-12 col-md-6 mt-2">
+                    <label>Select Time Slots</label>
+                    <Select options={sportsMembershipTimeslots} />
                   </div>
                   <div className="col-lg-12 col-md-6 mt-2">
                     <label>Select Date</label>
-
                     <input
-                      type="date"
+                      type='date'
                       className="form_control"
-                      placeholder="Number of Adult"
-                      name="location"
-
                     />
-                  </div>
-                  <div className="col-lg-12 col-md-6 mt-2">
-                    <label>Membership Plan</label>
-
-                    <Select options={sportsMembership} />
-
                   </div>
                   <div className="col-lg-10 col-md-6 mt-4">
                     <button className="main-btn icon-btn"

@@ -132,10 +132,10 @@ function FormModal({ active, activeTwo, data, adultPrice, childPrice, pageOf, pr
   }, [otpValidator])
   useEffect(() => {
     if (bookingDetails != null) {
-      if (activeFormModal == 'ambulance' || 'harse') {
-        setReqAmbulanceModal(true)
-      } else {
+      if (activeFormModal != 'ambulance' && 'harse') {
         setRoutingData(bookingDetails?._id, "authroutes/booking-details")
+      } else {
+        setReqAmbulanceModal(true)
       }
     }
   }, [bookingDetails])
@@ -144,6 +144,7 @@ function FormModal({ active, activeTwo, data, adultPrice, childPrice, pageOf, pr
     console.log(totalData, 'total data')
 
   }, [totalData])
+  console.log(activeFormModal,'activeformmodal')
   const [errors, setErrors] = useState({ field: '', message: '' })
   const handleSubmit = () => {
     var pattern = new RegExp(

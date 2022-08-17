@@ -65,7 +65,7 @@ function BookingDetails() {
                     <i className="ti-ticket pr-2"></i>{bookingDetails?.adultNum + bookingDetails?.childNum} tickets
                   </h5>}
                   <h5>
-                    <i className="ti-money pr-2"></i>Rs {bookingDetails?.amount}
+                    <i className="ti-money pr-2"></i>Rs <b>{bookingDetails?.amount}</b>
                   </h5>
                 </div>
               </div>
@@ -78,11 +78,11 @@ function BookingDetails() {
                 <b>{bookingDetails?.bookingRequestId}</b>
               </h4>
               <img src="/assets/images/armchair.png" style={{ width: '50px' }} />
-              {(bookingDetails?.selectedSeatCategory) ? <h6>Your seat Category {bookingDetails?.selectedSeatCategory}</h6> : <h6>Your selected venue {bookingDetails?.townhallName || bookingDetails?.mandapName}</h6>}
+              {(bookingDetails?.selectedSeatCategory) ? <h6>Your seat Category <b>{bookingDetails?.selectedSeatCategory}</b></h6> : <h6>Your selected venue <b>{bookingDetails?.townhallName || bookingDetails?.mandapName}</b></h6>}
                 <img src="/assets/images/calendar.png" style={{ width: '50px' }} />
-                <h6>The show date is {bookingDetails?.selectedDate}</h6>
+                <h6>The show date is <b>{bookingDetails?.selectedDate}</b></h6>
                 <img src="/assets/images/clock.png" style={{ width: '50px' }} />
-                <h6>The show timing is {bookingDetails?.selectedTime}</h6>
+                <h6>The show timing is <b>{bookingDetails?.selectedTime}</b></h6>
               </div>
           </div>
             <div className="col-lg-3 d-flex justify-content-center align-items-center flex-column pb-5">

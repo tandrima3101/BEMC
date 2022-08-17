@@ -37,6 +37,10 @@ const ShowsList = (props) => {
       setDepartmentForIndex('townhall')
     } else if (show.mandapId) {
       setDepartmentForIndex('kalyanMandap')
+    }else if (show.ambulanceName) {
+      setDepartmentForIndex('ambulance')
+    }else if (show.harseName) {
+      setDepartmentForIndex('harse')
     }
   }
   const handleReviewData = (show) => {

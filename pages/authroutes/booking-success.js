@@ -58,11 +58,11 @@ function BookingSuccess() {
                     <i className="ti-location-pin pr-2"></i>Odisha,bhubaneswar
                   </h5>
                   {(bookingDetails?.bookingRequest?.adultNum || bookingDetails?.bookingRequest?.childNum) && <h5>
-                    <i className="ti-ticket pr-2"></i>{bookingDetails?.bookingRequest?.adultNum} Adults ,{bookingDetails?.bookingRequest?.childNum} Child
+                    <i className="ti-ticket pr-2"></i><b>{bookingDetails?.bookingRequest?.adultNum}</b> Adults ,<b>{bookingDetails?.bookingRequest?.childNum}</b> Child
                   </h5>}
                   {
                     bookingDetails?.bookingRequest?.department != 'ambulance' && bookingDetails?.bookingRequest?.department != 'harse' && <h5>
-                      <i className="ti-money pr-2"></i>Rs {bookingDetails?.bookingRequest?.amount}
+                      <i className="ti-money pr-2"></i>Rs <b>{bookingDetails?.bookingRequest?.amount}</b>
                     </h5>
                   }
                   {
