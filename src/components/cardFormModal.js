@@ -12,6 +12,7 @@ import { generateOTP, setRoutingData, varifyOTP } from "../utils";
 import { callApi } from "../apiHandlers/callApi";
 import { setlogin, setToken, setUserId } from "../../redux/slices/loginSlice";
 import AmbulanceRequestModal from "./ambulanceRequestModal";
+import moment from "moment";
 
 function CardFormModal({ activeModal, eventInfo, toggleFunc, department }) {
     const dispatch = useDispatch()
@@ -30,11 +31,25 @@ function CardFormModal({ activeModal, eventInfo, toggleFunc, department }) {
     const eventdates = []
     const seatsCategory = []
     const [enteredOtp, setEnteredOtp] = useState(null)
+    function isBeforeToday(date) {
+        let pickedDate = Date.parse(date?.replace(/-/g, " "))
+        console.log(pickedDate, 'date')
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        return pickedDate < today;
+    }
+
+    const formatDate = (value) => {
+        return moment(value).format('DD/MM/YYYY');
+    }
     eventInfo?.dates?.map((x) => {
-        eventdates.push({
-            label: `${x}`,
-            value: `${x}`
-        })
+        console.log(isBeforeToday(x.date), 'isBeforeToday')
+        if (!isBeforeToday(x)) {
+            eventdates.push({
+                label: formatDate(x),
+                value: `${x}`
+            })
+        }
     })
     eventInfo?.seatCategory?.map((x) => {
         seatsCategory.push({

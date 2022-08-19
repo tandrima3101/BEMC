@@ -100,6 +100,8 @@ export const LoginUserListing = ({ setLogin }) => {
   const dispatch = useDispatch()
   const handleLogout = () =>{
     localStorage.removeItem("userData")
+    localStorage.removeItem("apiToken")
+    // localStorage.removeItem("userData")
     dispatch(setlogin(false))
     dispatch(setToken(null))
     Router.push("/")

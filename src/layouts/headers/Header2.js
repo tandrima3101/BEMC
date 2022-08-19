@@ -14,7 +14,7 @@ const Header2 = () => {
     }
 
   return (
-    <header className="header-area header-area-two d-none d-xl-block">
+    <header className="header-area header-area-two d-none d-xl-block pt-2">
       <div className="header-navigation">
         <div className="container-fluid">
           <div className="primary-menu">

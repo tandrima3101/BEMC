@@ -24,7 +24,7 @@ function SeeAllReviewModal({ activeReview, eventId, closeReviewMOdal }) {
     const [reviewDetails, setReviewDetails] = useState()
 
     const showReview = async () => {
-        console.log('hiiiii')
+        console.log(eventId,'hiiiii')
         let reviewData = {
             method: 'post',
             url: 'ramalingampark/event/getReview',

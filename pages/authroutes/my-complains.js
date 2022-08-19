@@ -103,11 +103,7 @@ const MyComplains = () => {
                         <div className="col-lg-6">
                           <div className="row booking-card-left booking-card-left-complain" style={{ height: '100%' }}>
                             <div className="col-lg-4 d-flex justify-content-center align-items-center">
-                              <img
-                                src='/assets/images/ticket-complain.png'
-                                alt="bookedshow"
-                                className="bookingImageComplain"
-                              />
+                              <img src={bookings.bookingRequestParentId?.qrUrl} />
                             </div>
                             <div className="col-lg-8 pl-0" style={{
                               display: 'flex',
@@ -142,11 +138,17 @@ const MyComplains = () => {
 
                         </div>
                         <div className="col-lg-3 qr-section">
-                          <img src={bookings.bookingRequestParentId?.qrUrl} />
-                          <hr />
-                          <h5 className="text-center">
-                            <b>{bookings?.bookingRequestId}</b>
-                          </h5>
+                          {bookings.status === 'Escalated' && <span className="escalate-badge escalate-badge-success"><i className="ti-time mr-2"></i>Not Resolved Yet</span>
+                          }
+                          {bookings.status === 'Pending' && <span className="escalate-badge escalate-badge-warning"><i className="ti-time mr-2"></i>Not Resolved Yet</span>
+                          }
+                          {bookings.status === 'Cancelled' && <span className="escalate-badge escalate-badge-danger"><i className="ti-trash mr-2"></i>Cancelled</span>
+                          }
+                          {bookings.status === 'Resolved' && <span className="escalate-badge escalate-badge-resolved"><i className="ti-check mr-2"></i>{bookings.status}</span>
+                          }
+                          {bookings.status === 'Resolved' &&
+                            <h6 className="text-center mt-3 text-capitalize">{bookings.resolved[bookings.resolved.length - 1]}</h6>
+                          }
                         </div>
                         <div className="col-lg-3 d-flex flex-column justify-content-center" style={{ borderLeft: '1px solid #ccc', padding: '30px' }}>
                           {bookings.status === 'Escalated' && <span className="escalate-badge escalate-badge-success"><i className="ti-check mr-2"></i>{bookings.status}</span>
@@ -155,18 +157,14 @@ const MyComplains = () => {
                           }
                           {bookings.status === 'Cancelled' && <span className="escalate-badge escalate-badge-danger"><i className="ti-trash mr-2"></i>{bookings.status}</span>
                           }
-                          {bookings.status === 'Resolved' && <span className="escalate-badge escalate-badge-resolved"><i className="ti-check mr-2"></i>{bookings.status}</span>
-                          }
-                          {bookings.status === 'Resolved' &&
-                            <h6 className="text-center mt-3 text-capitalize">{bookings.resolved[bookings.resolved.length - 1]}</h6>
-                          }
+
                           {bookings.status === 'Escalated' &&
                             <h6 className="text-center mt-3 text-capitalize">{bookings.escalation[bookings.escalation.length - 1]}</h6>
                           }
 
-                          <button className="d-flex justify-content-center main-btn mt-4 mx-auto mb-4" id="escalate-btn" onClick={() => checkDateFunction(dayDiff[index], bookings)} disabled={(dayDiff[index] < 3) ? true : false}>ESCALATE</button>
+                          <button className="d-flex justify-content-center main-btn mt-4 mx-auto mb-4" id="escalate-btn" onClick={() => checkDateFunction(dayDiff[index], bookings)} disabled={(dayDiff[index] > 3) ? true : false}>ESCALATE</button>
                           {
-                            (dayDiff[index] < 3) ?
+                            (dayDiff[index] > 3) ?
                               <>
                                 {dayDiff[index] == 0 ? bookings.status == 'Pending' ? <h6 className="mt-1 text-center">Complain Raised today</h6> : <h6 className="mt-1 text-center">{bookings.status} today</h6> : bookings.status == 'Pending' ? <h6 className="mt-1 text-center">Complain Raised {dayDiff[index]} days ago </h6> : <h6 className="mt-1 text-center">{bookings.status} {dayDiff[index]} Days ago</h6>}
                                 <h6 className="mt-1 mb-1 text center">Minimum 3 Days required to Reescalate</h6>

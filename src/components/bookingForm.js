@@ -5,7 +5,7 @@ import FormModal from "./formModal";
 import "react-datepicker/dist/react-datepicker.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { callApi } from "../apiHandlers/callApi";
-
+import moment from "moment";
 
 function BookingForm(props) {
 
@@ -44,7 +44,9 @@ function BookingForm(props) {
     { label: 'Hearse', value: 'harse' },
   ];
   const [type, setType] = useState(formTypes);
-
+  const formatDate = (value) => {
+    return moment(value).format('DD/MM/YYYY');
+  }
   //for ramlingam park
 
   console.log(props.data, 'props.data')
@@ -61,11 +63,13 @@ function BookingForm(props) {
   }
   const seatCategory = [];
   selectedData?.seatCategory?.map((x) => {
-    seatCategory.push({
-      label: `${x.categoryName} (${x.capacity} seats available)`,
-      value: `${x.categoryName}`,
-      capacity: x.capacity
-    })
+    if(x.capacity>0){
+      seatCategory.push({
+        label: `${x.categoryName} (${x.capacity} seats available)`,
+        value: `${x.categoryName}`,
+        capacity: x.capacity
+      })
+    }
   })
   const checkSeats = async (data) => {
     let apiTest = {
@@ -88,13 +92,24 @@ function BookingForm(props) {
       })
     }
   }
+  function isBeforeToday(date) {
+    let pickedDate=Date.parse(date.replace(/-/g, " "))
+    console.log(pickedDate,'date')
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    return pickedDate < today;
+  }
+  
   const dates = [];
   selectedData?.dateAndTime?.map((x, index) => {
-    dates.push({
-      label: `${x.date}`,
-      value: `${x.date}`,
-      key: index
-    })
+    console.log(isBeforeToday(x.date),'isBeforeToday')
+    if(!isBeforeToday(x.date)){
+      dates.push({
+        label: formatDate(x.date),
+        value: `${x.date}`,
+        key: index
+      })
+    }   
   })
   const showTimes = []
   selectedData?.dateAndTime?.map((x) => {
@@ -277,7 +292,7 @@ function BookingForm(props) {
     setActiveModal(data)
   }
   const activeModalFunctionTwo = (activeForm) => {
-    console.log(activeForm, 'activeForm')
+    console.log(errors, 'activeForm')
     if (activeForm == 'townhall') {
       if (bookingDetails && !bookingDetails.townhallName) {
         setErrors({ field: 'townhall', message: 'Please select a townhall' })
@@ -300,7 +315,22 @@ function BookingForm(props) {
         setActiveModalTwo(true)
       }
     }
-    if (activeForm == 'ambulance' || 'harse') {
+    if (activeForm == 'ambulance') {
+      if (bookingDetails && !bookingDetails.from) {
+        setErrors({ field: 'from', message: 'Please enter the pickup location' })
+      } else if (bookingDetails && !bookingDetails.to) {
+        setErrors({ field: 'to', message: 'Please enter the drop location' })
+      } else if (bookingDetails && !bookingDetails.selectedScheme) {
+        setErrors({ field: 'journey', message: 'Please select your selected journey' })
+      } else if (bookingDetails && !bookingDetails.date) {
+        setErrors({ field: 'date', message: 'Please select a date' })
+      } else if (bookingDetails && !bookingDetails.time) {
+        setErrors({ field: 'time', message: 'Please select a time' })
+      } else {
+        setActiveModalTwo(true)
+      }
+    }
+    if (activeForm == 'harse') {
       if (bookingDetails && !bookingDetails.from) {
         setErrors({ field: 'from', message: 'Please enter the pickup location' })
       } else if (bookingDetails && !bookingDetails.to) {
@@ -510,7 +540,7 @@ function BookingForm(props) {
                   </div>
                   <div className="col-lg-10 col-md-6 mt-4">
                     <button className="main-btn icon-btn"
-                      onClick={() => activeModalFunctionTwo()}>Subscribe Now</button>
+                      >Subscribe Now</button>
                   </div>
                 </div>
               </Tab.Pane>

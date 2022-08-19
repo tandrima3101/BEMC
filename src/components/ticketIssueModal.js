@@ -15,7 +15,7 @@ import { callApi } from "../apiHandlers/callApi";
 
 
 function TicketIssueModal({ activeThree, activeModal, eventId, parentEventId }) {
-
+console.log(activeModal,'activeModal')
   // for main modal
   const [containerThree, setContainerThree] = useState(activeModal);
 

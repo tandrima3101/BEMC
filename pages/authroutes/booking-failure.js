@@ -162,10 +162,10 @@ function BookingFailure() {
                     <i className="ti-location-pin pr-2"></i>Odisha,bhubaneswar
                   </h5>
                   {(bookingDetails?.bookingRequest?.adultNum || bookingDetails?.bookingRequest?.childNum) && <h5>
-                    <i className="ti-ticket pr-2"></i>{bookingDetails?.bookingRequest?.adultNum} Adults ,{bookingDetails?.bookingRequest?.childNum} Child
+                    <i className="ti-ticket pr-2"></i><b>{bookingDetails?.bookingRequest?.adultNum}</b> Adults ,<b>{bookingDetails?.bookingRequest?.childNum}</b> Child
                   </h5>}
                   <h5>
-                    <i className="ti-money pr-2"></i>Rs {bookingDetails?.bookingRequest?.amount}
+                    <i className='pr-2'>₹</i> Rs <b>{bookingDetails?.bookingRequest?.amount}</b>
                   </h5>
                 </div>
               </div>
@@ -178,33 +178,13 @@ function BookingFailure() {
                 <b>{bookingDetails?.bookingRequest?.bookingRequestId}</b>
               </h4>
               <img src="/assets/images/armchair.png" />
-              {(bookingDetails?.bookingRequest?.selectedSeatCategory) ? <h6>Your seat Category {bookingDetails?.bookingRequest?.selectedSeatCategory}</h6> : <h6>Your selected venue {bookingDetails?.bookingRequest?.townhallName || bookingDetails?.bookingRequest?.mandapName}</h6>}
+              {(bookingDetails?.bookingRequest?.selectedSeatCategory) ? <h6>Your seat Category <b>{bookingDetails?.bookingRequest?.selectedSeatCategory}</b></h6> : <h6>Your selected venue <b>{bookingDetails?.bookingRequest?.townhallName || bookingDetails?.bookingRequest?.mandapName}</b></h6>}
               <img src="/assets/images/calendar.png" />
-              <h6>The show date is {bookingDetails?.bookingRequest?.selectedDate}</h6>
+              <h6>The show date is <b>{bookingDetails?.bookingRequest?.selectedDate}</b></h6>
               <img src="/assets/images/clock.png" />
-              <h6>The show timing is {bookingDetails?.bookingRequest?.selectedTime}</h6>
+              <h6>The show timing is <b>{bookingDetails?.bookingRequest?.selectedTime}</b></h6>
             </div>
           </div>
-          {/* <div className="col-lg-2">
-            <div className="card-curve card-curve-no-shape">
-              <h6 className="text-center">Ref Id</h6>
-              <h6 className="text-uppercase text-center">
-                <b>{bookingDetails?.bankTransaction?.bankTransactionId}</b>
-              </h6>
-              <h6 className="text-center">Transaction Id</h6>
-              <h4 className="text-uppercase text-center">
-                <b>{bookingDetails?.account?.accountId}</b>
-              </h4>
-              <h6 className="text-center">Booking Id</h6>
-              <h4 className="text-uppercase text-center">
-                <b>{bookingDetails?.account?.bookingId}</b>
-              </h4>
-              <h6 className="text-center">Amount</h6>
-              <h4 className="text-uppercase text-center">
-                <b>{bookingDetails?.bankTransaction?.bankTransaction?.amount}</b>
-              </h4>
-            </div>
-          </div> */}
           <div className="col-lg-3 d-flex justify-content-center align-items-center flex-column pb-5">
             {!isLoaded ? (
               <>

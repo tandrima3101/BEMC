@@ -62,8 +62,8 @@ function LoginFormModal({ activeLogin, toggle }) {
   const onRegistration = (signUpData) => {
 
     generateOTP(signUpData),
-    setSubmodalLogin(true),
     setContainerSignUp(false)
+    setSubmodalLogin(true)
   }
   const [otpLoader, setOtpLoader] = useState()
 
@@ -90,7 +90,7 @@ function LoginFormModal({ activeLogin, toggle }) {
       setOtpLoader(false)
       Router.push("#")
       setSubmodalLogin(false),
-        setContainerSignUp(false)
+      setContainerSignUp(false)
     }
   }
   useEffect(() => {

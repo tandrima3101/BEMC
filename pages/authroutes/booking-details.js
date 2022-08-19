@@ -60,9 +60,9 @@ function BookingDetails() {
                   <h4 className="text-uppercase">
                     <b>{bookingDetails?.eventName}</b>
                   </h4>
-                  <h5><i class="ti-location-pin pr-2"></i>Ramlingam Park</h5>
+                  <h5><i class="ti-ticket pr-2"></i>{bookingDetails?.ticketSource} Ticket</h5>
                   {(bookingDetails?.adultNum || bookingDetails?.childNum) && <h5>
-                    <i className="ti-ticket pr-2"></i>{bookingDetails?.adultNum + bookingDetails?.childNum} tickets
+                    <i className="ti-ticket pr-2"></i><b>{bookingDetails?.adultNum }</b> adults <b>{bookingDetails?.childNum}</b> child
                   </h5>}
                   <h5>
                     <i className="ti-money pr-2"></i>Rs <b>{bookingDetails?.amount}</b>

@@ -26,6 +26,8 @@ function GiveReviewModal({ activeReview, toggle, eventId, closeReviewMOdal, depa
   const [otpLoader, setOtpLoader] = useState()
   const reviewedItem = localStorage.getItem("reviewedItem")
   const [isReviewed, setIsReviewed] = useState(JSON.parse(reviewedItem))
+  const userData = (JSON.parse(localStorage.getItem('userData')))
+  const islogin = useSelector((state) => state.login.isLogin)
   const [errors, setErrors] = useState({ field: '', message: '' })
   const handleCreateReview = async () => {
     if (reviewDetails && !reviewDetails.userName) {
@@ -78,6 +80,11 @@ function GiveReviewModal({ activeReview, toggle, eventId, closeReviewMOdal, depa
   useEffect(() => {
     console.log(isReviewed, 'isreviewd')
   }, [isReviewed])
+  useEffect(()=>{
+    if (islogin == true) {
+      setReviewDetails({ ...reviewDetails, userName: userData?.firstName.concat(' ').concat(userData?.lastName)})
+    }
+  },[containerReview])
   return (
     <>
 
@@ -87,7 +94,7 @@ function GiveReviewModal({ activeReview, toggle, eventId, closeReviewMOdal, depa
           <div className="row">
             <div className="col-lg-12 col-md-6 mt-2">
               <label>Enter Name</label>
-              <input type="text" className="otpinput m-0" onChange={(e) => setReviewDetails({ ...reviewDetails, userName: e.target.value, userId: JSON.parse(userId) })} />
+              <input type="text" className="otpinput m-0" defaultValue={userData?.firstName.concat(' ').concat(userData?.lastName)} onChange={(e) => setReviewDetails({ ...reviewDetails, userName: e.target.value, userId: JSON.parse(userId) })} />
             </div>
             {
               errors && errors.field == 'name' && <h6 className="text-danger mt-1">{errors.message}</h6>
