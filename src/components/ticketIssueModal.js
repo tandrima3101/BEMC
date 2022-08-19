@@ -87,14 +87,12 @@ console.log(activeModal,'activeModal')
           ></Modal>
         </ModalBody>
         <ModalFooter>
-          <Link href="#">
             <button
               className="main-btn"
               onClick={() => setHandleGrievance()}
             >
               Submit
             </button>
-          </Link>
         </ModalFooter>
       </Modal>
 
@@ -106,7 +104,6 @@ console.log(activeModal,'activeModal')
           <Image src={SuccessGif} alt='success' />
         </ModalBody>
         <ModalFooter>
-          <Link href="#">
             <button
               className="main-btn"
               onClick={() => {
@@ -116,7 +113,6 @@ console.log(activeModal,'activeModal')
             >
               Done
             </button>
-          </Link>
         </ModalFooter>
       </Modal>
     </>

@@ -43,6 +43,9 @@ html {
 .place-slider-one .slick-slide{
   width: auto !important;
 } */
+.modal-open{
+  overflow: scroll !important;
+}
 .testimonial-thumb-slider-one .slick-slide {
   padding-left: 0 !important;
   padding-right: 0 !important;

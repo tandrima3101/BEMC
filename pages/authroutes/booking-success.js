@@ -7,7 +7,8 @@ import { getRoutingData } from '../../src/utils';
 
 function BookingSuccess() {
   const [isLoaded, setIsLoade] = useState(false);
-  const [bookingDetails, setBookingDetails] = useState()
+  const [bookingDetails, setBookingDetails] = useState();
+  const userData = (JSON.parse(localStorage.getItem('userData')))
   useEffect(async () => {
     function loaded() {
       setIsLoade(true);
@@ -27,7 +28,7 @@ function BookingSuccess() {
             <div className="card-curve person-card p-3">
               <div className="row">
                 <div className="col-lg-3">
-                  <img src={bookingDetails?.bookingRequest?.qrUrl} />
+                  <img src={userData.avatar} />
                 </div>
                 <div className="col-lg-9 pl-5 person-details">
                   <h4 className="text-uppercase">
@@ -51,11 +52,11 @@ function BookingSuccess() {
                   <img src="/assets/images/ticket.png" width="85%" />
                 </div>
                 <div className="col-lg-9 pl-5 booking-details">
-                  <h4 className="text-uppercase">
+                  <h5 className="text-uppercase">
                     <b>{bookingDetails?.bookingRequest?.eventName}</b>
-                  </h4>
+                  </h5>
                   <h5>
-                    <i className="ti-location-pin pr-2"></i>Odisha,bhubaneswar
+                    <i className="ti-ticket pr-2"></i>{bookingDetails?.bookingRequest?.ticketSource} Booking
                   </h5>
                   {(bookingDetails?.bookingRequest?.adultNum || bookingDetails?.bookingRequest?.childNum) && <h5>
                     <i className="ti-ticket pr-2"></i><b>{bookingDetails?.bookingRequest?.adultNum}</b> Adults ,<b>{bookingDetails?.bookingRequest?.childNum}</b> Child
@@ -76,8 +77,8 @@ function BookingSuccess() {
                       </h6>
                       {
                         bookingDetails?.bookingRequest?.totalKm && <h5>
-                        <i className="ti-truck pr-2"></i>Total <b>{bookingDetails?.bookingRequest?.totalKm}</b> km distance
-                      </h5>
+                          <i className="ti-truck pr-2"></i>Total <b>{bookingDetails?.bookingRequest?.totalKm}</b> km distance
+                        </h5>
                       }
                     </>
                   }
@@ -117,27 +118,19 @@ function BookingSuccess() {
               </div>
             }
           </div>
-          <div className="col-lg-2">
+          <div className="col-lg-3">
             <div className="card-curve card-curve-no-shape">
-              <h6 className="text-center">Ref Id</h6>
-              <h6 className="text-uppercase text-center">
-                <b>{bookingDetails?.bankTransaction?.bankTransactionId}</b>
-              </h6>
-              <h6 className="text-center">Transaction Id</h6>
+              <img src={bookingDetails?.bookingRequest?.qrUrl} />
               <h4 className="text-uppercase text-center">
-                <b>{bookingDetails?.account?.accountId}</b>
+                <b>{bookingDetails?.bookingRequest?.bookingRequestId}</b>
               </h4>
-              <h6 className="text-center">Booking Id</h6>
-              <h4 className="text-uppercase text-center">
-                <b>{bookingDetails?.account?.bookingId}</b>
-              </h4>
-              <h6 className="text-center">Amount</h6>
-              <h4 className="text-uppercase text-center">
-                <b>{bookingDetails?.bankTransaction?.bankTransaction?.amount}</b>
-              </h4>
+              <h6 className="text-uppercase text-center">Ref Id- <b style={{ color: '#3bacb6' }}>{bookingDetails?.bankTransaction?.bankTransactionId}</b></h6>
+              <h6 className="text-uppercase text-center">Transaction Id- <b style={{ color: '#3bacb6' }}>{bookingDetails?.account?.accountId}</b></h6>
+              <h6 className="text-uppercase text-center">Booking Id-<b style={{ color: '#3bacb6' }}>{bookingDetails?.account?.bookingId}</b></h6>
+              <h6 className="text-uppercase text-center">Amount- <b style={{ color: '#3bacb6' }}>{bookingDetails?.bankTransaction?.bankTransaction?.amount}</b></h6>
             </div>
           </div>
-          <div className="col-lg-3 d-flex justify-content-center align-items-center flex-column pb-5">
+          <div className="col-lg-2 d-flex justify-content-center align-items-center flex-column pb-5">
             {!isLoaded ? (
               <>
                 <h3 className="text-center">Preccessing Your Payment</h3>

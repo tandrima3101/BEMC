@@ -14,7 +14,7 @@ import SuccessGif from '../../public/assets/images/successGif.gif';
 import Ratings from '../../src/components/ratings'
 import { callApi } from "../apiHandlers/callApi";
 
-function GiveReviewModal({ activeReview, toggle, eventId, closeReviewMOdal, department }) {
+function GiveReviewModal({ activeReview, toggle, eventId,eventParentId, closeReviewMOdal, department }) {
   console.log(department, 'department')
   // for main modal
   const [containerReview, setContainerReview] = useState(activeReview);
@@ -71,7 +71,7 @@ function GiveReviewModal({ activeReview, toggle, eventId, closeReviewMOdal, depa
   }, [activeReview])
 
   useEffect(() => {
-    setReviewDetails({ eventId: eventId, department: department })
+    setReviewDetails({ eventId: eventId, department: department,idEvent:eventParentId })
   }, [eventId, department])
 
   useEffect(() => {
@@ -82,7 +82,7 @@ function GiveReviewModal({ activeReview, toggle, eventId, closeReviewMOdal, depa
   }, [isReviewed])
   useEffect(()=>{
     if (islogin == true) {
-      setReviewDetails({ ...reviewDetails, userName: userData?.firstName.concat(' ').concat(userData?.lastName)})
+      setReviewDetails({ ...reviewDetails, userName: userData?.firstName.concat(' ').concat(userData?.lastName),userId: JSON.parse(userId)})
     }
   },[containerReview])
   return (
@@ -122,7 +122,6 @@ function GiveReviewModal({ activeReview, toggle, eventId, closeReviewMOdal, depa
           ></Modal>
         </ModalBody>
         <ModalFooter>
-          <Link href="#">
             <button
               className="main-btn"
               onClick={() => [
@@ -139,7 +138,6 @@ function GiveReviewModal({ activeReview, toggle, eventId, closeReviewMOdal, depa
             )}
               Submit
             </button>
-          </Link>
         </ModalFooter>
       </Modal>
 
@@ -151,7 +149,6 @@ function GiveReviewModal({ activeReview, toggle, eventId, closeReviewMOdal, depa
           <Image src={SuccessGif} alt='success' />
         </ModalBody>
         <ModalFooter>
-          <Link href="#">
             <button
               className="main-btn"
               onClick={() => {
@@ -160,7 +157,6 @@ function GiveReviewModal({ activeReview, toggle, eventId, closeReviewMOdal, depa
             >
               Done
             </button>
-          </Link>
         </ModalFooter>
       </Modal>
     </>

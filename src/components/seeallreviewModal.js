@@ -1,16 +1,11 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
-import { useSelector } from "react-redux";
-import { Button, Spinner } from 'react-bootstrap'
 import {
     Modal,
     ModalHeader,
     ModalBody,
     ModalFooter,
 } from "reactstrap";
-
-import SuccessGif from '../../public/assets/images/successGif.gif';
 import Ratings from '../../src/components/ratings'
 import { callApi } from "../apiHandlers/callApi";
 import Slider from "react-slick";
@@ -46,12 +41,8 @@ function SeeAllReviewModal({ activeReview, eventId, closeReviewMOdal }) {
         } 
     }
     useEffect(async () => {
-        console.log(eventId, 'EVENTID')
-        await showReview()
-    }, [eventId])
-    useEffect(() => {
-        console.log(reviewDetails, 'detailsssssssssssss')
-    }, [reviewDetails])
+        eventId!= null && showReview()
+    }, [containerReview])
 
     useEffect(() => {
         setContainerReview(activeReview);

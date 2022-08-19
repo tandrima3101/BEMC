@@ -56,6 +56,7 @@ function BookingForm(props) {
       options.push({
         label: `${props.data[i].eventName}`,
         value: `${props.data[i].eventName}`,
+        parentId:`${props.data[i]._id}`,
         id: `${props.data[i].eventId}`,
         data: props.data[i]
       })
@@ -139,6 +140,7 @@ function BookingForm(props) {
       townhall.push({
         label: `${props.data[i].townhallName}`,
         value: `${props.data[i].townhallName}`,
+        parentId:`${props.data[i]._id}`,
         id: `${props.data[i].townhallId}`,
         data: props.data[i]
       })
@@ -463,7 +465,7 @@ function BookingForm(props) {
                   <div className="col-lg-12 col-md-6 mt-2">
                     <label>Select Event<span className="text-danger"><b>*</b></span></label>
                     <Select options={options}
-                      onChange={(e) => { setBookingDetails({ ...bookingDetails, eventName: e.value, eventId: e.id }), setSelectedData(e.data), checkSeats(e.id) }} />
+                      onChange={(e) => { setBookingDetails({ ...bookingDetails, eventName: e.value, eventId: e.id,event:e.parentId }), setSelectedData(e.data), checkSeats(e.id) }} />
                   </div>
                   {
                     errors && errors.field == 'event' && <h6 className="text-danger mt-1">{errors.message}</h6>
@@ -593,7 +595,7 @@ function BookingForm(props) {
                 <div className="row">
                   <div className="col-lg-12 col-md-6 mt-2">
                     <label>Select Townhall</label>
-                    <Select options={townhall} onChange={(e) => { setBookingDetails({ ...bookingDetails, townhallName: e.value, townhallId: e.id }), setSelectedData(e.data) }} />
+                    <Select options={townhall} onChange={(e) => { setBookingDetails({ ...bookingDetails, townhallName: e.value, townhall: e.parentId ,townhallId:e.id}), setSelectedData(e.data) }} />
                   </div>
                   {
                     errors && errors.field == 'townhall' && <h6 className="text-danger mt-1">{errors.message}</h6>

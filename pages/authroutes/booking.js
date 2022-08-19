@@ -32,10 +32,10 @@ const Booking = () => {
   const [eventIdForGrievance, setEventIdForGrievance] = useState(null)
   const [parentEventIdForGrievance, setParentEventIdForGrievance] = useState(null)
   const [reviewListModal, setReviewListModal] = useState(false)
-  const [isLoaded, setIsLoaded] = useState(false)
+  const [isLoaded, setIsLoaded] = useState(true)
   const [eventDepartment, setEventDepartment] = useState(null)
   const reviewedItem = localStorage.getItem("reviewedItem")
-  const [isReviewed, setIsReviewed] = useState(JSON.parse(reviewedItem))
+  const userData = (JSON.parse(localStorage.getItem('userData')))
 
   const closeReviewMOdal = (data) => {
     setActiveModalReview(data)
@@ -118,9 +118,6 @@ const Booking = () => {
     console.log(ambulanceList, '222222')
   }, [ambulanceList])
 
-  useEffect(()=>{
-    ramlingamBookingList.length>0 && setIsLoaded(true)
-  },[ramlingamBookingList])
   const formatDate = (value) => {
     return moment(value).format('DD-MMM-YYYY');
   }
@@ -145,7 +142,7 @@ const Booking = () => {
         <div className="container-fluid light-bg pt-4 pb-4">
           <div className="row">
             <div className="col-lg-10 pr-4 mx-auto">
-              <Accordion preExpanded={['ramlingamPark']} allowZeroExpanded>
+              <Accordion allowZeroExpanded>
                 <AccordionItem uuid="ramlingamPark">
                   <AccordionItemHeading>
                     <AccordionItemButton>
@@ -157,8 +154,8 @@ const Booking = () => {
                        ramlingamBookingList?.length == 0 ? <h6>No Bookings for Ramlingam Park</h6> :
                         ramlingamBookingList?.map((bookings, index) => {
                           return (
-                            <div className="row" key={bookings.eventId[0].eventId} style={{cursor:'pointer'}} onClick={()=>gotoBookingDetails(bookings)}>
-                              <div className="col-lg-9 pr-4" key={bookings.bookingId}>
+                            <div className="row" key={bookings.eventId[0].eventId}>
+                              <div className="col-lg-9 pr-4" key={bookings.bookingId} style={{cursor:'pointer'}} onClick={()=>gotoBookingDetails(bookings)}>
                                 <div className="booking-card p-3">
                                   <div className="row">
                                     <div className="col-lg-8">
@@ -269,8 +266,8 @@ const Booking = () => {
                        townhallBookingList?.length == 0 ? <h6>No Bookings for Townhall</h6> :
                         townhallBookingList?.map((bookings, index) => {
                           return (
-                            <div className="row" key={bookings.townhallId[0].townhallId} style={{cursor:'pointer'}} onClick={()=>gotoBookingDetails(bookings)}>
-                              <div className="col-lg-9 pr-4" key={bookings.bookingId}>
+                            <div className="row" key={bookings.townhallId[0].townhallId}>
+                              <div className="col-lg-9 pr-4" key={bookings.bookingId} style={{cursor:'pointer'}} onClick={()=>gotoBookingDetails(bookings)}>
                                 <div className="booking-card p-3">
                                   <div className="row">
                                     <div className="col-lg-8">
@@ -381,8 +378,8 @@ const Booking = () => {
                        kalyanmandapList?.length == 0 ? <h6>No Bookings for Kalyan Mandap</h6> :
                         kalyanmandapList?.map((bookings, index) => {
                           return (
-                            <div className="row" key={bookings.mandapId[0].mandapId} style={{cursor:'pointer'}} onClick={()=>gotoBookingDetails(bookings)}>
-                              <div className="col-lg-9 pr-4" key={bookings.bookingId}>
+                            <div className="row" key={bookings.mandapId[0].mandapId}>
+                              <div className="col-lg-9 pr-4" key={bookings.bookingId} style={{cursor:'pointer'}} onClick={()=>gotoBookingDetails(bookings)}>
                                 <div className="booking-card p-3">
                                   <div className="row">
                                     <div className="col-lg-8">

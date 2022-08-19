@@ -15,12 +15,15 @@ import {
   ModalFooter,
   ModalTitle
 } from "reactstrap";
+import AllResolvedMessages from "../../src/components/allResolvedMessages";
 
 const MyComplains = () => {
   const [video, setVideo] = useState(false);
   const [openSubmodal, setOpenSubmodal] = useState(false)
   const [complainDetails, setComplainDetails] = useState(null)
   const [escalationModal, setEscalationModal] = useState(false)
+  const [resolvedModal, setResolvedModal] = useState(false)
+  const [resolvedMessages,setResolvedMessages] = useState([])
   const [escalationData, setEscalationData] = useState(null)
   const [isLoaded, setIsLoaded] = useState(false)
   const [dayDiff, setDayDiff] = useState([])
@@ -66,7 +69,7 @@ const MyComplains = () => {
   }
 
   const checkDateFunction = (value, data) => {
-    if (value > 3) {
+    if (value < 3) {
       setEscalationModal(true)
       setEscalationData(data)
     }
@@ -82,11 +85,12 @@ const MyComplains = () => {
     if (response.data.code === 201) {
       setOpenSubmodal(true)
       setContainerEscalation(false),
-        toggle(false)
+      toggle(false)
       getAllGrievances()
     }
     console.log(data, 'datafor grievience')
   }
+  console.log(resolvedModal,'resolved')
   return (
     (!isLoaded) ? <PreLoader /> : <Layout>
       {/* <Ratings/> */}
@@ -138,29 +142,43 @@ const MyComplains = () => {
 
                         </div>
                         <div className="col-lg-3 qr-section">
-                          {bookings.status === 'Escalated' && <span className="escalate-badge escalate-badge-success"><i className="ti-time mr-2"></i>Not Resolved Yet</span>
+                          {bookings.status === 'Escalated' && <>
+                            <h6 className="text-center"><b>Last Resolved Text</b></h6>
+                            <h6 className="text-center mt-3 text-capitalize">{bookings.resolved[bookings.resolved.length - 2]}</h6>
+                            <span className="escalate-badge escalate-badge-success"><i className="ti-time mr-2"></i>Not Resolved Yet</span>
+                          </>
                           }
                           {bookings.status === 'Pending' && <span className="escalate-badge escalate-badge-warning"><i className="ti-time mr-2"></i>Not Resolved Yet</span>
                           }
                           {bookings.status === 'Cancelled' && <span className="escalate-badge escalate-badge-danger"><i className="ti-trash mr-2"></i>Cancelled</span>
                           }
-                          {bookings.status === 'Resolved' && <span className="escalate-badge escalate-badge-resolved"><i className="ti-check mr-2"></i>{bookings.status}</span>
+                          {bookings.status === 'Resolved' && <><span className="escalate-badge escalate-badge-resolved"><i className="ti-check mr-2"></i>{bookings.status}</span>
+                            <h6 className="text-center"><b>Last Resolved Message</b></h6>
+                            <h6 className="text-center mt-3 text-capitalize">{bookings.resolved[bookings.resolved.length - 1]}</h6></>
                           }
-                          {bookings.status === 'Resolved' &&
-                            <h6 className="text-center mt-3 text-capitalize">{bookings.resolved[bookings.resolved.length - 1]}</h6>
-                          }
+                          <button className="d-flex justify-content-center main-btn mt-2 mx-auto mb-2" onClick={() => { setResolvedModal(true),setResolvedMessages(bookings.resolved) }}>See All Resolved Messages</button>
                         </div>
                         <div className="col-lg-3 d-flex flex-column justify-content-center" style={{ borderLeft: '1px solid #ccc', padding: '30px' }}>
-                          {bookings.status === 'Escalated' && <span className="escalate-badge escalate-badge-success"><i className="ti-check mr-2"></i>{bookings.status}</span>
+                          {bookings.status === 'Resolved' &&
+                            <>
+                              <h6 className="text-center"><b>Last Escalation Message</b></h6>
+                              <h6 className="text-center mt-3 text-capitalize">{bookings.escalation[bookings.escalation.length - 2]}</h6>
+                              <span className="escalate-badge escalate-badge-success"><i className="ti-check mr-2"></i>{bookings.status}</span>
+                            </>
                           }
+                          {bookings.status === 'Escalated' && <>
+                            <h6 className="text-center"><b>Last Escalation Message</b></h6>
+                            <h6 className="text-center mt-3 text-capitalize">{bookings.escalation[bookings.escalation.length - 1]}</h6>
+                            <span className="escalate-badge escalate-badge-success"><i className="ti-check mr-2"></i>{bookings.status}</span>
+                          </>
+                          }
+
                           {bookings.status === 'Pending' && <span className="escalate-badge escalate-badge-warning"><i className="ti-time mr-2"></i>{bookings.status}</span>
                           }
                           {bookings.status === 'Cancelled' && <span className="escalate-badge escalate-badge-danger"><i className="ti-trash mr-2"></i>{bookings.status}</span>
                           }
 
-                          {bookings.status === 'Escalated' &&
-                            <h6 className="text-center mt-3 text-capitalize">{bookings.escalation[bookings.escalation.length - 1]}</h6>
-                          }
+
 
                           <button className="d-flex justify-content-center main-btn mt-4 mx-auto mb-4" id="escalate-btn" onClick={() => checkDateFunction(dayDiff[index], bookings)} disabled={(dayDiff[index] > 3) ? true : false}>ESCALATE</button>
                           {
@@ -180,6 +198,7 @@ const MyComplains = () => {
             : <h5>No Complains yet</h5>}
         </div>
         <EscalationModal activeModal={escalationModal} escalationData={escalationData} toggle={toggleEscalation} createEscalation={setHandleEscalation} />
+        <AllResolvedMessages activeModal={resolvedModal} resolvedMessages={resolvedMessages}/>
         <Modal isOpen={openSubmodal}>
           <ModalBody>
             <Image src={SuccessGif} alt='success' />
