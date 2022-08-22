@@ -16,7 +16,7 @@ function SeeAllReviewModal({ activeReview, eventId, closeReviewMOdal }) {
     const [containerReview, setContainerReview] = useState(activeReview);
 
     //for submodal
-    const [reviewDetails, setReviewDetails] = useState()
+    const [reviewDetails, setReviewDetails] = useState(false)
 
     const showReview = async () => {
         console.log(eventId,'hiiiii')
@@ -35,7 +35,8 @@ function SeeAllReviewModal({ activeReview, eventId, closeReviewMOdal }) {
     }
 
     const handleCloseReview=() =>{
-        setContainerReview(!containerReview), closeReviewMOdal(false)
+        closeReviewMOdal(false),
+        setContainerReview(!containerReview)
         if(reviewDetails.length>0){
             setReviewDetails(null)
         } 
@@ -50,13 +51,13 @@ function SeeAllReviewModal({ activeReview, eventId, closeReviewMOdal }) {
     return (
         <>
 
-            <Modal isOpen={containerReview} toggle={() => { setContainerReview(!containerReview), closeReviewMOdal(false) }}>
+            <Modal isOpen={containerReview} toggle={() => {closeReviewMOdal(false), setContainerReview(!containerReview) }}>
                 <ModalHeader>Review List</ModalHeader>
                 <ModalBody>
                     <div className="container">
                         <div className="row">
                             <div className="col-lg-12">
-                                {reviewDetails?.length>0?<Slider {...PlaceSliderTwo} className="place-slider-one">
+                                {reviewDetails && reviewDetails?.length>0?<Slider {...PlaceSliderTwo} className="place-slider-one">
                                     {reviewDetails?.map((review,index) => {
                                         return (
                                             <div key={index}>
@@ -87,14 +88,12 @@ function SeeAllReviewModal({ activeReview, eventId, closeReviewMOdal }) {
                     </div>
                 </ModalBody>
                 <ModalFooter>
-                    <Link href="#">
                         <button
                             className="main-btn"
                             onClick={ () => handleCloseReview()}
                         >
                             Close
                         </button>
-                    </Link>
                 </ModalFooter>
             </Modal>
         </>

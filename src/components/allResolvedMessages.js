@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { ModalBody } from 'react-bootstrap'
 import { Modal, ModalFooter, ModalHeader } from 'reactstrap'
 
-const AllResolvedMessages = ({ activeModal, resolvedMessages }) => {
+const AllResolvedMessages = ({ activeModal, resolvedMessages, toggle }) => {
     const [containerResolved, setContainerResolved] = useState(activeModal)
     console.log(resolvedMessages)
     useEffect(() => {
@@ -13,7 +13,7 @@ const AllResolvedMessages = ({ activeModal, resolvedMessages }) => {
         <>
             <Modal
                 isOpen={containerResolved}
-            // toggle={() => { setContainerEscalation(false), toggle(false) }}
+                toggle={() => { setContainerResolved(false), toggle(false) }}
             >
                 <ModalHeader style={{ background: '#3bacb6', color: '#fff' }}>
                     <h5 style={{ color: '#fff' }}>All Resolved Messages</h5>
@@ -32,6 +32,7 @@ const AllResolvedMessages = ({ activeModal, resolvedMessages }) => {
                 <ModalFooter>
                     <button
                         className="main-btn"
+                        onClick={() => { setContainerResolved(false), toggle(false) }}
                     >
                         Close
                     </button>

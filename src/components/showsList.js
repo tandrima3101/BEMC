@@ -19,7 +19,7 @@ const ShowsList = (props) => {
   const [departmentForIndex, setDepartmentForIndex] = useState()
   const [isLoaded,setIsLoadeed]=useState(false)
   const userData = (JSON.parse(localStorage.getItem('userData')))
-  console.log(userData._id,'____ID')
+  console.log(userData?._id,'____ID')
   const closeReviewMOdal = (data) => {
     setMOdalOpen(data)
   }
@@ -153,7 +153,7 @@ const ShowsList = (props) => {
                          </li>
                        ) : <li></li>
                      )}
-                     {show.reviewedBy? show.reviewedBy.includes(userData._id) ? <li className='d-flex flex-column'>
+                     {show.reviewedBy? show.reviewedBy.includes(userData?._id) ? <li className='d-flex flex-column'>
                        <span>
                          <i className="ti-check"></i>
                          <span className='text-success ml-0'>Reviewed</span>

@@ -85,16 +85,17 @@ function CardFormModal({ activeModal, eventInfo, toggleFunc, department }) {
     }, [activeModal])
     useEffect(() => {
         if (bookingDetails != null) {
-            // if (department == 'ambulance' || 'harse') {
-            //     setReqAmbulanceModal(true)
-            //   } else {
+            // // if (department == 'ambulance' || 'harse') {
+            // //     setReqAmbulanceModal(true)
+            // //   } else {
+            // //     setRoutingData(bookingDetails?._id, "authroutes/booking-details")
+            // //   }
+            // if (department != 'ambulance' && 'harse') {
             //     setRoutingData(bookingDetails?._id, "authroutes/booking-details")
-            //   }
-            if (department != 'ambulance' && 'harse') {
-                setRoutingData(bookingDetails?._id, "authroutes/booking-details")
-            } else {
-                setReqAmbulanceModal(true)
-            }
+            // } else {
+            //     setReqAmbulanceModal(true)
+            // }
+            setRoutingData(bookingDetails?._id, "authroutes/booking-details")
         }
     }, [bookingDetails])
     //for button loader

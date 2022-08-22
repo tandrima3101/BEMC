@@ -67,6 +67,9 @@ const MyComplains = () => {
   const toggleEscalation = (data) => {
     setEscalationModal(data);
   }
+  const toggleResolved = (data) => {
+    setResolvedModal(data);
+  }
 
   const checkDateFunction = (value, data) => {
     if (value < 3) {
@@ -198,7 +201,7 @@ const MyComplains = () => {
             : <h5>No Complains yet</h5>}
         </div>
         <EscalationModal activeModal={escalationModal} escalationData={escalationData} toggle={toggleEscalation} createEscalation={setHandleEscalation} />
-        <AllResolvedMessages activeModal={resolvedModal} resolvedMessages={resolvedMessages}/>
+        <AllResolvedMessages activeModal={resolvedModal} resolvedMessages={resolvedMessages} toggle={toggleResolved}/>
         <Modal isOpen={openSubmodal}>
           <ModalBody>
             <Image src={SuccessGif} alt='success' />
