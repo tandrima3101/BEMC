@@ -335,7 +335,7 @@ function FormModal({ active, activeTwo, data, adultPrice, childPrice, pageOf, pr
         <ModalFooter>
           {resendShow ? <button onClick={() => sendOtp()} style={{ backgroundColor: 'transparent' }}>
             <span>Resend OTP</span>
-          </button> : <div className="mr-auto d-flex align-items-center"><i className="ti-time"></i><h6 className="ml-2 mb-0"><b>{timerRef.current}</b></h6></div>}
+          </button> : <div className="mr-auto d-flex align-items-center"><i className="ti-time"></i><h6 className="ml-2 mb-0">You can resend OTP after <b>{timerRef.current}</b>seconds</h6></div>}
           <button onClick={() => validateOtp()} disabled={otpLoader} className='main-btn'>
             {otpLoader && (
               <Spinner

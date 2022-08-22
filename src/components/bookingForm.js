@@ -153,6 +153,7 @@ function BookingForm(props) {
       kalyanMandap.push({
         label: `${props.data[i].mandapName}`,
         value: `${props.data[i].mandapName}`,
+        parentId:`${props.data[i]._id}`,
         id: `${props.data[i].mandapId}`,
         data: props.data[i]
       })
@@ -220,16 +221,16 @@ function BookingForm(props) {
     if (arenaData?.length > 0) {
       for (let i = 0; i < arenaData?.length; i++) {
         sportsArena.push({
-          label: arenaData[i].arenaName.toUpperCase(),
-          value: `${arenaData[i].arenaName}`,
-          key: `${arenaData[i].arenaName}`
+          label: arenaData[i]?.arenaName.toUpperCase(),
+          value: `${arenaData[i]?.arenaName}`,
+          key: `${arenaData[i]?.arenaName}`
         })
       }
     }
   }
   {
     if (membershipData?.length > 0) {
-      let tempArr=(membershipData.filter((obj)=>obj.sportsArena.arenaName==bookingDetails.selectedArena))
+      let tempArr=(membershipData.filter((obj)=>obj?.sportsArena?.arenaName==bookingDetails.selectedArena))
       for(let i =0;i<tempArr.length;i++){
         sportsMembership.push({
           label: tempArr[i].membershipName.toUpperCase(),
@@ -261,6 +262,8 @@ function BookingForm(props) {
   }
   ///ambulance
   let journeyDetails = [];
+  let ambulanceId;
+  let harseId;
   for (let i = 0; i < props.data?.length; i++) {
     if (props.data[i].ambulanceName != undefined || props.data[i].harseName != undefined) {
       for (let j = 0; j < props.data[i]?.price?.length; j++) {
@@ -274,8 +277,18 @@ function BookingForm(props) {
       }
     }
   }
-
+  for (let i = 0; i < props.data?.length; i++) {
+    if (props.data[i].ambulanceName != undefined ){
+      ambulanceId=props.data[i]._id;
+    }
+  }
+  for (let i = 0; i < props.data?.length; i++) {
+    if (props.data[i].harseName != undefined ){
+      harseId=props.data[i]._id
+    }
+  }
   //form submit 
+  console.log(ambulanceId,'ambulance')
 
 
   const handleNav = () => {
@@ -555,7 +568,7 @@ function BookingForm(props) {
                 <div className="row">
                   <div className="col-lg-12 col-md-6 mt-2">
                     <label>Select Mandap</label>
-                    <Select options={kalyanMandap} onChange={(e) => { setBookingDetails({ ...bookingDetails, mandapName: e.value, mandapId: e.id }), setSelectedData(e.data) }} />
+                    <Select options={kalyanMandap} onChange={(e) => { setBookingDetails({ ...bookingDetails, mandapName: e.value, mandapId: e.id,mandap:e.parentId }), setSelectedData(e.data) }} />
                   </div>
                   {
                     errors && errors.field == 'mandap' && <h6 className="text-danger mt-1">{errors.message}</h6>
@@ -658,7 +671,7 @@ function BookingForm(props) {
                   <div className="col-lg-12 col-md-6 mt-2">
                     <label>Select Your Journey Details</label>
                     <Select options={journeyDetails}
-                      onChange={(e) => { setBookingDetails({ ...bookingDetails, selectedScheme: e.value, amountLeftToBePaid: e.price }) }}
+                      onChange={(e) => { setBookingDetails({ ...bookingDetails, selectedScheme: e.value, amountLeftToBePaid: e.price, ambulance:ambulanceId}) }}
                     />
                   </div>
                   {
@@ -726,7 +739,7 @@ function BookingForm(props) {
                   <div className="col-lg-12 col-md-6 mt-2">
                     <label>Select Your Journey Details</label>
                     <Select options={journeyDetails}
-                      onChange={(e) => { setBookingDetails({ ...bookingDetails, selectedScheme: e.value, amountLeftToBePaid: e.price }) }}
+                      onChange={(e) => { setBookingDetails({ ...bookingDetails, selectedScheme: e.value, amountLeftToBePaid: e.price,harse:harseId }) }}
                     />
                   </div>
                   {

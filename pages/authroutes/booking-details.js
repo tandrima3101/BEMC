@@ -48,7 +48,7 @@ function BookingDetails() {
                   <h5>
                     <i className="ti-email pr-2"></i>{bookingDetails?.email}
                   </h5>
-                  <h5><i class="ti-location-pin pr-2"></i>Ramlingam Park</h5>
+                  {/* <h5><i class="ti-location-pin pr-2"></i>Ramlingam Park</h5> */}
                   <h5>
                     <i className="ti-mobile pr-2"></i>{bookingDetails?.phoneNumber}
                   </h5>
@@ -80,7 +80,7 @@ function BookingDetails() {
               </div>
             </div>
           </div>
-          {bookingDetails.department != "ambulance" && "harse" && <div className="col-lg-3">
+          {bookingDetails?.department != "ambulance" && "harse" && <div className="col-lg-3">
             <div className="card-curve card-curve-no-shape">
               <p className="text-center">Your Request Id is</p>
               <h4 className="text-uppercase text-center">
@@ -94,7 +94,7 @@ function BookingDetails() {
               <h6>The show timing is <b>{bookingDetails?.selectedTime}</b></h6>
             </div>
           </div>}
-          {bookingDetails.department == "ambulance" && <div className="col-lg-3">
+          {bookingDetails?.department == "ambulance" && <div className="col-lg-3">
             <div className="card-curve card-curve-no-shape">
               <p className="text-center">Your Request Id is</p>
               <h4 className="text-uppercase text-center">
@@ -108,7 +108,7 @@ function BookingDetails() {
               <h6>Your selected timing is <b>{bookingDetails?.time}</b></h6>
             </div>
           </div>}
-          {bookingDetails.department == "harse" && <div className="col-lg-3">
+          {bookingDetails?.department == "harse" && <div className="col-lg-3">
             <div className="card-curve card-curve-no-shape">
               <p className="text-center">Your Request Id is</p>
               <h4 className="text-uppercase text-center">

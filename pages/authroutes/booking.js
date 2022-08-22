@@ -378,7 +378,7 @@ const Booking = () => {
                        kalyanmandapList?.length == 0 ? <h6>No Bookings for Kalyan Mandap</h6> :
                         kalyanmandapList?.map((bookings, index) => {
                           return (
-                            <div className="row" key={bookings.mandapId[0].mandapId}>
+                            <div className="row" key={bookings.mandapId[0]?.mandapId}>
                               <div className="col-lg-9 pr-4" key={bookings.bookingId} style={{cursor:'pointer'}} onClick={()=>gotoBookingDetails(bookings)}>
                                 <div className="booking-card p-3">
                                   <div className="row">
@@ -386,14 +386,14 @@ const Booking = () => {
                                       <div className="row booking-card-left">
                                         <div className="col-lg-4 d-flex justify-content-center">
                                           <img
-                                            src={bookings?.mandapId[0].banner.bannerImageUrl}
+                                            src={bookings?.mandapId[0]?.banner.bannerImageUrl}
                                             alt="bookedshow"
                                             className="bookingImage"
                                           />
                                         </div>
                                         <div className="col-lg-8 pl-0">
                                           <div className="ticket-details">
-                                            <h4>{bookings.mandapId[0].mandapName}</h4>
+                                            <h4>{bookings.mandapId[0]?.mandapName}</h4>
                                             <p className="m-0">{bookings?.ticketSource} BOOKING</p>
                                             <p className="m-0">
                                               <i className="ti-time mr-2"></i>
@@ -411,7 +411,7 @@ const Booking = () => {
                                             <h6>
                                               <i className="ti-ticket mr-2"></i>
                                               <b>Selected Venue :</b>
-                                              <span>{bookings?.mandapId[0].mandapName} </span>
+                                              <span>{bookings?.mandapId[0]?.mandapName} </span>
                                             </h6>
                                             <div className="row d-flex justify-content-between">
                                               <span className="p-0">Ticket Price</span>
@@ -453,7 +453,7 @@ const Booking = () => {
                                 </div>
                               </div>
                               <div className="col-lg-3 d-flex flex-column justify-content-center">
-                                <Ratings size='50' align='center' rating={bookings.mandapId[0].reviewAvg} canHover={false} />
+                                <Ratings size='50' align='center' rating={bookings.mandapId[0]?.reviewAvg} canHover={false} />
                                 {/* {isReviewed ? isReviewed.includes(ramlingamData[index]?.eventId) ? <div className="d-flex justify-content-center mt-2">
                                   <span className="d-flex align-item-center main-btn btn-success">
                                     <i className="ti-check" style={{ fontSize: '15px' }}></i>
@@ -465,7 +465,7 @@ const Booking = () => {
                                   <button style={{ backgroundColor: 'transparent' }} onClick={() => { setActiveModalReview(!activeModalReview), setEventId(ramlingamData[index]?.eventId), setEventDepartment('ramlingamPark') }}>Give a small review</button>
                                 </div>} */}
                                 <div className="review-link mt-2">
-                                  <button style={{ backgroundColor: 'transparent' }} onClick={() => { setReviewListModal(!reviewListModal), setEventIdForList(bookings.mandapId[0].mandapId) }}>See all Reviews</button>
+                                  <button style={{ backgroundColor: 'transparent' }} onClick={() => { setReviewListModal(!reviewListModal), setEventIdForList(bookings.mandapId[0]?.mandapId) }}>See all Reviews</button>
                                 </div>
                                 <div className="review-link mt-2">
                                   <button style={{ backgroundColor: 'transparent' }} onClick={() => { setActiveModalThree(!activeModalThree), setEventIdForGrievance(bookings.bookingRequestId), setParentEventIdForGrievance(bookings._id) }}>Having issue with this ticket?</button>
@@ -496,14 +496,14 @@ const Booking = () => {
                                   <div className="row booking-card-left" style={{ minHeight: '312px', height: 'auto' }}>
                                     <div className="col-lg-4 d-flex justify-content-center">
                                       <img
-                                        src={bookings?.image}
+                                        src={bookings?.ambulance?.banner?.bannerImageUrl}
                                         alt="bookedshow"
                                         className="bookingImage"
                                       />
                                     </div>
                                     <div className="col-lg-8 pl-0">
                                       <div className="ticket-details">
-                                        <h4>{bookings?.eventName}</h4>
+                                        <h4>{bookings?.ambulance?.ambulanceName}</h4>
                                         <p className="m-0">{bookings.ticketSource} BOOKING</p>
                                         <p className="m-0">
                                           <i className="ti-time mr-2"></i>
@@ -634,14 +634,15 @@ const Booking = () => {
                                   <div className="row booking-card-left" style={{ minHeight: '312px', height: 'auto' }}>
                                     <div className="col-lg-4 d-flex justify-content-center">
                                       <img
-                                        src={bookings?.image}
+                                        src={bookings?.harse?.banner?.bannerImageUrl}
                                         alt="bookedshow"
                                         className="bookingImage"
                                       />
+                                      {/* <p>{bookings?.ambulance?.banner}</p> */}
                                     </div>
                                     <div className="col-lg-8 pl-0">
                                       <div className="ticket-details">
-                                        <h4>{bookings?.eventName}</h4>
+                                        <h4>{bookings?.harse?.harseName}</h4>
                                         <p className="m-0">{bookings.ticketSource} BOOKING</p>
                                         <p className="m-0">
                                           <i className="ti-time mr-2"></i>
