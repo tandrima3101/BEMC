@@ -9,7 +9,7 @@ function payment() {
   useEffect(async () => {
     setBookingReq(await getRoutingData())
   }, [])
-  console.log(bookingReq)
+  console.log(bookingReq,'reqqqqqqqqqqqqqqqqq')
   let url
   if (bookingReq?.department == "ramlingamPark") {
     url = "ramalingampark/bookingRequest/response"
@@ -21,6 +21,8 @@ function payment() {
     url = "townhall/bookingRequest/response"
   } else if (bookingReq?.department == "ambulance") {
     url = "ambulance/ambulance/confirmBooking"
+  }else if (bookingReq?.department == "harse") {
+    url = "harse/harse/confirmBooking"
   }
 
   const [otpLoader, setOtpLoader] = useState()
@@ -29,13 +31,15 @@ function payment() {
     setOtpLoader(true)
     let paymentSuccess = {}
     if (bookingReq?.department == "ambulance") {
-       paymentSuccess = {
+      paymentSuccess = {
         method: 'post',
         url: url,
         data: {
           idBookingRequest: bookingReq.idBookingRequest,
           idBooking: bookingReq.idBooking,
           paymentStatus: "SUCCESS",
+          paymentMode: 'ONLINE',
+          isValid: true,
           bankTransactionsId: "oeaufiwejfo2344",
           bankTransaction: {
             id: "oeaufiwejfo2344",
@@ -54,6 +58,8 @@ function payment() {
           bookingRequestId: bookingReq._id,
           paymentStatus: "SUCCESS",
           bankTransactionsId: "oeaufiwejfo2344",
+          paymentMode: 'ONLINE',
+          isValid: true,
           bankTransaction: {
             id: "oeaufiwejfo2344",
             caook: "235fg",
@@ -79,6 +85,8 @@ function payment() {
         bookingRequestId: bookingReq._id,
         paymentStatus: "FAILED",
         bankTransactionsId: "oeaufiwejfo2344",
+        paymentMode: 'ONLINE',
+        isValid: true,
         bankTransaction: {
           id: "oeaufiwejfo2344",
           caook: "235fg",

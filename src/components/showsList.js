@@ -120,10 +120,10 @@ const ShowsList = (props) => {
                  </h3>
                  {show.eventTag && show.eventTag.map((x) => { return (<span className='badge badge-warning ml-0 mr-2 mb-2 text-capitalize'>{x}</span>) })}
                   <div className='d-flex align-items-center' style={{cursor:'pointer'}} onClick={() => { setReviewListModal(true), setEventIdForList(show.eventId || show.townhallId || show.mandapId || 'AMB001' || 'HAR001') }}>
-                  <Rate size='25' align='start' rating={show?.reviewAvg} canHover={false} />{show?.reviews?.length > 1 ?<h6 className='ml-2'>({show?.reviews?.length} Reviews)</h6> :show?.reviews?.length==0?<h6 className='ml-2'>(No Reviews yet)</h6>:<h6 className='ml-2'>({show?.reviews?.length} Review)</h6>}
+                  <Rate size='25' align='start' rating={show?.reviewAvg} canHover={false} />{show.reviews && show?.reviews?.length > 1 ?<h6 className='ml-2'>({show?.reviews?.length} Reviews)</h6> :(!(show?.reviews)||show?.reviews?.length==0)?<h6 className='ml-2'>(No Reviews yet)</h6>:<h6 className='ml-2'>({show?.reviews?.length} Review)</h6>}
                   </div>
                  {
-                  (!show.ambulanceName && !show.harseName)?<h6 className="price ml-0 mt-0">Price: Rs {show?.price} /- {show.cPrice && <h6 className="price ml-0 mt-2">Child Price: Rs {show?.cPrice} /-</h6>}</h6>:<></>
+                  (!show.ambulanceName && !show.harseName)?show.price && <h6 className="price ml-0 mt-0">Price: Rs {show?.price} /- {show.cPrice && <h6 className="price ml-0 mt-2">Child Price: Rs {show?.cPrice} /-</h6>}</h6>:<></>
                  }
                  {show?.contactNumber ? (
                    <span

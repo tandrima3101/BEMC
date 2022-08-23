@@ -55,7 +55,7 @@ return (
               </div>
             </div>
             <div className="col-lg-5" style={{ padding: "0px" }}>
-              <BookingForm active={props.activeForm} pageOf={props.pageOf} data={props.overallData}/>
+              <BookingForm active={props.activeForm} pageOf={props.pageOf} data={props.overallData} activities={props.activities} membership={props.membership}/>
             </div>
           </div>
         </div>

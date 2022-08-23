@@ -17,6 +17,8 @@ const Index = () => {
   const [ramlingamData, setRamlingamData] = useState([])
   const [isLoaded, setIsLoaded] = useState(false)
   const [reviews, setReviews] = useState([])
+  const [activities,setActivities] = useState();
+  const [membership,setMembership] = useState();
 
   //fetch events
 
@@ -70,7 +72,23 @@ const Index = () => {
       }
     }
   }
-
+  async function fetchActivities(){
+    let apiTest = {
+      method: 'post',
+      url: "sportsArena/sportsArena/getAllActivity"
+    }
+    let response = await callApi(apiTest)
+    setActivities(response.data.data)
+    console.log(response.data.data,'responseeeeeeeeee')
+  }
+  async function fetchMembership(){
+    let apiTest = {
+      method: 'post',
+      url: "sportsArena/sportsArena/getAllMembership"
+    }
+    let response = await callApi(apiTest)
+    setMembership(response.data.data)
+  }
   //fetch reviews
   async function fetchReviews() {
     let apiTest = {
@@ -129,6 +147,8 @@ const Index = () => {
   useEffect(() => {
     fetchEvents()
     fetchReviews()
+    fetchActivities()
+    fetchMembership()
   }, [])
   
   useEffect(() => {
@@ -140,7 +160,7 @@ const Index = () => {
     (!isLoaded) ? <PreLoader /> : <Layout>
       {video && <VideoPopup close={setVideo} />}
       {/* <!--====== Start Hero Section ======--> */}
-      <Banner overallData={ramlingamData} mainSlider={bannerSlider} activeForm='ramlingamPark' pageOf="index" />
+      <Banner overallData={ramlingamData} mainSlider={bannerSlider} activities={activities} membership={membership} activeForm='ramlingamPark' pageOf="index" />
       {/* <!--====== End Hero Section ======--> */}
       {/* <!--====== Start Category Section ======--> */}
       <section className="category-area">

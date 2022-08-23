@@ -132,11 +132,6 @@ function FormModal({ active, activeTwo, data, adultPrice, childPrice, pageOf, pr
   }, [otpValidator])
   useEffect(() => {
     if (bookingDetails != null) {
-      // if (activeFormModal != 'ambulance' && 'harse') {
-      //   setRoutingData(bookingDetails?._id, "authroutes/booking-details")
-      // } else {
-      //   setReqAmbulanceModal(true)
-      // }
       setRoutingData(bookingDetails?._id, "authroutes/booking-details")
     }
   }, [bookingDetails])

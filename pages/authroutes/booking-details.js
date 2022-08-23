@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Link from "next/link";
 import Layout from "../../src/layouts/Layout";
-import { Spinner } from "react-bootstrap";
 import { getRoutingData, setRoutingData } from "../../src/utils";
 import { callApi } from "../../src/apiHandlers/callApi";
 import moment from "moment";
@@ -123,19 +121,29 @@ function BookingDetails() {
             </div>
           </div>}
 
-          <div className="col-lg-3 d-flex justify-content-center align-items-center flex-column pb-5">
-            {!isLoaded ? (
-              <>
-                <h3 className="text-center">Preccessing Your Payment</h3>
-                <img src="/assets/images/loading.gif" width="100px" />
-              </>
-            ) : (
-              <>
-                <img src="assets/images/card.png" alt="" style={{ width: "70%" }} />
-                <button className="main-btn mt-4" style={{ fontSize: '20px' }} onClick={() => { setRoutingData(bookingDetails, "../payment") }}>Make Your Payment</button>
-              </>
-            )}
-          </div>
+          {
+            (bookingDetails?.department != 'ambulance' && bookingDetails?.department != 'harse') &&
+            <div className="col-lg-3 d-flex justify-content-center align-items-center flex-column pb-5">
+              {!isLoaded ? (
+                <>
+                  <h3 className="text-center">Preccessing Your Payment</h3>
+                  <img src="/assets/images/loading.gif" width="100px" />
+                </>
+              ) : (
+                <>
+                  <img src="assets/images/card.png" alt="" style={{ width: "70%" }} />
+                  <button className="main-btn mt-4" style={{ fontSize: '20px' }} onClick={() => { setRoutingData(bookingDetails, "../payment") }}>Make Your Payment</button>
+                </>
+              )}
+            </div>
+          }
+          {
+            bookingDetails?.department == 'ambulance' &&
+            <div className="col-lg-3 d-flex justify-content-center align-items-center flex-column pb-5">
+                <h4 className="text-center text-capitalize" style={{color:"#3bacb6"}}>Your Booking Request has been created</h4>
+                <h6 className="text-center text-capitalize mt-4"><b>You will be notified once your req has been approved</b></h6>
+            </div>
+          }
         </div>
       </div>
     </Layout>

@@ -6,11 +6,11 @@ import {
     ModalBody,
     ModalFooter,
 } from "reactstrap";
-import { Button, Spinner } from 'react-bootstrap'
+import { Spinner } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { generateOTP, setRoutingData, varifyOTP } from "../utils";
 import { callApi } from "../apiHandlers/callApi";
-import { setlogin, setToken, setUserId } from "../../redux/slices/loginSlice";
+import { setlogin } from "../../redux/slices/loginSlice";
 import AmbulanceRequestModal from "./ambulanceRequestModal";
 import moment from "moment";
 
@@ -25,14 +25,13 @@ function CardFormModal({ activeModal, eventInfo, toggleFunc, department }) {
     const [errors, setErrors] = useState({ field: '', message: '' })
     const userData = (JSON.parse(localStorage.getItem('userData')))
     const islogin = useSelector((state) => state.login.isLogin)
-    console.log(eventInfo, department, 'cardformmodal')
-    console.log(userData, 'dataaaaaaaa')
+
     const showTimes = []
     const eventdates = []
     const seatsCategory = []
     const [enteredOtp, setEnteredOtp] = useState(null)
     function isBeforeToday(date) {
-        let pickedDate = Date.parse(date?.replace(/-/g, " "))
+        let pickedDate = Date.parse(date.replace(/-/g, " "))
         console.log(pickedDate, 'date')
         const today = new Date();
         today.setHours(0, 0, 0, 0);
@@ -42,12 +41,11 @@ function CardFormModal({ activeModal, eventInfo, toggleFunc, department }) {
     const formatDate = (value) => {
         return moment(value).format('DD/MM/YYYY');
     }
-    eventInfo?.dates?.map((x) => {
-        console.log(isBeforeToday(x.date), 'isBeforeToday')
-        if (!isBeforeToday(x)) {
+    eventInfo?.dateAndTime?.map((x) => {
+        if (!isBeforeToday(x.date)) {
             eventdates.push({
-                label: formatDate(x),
-                value: `${x}`
+                label: formatDate(x.date),
+                value: `${x.date}`
             })
         }
     })
@@ -85,16 +83,6 @@ function CardFormModal({ activeModal, eventInfo, toggleFunc, department }) {
     }, [activeModal])
     useEffect(() => {
         if (bookingDetails != null) {
-            // // if (department == 'ambulance' || 'harse') {
-            // //     setReqAmbulanceModal(true)
-            // //   } else {
-            // //     setRoutingData(bookingDetails?._id, "authroutes/booking-details")
-            // //   }
-            // if (department != 'ambulance' && 'harse') {
-            //     setRoutingData(bookingDetails?._id, "authroutes/booking-details")
-            // } else {
-            //     setReqAmbulanceModal(true)
-            // }
             setRoutingData(bookingDetails?._id, "authroutes/booking-details")
         }
     }, [bookingDetails])
@@ -198,7 +186,7 @@ function CardFormModal({ activeModal, eventInfo, toggleFunc, department }) {
         }
     }
     useEffect(() => {
-        createBookingRequest()
+        createBookingRequest();
         console.log(otpValidator, 'validatorrrrrrrrrrrr')
     }, [otpValidator])
 
@@ -231,7 +219,21 @@ function CardFormModal({ activeModal, eventInfo, toggleFunc, department }) {
             } else {
                 sendOtp()
             }
-        } else if (department == 'ambulance' || 'harse') {
+        } else if (department == 'ambulance') {
+            if (totalData && !totalData.date) {
+                setErrors({ field: 'date', message: 'Please select a date' })
+            } else if (totalData && !totalData.time) {
+                setErrors({ field: 'time', message: 'Please select a time' })
+            } else if (totalData && !totalData.selectedScheme) {
+                setErrors({ field: 'scheme', message: 'Please select your journey details' })
+            } else if (totalData && !totalData.from) {
+                setErrors({ field: 'from', message: 'Please select your pickup location' })
+            } else if (totalData && !totalData.to) {
+                setErrors({ field: 'to', message: 'Please select your drop location' })
+            } else {
+                sendOtp()
+            }
+        }else if (department == 'harse') {
             if (totalData && !totalData.date) {
                 setErrors({ field: 'date', message: 'Please select a date' })
             } else if (totalData && !totalData.time) {

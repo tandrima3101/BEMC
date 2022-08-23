@@ -23,7 +23,7 @@ function BookingForm(props) {
   const [activeModalTwo, setActiveModalTwo] = useState(false);
   const [errors, setErrors] = useState({ field: '', message: '' });
   const [arenaData, setArenaData] = useState();
-  const [membershipData, setMembershipData] = useState();
+  const [membershipData, setMembershipData] = useState(props.membership);
   const newType = [
     "Ramlingam Park",
     "Kalyan Mandap",
@@ -47,9 +47,9 @@ function BookingForm(props) {
   const formatDate = (value) => {
     return moment(value).format('DD/MM/YYYY');
   }
+
   //for ramlingam park
 
-  console.log(props.data, 'props.data')
   const options = [];
   for (let i = 0; i < props.data?.length; i++) {
     if (props.data[i].eventName != undefined) {
@@ -94,6 +94,7 @@ function BookingForm(props) {
     }
   }
   function isBeforeToday(date) {
+    console.log(date,'dateeeeeeeeeeeeeeeeeeeeeee')
     let pickedDate=Date.parse(date.replace(/-/g, " "))
     console.log(pickedDate,'date')
     const today = new Date();
@@ -166,11 +167,7 @@ function BookingForm(props) {
       value: `${x}`,
     })
   })
-  const kalyanMandapPurpose = [
-    { value: "Marriage", label: "Marriage" },
-    { value: "Birthday", label: "Birthday" },
-    { value: "other", label: "Other Reason" },
-  ];
+
   /*************set purpose********** */
   const setPurpose = (e) => {
     const selectedValue = e;
@@ -186,44 +183,32 @@ function BookingForm(props) {
   }
 
   //sports arena
-  async function fetchActivities() {
-    let apiTest = {
-      method: 'post',
-      url: "sportsArena/sportsArena/getAllSportsArena"
-    }
-    let response = await callApi(apiTest)
-    if (response.data.code == 201) {
-      setArenaData(response.data.data)
-    }
-  }
-  async function fetchMembership() {
-    let apiTest = {
-      method: 'post',
-      url: "sportsArena/sportsArena/getAllMembership"
-    }
-    let response = await callApi(apiTest)
-    if (response.data.code == 201) {
-      setMembershipData(response.data.data)
-    }
-  }
-  useEffect(() => {
-    // fetchActivities();
-    // fetchMembership();
-  }, [])
+
+  let sports = [];
   let sportsArena = [];
   let sportsMembership = [];
   let sportsMembershipTenure = [];
   let sportsMembershipTimeslots = [];
+
   {
-    if (arenaData?.length > 0) {
-      for (let i = 0; i < arenaData?.length; i++) {
+    for(let i = 0;i < props.data?.length;i++){
+      if(props.data[i].arenaName != null){
         sportsArena.push({
-          label: arenaData[i]?.arenaName.toUpperCase(),
-          value: `${arenaData[i]?.arenaName}`,
-          key: `${arenaData[i]?.arenaName}`
+          label:props.data[i]?.arenaName?.toUpperCase(),
+          value:props.data[i]?.arenaName,
+          key:props.data[i]?.arenaName
         })
       }
     }
+  }
+  {
+      for (let i = 0; i < props.activities?.length; i++) {
+        sports.push({
+          label: props.activities[i]?.activityName?.toUpperCase(),
+          value: `${props.activities[i]?.activityName}`,
+          key: `${props.activities[i]?.activityName}`
+        })
+      }
   }
   {
     if (membershipData?.length > 0) {
@@ -530,6 +515,10 @@ function BookingForm(props) {
                   <div className="col-lg-12 col-md-6 mt-2">
                     <label>Select Sports Arena</label>
                     <Select options={sportsArena} onChange={(e)=>setBookingDetails({...bookingDetails,selectedArena:e.value})}/>
+                  </div>
+                  <div className="col-lg-12 col-md-6 mt-2">
+                    <label>Select Sports</label>
+                    <Select options={sports} onChange={(e)=>setBookingDetails({...bookingDetails,selectedSports:e.value})}/>
                   </div>
                   <div className="col-lg-12 col-md-6 mt-2">
                     <label>SelectMembership Plan</label>
