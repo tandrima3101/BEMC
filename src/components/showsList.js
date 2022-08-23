@@ -19,7 +19,7 @@ const ShowsList = (props) => {
   const [departmentForIndex, setDepartmentForIndex] = useState()
   const [isLoaded,setIsLoadeed]=useState(false)
   const userData = (JSON.parse(localStorage.getItem('userData')))
-  console.log(userData?._id,'____ID')
+
   const closeReviewMOdal = (data) => {
     setMOdalOpen(data)
   }
@@ -73,6 +73,8 @@ const ShowsList = (props) => {
     setIsLoadeed(true)
   }, [props.overallData])
   console.log(showList, 'showList outside')
+
+  
   return (
    (!isLoaded)?<PreLoader/>: <section className="listing-grid-area pt-115 pb-75">
    <div className="container">
@@ -98,7 +100,7 @@ const ShowsList = (props) => {
                  <div className="thumbnail-meta d-flex justify-content-between align-items-center">
                    <div className="meta-icon-title d-flex align-items-center">
                      <div className="icon">
-                       <i className="flaticon-chef"></i>
+                      <img src='/assets/images/booking.png' style={{margin:'10px',width:'70%'}}/>
                      </div>
                      <div className="title">
                        <button style={{ backgroundColor: 'transparent' }} onClick={() => handleBookingButton(show)}>{show?.card?.card_buttonName}</button>
@@ -113,7 +115,7 @@ const ShowsList = (props) => {
                <div className="listing-content">
                  <h3 className="title">
                    <Link href="/listing-details-1">
-                     <a>{show.eventName || show.townhallName || show.mandapName || show.ambulanceName || show.harseName}</a>
+                     <a>{show.eventName || show.townhallName || show.mandapName || show.ambulanceName || show.harseName || show.arenaName}</a>
                    </Link>
                  </h3>
                  {show.eventTag && show.eventTag.map((x) => { return (<span className='badge badge-warning ml-0 mr-2 mb-2 text-capitalize'>{x}</span>) })}

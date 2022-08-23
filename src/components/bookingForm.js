@@ -194,7 +194,6 @@ function BookingForm(props) {
     let response = await callApi(apiTest)
     if (response.data.code == 201) {
       setArenaData(response.data.data)
-      console.log(response.data.data,'arenaData')
     }
   }
   async function fetchMembership() {
@@ -208,15 +207,13 @@ function BookingForm(props) {
     }
   }
   useEffect(() => {
-    fetchActivities();
-    fetchMembership();
+    // fetchActivities();
+    // fetchMembership();
   }, [])
   let sportsArena = [];
   let sportsMembership = [];
   let sportsMembershipTenure = [];
   let sportsMembershipTimeslots = [];
-  // const sevenDaysNext= Date = new Date(new Date.now() - 7 * 24 * 60 * 60 * 1000)  
-  // console.log(sevenDaysNext,'sevenDaysNext')
   {
     if (arenaData?.length > 0) {
       for (let i = 0; i < arenaData?.length; i++) {

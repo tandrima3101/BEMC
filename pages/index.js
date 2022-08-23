@@ -18,7 +18,6 @@ const Index = () => {
   const [isLoaded, setIsLoaded] = useState(false)
   const [reviews, setReviews] = useState([])
 
-
   //fetch events
 
   async function fetchEvents() {
@@ -57,14 +56,21 @@ const Index = () => {
             }
             let response = await callApi(apiTest)
             tempArr.push(...response.data.data)
+            if (response.data.code == 201) {
+              let apiTest = {
+                method: 'post',
+                url: "sportsArena/sportsArena/getAllSportsArena"
+              }
+              let response = await callApi(apiTest)
+              tempArr.push(...response.data.data)
+            }
           }
-          console.log(tempArr, 'tempArrrrrrrrrrrr')
           setRamlingamData(tempArr)
         }
       }
     }
   }
-  
+
   //fetch reviews
   async function fetchReviews() {
     let apiTest = {
@@ -124,6 +130,7 @@ const Index = () => {
     fetchEvents()
     fetchReviews()
   }, [])
+  
   useEffect(() => {
     ramlingamData.length, bannerSlider.length && photoGallery.length && setIsLoaded(true)
   }, [ramlingamData, bannerSlider, photoGallery])

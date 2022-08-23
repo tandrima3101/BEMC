@@ -6,20 +6,20 @@ import Layout from '../../src/layouts/Layout';
 import { getRoutingData } from '../../src/utils';
 
 function BookingSuccess() {
-  const [isLoaded, setIsLoade] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
   const [bookingDetails, setBookingDetails] = useState();
   const userData = (JSON.parse(localStorage.getItem('userData')))
   useEffect(async () => {
-    function loaded() {
-      setIsLoade(true);
-    }
-    setTimeout(loaded, 5000);
     setBookingDetails(await getRoutingData())
   }, []);
-  console.log(bookingDetails)
+  useEffect(()=>{
+    bookingDetails != null && setIsLoaded(true)
+  },[bookingDetails])
+  console.log(bookingDetails,'bookingDetails')
   const formatDate = (value) => {
     return moment(value).format('DD-MMM-YYYY');
   }
+
   return (
     <Layout>
       <div className="container-fluid light-bg container-small">
@@ -120,7 +120,7 @@ function BookingSuccess() {
           </div>
           <div className="col-lg-3">
             <div className="card-curve card-curve-no-shape">
-              <img src={bookingDetails?.bookingRequest?.qrUrl} />
+              <img src={bookingDetails?.bookingRequest?.qrUrl} style={{height:'230px',width:'100%',objectFit:'contain'}}/>
               <h4 className="text-uppercase text-center">
                 <b>{bookingDetails?.bookingRequest?.bookingRequestId}</b>
               </h4>

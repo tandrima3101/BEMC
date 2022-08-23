@@ -22,7 +22,7 @@ const AllResolvedMessages = ({ activeModal, resolvedMessages, toggle }) => {
                     {
                         resolvedMessages && resolvedMessages.length > 0 && resolvedMessages.map((messages) => {
                             if (messages != null) {
-                                return (<div className='card p-4'>
+                                return (<div className='card p-4 mt-4'>
                                     <h6>{messages}</h6>
                                 </div>)
                             }
