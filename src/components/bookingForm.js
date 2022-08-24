@@ -10,7 +10,7 @@ import moment from "moment";
 function BookingForm(props) {
 
   //booking forms value
-
+  console.log(props.membership, 'membershipppppp')
   const [selectedData, setSelectedData] = useState()
   const [selectedSeatCapacity, setSelectedSeatCapacity] = useState()
   const [bookingDetails, setBookingDetails] = useState({})
@@ -24,6 +24,7 @@ function BookingForm(props) {
   const [errors, setErrors] = useState({ field: '', message: '' });
   const [arenaData, setArenaData] = useState();
   const [membershipData, setMembershipData] = useState(props.membership);
+  console.log(membershipData, 'membershipdata')
   const newType = [
     "Ramlingam Park",
     "Kalyan Mandap",
@@ -56,7 +57,7 @@ function BookingForm(props) {
       options.push({
         label: `${props.data[i].eventName}`,
         value: `${props.data[i].eventName}`,
-        parentId:`${props.data[i]._id}`,
+        parentId: `${props.data[i]._id}`,
         id: `${props.data[i].eventId}`,
         data: props.data[i]
       })
@@ -64,7 +65,7 @@ function BookingForm(props) {
   }
   const seatCategory = [];
   selectedData?.seatCategory?.map((x) => {
-    if(x.capacity>0){
+    if (x.capacity > 0) {
       seatCategory.push({
         label: `${x.categoryName} (${x.capacity} seats available)`,
         value: `${x.categoryName}`,
@@ -94,24 +95,24 @@ function BookingForm(props) {
     }
   }
   function isBeforeToday(date) {
-    console.log(date,'dateeeeeeeeeeeeeeeeeeeeeee')
-    let pickedDate=Date.parse(date.replace(/-/g, " "))
-    console.log(pickedDate,'date')
+    console.log(date, 'dateeeeeeeeeeeeeeeeeeeeeee')
+    let pickedDate = Date.parse(date.replace(/-/g, " "))
+    console.log(pickedDate, 'date')
     const today = new Date();
     today.setHours(0, 0, 0, 0);
     return pickedDate < today;
   }
-  
+
   const dates = [];
   selectedData?.dateAndTime?.map((x, index) => {
-    console.log(isBeforeToday(x.date),'isBeforeToday')
-    if(!isBeforeToday(x.date)){
+    console.log(isBeforeToday(x.date), 'isBeforeToday')
+    if (!isBeforeToday(x.date)) {
       dates.push({
         label: formatDate(x.date),
         value: `${x.date}`,
         key: index
       })
-    }   
+    }
   })
   const showTimes = []
   selectedData?.dateAndTime?.map((x) => {
@@ -141,7 +142,7 @@ function BookingForm(props) {
       townhall.push({
         label: `${props.data[i].townhallName}`,
         value: `${props.data[i].townhallName}`,
-        parentId:`${props.data[i]._id}`,
+        parentId: `${props.data[i]._id}`,
         id: `${props.data[i].townhallId}`,
         data: props.data[i]
       })
@@ -154,7 +155,7 @@ function BookingForm(props) {
       kalyanMandap.push({
         label: `${props.data[i].mandapName}`,
         value: `${props.data[i].mandapName}`,
-        parentId:`${props.data[i]._id}`,
+        parentId: `${props.data[i]._id}`,
         id: `${props.data[i].mandapId}`,
         data: props.data[i]
       })
@@ -191,53 +192,56 @@ function BookingForm(props) {
   let sportsMembershipTimeslots = [];
 
   {
-    for(let i = 0;i < props.data?.length;i++){
-      if(props.data[i].arenaName != null){
+    for (let i = 0; i < props.data?.length; i++) {
+      if (props.data[i].arenaName != null) {
         sportsArena.push({
-          label:props.data[i]?.arenaName?.toUpperCase(),
-          value:props.data[i]?.arenaName,
-          key:props.data[i]?.arenaName
+          label: props.data[i]?.arenaName?.toUpperCase(),
+          value: props.data[i]?.arenaName,
+          key: props.data[i]?.arenaName
         })
       }
     }
   }
   {
-      for (let i = 0; i < props.activities?.length; i++) {
-        sports.push({
-          label: props.activities[i]?.activityName?.toUpperCase(),
-          value: `${props.activities[i]?.activityName}`,
-          key: `${props.activities[i]?.activityName}`
-        })
-      }
-  }
-  {
-    if (membershipData?.length > 0) {
-      let tempArr=(membershipData.filter((obj)=>obj?.sportsArena?.arenaName==bookingDetails.selectedArena))
-      for(let i =0;i<tempArr.length;i++){
-        sportsMembership.push({
-          label: tempArr[i].membershipName.toUpperCase(),
-          value: `${tempArr[i].membershipName}`,
-          key: `${tempArr[i].membershipName}`
-        })
-      }
+    for (let i = 0; i < props.activities?.length; i++) {
+      sports.push({
+        label: props.activities[i]?.activityName?.toUpperCase(),
+        value: `${props.activities[i]?.activityName}`,
+        key: `${props.activities[i]?.activityName}`
+      })
     }
   }
   {
-    if (membershipData?.length > 0) {
-      let tempArr=(membershipData.filter((obj)=>obj.membershipName==bookingDetails.selectedMembership))
-      for(let i =0;i<tempArr[0]?.plans?.length;i++){
+
+    for (let i = 0; i < props.membership?.length; i++) {
+      sportsMembership.push({
+        label: props.membership[i].membershipName.toUpperCase(),
+        value: `${props.membership[i].membershipName}`,
+        key: `${props.membership[i].membershipName}`,
+        id: `${props.membership[i].membershipId}`,
+        parentId:`${props.membership[i]._id}`
+      })
+    }
+  }
+
+  {
+    if (props.membership?.length > 0) {
+      let tempArr = (props.membership.filter((obj) => obj.membershipName == bookingDetails.membershipName))
+      console.log(tempArr, 'temp array')
+      for (let i = 0; i < tempArr[0]?.plans?.length; i++) {
         sportsMembershipTenure.push({
-          label: `${ tempArr[0].plans[i].tenure}  (Rs ${ tempArr[0].plans[i].price}/-)`,
-          value: `${ tempArr[0].plans[i].tenure}`,
+          label: `${tempArr[0].plans[i].tenure.toUpperCase()}  (Rs ${tempArr[0].plans[i].price}/-)`,
+          value: `${tempArr[0].plans[i].tenure}`,
           key: `${tempArr[0].plans[i].tenure}`,
-          price: tempArr[0].plans[i].price,
+          price:`${tempArr[0].plans[i].price}`,
+          ageLimit:`${tempArr[0].plans[i].ageLimit}`
         })
       }
-      for(let i =0;i<tempArr[0]?.defultSlots?.length;i++){
+      for (let i = 0; i < tempArr[0]?.defultSlots?.length; i++) {
         sportsMembershipTimeslots.push({
-          label: `${ tempArr[0].defultSlots[i].startTime}-${ tempArr[0].defultSlots[i].endTime}`,
-          value: `${ tempArr[0].defultSlots[i].startTime}-${ tempArr[0].defultSlots[i].endTime}`,
-          key: `${tempArr[0].defultSlots[i].startTime}-${ tempArr[0].defultSlots[i].endTime}`,
+          label: `${tempArr[0].defultSlots[i].startTime}-${tempArr[0].defultSlots[i].endTime}`,
+          value: `${tempArr[0].defultSlots[i].startTime}-${tempArr[0].defultSlots[i].endTime}`,
+          key: `${tempArr[0].defultSlots[i].startTime}-${tempArr[0].defultSlots[i].endTime}`,
         })
       }
     }
@@ -260,17 +264,17 @@ function BookingForm(props) {
     }
   }
   for (let i = 0; i < props.data?.length; i++) {
-    if (props.data[i].ambulanceName != undefined ){
-      ambulanceId=props.data[i]._id;
+    if (props.data[i].ambulanceName != undefined) {
+      ambulanceId = props.data[i]._id;
     }
   }
   for (let i = 0; i < props.data?.length; i++) {
-    if (props.data[i].harseName != undefined ){
-      harseId=props.data[i]._id
+    if (props.data[i].harseName != undefined) {
+      harseId = props.data[i]._id
     }
   }
   //form submit 
-  console.log(ambulanceId,'ambulance')
+  console.log(ambulanceId, 'ambulance')
 
 
   const handleNav = () => {
@@ -297,6 +301,19 @@ function BookingForm(props) {
         setErrors({ field: 'townhalldate', message: 'Please select a date' })
       } else if (bookingDetails && !bookingDetails.selectedTime) {
         setErrors({ field: 'townhallTime', message: 'Please select a time' })
+      } else {
+        setActiveModalTwo(true)
+      }
+    }
+    if (activeForm == 'sportsArena') {
+      if (bookingDetails && !bookingDetails.membershipName) {
+        setErrors({ field: 'membership', message: 'Please select a Membership plan' })
+      }else if (bookingDetails && !bookingDetails.plan) {
+        setErrors({ field: 'membershiptenure', message: 'Please select a tenure time' })
+      }else if (bookingDetails && !bookingDetails.selectedTime) {
+        setErrors({ field: 'membershiptime', message: 'Please select a time' })
+      } else if (bookingDetails && !bookingDetails.selectedDate) {
+        setErrors({ field: 'membershipdate', message: 'Please select a date' })
       } else {
         setActiveModalTwo(true)
       }
@@ -460,7 +477,7 @@ function BookingForm(props) {
                   <div className="col-lg-12 col-md-6 mt-2">
                     <label>Select Event<span className="text-danger"><b>*</b></span></label>
                     <Select options={options}
-                      onChange={(e) => { setBookingDetails({ ...bookingDetails, eventName: e.value, eventId: e.id,event:e.parentId }), setSelectedData(e.data), checkSeats(e.id) }} />
+                      onChange={(e) => { setBookingDetails({ ...bookingDetails, eventName: e.value, eventId: e.id, event: e.parentId }), setSelectedData(e.data), checkSeats(e.id) }} />
                   </div>
                   {
                     errors && errors.field == 'event' && <h6 className="text-danger mt-1">{errors.message}</h6>
@@ -513,35 +530,46 @@ function BookingForm(props) {
               >
                 <div className="row">
                   <div className="col-lg-12 col-md-6 mt-2">
-                    <label>Select Sports Arena</label>
-                    <Select options={sportsArena} onChange={(e)=>setBookingDetails({...bookingDetails,selectedArena:e.value})}/>
-                  </div>
-                  <div className="col-lg-12 col-md-6 mt-2">
-                    <label>Select Sports</label>
-                    <Select options={sports} onChange={(e)=>setBookingDetails({...bookingDetails,selectedSports:e.value})}/>
-                  </div>
-                  <div className="col-lg-12 col-md-6 mt-2">
                     <label>SelectMembership Plan</label>
-                    <Select options={sportsMembership} onChange={(e)=>setBookingDetails({...bookingDetails,selectedMembership:e.value})}/>
+                    <Select options={sportsMembership} onChange={(e) => setBookingDetails({ ...bookingDetails, membershipName: e.value, membershipId: e.id,membership:e.parentId,isMembership:true,department:activeForm })} />
                   </div>
+                  {
+                    errors && errors.field == 'membership' && <h6 className="text-danger mt-1">{errors.message}</h6>
+                  }
                   <div className="col-lg-12 col-md-6 mt-2">
                     <label>Select Tenure</label>
-                    <Select options={sportsMembershipTenure} onChange={(e)=>setBookingDetails({...bookingDetails,selectedTenure:e.value,price:e.price})}/>
+                    <Select options={sportsMembershipTenure} onChange={(e) => setBookingDetails({
+                      ...bookingDetails, plan: {
+                        tenure: e.key,
+                        price: e.price,
+                        ageLimit: e.ageLimit
+                      },
+                    })} />
                   </div>
+                  {
+                    errors && errors.field == 'membershiptenure' && <h6 className="text-danger mt-1">{errors.message}</h6>
+                  }
                   <div className="col-lg-12 col-md-6 mt-2">
                     <label>Select Time Slots</label>
-                    <Select options={sportsMembershipTimeslots} />
+                    <Select options={sportsMembershipTimeslots} onChange={(e) => setBookingDetails({...bookingDetails,selectedTime:e.value})}/>
                   </div>
+                  {
+                    errors && errors.field == 'membershiptime' && <h6 className="text-danger mt-1">{errors.message}</h6>
+                  }
                   <div className="col-lg-12 col-md-6 mt-2">
                     <label>Select Date</label>
                     <input
                       type='date'
                       className="form_control"
+                      onChange={(e)=>setBookingDetails({...bookingDetails,selectedDate:e.target.value})}
                     />
                   </div>
+                  {
+                    errors && errors.field == 'membershipdate' && <h6 className="text-danger mt-1">{errors.message}</h6>
+                  }
                   <div className="col-lg-10 col-md-6 mt-4">
-                    <button className="main-btn icon-btn"
-                      >Subscribe Now</button>
+                    <button className="main-btn icon-btn" onClick={()=>activeModalFunctionTwo(activeForm)}
+                    >Subscribe Now</button>
                   </div>
                 </div>
               </Tab.Pane>
@@ -554,7 +582,7 @@ function BookingForm(props) {
                 <div className="row">
                   <div className="col-lg-12 col-md-6 mt-2">
                     <label>Select Mandap</label>
-                    <Select options={kalyanMandap} onChange={(e) => { setBookingDetails({ ...bookingDetails, mandapName: e.value, mandapId: e.id,mandap:e.parentId }), setSelectedData(e.data) }} />
+                    <Select options={kalyanMandap} onChange={(e) => { setBookingDetails({ ...bookingDetails, mandapName: e.value, mandapId: e.id, mandap: e.parentId }), setSelectedData(e.data) }} />
                   </div>
                   {
                     errors && errors.field == 'mandap' && <h6 className="text-danger mt-1">{errors.message}</h6>
@@ -594,7 +622,7 @@ function BookingForm(props) {
                 <div className="row">
                   <div className="col-lg-12 col-md-6 mt-2">
                     <label>Select Townhall</label>
-                    <Select options={townhall} onChange={(e) => { setBookingDetails({ ...bookingDetails, townhallName: e.value, townhall: e.parentId ,townhallId:e.id}), setSelectedData(e.data) }} />
+                    <Select options={townhall} onChange={(e) => { setBookingDetails({ ...bookingDetails, townhallName: e.value, townhall: e.parentId, townhallId: e.id }), setSelectedData(e.data) }} />
                   </div>
                   {
                     errors && errors.field == 'townhall' && <h6 className="text-danger mt-1">{errors.message}</h6>
@@ -657,7 +685,7 @@ function BookingForm(props) {
                   <div className="col-lg-12 col-md-6 mt-2">
                     <label>Select Your Journey Details</label>
                     <Select options={journeyDetails}
-                      onChange={(e) => { setBookingDetails({ ...bookingDetails, selectedScheme: e.value, amountLeftToBePaid: e.price, ambulance:ambulanceId}) }}
+                      onChange={(e) => { setBookingDetails({ ...bookingDetails, selectedScheme: e.value, amountLeftToBePaid: e.price, ambulance: ambulanceId }) }}
                     />
                   </div>
                   {
@@ -725,7 +753,7 @@ function BookingForm(props) {
                   <div className="col-lg-12 col-md-6 mt-2">
                     <label>Select Your Journey Details</label>
                     <Select options={journeyDetails}
-                      onChange={(e) => { setBookingDetails({ ...bookingDetails, selectedScheme: e.value, amountLeftToBePaid: e.price,harse:harseId }) }}
+                      onChange={(e) => { setBookingDetails({ ...bookingDetails, selectedScheme: e.value, amountLeftToBePaid: e.price, harse: harseId }) }}
                     />
                   </div>
                   {

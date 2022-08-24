@@ -63,14 +63,24 @@ function BookingSuccess() {
                   </h5>}
                   {
                     bookingDetails?.bookingRequest?.department != 'ambulance' && bookingDetails?.bookingRequest?.department != 'harse' && <h5>
-                      <i className="ti-money pr-2"></i>Rs <b>{bookingDetails?.bookingRequest?.amount}</b>
+                      <i className="ti-money pr-2"></i>Rs <b>{bookingDetails?.bookingRequest?.amount || bookingDetails?.bookingRequest?.plan?.price}</b>
                     </h5>
+                  }
+                  {(bookingDetails?.bookingRequest?.plan) &&
+                    <>
+                      <h5>
+                        <i className="ti-ticket pr-2"></i>Selected Plan : <b>{bookingDetails.bookingRequest.plan.tenure.toUpperCase()}</b>
+                      </h5>
+                      <h5>
+                        <i className="ti-ticket pr-2"></i>Age Limit is : <b>{bookingDetails.bookingRequest.plan.ageLimit.toUpperCase()}</b>
+                      </h5>
+                    </>
                   }
                   {
                     (bookingDetails?.bookingRequest?.department == 'ambulance' || bookingDetails?.bookingRequest?.department == 'harse') &&
                     <>
                       <h5>
-                        <i className="ti-money pr-2"></i>Rs <b>{bookingDetails?.bookingRequest?.selectedScheme?.value}</b>
+                        <i className="pr-3">₹</i>Rs <b>{bookingDetails?.bookingRequest?.selectedScheme?.value}</b>
                       </h5>
                       <h6>
                         <i className="ti-truck pr-2"></i><b>{bookingDetails?.bookingRequest?.from.toUpperCase()}</b> To <b>{bookingDetails?.bookingRequest?.to.toUpperCase()}</b>
@@ -88,7 +98,7 @@ function BookingSuccess() {
           </div>
           <div className="col-lg-3">
             {
-              bookingDetails?.bookingRequest?.department != 'ambulance' && bookingDetails?.bookingRequest?.department != 'harse' &&
+              bookingDetails?.bookingRequest?.department != 'ambulance' && bookingDetails?.bookingRequest?.department != 'harse' && bookingDetails?.bookingRequest?.department != 'sportsArena' &&
               <div className="card-curve card-curve-no-shape">
                 <h6 className="text-center">Your Booking Request Id is</h6>
                 <h4 className="text-uppercase text-center">
@@ -115,6 +125,21 @@ function BookingSuccess() {
                 <h6>Booking Date is <b>{formatDate(bookingDetails?.bookingRequest?.date)}</b></h6>
                 <img src="/assets/images/clock.png" />
                 <h6>Booking timing is <b>{bookingDetails?.bookingRequest?.time}</b></h6>
+              </div>
+            }
+            {
+              (bookingDetails?.bookingRequest?.department == 'sportsArena') &&
+              <div className="card-curve card-curve-no-shape">
+                <h6 className="text-center">Your Booking Request Id is</h6>
+                <h4 className="text-uppercase text-center">
+                  <b>{bookingDetails?.bookingRequest?.bookingRequestId}</b>
+                </h4>
+                <img src="/assets/images/armchair.png" />
+                <h6>Your selected Membership Plan <b>{bookingDetails?.bookingRequest?.membershipName}</b></h6>
+                <img src="/assets/images/calendar.png" />
+                <h6>Booking Date is from <b>{formatDate(bookingDetails?.bookingRequest?.selectedDate)}</b></h6>
+                <img src="/assets/images/clock.png" />
+                <h6>Booking timing slot is <b>{bookingDetails?.bookingRequest?.selectedTime}</b></h6>
               </div>
             }
           </div>

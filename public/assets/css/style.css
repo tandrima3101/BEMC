@@ -7046,6 +7046,7 @@ a {
 .review-link button {
   color: #308b93;
 }
+
 .booking-card::before {
   position: absolute;
   content: '';
@@ -7067,6 +7068,7 @@ a {
   bottom: -5%;
   border-radius: 50%;
 }
+
 .booking-card-complain::before {
   position: absolute;
   content: '';
@@ -7373,7 +7375,7 @@ a {
 @media only screen and (max-width:576px) {
   .booking-details-mobileview {
     padding-top: 50px;
-    flex-direction: column-reverse !important;
+    flex-direction: column !important;
   }
 
   .container-small {
@@ -7431,7 +7433,7 @@ a {
     justify-content: center;
     align-items: center;
     /* max-width: 39%; */
-    padding: 20%;
+    padding: 4%;
   }
 
   .header-area-one .header-navigation .site-branding .brand-logo {
@@ -7519,4 +7521,74 @@ a {
 
 button:disabled {
   background-color: #dbeff5 !important;
+}
+
+
+/**********mobile view*******************/
+
+@media only screen and (max-width:480px) {
+  .primary-menu{
+    left: 0px !important;
+  }
+  .login-btn{
+    width: 85%;
+    justify-content: center;
+    margin: 20px;
+  }
+  .booking-accordian {
+    margin-top: 100px !important;
+  }
+
+  .booking-card .row .col-lg-8 .row.booking-card-left {
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+    height: auto !important;
+  }
+
+  .row .booking-card-left .col-lg-4 {
+    padding: 20px !important;
+    height: auto !important;
+  }
+
+  .qr-section {
+    border: none !important;
+  }
+
+  .booking-card-complain .qr-section::after {
+    right: 94.5% !important;
+    top: -10% !important;
+    left: auto !important;
+    bottom: auto !important;
+  }
+
+  .booking-card-complain .col-lg-3 {
+    border: none !important;
+  }
+
+  .ticket-details h6 {
+    display: flex !important;
+  }
+
+  .ticket-details {
+    align-items: center !important;
+  }
+
+  .person-card img,
+  .booking-card-prepayment img {
+    width: 75% !important;
+  }
+
+  .person-card .row {
+    padding-bottom: 30px !important;
+  }
+
+  .person-details {
+    border: none;
+  }
+  .booking-card-prepayment .row{
+    padding-bottom: 30px !important;
+  }
+  .payment-page{
+    margin-top: 0px !important;
+  }
 }

@@ -88,7 +88,7 @@ export const Login = ({ setLogin }) => {
   return (
     <Fragment>
       <li className="menu-item my-auto">
-        <button className="main-btn " onClick={()=>{setActiveModalLogin(true)}}>Login</button>
+        <button className="main-btn login-btn" onClick={()=>{setActiveModalLogin(true)}}>Login</button>
         <LoginFormModal activeLogin={activeModalLogin} toggle={activeModalFunctionLogin}  setLogin={setLogin}/>
       </li>
     </Fragment>

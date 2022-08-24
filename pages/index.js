@@ -15,7 +15,7 @@ import PreLoader from "../src/components/PreLoader";
 const Index = () => {
   const [video, setVideo] = useState(false);
   const [ramlingamData, setRamlingamData] = useState([])
-  const [isLoaded, setIsLoaded] = useState(false)
+  const [isLoaded, setIsLoaded] = useState(true)
   const [reviews, setReviews] = useState([])
   const [activities,setActivities] = useState();
   const [membership,setMembership] = useState();

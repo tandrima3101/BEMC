@@ -14,6 +14,8 @@ const Index = () => {
   const [video, setVideo] = useState(false);
   const [arenaData, setArenaData] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false)
+  const [membership,setMembership] = useState();
+
   async function fetchEvents() {
     let apiTest = {
       method: 'post',
@@ -25,9 +27,18 @@ const Index = () => {
       setArenaData(response.data.data)
     }
   }
+  async function fetchMembership(){
+    let apiTest = {
+      method: 'post',
+      url: "sportsArena/sportsArena/getAllMembership"
+    }
+    let response = await callApi(apiTest)
+    setMembership(response.data.data)
+  }
   useEffect(() => {
-    fetchEvents()
-  })
+    fetchEvents();
+    fetchMembership();
+  },[])
   const bannerSlider = [];
   for (let i = 0; i < arenaData.length; i++) {
     bannerSlider.push(arenaData[i].banner)
@@ -72,7 +83,7 @@ const Index = () => {
     <Layout>
       {video && <VideoPopup close={setVideo} />}
       {/* <!--====== Start Hero Section ======--> */}
-      <Banner mainSlider={bannerSlider} activeForm='sportsArena' pageOf="sportsArena" />
+      <Banner mainSlider={bannerSlider} activeForm='sportsArena'membership={membership} pageOf="sportsArena" />
       {/* <!--====== End Hero Section ======--> */}
       {/* <!--====== Start Listing Section ======--> */}
       <ShowsList overallData={arenaData} pageOf="sportsArena" />

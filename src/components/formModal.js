@@ -99,6 +99,8 @@ function FormModal({ active, activeTwo, data, adultPrice, childPrice, pageOf, pr
     url = "townhall/bookingRequest/createBookingRequest"
   } else if (activeFormModal == "ambulance") {
     url = "ambulance/ambulance/createBookingRequest"
+  }else if (activeFormModal == "sportsArena") {
+    url = "sportsArena/sportsArena/createBookingRequest"
   } else {
     url = "harse/harse/createBookingRequest"
   }

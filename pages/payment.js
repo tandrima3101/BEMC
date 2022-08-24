@@ -19,10 +19,15 @@ function payment() {
   }
   else if (bookingReq?.department == "townhall") {
     url = "townhall/bookingRequest/response"
-  } else if (bookingReq?.department == "ambulance") {
+  } 
+  else if (bookingReq?.department == "ambulance") {
     url = "ambulance/ambulance/confirmBooking"
-  }else if (bookingReq?.department == "harse") {
+  }
+  else if (bookingReq?.department == "harse") {
     url = "harse/harse/confirmBooking"
+  }
+  else if (bookingReq?.department == "sportsArena") {
+    url = "sportsArena/sportsArena/createBooking"
   }
 
   const [otpLoader, setOtpLoader] = useState()
@@ -30,7 +35,7 @@ function payment() {
   const paymentSuccess = async () => {
     setOtpLoader(true)
     let paymentSuccess = {}
-    if (bookingReq?.department == "ambulance") {
+    if (bookingReq?.department == "ambulance" || bookingReq?.department == "harse") {
       paymentSuccess = {
         method: 'post',
         url: url,
@@ -44,7 +49,7 @@ function payment() {
           bankTransaction: {
             id: "oeaufiwejfo2344",
             caook: "235fg",
-            amount: "230"
+            amount: "700"
           },
           api_key: "registeruser"
         }
@@ -63,7 +68,7 @@ function payment() {
           bankTransaction: {
             id: "oeaufiwejfo2344",
             caook: "235fg",
-            amount: "230"
+            amount: "700"
           },
           api_key: "registeruser"
         }
@@ -115,7 +120,7 @@ function payment() {
         )}Success</button>
       </div>
       {/* <Link href='/booking-failure'><button className='danger-btn'>Failure</button></Link> */}
-      <div className='d-flex justify-content-center' style={{ margin: '9rem' }}>
+      <div className='d-flex justify-content-center payment-page' style={{ margin: '9rem' }}>
         <button className='main-btn danger-btn' onClick={() => paymentFailure()}>
           {otpLoader && (
             <Spinner

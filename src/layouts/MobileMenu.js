@@ -1,10 +1,18 @@
 import Link from "next/link";
 import React, { useState } from "react";
-import { About, Blog, Contact, Home, Listing, Pages } from "./Menu";
+import { About, Blog, Contact, Home, Listing, Login, LoginUserListing, Pages } from "./Menu";
+import {useSelector} from 'react-redux'
+import Router from "next/router";
+import { FaRegUser } from 'react-icons/fa';
+import { handleLogoutUnAuthorised } from "../utils";
 
 const MobileMenu = () => {
   const [toggle, setToggle] = useState(false);
   const [activeMenu, setActiveMenu] = useState("");
+  const islogin = useSelector((state) => state.login.isLogin)
+  if(Router.pathname.includes("authroutes") && !islogin){
+    handleLogoutUnAuthorised()
+  }
   const activeMenuSet = (value) =>
       setActiveMenu(activeMenu === value ? "" : value),
     activeLi = (value) =>
@@ -20,7 +28,7 @@ const MobileMenu = () => {
                   <Link href="/">
                     <a className="brand-logo">
                       <img
-                        src="assets/images/logo/logo-2.png"
+                        src="/assets/images/logo/logo-2.png"
                         alt="Brand Logo"
                       />
                     </a>
@@ -41,14 +49,10 @@ const MobileMenu = () => {
                         <Link href="/">
                           <a>Home</a>
                         </Link>
-                        {/* <ul className="sub-menu" style={activeLi("Home")}>
-                          <Home />
-                        </ul> */}
                         <span
                           className="dd-trigger"
                           onClick={() => activeMenuSet("Home")}
                         >
-                          {/* <i className="ti-arrow-down"></i> */}
                         </span>
                       </li>
                       <About />
@@ -64,36 +68,22 @@ const MobileMenu = () => {
                           <i className="ti-arrow-down"></i>
                         </span>
                       </li>
-                      {/* <li className="menu-item has-children">
-                        <a href="#">Pages</a>
-                        <ul className="sub-menu" style={activeLi("Pages")}>
-                          <Pages />
-                        </ul>
-                        <span
-                          className="dd-trigger"
-                          onClick={() => activeMenuSet("Pages")}
-                        >
-                          <i className="ti-arrow-down"></i>
-                        </span>
-                      </li> */}
-                      {/* <li className="menu-item has-children">
-                        <a href="#">Article</a>
-                        <ul className="sub-menu" style={activeLi("Article")}>
-                          <Blog />
-                        </ul>
-                        <span
-                          className="dd-trigger"
-                          onClick={() => activeMenuSet("Article")}
-                        >
-                          <i className="ti-arrow-down"></i>
-                        </span>
-                      </li> */}
                       <Contact />
-                      {/* <li className="nav-btn">
-                        <Link href="/add-listing">
-                          <a className="main-btn icon-btn">Add Listing</a>
-                        </Link>
-                      </li> */}
+                      {
+                        !islogin ? <Login  setLogin={islogin} /> :
+                        <li className="menu-item has-children my-auto">
+                          <a href="#">User</a>
+                          <ul className="sub-menu" style={activeLi("userListing")}>
+                            <LoginUserListing setLogin={islogin} />
+                          </ul>
+                          <span
+                          className="dd-trigger"
+                          onClick={() => activeMenuSet("userListing")}
+                        >
+                          <i className="ti-arrow-down"></i>
+                        </span>
+                        </li>
+                      }
                     </ul>
                   </nav>
                 </div>

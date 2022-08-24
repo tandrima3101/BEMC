@@ -130,7 +130,7 @@ const MyComplains = () => {
       <div className="container-fluid light-bg pt-4 pb-4">
         <div className="row">
           <div className="col-lg-10 pr-4 mx-auto">
-            <Accordion allowZeroExpanded>
+            <Accordion allowZeroExpanded className="booking-accordian">
               <AccordionItem uuid="ramlingamPark">
                 <AccordionItemHeading>
                   <AccordionItemButton>

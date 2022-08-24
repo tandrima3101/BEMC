@@ -67,18 +67,28 @@ function BookingDetails() {
                     <i className="ti-ticket pr-2"></i><b>{bookingDetails?.adultNum}</b> adults <b>{bookingDetails?.childNum}</b> child
                   </h5>}
                   <h5>
-                    <i className="ti-money pr-2"></i>Rs <b>{bookingDetails?.amount || bookingDetails?.amountLeftToBePaid}</b>
+                    <i className="pr-3">₹</i>Rs <b>{bookingDetails?.amount || bookingDetails?.amountLeftToBePaid || bookingDetails?.plan?.price}</b>
                   </h5>
                   {(bookingDetails?.from || bookingDetails?.to) &&
                     <h5>
                       <i className="ti-ticket pr-2"></i>Journey Details : <b>{bookingDetails?.from.toUpperCase()}</b> to <b>{bookingDetails?.to.toUpperCase()}</b>
                     </h5>
                   }
+                  {(bookingDetails?.plan) &&
+                    <>
+                      <h5>
+                        <i className="ti-ticket pr-2"></i>Selected Plan : <b>{bookingDetails.plan.tenure.toUpperCase()}</b>
+                      </h5>
+                      <h5>
+                        <i className="ti-ticket pr-2"></i>Age Limit is : <b>{bookingDetails.plan.ageLimit.toUpperCase()}</b>
+                      </h5>
+                    </>
+                  }
                 </div>
               </div>
             </div>
           </div>
-          {bookingDetails?.department != "ambulance" && "harse" && <div className="col-lg-3">
+          {bookingDetails?.department != "ambulance" && bookingDetails?.department != "harse" && bookingDetails?.department != "sportsArena" && <div className="col-lg-3">
             <div className="card-curve card-curve-no-shape">
               <p className="text-center">Your Request Id is</p>
               <h4 className="text-uppercase text-center">
@@ -120,6 +130,20 @@ function BookingDetails() {
               <h6>Your selected timing is <b>{bookingDetails?.time}</b></h6>
             </div>
           </div>}
+          {bookingDetails?.department == "sportsArena" && <div className="col-lg-3">
+            <div className="card-curve card-curve-no-shape">
+              <p className="text-center">Your Request Id is</p>
+              <h4 className="text-uppercase text-center">
+                <b>{bookingDetails?.bookingRequestId}</b>
+              </h4>
+              <img src="/assets/images/armchair.png" style={{ width: '50px' }} />
+              <h6>Your Selected Membership plan <b>{bookingDetails?.membershipName}</b></h6>
+              <img src="/assets/images/calendar.png" style={{ width: '50px' }} />
+              <h6>Your selected date is <b>{formatDate(bookingDetails?.selectedDate)}</b></h6>
+              <img src="/assets/images/clock.png" style={{ width: '50px' }} />
+              <h6>Your selected timing slot is <b>{bookingDetails?.time}</b></h6>
+            </div>
+          </div>}
 
           {
             (bookingDetails?.department != 'ambulance' && bookingDetails?.department != 'harse') &&
@@ -140,8 +164,15 @@ function BookingDetails() {
           {
             bookingDetails?.department == 'ambulance' &&
             <div className="col-lg-3 d-flex justify-content-center align-items-center flex-column pb-5">
-                <h4 className="text-center text-capitalize" style={{color:"#3bacb6"}}>Your Booking Request has been created</h4>
-                <h6 className="text-center text-capitalize mt-4"><b>You will be notified once your req has been approved</b></h6>
+              <h4 className="text-center text-capitalize" style={{ color: "#3bacb6" }}>Your Booking Request has been created</h4>
+              <h6 className="text-center text-capitalize mt-4"><b>You will be notified once your req has been approved</b></h6>
+            </div>
+          }
+          {
+            bookingDetails?.department == 'harse' &&
+            <div className="col-lg-3 d-flex justify-content-center align-items-center flex-column pb-5">
+              <h4 className="text-center text-capitalize" style={{ color: "#3bacb6" }}>Your Booking Request has been created</h4>
+              <h6 className="text-center text-capitalize mt-4"><b>You will be notified once your req has been approved</b></h6>
             </div>
           }
         </div>
