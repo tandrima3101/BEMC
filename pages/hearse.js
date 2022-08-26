@@ -76,6 +76,7 @@ const Hearse = () => {
       <Banner overallData={hearseData} mainSlider={bannerSlider} activeForm='harse' pageOf="harse" />
       {/* <!--====== End Hero Section ======--> */}
       {/* <!--====== Start Listing Section ======--> */}
+      <h2 className="section-title text-center mb-75 mt-75"><b>Hearse List</b></h2>
       <ShowsList overallData={hearseData} pageOf="harse" />
       {/* <!--====== Start Place Section ======--> */}
       <Gallery gallery={photoGallery} />

@@ -444,6 +444,8 @@ const Index = () => {
         <Banner overallData={ramlingamData} mainSlider={bannerSlider} activeForm='kalyanMandap' pageOf="kalyanMandap" />
         {/* <!--====== End Hero Section ======--> */}
         {/* <!--====== Start Listing Section ======--> */}
+        <h2 className="section-title text-center mb-75 mt-75"><b>Kalyan Mandap List</b></h2>
+
         <ShowsList overallData={ramlingamData} pageOf="kalyanMandap" />
         {/* <!--====== Start Place Section ======--> */}
         <Gallery gallery={photoGallery} />

@@ -233,7 +233,21 @@ function CardFormModal({ activeModal, eventInfo, toggleFunc, department }) {
             } else {
                 sendOtp()
             }
-        }else if (department == 'harse') {
+        } else if (department == 'harse') {
+            if (totalData && !totalData.date) {
+                setErrors({ field: 'date', message: 'Please select a date' })
+            } else if (totalData && !totalData.time) {
+                setErrors({ field: 'time', message: 'Please select a time' })
+            } else if (totalData && !totalData.selectedScheme) {
+                setErrors({ field: 'scheme', message: 'Please select your journey details' })
+            } else if (totalData && !totalData.from) {
+                setErrors({ field: 'from', message: 'Please select your pickup location' })
+            } else if (totalData && !totalData.to) {
+                setErrors({ field: 'to', message: 'Please select your drop location' })
+            } else {
+                sendOtp()
+            }
+        }else if (department == 'sportsArena') {
             if (totalData && !totalData.date) {
                 setErrors({ field: 'date', message: 'Please select a date' })
             } else if (totalData && !totalData.time) {
@@ -582,6 +596,73 @@ function CardFormModal({ activeModal, eventInfo, toggleFunc, department }) {
                         </div>
                         {
                             errors && errors.field == 'scheme' && <h6 className="text-danger mt-1">{errors.message}</h6>
+                        }
+                        <div className="col-lg-12 col-md-12 mt-2">
+                            <label>Enter Name</label>
+                            <input type="text" className="otpinput m-0" defaultValue={userData?.firstName.concat(' ').concat(userData?.lastName)} onChange={(e) => setTotalData({ ...totalData, userName: (e.target.value) })} />
+                        </div>
+                        {
+                            errors && errors.field == 'username' && <h6 className="text-danger mt-1">{errors.message}</h6>
+                        }
+                        <div className="col-lg-12 col-md-12 mt-2">
+                            <label>Enter Phone Number</label>
+                            <input type="number" className="otpinput m-0" defaultValue={userData?.phoneNumber} onChange={(e) => setTotalData({ ...totalData, phoneNumber: (e.target.value) })} />
+                        </div>
+                        {
+                            errors && errors.field == 'phoneNumber' && <h6 className="text-danger mt-1">{errors.message}</h6>
+                        }
+                        <div className="col-lg-12 col-md-12 mt-2">
+                            <label>Enter Email Address</label>
+                            <input type="text" className="otpinput m-0" defaultValue={userData?.email} onChange={(e) => setTotalData({ ...totalData, email: (e.target.value) })} />
+                        </div>
+                        {
+                            errors && errors.field == 'email' && <h6 className="text-danger mt-1">{errors.message}</h6>
+                        }
+                    </div>}
+                    {department === "sportsArena" && <div className="row">
+                        <div className="col-lg-12 col-md-12 mt-2">
+                            <label>Select Sports Arena</label>
+                            <input value={eventInfo?.arenaName} type="text" className="otpinput m-0" />
+                        </div>
+                        <div className="col-lg-12 col-md-12 mt-2">
+                            <label>Select Membership Plan</label>
+                            <Select options={journeyDetails}
+                                onChange={(e) => { setTotalData({ ...totalData, selectedScheme: e.value, amountLeftToBePaid: e.price }) }}
+                            />
+                        </div>
+                        {
+                            errors && errors.field == 'from' && <h6 className="text-danger mt-1">{errors.message}</h6>
+                        }
+                        <div className="col-lg-12 col-md-12 mt-2">
+                            <label>Select Tenure</label>
+                            <Select options={journeyDetails}
+                                onChange={(e) => { setTotalData({ ...totalData, selectedScheme: e.value, amountLeftToBePaid: e.price }) }}
+                            />
+                        </div>
+                        {
+                            errors && errors.field == 'to' && <h6 className="text-danger mt-1">{errors.message}</h6>
+                        }
+                        <div className="col-lg-12 col-md-12 mt-2">
+                            <label>Select Date</label>
+                            <input
+                                type="date"
+                                className="form_control"
+                                placeholder="Number of Adult"
+                                name="location"
+                                onChange={(e) => { setTotalData({ ...totalData, date: e.target.value }) }}
+                            />
+                        </div>
+                        {
+                            errors && errors.field == 'date' && <h6 className="text-danger mt-1">{errors.message}</h6>
+                        }
+                        <div className="col-lg-12 col-md-12 mt-2">
+                            <label>Select Time Slot</label>
+                            <Select options={journeyDetails}
+                                onChange={(e) => { setTotalData({ ...totalData, selectedScheme: e.value, amountLeftToBePaid: e.price }) }}
+                            />
+                        </div>
+                        {
+                            errors && errors.field == 'time' && <h6 className="text-danger mt-1">{errors.message}</h6>
                         }
                         <div className="col-lg-12 col-md-12 mt-2">
                             <label>Enter Name</label>

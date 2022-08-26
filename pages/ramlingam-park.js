@@ -124,6 +124,7 @@ const Index = () => {
         <Banner overallData={ramlingamData} mainSlider={bannerSlider} activeForm='ramlingamPark' pageOf="ramlingamPark" />
         {/* <!--====== End Hero Section ======--> */}
         {/* <!--====== Start Listing Section ======--> */}
+        <h2 className="section-title text-center mb-75 mt-75"><b>Event List</b></h2>
         <ShowsList overallData={ramlingamData} pageOf="ramlingamPark" />
         {/* <!--====== Start Place Section ======--> */}
         <Gallery gallery={photoGallery} />

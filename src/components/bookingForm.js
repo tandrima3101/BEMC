@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Nav, Tab } from "react-bootstrap";
-import Select from "react-select";
+import Select ,{components} from "react-select";
 import FormModal from "./formModal";
 import "react-datepicker/dist/react-datepicker.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { callApi } from "../apiHandlers/callApi";
 import moment from "moment";
+import MembershipDetails from "./membershipDetails";
 
 function BookingForm(props) {
 
@@ -24,7 +25,9 @@ function BookingForm(props) {
   const [errors, setErrors] = useState({ field: '', message: '' });
   const [arenaData, setArenaData] = useState();
   const [membershipData, setMembershipData] = useState(props.membership);
-  console.log(membershipData, 'membershipdata')
+  const [selectedMembership,setSelectedMembership] = useState();
+  const [activeMembershipModal,setActiveMembershipModal] = useState(false);
+  console.log(props.data, 'membershipdata')
   const newType = [
     "Ramlingam Park",
     "Kalyan Mandap",
@@ -185,7 +188,6 @@ function BookingForm(props) {
 
   //sports arena
 
-  let sports = [];
   let sportsArena = [];
   let sportsMembership = [];
   let sportsMembershipTenure = [];
@@ -197,44 +199,49 @@ function BookingForm(props) {
         sportsArena.push({
           label: props.data[i]?.arenaName?.toUpperCase(),
           value: props.data[i]?.arenaName,
-          key: props.data[i]?.arenaName
+          key: props.data[i]?.arenaName,
+          parentId:props.data[i]?._id
         })
       }
     }
   }
-  {
-    for (let i = 0; i < props.activities?.length; i++) {
-      sports.push({
-        label: props.activities[i]?.activityName?.toUpperCase(),
-        value: `${props.activities[i]?.activityName}`,
-        key: `${props.activities[i]?.activityName}`
-      })
-    }
-  }
-  {
+  let tempArr = []
+  // if (props.data.length > 0){
+  //   tempArr = props.data.filter((obj)=>obj._id == bookingDetails.sportsArena)
+  //   console.log(tempArr,'matched')
+  //   for (let i = 0; i < tempArr[0]?.membership?.length; i++) {
+  //     sportsMembership.push({
+  //       label: `${tempArr[0]?.membership?.membershipName} `,
+  //       value: `${tempArr[0]?.membership?.membershipName}`,
+  //       key: `${tempArr[0]?.membership?.membershipName}`,
+  //       id: `${tempArr[0]?.membership?.membershipId}`,
+  //       parentId: `${tempArr[0]?.membership?._id}`,
+  //     })
+  //   }
+  // }  
+  // {
 
     for (let i = 0; i < props.membership?.length; i++) {
       sportsMembership.push({
-        label: props.membership[i].membershipName.toUpperCase(),
+        label: `${props.membership[i].membershipName}`,
         value: `${props.membership[i].membershipName}`,
         key: `${props.membership[i].membershipName}`,
         id: `${props.membership[i].membershipId}`,
-        parentId:`${props.membership[i]._id}`
+        parentId: `${props.membership[i]._id}`,
+        activities:props.membership[i].activities
       })
     }
-  }
-
+  console.log(sportsMembership,'sportsmembership')
   {
     if (props.membership?.length > 0) {
       let tempArr = (props.membership.filter((obj) => obj.membershipName == bookingDetails.membershipName))
-      console.log(tempArr, 'temp array')
       for (let i = 0; i < tempArr[0]?.plans?.length; i++) {
         sportsMembershipTenure.push({
           label: `${tempArr[0].plans[i].tenure.toUpperCase()}  (Rs ${tempArr[0].plans[i].price}/-)`,
           value: `${tempArr[0].plans[i].tenure}`,
           key: `${tempArr[0].plans[i].tenure}`,
-          price:`${tempArr[0].plans[i].price}`,
-          ageLimit:`${tempArr[0].plans[i].ageLimit}`
+          price: `${tempArr[0].plans[i].price}`,
+          ageLimit: `${tempArr[0].plans[i].ageLimit}`
         })
       }
       for (let i = 0; i < tempArr[0]?.defultSlots?.length; i++) {
@@ -246,7 +253,57 @@ function BookingForm(props) {
       }
     }
   }
+
+  const handleMembershipModal = (membership) => {
+    if (props.membership?.length > 0) {
+      setSelectedMembership(props.membership.filter((obj) => obj.membershipName == membership))
+    }
+    setActiveMembershipModal(true)
+  }
+  const closeMembershipModal = (data) => {
+    setActiveMembershipModal(data);
+  }
+  const colourStyles = {
+    control: (styles) => ({ ...styles, backgroundColor: "white" }),
+    option: (styles, { isDisabled }) => {
+      return {
+        ...styles,
+        backgroundColor: isDisabled ? "red" : "#fff",
+        color: "#000",
+        cursor: isDisabled ? "not-allowed" : "default",
+        margin: '10px',
+        width: '95%',
+        boxShadow: '0px 0px 5px #a1a2a3',
+        borderRadius: '3px'
+      };
+    }
+  };
+
+  const options2 = props.membership?.map((membership)=>{
+    return({
+      value:  `${membership.membershipName}`,
+      title:  `${membership.membershipName.toUpperCase()}`,
+      subTitle: `( ${membership.bookingStatus.toUpperCase()} )`,
+      sportsArenaName : `${membership.sportsArena.arenaName.toUpperCase()}`,
+      sportsArenaDesc : `${membership.sportsArena.arenaDesc}`,
+    })
+  })
+
+  const Option = (props) => {
+    const { title, subTitle,sportsArenaName,sportsArenaDesc } = props.data;
+
+    return (
+      <components.Option {...props}>
+        <span><b>{title}</b></span> <span style={{ color: "#fff" }}>{subTitle}</span>
+        <span>Sports Arena : {sportsArenaName} ({sportsArenaDesc})</span>
+      </components.Option>
+    );
+  };
+
+
   ///ambulance
+
+
   let journeyDetails = [];
   let ambulanceId;
   let harseId;
@@ -274,7 +331,6 @@ function BookingForm(props) {
     }
   }
   //form submit 
-  console.log(ambulanceId, 'ambulance')
 
 
   const handleNav = () => {
@@ -308,9 +364,9 @@ function BookingForm(props) {
     if (activeForm == 'sportsArena') {
       if (bookingDetails && !bookingDetails.membershipName) {
         setErrors({ field: 'membership', message: 'Please select a Membership plan' })
-      }else if (bookingDetails && !bookingDetails.plan) {
+      } else if (bookingDetails && !bookingDetails.plan) {
         setErrors({ field: 'membershiptenure', message: 'Please select a tenure time' })
-      }else if (bookingDetails && !bookingDetails.selectedTime) {
+      } else if (bookingDetails && !bookingDetails.selectedTime) {
         setErrors({ field: 'membershiptime', message: 'Please select a time' })
       } else if (bookingDetails && !bookingDetails.selectedDate) {
         setErrors({ field: 'membershipdate', message: 'Please select a date' })
@@ -379,7 +435,6 @@ function BookingForm(props) {
   useEffect(() => {
     console.log(bookingDetails, 'bookingdetails')
   }, [bookingDetails])
-
 
   return (
     <div>
@@ -529,13 +584,21 @@ function BookingForm(props) {
                   }`}
               >
                 <div className="row">
+                <div className="col-lg-12 col-md-6 mt-2">
+                    <label>Select Sports Arena</label>
+                    <Select options={sportsArena} onChange={(e) => setBookingDetails({
+                      ...bookingDetails, sportsArena: e.parentId,
+                    })}
+                    />
+                  </div>
                   <div className="col-lg-12 col-md-6 mt-2">
                     <label>SelectMembership Plan</label>
-                    <Select options={sportsMembership} onChange={(e) => setBookingDetails({ ...bookingDetails, membershipName: e.value, membershipId: e.id,membership:e.parentId,isMembership:true,department:activeForm })} />
+                    <Select options={sportsMembership} onChange={(e) => {setBookingDetails({ ...bookingDetails, membershipName: e.value, membershipId: e.id, membership: e.parentId, isMembership: true, department: activeForm,activities:e.activities}),handleMembershipModal(e.value)}} />
                   </div>
                   {
                     errors && errors.field == 'membership' && <h6 className="text-danger mt-1">{errors.message}</h6>
                   }
+
                   <div className="col-lg-12 col-md-6 mt-2">
                     <label>Select Tenure</label>
                     <Select options={sportsMembershipTenure} onChange={(e) => setBookingDetails({
@@ -544,31 +607,32 @@ function BookingForm(props) {
                         price: e.price,
                         ageLimit: e.ageLimit
                       },
-                    })} />
+                    })}
+                    />
                   </div>
                   {
                     errors && errors.field == 'membershiptenure' && <h6 className="text-danger mt-1">{errors.message}</h6>
                   }
                   <div className="col-lg-12 col-md-6 mt-2">
-                    <label>Select Time Slots</label>
-                    <Select options={sportsMembershipTimeslots} onChange={(e) => setBookingDetails({...bookingDetails,selectedTime:e.value})}/>
-                  </div>
-                  {
-                    errors && errors.field == 'membershiptime' && <h6 className="text-danger mt-1">{errors.message}</h6>
-                  }
-                  <div className="col-lg-12 col-md-6 mt-2">
-                    <label>Select Date</label>
+                    <label>Select Start Date</label>
                     <input
                       type='date'
                       className="form_control"
-                      onChange={(e)=>setBookingDetails({...bookingDetails,selectedDate:e.target.value})}
+                      onChange={(e) => setBookingDetails({ ...bookingDetails, selectedDate: e.target.value })}
                     />
                   </div>
                   {
                     errors && errors.field == 'membershipdate' && <h6 className="text-danger mt-1">{errors.message}</h6>
                   }
+                  <div className="col-lg-12 col-md-6 mt-2">
+                    <label>Select Time Slots</label>
+                    <Select options={sportsMembershipTimeslots} onChange={(e) => setBookingDetails({ ...bookingDetails, selectedTime: e.value })} />
+                  </div>
+                  {
+                    errors && errors.field == 'membershiptime' && <h6 className="text-danger mt-1">{errors.message}</h6>
+                  }
                   <div className="col-lg-10 col-md-6 mt-4">
-                    <button className="main-btn icon-btn" onClick={()=>activeModalFunctionTwo(activeForm)}
+                    <button className="main-btn icon-btn" onClick={() => activeModalFunctionTwo(activeForm)}
                     >Subscribe Now</button>
                   </div>
                 </div>
@@ -792,6 +856,7 @@ function BookingForm(props) {
           </div>
         </form>
       </Tab.Container>
+      <MembershipDetails membership={selectedMembership} activeMembership={activeMembershipModal} toggle={closeMembershipModal}/>
     </div>
   );
 }

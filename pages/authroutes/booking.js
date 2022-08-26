@@ -142,10 +142,10 @@ const Booking = () => {
     setRoutingData(bookings, "../payment")
   }
   let url
-  const gotoBookingDetails = async(bookingDetails) => {
+  const gotoBookingDetails = async (bookingDetails) => {
     setRoutingData(bookingDetails, '/authroutes/booking-specific-details')
   }
-  
+
   return (
     !isLoaded ?
       <PreLoader /> :
@@ -163,11 +163,11 @@ const Booking = () => {
                   </AccordionItemHeading>
                   <AccordionItemPanel>
                     {
-                       ramlingamBookingList?.length == 0 ? <h6>No Bookings for Ramlingam Park</h6> :
+                      ramlingamBookingList?.length == 0 ? <h6>No Bookings for Ramlingam Park</h6> :
                         ramlingamBookingList?.map((bookings, index) => {
                           return (
                             <div className="row" key={bookings.eventId[0].eventId}>
-                              <div className="col-lg-9 pr-4" key={bookings.bookingId} style={{cursor:'pointer'}} onClick={()=>gotoBookingDetails(bookings)}>
+                              <div className="col-lg-9 pr-4" key={bookings.bookingId} style={{ cursor: 'pointer' }} onClick={() => gotoBookingDetails(bookings)}>
                                 <div className="booking-card p-3">
                                   <div className="row">
                                     <div className="col-lg-8">
@@ -275,11 +275,11 @@ const Booking = () => {
                   </AccordionItemHeading>
                   <AccordionItemPanel>
                     {
-                       townhallBookingList?.length == 0 ? <h6>No Bookings for Townhall</h6> :
+                      townhallBookingList?.length == 0 ? <h6>No Bookings for Townhall</h6> :
                         townhallBookingList?.map((bookings, index) => {
                           return (
                             <div className="row" key={bookings.townhallId[0].townhallId}>
-                              <div className="col-lg-9 pr-4" key={bookings.bookingId} style={{cursor:'pointer'}} onClick={()=>gotoBookingDetails(bookings)}>
+                              <div className="col-lg-9 pr-4" key={bookings.bookingId} style={{ cursor: 'pointer' }} onClick={() => gotoBookingDetails(bookings)}>
                                 <div className="booking-card p-3">
                                   <div className="row">
                                     <div className="col-lg-8">
@@ -387,11 +387,11 @@ const Booking = () => {
                   </AccordionItemHeading>
                   <AccordionItemPanel>
                     {
-                       kalyanmandapList?.length == 0 ? <h6>No Bookings for Kalyan Mandap</h6> :
+                      kalyanmandapList?.length == 0 ? <h6>No Bookings for Kalyan Mandap</h6> :
                         kalyanmandapList?.map((bookings, index) => {
                           return (
                             <div className="row" key={bookings.mandapId[0]?.mandapId}>
-                              <div className="col-lg-9 pr-4" key={bookings.bookingId} style={{cursor:'pointer'}} onClick={()=>gotoBookingDetails(bookings)}>
+                              <div className="col-lg-9 pr-4" key={bookings.bookingId} style={{ cursor: 'pointer' }} onClick={() => gotoBookingDetails(bookings)}>
                                 <div className="booking-card p-3">
                                   <div className="row">
                                     <div className="col-lg-8">
@@ -785,7 +785,7 @@ const Booking = () => {
                                   <div className="row booking-card-left" style={{ minHeight: '312px', height: 'auto' }}>
                                     <div className="col-lg-4 d-flex justify-content-center">
                                       <img
-                                        src={bookings?.harse?.banner?.bannerImageUrl}
+                                        src={bookings?.sportsArena[0]?.banner?.bannerImageUrl}
                                         alt="bookedshow"
                                         className="bookingImage"
                                       />
@@ -793,15 +793,17 @@ const Booking = () => {
                                     </div>
                                     <div className="col-lg-8 pl-0">
                                       <div className="ticket-details">
-                                        <h4>{bookings?.harse?.harseName}</h4>
-                                        <p className="m-0">{bookings.ticketSource} BOOKING</p>
+                                        <h4>{bookings?.membershipName}</h4>
+                                        <p className="m-0"><b>{bookings.ticketSource}</b> BOOKING</p>
                                         <p className="m-0">
                                           <i className="ti-time mr-2"></i>
-                                          {bookings?.time}
+                                          Time Slot : 
+                                          <b> {bookings?.selectedTime}</b>
                                         </p>
                                         <p className="m-0 mb-2">
                                           <i className="ti-calendar mr-2"></i>
-                                          {formatDate(bookings.date)}
+                                          Start Date : 
+                                          <b> {formatDate(bookings.selectedDate)}</b>
                                         </p>
                                         {(bookings.from || bookings?.to) && <h6>
                                           <i className="ti-ticket mr-2"></i>
@@ -810,9 +812,16 @@ const Booking = () => {
                                         </h6>}
                                         <h6>
                                           <i className="ti-ticket mr-2"></i>
-                                          selected Scheme :
-                                          <span><b>{bookings?.selectedScheme?.key}</b> </span>
+                                          selected Plan :
+                                          <span><b>{bookings?.plan?.tenure?.toUpperCase()}</b> {`(Age Limit : ${bookings?.plan?.ageLimit}  Years)`}</span>
                                         </h6>
+                                        <div className="row d-flex justify-content-between">
+                                          <span className="p-0">Plan Price</span>
+                                          <span className="p-0">
+                                            Rs. {bookings?.plan?.price}
+                                          </span>
+                                        </div>
+                                  
                                         {
                                           bookings.vehicleAssigned.length > 0 &&
                                           <>
@@ -842,10 +851,22 @@ const Booking = () => {
                                     </div>
                                   </div>
                                   <hr className="booking-card-left" />
+                                  <div
+                                    className="d-flex justify-content-between"
+                                    style={{ padding: "20px 0px 0px 30px" }}
+                                  >
+                                    <h5>
+                                      <b>Total Price</b>
+                                    </h5>
+                                    <span>
+                                      <b>Rs. {bookings?.plan?.price}</b>
+                                    </span>
+                                  </div>
                                 </div>
                                 <div className="col-lg-4 qr-section">
                                   <img src={bookings?.qrUrl} />
                                   <hr />
+                                  <span>{bookings?.bankTransaction[0]?.status}</span>
                                   <h5 className="text-center">
                                     <b>{bookings?.bookingRequestId}</b>
                                   </h5>
@@ -854,33 +875,6 @@ const Booking = () => {
                             </div>
                           </div>
                           <div className="col-lg-3 d-flex flex-column justify-content-center">
-                            {bookings.status === 'ASSIGNED' &&
-                              <>
-                                <span className="escalate-badge escalate-badge-success mb-4"><i className="ti-check mr-2"></i>{bookings.status}</span>
-                              </>
-                            }
-                            {bookings.status === 'PAID PARTIALLY' &&
-                              <>
-                                <span className="escalate-badge escalate-badge-resolved mb-4"><i className="ti-check mr-2"></i>{bookings.status}</span>
-                                <span className="d-flex align-item-center main-btn btn-success mb-4 mx-auto" style={{ width: 'max-content' }}>
-                                  <i className="ti-check" style={{ fontSize: '15px' }}></i>
-                                  <h6 className='ml-2 mb-0' style={{ color: '#fff', letterSpacing: '1px' }}>Your Ride is CONFIRMED</h6>
-                                </span>
-                              </>
-                            }
-                            {bookings.status === 'PENDING' &&
-                              <span className="escalate-badge escalate-badge-warning mb-4"><i className="ti-time mr-2"></i>{bookings.status}</span>
-                            }
-                            {
-                              bookings.status != 'PENDING' && bookings.status != 'TRIP STARTED' && bookings.status != 'TRIP ENDED' &&
-                              bookings.amountLeftToBePaid > 0 &&
-                              <button className="main-btn mb-4 mx-auto" style={{ fontSize: '15px', width: 'max-content' }} onClick={() => handleAmbulancePayment(bookings)}>Make Your Payment</button>
-                            }
-                            {
-                              bookings.status == 'TRIP ENDED' &&
-                              bookings.amountLeftToBePaid > 0 &&
-                              <button className="main-btn mb-4 mx-auto" style={{ fontSize: '15px', width: 'max-content' }} onClick={() => handleAmbulancePayment(bookings)}>Pay {bookings.amountLeftToBePaid}</button>
-                            }
                             <Ratings size='50' align='center' rating={bookings?.rating} canHover={false} />
                             {/* {isReviewed ? isReviewed.includes(bookings?.event) ? <div className="d-flex justify-content-center mt-2">
                               <span className="d-flex align-item-center main-btn btn-success">

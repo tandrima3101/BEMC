@@ -15,7 +15,7 @@ import PreLoader from "../src/components/PreLoader";
 const Index = () => {
   const [video, setVideo] = useState(false);
   const [ramlingamData, setRamlingamData] = useState([])
-  const [isLoaded, setIsLoaded] = useState(true)
+  const [isLoaded, setIsLoaded] = useState(false)
   const [reviews, setReviews] = useState([])
   const [activities,setActivities] = useState();
   const [membership,setMembership] = useState();
@@ -313,6 +313,7 @@ const Index = () => {
       </section>
       {/* <!--====== End Category Section ======--> */}
       {/* <!--====== Start Listing Section ======--> */}
+      <h2 className="section-title text-center mb-75 mt-75"><b>Service List</b></h2>
       <ShowsList overallData={ramlingamData} pageOf="index" />
       {/* <!--====== Start Intro Video Section ======--> */}
       <Video video={videoLink} quote={getFreeQuote} />

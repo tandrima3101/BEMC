@@ -74,6 +74,8 @@ for (let i = 0; i < ambulanceData?.length; i++) {
       <Banner overallData={ambulanceData} mainSlider={bannerSlider} activeForm='ambulance' pageOf="ambulance" />
       {/* <!--====== End Hero Section ======--> */}
       {/* <!--====== Start Listing Section ======--> */}
+      <h2 className="section-title text-center mb-75 mt-75"><b>Ambulance List</b></h2>
+
       <ShowsList overallData={ambulanceData} pageOf="ambulance" />
       {/* <!--====== Start Place Section ======--> */}
 

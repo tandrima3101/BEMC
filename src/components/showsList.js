@@ -45,6 +45,8 @@ const ShowsList = (props) => {
       setDepartmentForIndex('ambulance')
     }else if (show.harseName) {
       setDepartmentForIndex('harse')
+    }else if (show.arenaName) {
+      setDepartmentForIndex('sportsArena')
     }
   }
   const handleReviewData = (show) => {
@@ -76,15 +78,8 @@ const ShowsList = (props) => {
 
   
   return (
-   (!isLoaded)?<PreLoader/>: <section className="listing-grid-area pt-115 pb-75">
+   (!isLoaded)?<PreLoader/>: <section className="listing-grid-area pb-75">
    <div className="container">
-     <div className="row justify-content-center">
-       <div className="col-lg-8">
-         <div className="section-title text-center mb-75">
-           <h2>Shows List</h2>
-         </div>
-       </div>
-     </div>
      <div className="row">
        {showList.map((show) => {
          return (

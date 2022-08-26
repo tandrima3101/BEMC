@@ -141,7 +141,7 @@ function BookingDetails() {
               <img src="/assets/images/calendar.png" style={{ width: '50px' }} />
               <h6>Your selected date is <b>{formatDate(bookingDetails?.selectedDate)}</b></h6>
               <img src="/assets/images/clock.png" style={{ width: '50px' }} />
-              <h6>Your selected timing slot is <b>{bookingDetails?.time}</b></h6>
+              <h6>Your selected timing slot is <br/><b>{bookingDetails?.selectedTime}</b></h6>
             </div>
           </div>}
 

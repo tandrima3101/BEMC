@@ -83,9 +83,10 @@ const Index = () => {
     <Layout>
       {video && <VideoPopup close={setVideo} />}
       {/* <!--====== Start Hero Section ======--> */}
-      <Banner mainSlider={bannerSlider} activeForm='sportsArena'membership={membership} pageOf="sportsArena" />
+      <Banner mainSlider={bannerSlider} activeForm='sportsArena'membership={membership} pageOf="sportsArena" overallData={arenaData}/>
       {/* <!--====== End Hero Section ======--> */}
       {/* <!--====== Start Listing Section ======--> */}
+      <h2 className="section-title text-center mb-75 mt-75"><b>Sports Arena List</b></h2>
       <ShowsList overallData={arenaData} pageOf="sportsArena" />
       {/* <!--====== Start Place Section ======--> */}
       <Gallery gallery={photoGallery} />
