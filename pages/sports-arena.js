@@ -81,6 +81,7 @@ const Index = () => {
   return (
     !isLoaded ? <PreLoader /> : 
     <Layout>
+
       {video && <VideoPopup close={setVideo} />}
       {/* <!--====== Start Hero Section ======--> */}
       <Banner mainSlider={bannerSlider} activeForm='sportsArena'membership={membership} pageOf="sportsArena" overallData={arenaData}/>

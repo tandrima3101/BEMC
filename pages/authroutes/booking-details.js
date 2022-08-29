@@ -156,7 +156,7 @@ function BookingDetails() {
               ) : (
                 <>
                   <img src="assets/images/card.png" alt="" style={{ width: "70%" }} />
-                  <button className="main-btn mt-4" style={{ fontSize: '20px' }} onClick={() => { setRoutingData(bookingDetails, "../payment") }}>Make Your Payment</button>
+                  <button className="main-btn mt-4" style={{ fontSize: '20px' }} onClick={() => { setRoutingData(bookingDetails._id, "../payment") }}>Make Your Payment</button>
                 </>
               )}
             </div>

@@ -126,7 +126,12 @@ export const setRoutingData = async (data, path) => {
 export const getRoutingData = async () => {
   let data = await localStorage.getItem("routingData")
   // localStorage.removeItem("routingData")
-  return JSON.parse(data)
+  if(data != "undefined" ){
+    return JSON.parse(data)
+
+  }else {
+    return undefined
+  }
 }
 
 

@@ -322,7 +322,8 @@ const Index = () => {
       <Gallery gallery={photoGallery} />
       {/* <!--====== End Place Section ======--> */}
       {/*====== Start Testimonial Section ======*/}
-      <section
+      {
+        reviews.length > 0 && <section
         className="testimonial-area bg_cover pt-110 pb-140"
         style={{
           backgroundImage: "url(assets/images/bg/testimonial-bg-1.jpg)",
@@ -349,6 +350,7 @@ const Index = () => {
           </div>
         </div>
       </section>
+      }
       {/*====== End Testimonial Section ======*/}
       {/* <!--====== Start Newsletter Section ======--> */}
       <Newsletter />

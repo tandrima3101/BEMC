@@ -132,9 +132,11 @@ function FormModal({ active, activeTwo, data, adultPrice, childPrice, pageOf, pr
     createBookingRequest()
     console.log(otpValidator, 'validatorrrrrrrrrrrr')
   }, [otpValidator])
-  useEffect(() => {
+  let detailsForPayment = {};
+  useEffect(async () => {
     if (bookingDetails != null) {
       setRoutingData(bookingDetails?._id, "authroutes/booking-details")
+      console.log(bookingDetails,'booking')
     }
   }, [bookingDetails])
   useEffect(() => {

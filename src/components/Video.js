@@ -15,9 +15,9 @@ function Video(props) {
           controls='false'
           src={props.video[0].link}
           title="YouTube video player"
-          frameborder="0"
+          // frameborder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen
+          // allowfullscreen
           style={{ height: "80vh", width: "100%" }}
         ></iframe>
       </div>
@@ -40,9 +40,9 @@ function Video(props) {
           width: "43%",
         }}
       >
-        {props.quote.map((items) => {
+        {props.quote.map((items,index) => {
           return (
-            <div className="intro-content-box intro-content-box-one">
+            <div key={`ind-${index}`} className="intro-content-box intro-content-box-one">
               <div className="section-title section-title-left section-title-white mb-35">
                 <span className="sub-title">{items.smallText}</span>
                 <h2>{items.mainText}</h2>

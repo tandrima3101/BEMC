@@ -11,7 +11,7 @@ import MembershipDetails from "./membershipDetails";
 function BookingForm(props) {
 
   //booking forms value
-  console.log(props.membership, 'membershipppppp')
+  console.log(props.data, 'membershipppppp')
   const [selectedData, setSelectedData] = useState()
   const [selectedSeatCapacity, setSelectedSeatCapacity] = useState()
   const [bookingDetails, setBookingDetails] = useState({})
@@ -172,6 +172,7 @@ function BookingForm(props) {
     })
   })
 
+  console.log(props.data,'mandappppppppppppp')
   /*************set purpose********** */
   const setPurpose = (e) => {
     const selectedValue = e;
@@ -300,7 +301,7 @@ function BookingForm(props) {
     );
   };
 
-
+console.log(kalyanMandap,'mandapppppppppppp')
   ///ambulance
 
 
@@ -438,6 +439,7 @@ function BookingForm(props) {
 
   return (
     <div>
+      {/* <p>hiiiiiiiiiiiiiiiiiiiiiiiii</p> */}
       <Tab.Container defaultActiveKey={props.active}>
         <form
           onSubmit={(e) => e.preventDefault()}
