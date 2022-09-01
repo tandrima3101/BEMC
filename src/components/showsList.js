@@ -118,7 +118,7 @@ const ShowsList = (props) => {
                   <Rate size='25' align='start' rating={show?.reviewAvg} canHover={false} />{show.reviews && show?.reviews?.length > 1 ?<h6 className='ml-2'>({show?.reviews?.length} Reviews)</h6> :(!(show?.reviews)||show?.reviews?.length==0)?<h6 className='ml-2'>(No Reviews yet)</h6>:<h6 className='ml-2'>({show?.reviews?.length} Review)</h6>}
                   </div>
                  {
-                  (!show.ambulanceName && !show.harseName)?show.price && <h6 className="price ml-0 mt-0">Price: Rs {show?.price} /- {show.cPrice && <h6 className="price ml-0 mt-2">Child Price: Rs {show?.cPrice} /-</h6>}</h6>:<></>
+                  (!show.ambulanceName && !show.harseName)?show.price && <h6 className="price ml-0 mt-0">Price: Rs {show?.price} /- , {show.cPrice && <h6 className="price ml-0 mt-2" style={{display:'inline-block'}}>Child Price: Rs {show?.cPrice} /-</h6>}</h6>:<></>
                  }
                  {show?.contactNumber ? (
                    <span

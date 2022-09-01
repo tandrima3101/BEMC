@@ -51,9 +51,10 @@ function Gallery(props) {
 
         {/* /***************image popup modal************** */}
         <Modal isOpen={openModal}
-          toggle={() => setOpenModal(false)}>
+          toggle={() => setOpenModal(false)}
+          className='imagePopupModal'>
           <ModalBody>
-            <img src={openImg} />
+            <img src={openImg} width='100%'/>
           </ModalBody>
         </Modal>
       </div>

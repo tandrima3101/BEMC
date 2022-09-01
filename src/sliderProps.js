@@ -48,7 +48,7 @@ export const  PlaceSliderTwo = {
   arrows: false,
   infinite: true,
   autoplaySpeed: 1500,
-  autoplay: true,
+  autoplay: false,
   slidesToShow: 1,
   slidesToScroll: 1,
   // rows: 0,

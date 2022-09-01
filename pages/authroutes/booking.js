@@ -278,7 +278,7 @@ const Booking = () => {
                       townhallBookingList?.length == 0 ? <h6>No Bookings for Townhall</h6> :
                         townhallBookingList?.map((bookings, index) => {
                           return (
-                            <div className="row" key={bookings.townhallId[0].townhallId}>
+                            <div className="row" key={bookings?.townhallId[0]?.townhallId}>
                               <div className="col-lg-9 pr-4" key={bookings.bookingId} style={{ cursor: 'pointer' }} onClick={() => gotoBookingDetails(bookings)}>
                                 <div className="booking-card p-3">
                                   <div className="row">
@@ -286,14 +286,14 @@ const Booking = () => {
                                       <div className="row booking-card-left">
                                         <div className="col-lg-4 d-flex justify-content-center">
                                           <img
-                                            src={bookings?.townhallId[0].banner.bannerImageUrl}
+                                            src={bookings?.townhallId[0]?.banner?.bannerImageUrl}
                                             alt="bookedshow"
                                             className="bookingImage"
                                           />
                                         </div>
                                         <div className="col-lg-8 pl-0">
                                           <div className="ticket-details">
-                                            <h4>{bookings.townhallId[0].townhallName}</h4>
+                                            <h4>{bookings?.townhallId[0]?.townhallName}</h4>
                                             <p className="m-0">{bookings?.ticketSource} BOOKING</p>
                                             <p className="m-0">
                                               <i className="ti-time mr-2"></i>
@@ -311,7 +311,7 @@ const Booking = () => {
                                             <h6>
                                               <i className="ti-ticket mr-2"></i>
                                               <b>Selected Venue :</b>
-                                              <span>{bookings?.townhallId[0].townhallName} </span>
+                                              <span>{bookings?.townhallId[0]?.townhallName} </span>
                                             </h6>
                                             <div className="row d-flex justify-content-between">
                                               <span className="p-0">Ticket Price</span>
@@ -353,7 +353,7 @@ const Booking = () => {
                                 </div>
                               </div>
                               <div className="col-lg-3 d-flex flex-column justify-content-center">
-                                <Ratings size='50' align='center' rating={bookings.townhallId[0].reviewAvg} canHover={false} />
+                                <Ratings size='50' align='center' rating={bookings?.townhallId[0]?.reviewAvg} canHover={false} />
                                 {/* {isReviewed ? isReviewed.includes(ramlingamData[index]?.eventId) ? <div className="d-flex justify-content-center mt-2">
                                   <span className="d-flex align-item-center main-btn btn-success">
                                     <i className="ti-check" style={{ fontSize: '15px' }}></i>
@@ -365,7 +365,7 @@ const Booking = () => {
                                   <button style={{ backgroundColor: 'transparent' }} onClick={() => { setActiveModalReview(!activeModalReview), setEventId(ramlingamData[index]?.eventId), setEventDepartment('ramlingamPark') }}>Give a small review</button>
                                 </div>} */}
                                 <div className="review-link mt-2">
-                                  <button style={{ backgroundColor: 'transparent' }} onClick={() => { setReviewListModal(!reviewListModal), setEventIdForList(bookings.townhallId[0].townhallId) }}>See all Reviews</button>
+                                  <button style={{ backgroundColor: 'transparent' }} onClick={() => { setReviewListModal(!reviewListModal), setEventIdForList(bookings.townhallId[0]?.townhallId) }}>See all Reviews</button>
                                 </div>
                                 <div className="review-link mt-2">
                                   <button style={{ backgroundColor: 'transparent' }} onClick={() => { setActiveModalThree(!activeModalThree), setEventIdForGrievance(bookings.bookingRequestId), setParentEventIdForGrievance(bookings._id) }}>Having issue with this ticket?</button>

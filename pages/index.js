@@ -136,9 +136,11 @@ const Index = () => {
   for (let i = 0; i < ramlingamData.length; i++) {
     photoGallery.push(...(ramlingamData[i].photoGallery))
   }
-  const videoLink = [
-    { link: "https://www.youtube.com/embed/JHlY8w69wSE" }
-  ];
+  const videoGallery = [];
+  for (let i = 0; i < ramlingamData.length; i++) {
+    videoGallery.push(ramlingamData[i].video)
+  }
+  console.log(videoGallery,'videoGallery')
   const bannerSlider = [];
   for (let i = 0; i < ramlingamData.length; i++) {
     bannerSlider.push(ramlingamData[i].banner)
@@ -316,7 +318,7 @@ const Index = () => {
       <h2 className="section-title text-center mb-75 mt-75"><b>Service List</b></h2>
       <ShowsList overallData={ramlingamData} pageOf="index" />
       {/* <!--====== Start Intro Video Section ======--> */}
-      <Video video={videoLink} quote={getFreeQuote} />
+      <Video videoDetails ={videoGallery} />
       {/* <!--====== End Intro Video Section ======--> */}
       {/* <!--====== Start Place Section ======--> */}
       <Gallery gallery={photoGallery} />

@@ -7592,3 +7592,6 @@ button:disabled {
     margin-top: 0px !important;
   }
 }
+.imagePopupModal.modal-dialog{
+  max-width: 750px !important;
+}
