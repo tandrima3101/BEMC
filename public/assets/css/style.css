@@ -7595,3 +7595,6 @@ button:disabled {
 .imagePopupModal.modal-dialog{
   max-width: 750px !important;
 }
+.intro-video{
+  position: relative !important;
+}
